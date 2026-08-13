@@ -1,0 +1,1502 @@
+/* =====================================================================
+   URBAN VILA GUILHERME — Landing page
+   Organização: Base / Header / Hero / Location / Floor plans / Lightbox /
+   Leisure / Buying / Credibility / FAQ / Final CTA / Footer / Mobile CTA /
+   Responsive
+   Mobile-first. Sem frameworks, sem dependências.
+   ===================================================================== */
+
+/* ============================== Base ============================== */
+:root {
+  --urban-green: #86CD35;
+  --urban-green-dark: #74B62B;
+  --urban-dark: #252927;
+  --urban-black: #111111;
+  --urban-gray: #8F9591;
+  --urban-light: #F3F3F1;
+  --urban-white: #FFFFFF;
+
+  /* Superfícies tiradas da arte de referência.
+     Os fundos escuros da arte são quase pretos — não o grafite esverdeado. */
+  --surface-night: #1A1A1A;   /* lazer, rodapé, card do consultor */
+  --surface-hero: #131313;    /* painel escuro do banner */
+  --surface-cream: #F3F3F1;   /* seções claras com textura */
+  --surface-paper: #F7F7F5;   /* plantas e FAQ, mais limpo */
+
+  /* Verde escurecido para texto/ícone sobre fundo claro.
+     O #86CD35 puro sobre off-white fica em ~2,6:1 e não é legível. */
+  --green-ink: #558A1B;
+
+  --ink: #1B1F1D;
+  --ink-soft: #55605A;
+  --line: #E1E2DD;
+
+  --font-title: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-text: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --container: 1240px;
+  --pad: 20px;
+  --radius: 6px;
+  --mobile-cta-h: 72px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  background: var(--urban-white);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img,
+svg { max-width: 100%; }
+
+img {
+  display: block;
+  height: auto;
+}
+
+a { color: inherit; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+p { margin: 0 0 1rem; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--urban-green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.ico {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Exceção: o glifo oficial do WhatsApp é um desenho sólido (preenchido),
+   não um traçado de contorno como o resto da sprite. Sem isso, `.ico`
+   força fill:none e o path complexo vira uma malha de linhas finas. */
+.ico--wa {
+  fill: currentColor;
+  stroke: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--urban-green);
+  color: var(--urban-black);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* Blocos de seção */
+.section { padding: 56px 0; }
+
+.section--light { background: var(--surface-paper); }
+
+.section--dark {
+  background: var(--surface-night);
+  color: var(--urban-light);
+}
+
+/* Textura leve de concreto, feita 100% em CSS (sem download de imagem) */
+.section--texture {
+  background-color: var(--surface-cream);
+  background-size: 90px 90px, 130px 130px, 170px 170px, 100% 100%;
+}
+
+.title {
+  font-size: clamp(1.75rem, 6vw, 2.6rem);
+  color: var(--ink);
+}
+
+.section--dark .title,
+.final-cta .title { color: var(--urban-white); }
+
+.title--center {
+  text-align: center;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+/* Traço verde no fim do texto — assinatura visual da arte.
+   Fica preso à última palavra (nowrap) para nunca quebrar sozinho numa
+   linha só dele: se não couber, palavra e traço descem juntos. */
+.dash-end { white-space: nowrap; }
+
+.dash-end::after {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 3px;
+  margin-left: 9px;
+  vertical-align: .2em;
+  background: var(--urban-green);
+}
+
+.title .dash-end::after {
+  width: 56px;
+  height: 4px;
+  margin-left: 12px;
+  vertical-align: .16em;
+}
+
+.title--chevrons::before,
+.title--chevrons::after {
+  color: var(--urban-green);
+  font-weight: 700;
+  padding-inline: .35em;
+}
+
+.title--chevrons::before { content: "\203A\203A"; }
+.title--chevrons::after { content: "\2039\2039"; }
+
+/* Variante com filetes verdes dos dois lados */
+.eyebrow--lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.eyebrow--lines::before,
+.eyebrow--lines::after {
+  content: "";
+  flex: none;
+  width: 46px;
+  height: 2px;
+  background: var(--urban-green);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+}
+
+.section__text {
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+.section--dark .section__text,
+.final-cta .section__text { color: #C9CFCA; }
+
+.section__cta {
+  margin: 32px 0 0;
+  text-align: center;
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 24px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.1;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.btn .ico {
+  width: 21px;
+  height: 21px;
+}
+
+/* Texto branco sobre o verde, como na arte de referência. */
+.btn--green {
+  background: var(--urban-green);
+  color: var(--urban-white);
+}
+
+.btn--green:hover,
+.btn--green:focus-visible { background: var(--urban-green-dark); }
+
+/* Seta separada por divisória vertical (arte) */
+.btn--arrow .ico:last-child {
+  box-sizing: content-box;
+  margin-left: 6px;
+  padding: 11px 0 11px 16px;
+  border-left: 1px solid currentColor;
+  opacity: .9;
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--urban-dark);
+  color: var(--urban-dark);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background: var(--urban-dark);
+  color: var(--urban-white);
+}
+
+.btn--lg {
+  min-height: 56px;
+  padding: 15px 28px;
+  font-size: 1.125rem;
+}
+
+.btn--sm {
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: .9375rem;
+  letter-spacing: .03em;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* ============================= Header ============================= */
+/* Sobreposto ao hero, sem barra própria — como na arte. */
+.site-header {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+}
+
+/* O logo fica sobre o painel claro da arte — por isso texto escuro.
+   No rodapé (fundo escuro) a cor é invertida mais abaixo. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand__chev {
+  display: inline-flex;
+  color: var(--urban-green);
+}
+
+.brand__chev .ico {
+  width: 22px;
+  height: 22px;
+  stroke-width: 3;
+}
+
+.brand__chev .ico + .ico { margin-left: -11px; }
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand__name {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: .04em;
+}
+
+.brand__sub {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .3em;
+  color: #6B736E;
+}
+
+.brand--footer { color: var(--urban-white); }
+
+.brand--footer .brand__sub { color: var(--urban-gray); }
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(37, 41, 39, .28);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .6);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.nav-toggle__close { display: none; }
+
+.site-header.is-open .nav-toggle__open { display: none; }
+.site-header.is-open .nav-toggle__close { display: block; }
+
+.main-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  display: none;
+  background: var(--surface-night);
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.site-header.is-open .main-nav { display: block; }
+
+.main-nav__list {
+  display: flex;
+  flex-direction: column;
+  padding: 6px var(--pad) 16px;
+}
+
+.main-nav a {
+  display: block;
+  padding: 13px 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--urban-white);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.main-nav a:hover { color: var(--urban-green); }
+
+/* ============================== Hero ==============================
+   O banner é a arte inteira (painel de concreto + chevron verde + fachada).
+   Os chevrons verdes vêm na imagem — não há nenhum desenhado em CSS.
+   Mobile: painel claro com o texto, arte logo abaixo (a arte é 1,74:1 e,
+   recortada num retrato, mostraria só o concreto). */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: var(--surface-cream);
+  background-size: 90px 90px, 130px 130px, 100% 100%;
+}
+
+.hero__bg { order: 2; }
+
+/* Celular: recorte quadrado ancorado à direita, para aparecer a fachada.
+   A arte é 1,74:1 — num recorte largo ela apareceria inteira e minúscula. */
+.hero__bg img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: right center;
+}
+
+/* padding-block (nunca `padding`) para não anular o padding-inline do .container.
+   O topo abre espaço para o header, que é sobreposto. */
+.hero__grid {
+  order: 1;
+  padding-block: 100px 40px;
+}
+
+.hero__title {
+  font-size: clamp(2.1rem, 8.4vw, 3.6rem);
+  margin-bottom: 18px;
+}
+
+.hero__text {
+  max-width: 46ch;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+
+.hero__note {
+  max-width: 42ch;
+  margin: 14px 0 0;
+  font-size: .875rem;
+  color: #6B736E;
+}
+
+/* Chips de destaques — cartões claros sobre o painel de concreto */
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 90px;
+  min-width: 90px;
+  padding: 12px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .72);
+  font-size: .75rem;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.spec .ico {
+  width: 26px;
+  height: 26px;
+  color: var(--green-ink);
+}
+
+.spec--green {
+  background: var(--urban-green);
+  border-color: var(--urban-green);
+  color: var(--urban-white);
+  font-weight: 600;
+}
+
+.spec--green .ico { color: var(--urban-white); }
+
+/* ============================ Location ============================ */
+.loc__content .btn { margin-top: 26px; }
+
+.loc__media {
+  margin: 26px 0 0;
+}
+
+.loc__media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.poi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.poi__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--urban-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.poi__item .ico {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--urban-green);
+}
+
+.poi__item span {
+  display: flex;
+  flex-direction: column;
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+.poi__item strong {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .03em;
+  color: var(--ink);
+}
+
+/* ====================== Minha Casa Minha Vida ======================
+   Dois arquivos leves em vez de uma arte única mesclada:
+   1) a foto (.mcmv__media), já com a ponta do chevron recortada nela e
+      fundo transparente — nenhum chevron é desenhado em CSS;
+   2) um tile pequeno de textura (assets/images/texture.*), repetido via
+      `background-repeat` — uma única requisição pequena, cacheável, em vez
+      de uma imagem gigante cobrindo a seção inteira. */
+.mcmv {
+  position: relative;
+  background-color: var(--surface-cream);
+  background-image: url("../assets/images/texture.jpg");
+  background-repeat: repeat;
+  /* Proporção real do arquivo (1200x400 = 3:1). Textura fotográfica de
+     contraste bem baixo: pequenas emendas no tile não ficam visíveis. */
+  background-size: 600px 200px;
+  border-top: 1px solid rgba(37, 41, 39, .08);
+}
+
+.mcmv__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.mcmv__media {
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+}
+
+.mcmv__media img {
+  width: 100%;
+  height: auto;
+}
+
+.mcmv__content {
+  width: 100%;
+  text-align: center;
+}
+
+.mcmv__content .title { margin-bottom: 16px; }
+
+/* O parágrafo é alinhado à esquerda dentro do bloco centralizado (como na arte) */
+.mcmv__lead {
+  max-width: 54ch;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.mcmv__cols {
+  display: grid;
+  gap: 22px;
+  margin: 30px 0;
+}
+
+.mcmv__cols li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mcmv__cols li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.mcmv__ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: rgba(134, 205, 53, .16);
+  color: var(--green-ink);
+}
+
+.mcmv__ico .ico {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.5;
+}
+
+.mcmv__cols h3 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+  letter-spacing: .03em;
+  color: var(--ink);
+}
+
+.mcmv__cols p {
+  max-width: 32ch;
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.mcmv__note {
+  max-width: 46ch;
+  margin: 16px auto 0;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: #6B736E;
+}
+
+/* =========================== Floor plans =========================== */
+.badge-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 28px;
+  font-size: .875rem;
+  color: var(--ink-soft);
+}
+
+.badge-line .ico {
+  width: 22px;
+  height: 22px;
+  color: var(--urban-green);
+}
+
+.plans {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 14px;
+  margin-inline: calc(var(--pad) * -1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 74%;
+  max-width: 300px;
+  height: auto;
+  padding: 10px 10px 16px;
+  background: var(--urban-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  scroll-snap-align: start;
+}
+
+/* Clique na imagem: abre a planta ampliada no lightbox */
+.plan__img-btn {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+.plan__img-btn:hover,
+.plan__img-btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.plan__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #E9E9E5;
+}
+
+/* Selo de lupa: sinaliza que a imagem amplia ao clicar */
+.plan__zoom {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, .62);
+  color: var(--urban-white);
+}
+
+.plan__zoom .ico {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2;
+}
+
+.plan__area {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+
+.plan__area::after {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 3px;
+  margin-left: 8px;
+  vertical-align: .22em;
+  background: var(--urban-green);
+}
+
+.plan__desc {
+  display: block;
+  margin-top: 6px;
+  font-size: .8125rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+/* CTA de WhatsApp próprio de cada planta */
+.plan__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 4px;
+  min-height: 32px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--green-ink);
+}
+
+.plan__cta:hover,
+.plan__cta:focus-visible { text-decoration: underline; }
+
+.plan__cta .ico {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================== Lightbox ==============================
+   <dialog> nativo: foco preso e fechamento por Esc já vêm de graça do
+   navegador, sem JavaScript próprio para isso. */
+/* Sem `position` aqui de propósito: o navegador já aplica `position: absolute`
+   (ou `fixed`, depende do motor) ao <dialog> quando ele está no "top layer"
+   via showModal(), e é isso que o centraliza na tela. Sobrescrever quebraria
+   essa centralização — mas o valor já dado pelo UA é suficiente para o botão
+   de fechar, `position: absolute`, se ancorar nesta caixa. */
+.lightbox {
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  max-width: min(94vw, 1100px);
+  max-height: 90vh;
+}
+
+.lightbox::backdrop {
+  background: rgba(17, 17, 17, .86);
+}
+
+.lightbox__img {
+  display: block;
+  max-width: min(94vw, 1100px);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  background: var(--urban-white);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, .7);
+  color: var(--urban-white);
+  cursor: pointer;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus-visible { background: var(--urban-black); }
+
+/* ============================= Leisure ============================= */
+.leisure {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.leisure__card {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--urban-black);
+}
+
+.leisure__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leisure__card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 78%;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0) 0%, rgba(17, 17, 17, .55) 42%, rgba(17, 17, 17, .92) 100%);
+}
+
+.leisure__label {
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--urban-white);
+}
+
+.leisure__label .ico {
+  width: 18px;
+  height: 18px;
+  color: var(--urban-green);
+}
+
+.leisure-extra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+}
+
+.leisure-extra li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-inline: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .16);
+  font-size: .875rem;
+  color: #CDD3CE;
+}
+
+.leisure-extra li:first-child { border-left: 0; }
+
+.leisure-extra .ico {
+  width: 17px;
+  height: 17px;
+  color: var(--urban-green);
+}
+
+/* ============================== Buying ==============================
+   living.png já vem com fundo transparente e o formato característico do
+   site (cantos arredondados + ponta do chevron) recortado na própria imagem
+   — mesmo tratamento do banner e da seção Minha Casa Minha Vida. Por isso
+   NÃO usa object-fit/aspect-ratio (que cortariam a transparência em um
+   retângulo e deixariam "buracos" no card): a imagem aparece inteira, no
+   tamanho natural, flutuando sobre a textura de concreto da seção. */
+.buy__media { margin: 0 0 26px; }
+
+.buy__media img {
+  width: 100%;
+  height: auto;
+}
+
+.buy__highlight {
+  margin: 18px 0 22px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  letter-spacing: .02em;
+  color: var(--urban-green-dark);
+}
+
+/* =========================== Credibility =========================== */
+.trust__grid { display: grid; gap: 30px; }
+
+.trust__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 12px;
+  margin-top: 26px;
+}
+
+.trust__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-size: .8125rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+.trust__list .ico {
+  width: 34px;
+  height: 34px;
+  stroke-width: 1.4;
+  color: var(--urban-dark);
+}
+
+.consultant {
+  padding: 28px 22px;
+  background: var(--surface-night);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--urban-white);
+}
+
+.consultant__avatar {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 14px;
+  color: var(--urban-green);
+  stroke-width: 1.4;
+}
+
+.consultant__label {
+  margin: 0;
+  font-size: .8125rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--urban-gray);
+}
+
+.consultant__name {
+  margin: 6px 0 18px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: .02em;
+}
+
+.consultant__creci {
+  margin: -12px 0 16px;
+  font-size: .8125rem;
+  color: var(--urban-gray);
+}
+
+/* ================================ FAQ ================================ */
+.faq .title { margin-bottom: 28px; }
+
+.faq__grid {
+  display: grid;
+  gap: 10px;
+}
+
+.faq__item {
+  background: var(--urban-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 15px 16px;
+  font-weight: 600;
+  font-size: .9375rem;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+.faq__item summary::after {
+  content: "+";
+  flex: none;
+  width: 24px;
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--urban-green-dark);
+}
+
+.faq__item[open] summary::after { content: "\2013"; }
+
+.faq__item p {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: .9375rem;
+  color: var(--ink-soft);
+}
+
+/* ============================= Final CTA ============================= */
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--urban-black);
+  color: var(--urban-white);
+}
+
+/* skyline.jpg já vem escura do lado esquerdo (onde o texto fica) e com o
+   chevron verde pronto na própria imagem — por isso mostramos ela quase
+   inteira (sem esmaecer) e ancorada à esquerda: o lado claro/skyline vira
+   um bônus visual em telas largas, e o chevron nunca some em telas estreitas. */
+.final-cta__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* Véu leve: reforço de contraste, não a fonte principal dele — a própria
+   foto já é bem escura no lado esquerdo. Ficou bem mais fraco que antes
+   (era calibrado para um placeholder genérico, apagava a foto real). */
+.final-cta::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(17, 17, 17, .5) 0%, rgba(17, 17, 17, .35) 55%, rgba(17, 17, 17, .55) 100%);
+}
+
+.final-cta__inner {
+  position: relative;
+  z-index: 2;
+  padding-block: 56px;
+}
+
+.final-cta__content { max-width: 34rem; }
+
+.final-cta .title { margin-bottom: 16px; }
+
+.final-cta .btn { margin-top: 10px; }
+
+/* ============================== Footer ============================== */
+.site-footer {
+  background: var(--surface-night);
+  color: var(--urban-light);
+  padding: 30px 0 26px;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+.footer-nav a {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--urban-light);
+}
+
+.footer-nav a:hover { color: var(--urban-green); }
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+  color: var(--urban-light);
+}
+
+.social a:hover {
+  color: var(--urban-green);
+  border-color: var(--urban-green);
+}
+
+.site-footer__legal {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.site-footer__legal p {
+  margin: 0 0 6px;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: var(--urban-gray);
+}
+
+/* ============================ Mobile CTA ============================ */
+.mobile-cta {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--surface-night);
+  border-top: 2px solid var(--urban-green);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: 10px var(--pad);
+}
+
+.mobile-cta__text {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .95rem;
+  line-height: 1.15;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--urban-white);
+}
+
+.mobile-cta .btn {
+  flex: none;
+  white-space: nowrap;
+}
+
+/* Espaço para o CTA fixo não cobrir conteúdo */
+body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); }
+
+/* ============================= Responsive ============================= */
+@media (min-width: 480px) {
+  .poi { grid-template-columns: repeat(2, 1fr); }
+  .plan { flex-basis: 56%; }
+}
+
+@media (min-width: 480px) {
+  /* Daqui para cima a arte inteira já cabe na faixa sem ficar pequena demais
+     (e o recorte quadrado ficaria alto demais) */
+  .hero__bg img {
+    aspect-ratio: 16 / 9;
+    object-position: center;
+  }
+}
+
+@media (min-width: 700px) {
+  :root { --pad: 28px; }
+
+  .section { padding: 72px 0; }
+
+  .leisure {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    overflow: visible;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
+  .plan {
+    flex: initial;
+    max-width: none;
+  }
+
+  .faq__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 18px;
+  }
+
+  /* MCMV: 3 colunas com divisórias verticais, como na arte */
+  .mcmv__cols {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .mcmv__cols li {
+    padding: 0 14px;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .mcmv__cols li:first-child { border-left: 0; }
+
+  .trust__list { grid-template-columns: repeat(5, 1fr); }
+
+  .final-cta__inner { padding-block: 76px; }
+
+  /* Em telas largas os títulos centrais cabem em 1 linha */
+  .title--center { max-width: none; }
+
+}
+
+@media (min-width: 900px) {
+  .section { padding: 88px 0; }
+
+  /* Header desktop */
+  .nav-toggle { display: none; }
+
+  .main-nav {
+    position: static;
+    display: block;
+    background: transparent;
+    border: 0;
+  }
+
+  .main-nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .main-nav__list li + li::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    margin: 0 18px;
+    vertical-align: middle;
+    background: rgba(255, 255, 255, .3);
+  }
+
+  .main-nav__list li {
+    display: flex;
+    align-items: center;
+  }
+
+  .main-nav a {
+    padding: 8px 0;
+    font-size: 1.05rem;
+    border: 0;
+  }
+
+  /* Hero desktop: grid de 2 colunas; a foto sangra até a borda direita.
+     Grid (e não posicionamento absoluto) para o texto e a foto nunca colidirem. */
+  .hero {
+    display: block;
+    background-image: none;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    /* Ancorada à esquerda: o painel de concreto começa sempre em x=0,
+       então sua largura é uma fração previsível da largura exibida. */
+    object-position: left center;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: 720px;
+    max-width: none;
+    padding-block: 118px 72px;
+    /* Recuo proporcional, como na arte — e não a margem do container
+       centralizado, que em telas largas jogaria o texto para fora do painel. */
+    padding-left: max(var(--pad), 4.5vw);
+  }
+
+  /* Largura casada com o painel claro da arte em qualquer viewport.
+     O painel é ~37% da largura da imagem no topo/base e ~54% no meio; estes
+     valores mantêm o texto dentro dele de 900px a 2560px. */
+  .hero__content { width: min(600px, max(410px, 31vw)); }
+
+  .hero__title { font-size: min(3.02vw, 2.7rem); }
+
+  /* Base fluida: os 5 chips sempre cabem em uma linha, em qualquer largura */
+  .spec {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .specs { gap: 10px; }
+
+  /* Localização */
+  .loc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .poi { grid-template-columns: repeat(2, 1fr); }
+
+  .loc__media { margin: 0; }
+
+  .loc__media img { aspect-ratio: 5 / 4; }
+
+  /* Plantas */
+  .plans { grid-template-columns: repeat(6, 1fr); }
+
+  .plan__area { font-size: 1.15rem; }
+
+  /* Minha Casa Minha Vida: foto à esquerda, texto à direita */
+  .mcmv__grid {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    text-align: left;
+  }
+
+  .mcmv__media {
+    flex: 0 0 46%;
+    max-width: 560px;
+  }
+
+  .mcmv__content {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .mcmv__lead { margin-inline: 0; }
+
+  .mcmv__note { margin-inline: 0; }
+
+  /* Como comprar */
+  .buy__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 52px;
+    align-items: center;
+  }
+
+  .buy__media { margin: 0; }
+
+  /* Credibilidade */
+  .trust__grid {
+    grid-template-columns: 1.45fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* CTA final */
+  .final-cta__inner { padding-block: 96px; }
+
+  .final-cta::before {
+    width: 62%;
+    background: linear-gradient(90deg, rgba(17, 17, 17, .55) 45%, rgba(17, 17, 17, 0) 100%);
+  }
+
+  /* CTA fixo some no desktop */
+  .mobile-cta { display: none; }
+
+  body { padding-bottom: 0; }
+}
+
+@media (min-width: 1100px) {
+  .poi { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+/* ========================= Reduced motion ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
