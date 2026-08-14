@@ -447,6 +447,36 @@
       finishClose();
     }
 
+    // Conversão do Google Ads (snippet oficial "Event snippet for Lead
+    // whatsapp conversion page"): dispara o evento de conversão e só então
+    // abre o WhatsApp pelo event_callback, igual ao padrão recomendado pelo
+    // Google — adaptado de `window.location = url` para `window.open(url, ...)`
+    // porque aqui o WhatsApp sempre abre em nova aba, como todos os outros
+    // CTAs do site. O timeout de segurança garante que o WhatsApp abre mesmo
+    // se o gtag não carregar (bloqueador de anúncios, falha de rede etc.).
+    function reportWhatsAppConversion(url) {
+      var opened = false;
+
+      function openWhatsAppOnce() {
+        if (opened) return;
+        opened = true;
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-18388777321/7T_mCNngruEcEOnyucBE',
+            value: 1.0,
+            currency: 'BRL',
+            event_callback: openWhatsAppOnce
+          });
+        }
+      } catch (e) { /* segue para o fallback abaixo */ }
+
+      setTimeout(openWhatsAppOnce, 300);
+    }
+
     function handleContinueToWhatsApp() {
       if (!qualificationData.renda || !qualificationData.entrada || !qualificationData.prazo) return;
 
@@ -460,7 +490,7 @@
 
       trackEvent('whatsapp_click', { source: 'qualification_modal' });
 
-      window.open(getWhatsAppUrl(message), '_blank', 'noopener,noreferrer');
+      reportWhatsAppConversion(getWhatsAppUrl(message));
 
       closeQualificationModal();
     }
