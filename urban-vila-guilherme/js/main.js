@@ -508,8 +508,14 @@
     continueBtn.addEventListener('click', handleContinueToWhatsApp);
     closeBtn.addEventListener('click', closeQualificationModal);
 
-    // Clique fora do conteúdo (no "backdrop") fecha — mesmo padrão do lightbox.
+    /* Clique fora do conteúdo (no "backdrop") fecha — mesmo padrão do lightbox.
+       O alvo precisa ser o próprio <dialog>: cliques em qualquer filho têm o
+       filho como alvo. Sem essa checagem, a ativação por teclado (Enter ou
+       Espaço num card focado) fecharia o modal, porque o clique sintético do
+       navegador chega com clientX/clientY = 0 — fora da caixa do modal. */
     modal.addEventListener('click', function (event) {
+      if (event.target !== modal) return;
+
       var box = modal.getBoundingClientRect();
       var dentro = event.clientX >= box.left && event.clientX <= box.right &&
         event.clientY >= box.top && event.clientY <= box.bottom;
