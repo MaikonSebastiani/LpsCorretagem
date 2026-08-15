@@ -1437,6 +1437,20 @@ html.qm-open body { overflow: hidden; }
 /* Espaço para o CTA fixo não cobrir conteúdo */
 body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); }
 
+/* ===================== WhatsApp flutuante (desktop) =====================
+   Reaproveita .btn.btn--green (mesma fonte, cor, raio de borda e hover dos
+   outros CTAs do site) só adicionando posição fixa e sombra — nenhum
+   estilo visual novo é criado aqui. Escondido por padrão porque o CTA
+   fixo mobile já cobre esse papel abaixo de 900px. */
+.floating-whatsapp {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  box-shadow: 0 16px 40px rgba(17, 17, 17, .28);
+}
+
 /* ============================= Responsive ============================= */
 @media (min-width: 480px) {
   .poi { grid-template-columns: repeat(2, 1fr); }
@@ -1660,8 +1674,9 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
     background: linear-gradient(90deg, rgba(17, 17, 17, .55) 45%, rgba(17, 17, 17, 0) 100%);
   }
 
-  /* CTA fixo some no desktop */
+  /* CTA fixo some no desktop — o flutuante assume o papel dele */
   .mobile-cta { display: none; }
+  .floating-whatsapp { display: inline-flex; }
 
   body { padding-bottom: 0; }
 }
