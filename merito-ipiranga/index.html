@@ -30,12 +30,15 @@
        escondem o conteúdo quando há JS para revelá-lo de volta. -->
   <script>document.documentElement.classList.add('js');</script>
 
-  <!--
-    Google Ads / GA4: ainda não instalado nesta página.
-    Quando for a hora, cole aqui a tag do gtag.js e preencha
-    `adsConversionLabel` em assets/js/main.js. O evento whatsapp_click e a
-    conversão já estão prontos e passam a ser enviados assim que a tag existir.
-  -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18388777321"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18388777321');
+  </script>
 </head>
 <body>
   <header class="site-header" id="topo">
