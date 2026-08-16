@@ -31,24 +31,19 @@
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Google tag (gtag.js) -->
- <!-- Event snippet for Lead whatsapp conversion page
-In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
-<script>
-  function gtag_report_conversion(url) {
-    var callback = function () {
-      if (typeof(url) != 'undefined') {
-        window.location = url;
-      }
-    };
-    gtag('event', 'conversion', {
-        'send_to': 'AW-18388777321/7T_mCNngruEcEOnyucBE',
-        'value': 1.0,
-        'currency': 'BRL',
-        'event_callback': callback
-    });
-    return false;
-  }
-  </script>  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18388777321"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18388777321');
+  </script>
+
+  <!-- A conversão do WhatsApp fica em assets/js/main.js
+       (reportWhatsAppConversion), disparada no clique de qualquer CTA —
+       mesmo padrão do Urban Vila Guilherme. O rótulo da conversão está em
+       SITE_CONFIG.adsConversionLabel. -->
 </head>
 <body>
   <header class="site-header" id="topo">

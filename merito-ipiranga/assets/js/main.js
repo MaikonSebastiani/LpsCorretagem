@@ -15,12 +15,13 @@
 ------------------------------------------------------------------ */
 const SITE_CONFIG = {
   whatsapp: '5511953713310',
-  /* Conversão do Google Ads disparada quando o lead qualificado segue para
-     o WhatsApp, no formato 'AW-XXXXXXXXX/XXXXXXXXXXXXXXXX'.
+  /* Conversão do Google Ads disparada no clique que leva ao WhatsApp,
+     no formato 'AW-XXXXXXXXX/XXXXXXXXXXXXXXXX'.
      Em branco ('') = nenhuma conversão é disparada.
-     Esta página ainda não tem tag do Google Ads instalada: para ativar,
-     cole a tag do gtag.js no <head> do index.html e preencha aqui. */
-  adsConversionLabel: ''
+     Hoje aponta para a mesma ação de conversão do Urban Vila Guilherme —
+     os leads dos dois empreendimentos caem juntos nesse relatório. Para
+     separar, crie uma ação de conversão só do Mérito e troque o rótulo. */
+  adsConversionLabel: 'AW-18388777321/7T_mCNngruEcEOnyucBE'
 };
 
 /* ------------------------------------------------------------------
