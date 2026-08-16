@@ -471,38 +471,110 @@ ul {
 }
 
 .hero__title {
-  font-size: clamp(2.1rem, 8.4vw, 3.6rem);
-  margin-bottom: 18px;
+  font-size: clamp(1.95rem, 7.4vw, 3.1rem);
+  margin-bottom: 12px;
+  /* Evita "rios" de palavra solta no fim das linhas do título. */
+  text-wrap: balance;
+}
+
+/* Segunda linha do título: mesma frase, peso visual menor. Separa produto
+   (grande) de programa habitacional (destaque em verde) sem quebrar o H1. */
+.hero__title-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: .52em;
+  letter-spacing: .02em;
+  color: var(--green-ink);
 }
 
 .hero__text {
-  max-width: 46ch;
+  max-width: 44ch;
   color: var(--ink-soft);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.hero__note {
-  max-width: 42ch;
-  margin: 14px 0 0;
-  font-size: .875rem;
-  color: #6B736E;
+/* Etiqueta de preço: bloco com filete verde à esquerda, para o valor ser
+   lido de relance mantendo a sobriedade do restante da página (usa o
+   --green-ink já existente, sem cor nova). */
+.hero__price {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0 0 22px;
+  padding: 10px 18px;
+  border-left: 4px solid var(--urban-green);
+  border-radius: 2px var(--radius) var(--radius) 2px;
+  background: rgba(255, 255, 255, .68);
 }
 
-/* Chips de destaques — cartões claros sobre o painel de concreto */
-.specs {
+.hero__price-label {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.hero__price-value {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 7vw, 2.7rem);
+  line-height: 1.05;
+  letter-spacing: .01em;
+  color: var(--green-ink);
+}
+
+.hero__price-value sup {
+  font-size: .42em;
+  margin-left: 2px;
+  vertical-align: super;
+  color: var(--ink-soft);
+}
+
+/* CTA + microcopy andam juntos, como um bloco só de ação. */
+.hero__actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.hero__micro {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+}
+
+/* Texto legal fica no fim do bloco, fora do caminho da leitura principal. */
+.hero__note {
+  max-width: 46ch;
+  margin: 18px 0 0;
+  font-size: .75rem;
+  line-height: 1.45;
+  color: #7A817C;
+}
+
+/* Chips de destaques — cartões claros sobre o painel de concreto.
+   Grade de 3 colunas no celular: com flex-grow os dois últimos chips
+   ficavam com larguras diferentes na segunda fila. */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-top: 26px;
+  margin-top: 24px;
 }
 
 .spec {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  flex: 1 1 90px;
-  min-width: 90px;
   padding: 12px 8px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -527,6 +599,56 @@ ul {
 }
 
 .spec--green .ico { color: var(--urban-white); }
+
+/* =========================== Trust strip ===========================
+   Faixa discreta, sem números inventados nem selos — só reforça quem
+   constrói e quem atende, logo na primeira dobra. */
+.trust-strip {
+  background: var(--surface-paper);
+  border-block: 1px solid var(--line);
+}
+
+.trust-strip__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 14px var(--pad);
+  text-align: center;
+}
+
+.trust-strip__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8125rem;
+  letter-spacing: .02em;
+  color: var(--ink-soft);
+}
+
+.trust-strip__item .ico {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5;
+  color: var(--green-ink);
+}
+
+.trust-strip__item strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.trust-strip__sep {
+  display: none;
+  width: 1px;
+  height: 14px;
+  background: var(--line);
+}
+
+@media (min-width: 480px) {
+  .trust-strip__sep { display: block; }
+}
 
 /* ============================ Location ============================ */
 .loc__content .btn { margin-top: 26px; }
@@ -582,6 +704,14 @@ ul {
   color: var(--ink);
 }
 
+.loc__mobility {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
 /* ====================== Minha Casa Minha Vida ======================
    Dois arquivos leves em vez de uma arte única mesclada:
    1) a foto (.mcmv__media), já com a ponta do chevron recortada nela e
@@ -592,7 +722,7 @@ ul {
 .mcmv {
   position: relative;
   background-color: var(--surface-cream);
-  background-image: url("../assets/images/texture.jpg");
+  background-image: url("../assets/images/texture.webp");
   background-repeat: repeat;
   /* Proporção real do arquivo (1200x400 = 3:1). Textura fotográfica de
      contraste bem baixo: pequenas emendas no tile não ficam visíveis. */
@@ -693,6 +823,32 @@ ul {
 }
 
 /* =========================== Floor plans =========================== */
+.plans__price {
+  margin: 4px 0 10px;
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 1.0625rem;
+  letter-spacing: .02em;
+  color: var(--ink-soft);
+}
+
+.plans__price strong {
+  font-weight: 700;
+  color: var(--green-ink);
+}
+
+.plans__price sup {
+  font-size: .6em;
+  color: var(--ink-soft);
+}
+
+.plans__price-note {
+  margin: 0 0 18px;
+  text-align: center;
+  font-size: .75rem;
+  color: #8B928C;
+}
+
 .badge-line {
   display: flex;
   align-items: center;
@@ -893,7 +1049,7 @@ ul {
   border: 0;
   border-radius: 18px;
   background-color: var(--surface-paper);
-  background-image: url("../assets/images/texture.jpg");
+  background-image: url("../assets/images/texture.webp");
   background-repeat: repeat;
   background-size: 600px 200px;
   color: var(--ink);
@@ -936,11 +1092,15 @@ ul {
   color: var(--ink);
 }
 
-.qm__progress { margin: 0 40px 20px 0; }
+.qm__progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 10px;
+  margin: 0 40px 20px 0;
+}
 
 .qm__step-count {
-  display: block;
-  margin-bottom: 8px;
   font-family: var(--font-title);
   font-weight: 600;
   font-size: .8125rem;
@@ -949,8 +1109,17 @@ ul {
   color: var(--green-ink);
 }
 
+/* Reforça que o processo é curto — atenua a sensação de "3 etapas" que o
+   contador sozinho passaria. */
+.qm__speed {
+  font-size: .75rem;
+  color: var(--ink-soft);
+}
+
 .qm__bar {
+  flex-basis: 100%;
   height: 4px;
+  margin-top: 5px;
   border-radius: 4px;
   background: var(--line);
   overflow: hidden;
@@ -1065,20 +1234,30 @@ html.qm-open body { overflow: hidden; }
   .qm { padding: 32px 32px 28px; }
 }
 
-/* ============================= Leisure ============================= */
+/* ============================= Leisure =============================
+   Mobile: carrossel horizontal (mesmo padrão de scroll-snap já usado em
+   .plans) em vez de grade 2x4 — evita 4 telas de rolagem vertical antes do
+   próximo CTA, sem remover nenhum item do lazer. Desktop volta para grade. */
 .leisure {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
   gap: 10px;
-  margin-top: 30px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 6px;
+  margin: 30px calc(var(--pad) * -1) 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .leisure__card {
   position: relative;
+  flex: 0 0 42%;
+  min-width: 148px;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--urban-black);
+  scroll-snap-align: start;
 }
 
 .leisure__card img {
@@ -1327,7 +1506,41 @@ html.qm-open body { overflow: hidden; }
 
 .final-cta .title { margin-bottom: 16px; }
 
+.final-cta__price {
+  margin: 0 0 22px;
+  font-family: var(--font-title);
+  font-size: clamp(1.4rem, 5vw, 1.9rem);
+  color: #C9CFCA;
+}
+
+.final-cta__price strong {
+  font-weight: 700;
+  color: var(--urban-green);
+}
+
+.final-cta__price sup {
+  font-size: .6em;
+  color: #C9CFCA;
+}
+
 .final-cta .btn { margin-top: 10px; }
+
+.final-cta__micro {
+  margin: 14px 0 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--urban-green);
+}
+
+.final-cta__note {
+  max-width: 42ch;
+  margin: 8px 0 0;
+  font-size: .75rem;
+  color: #8A9089;
+}
 
 /* ============================== Footer ============================== */
 .site-footer {
@@ -1432,24 +1645,12 @@ html.qm-open body { overflow: hidden; }
 .mobile-cta .btn {
   flex: none;
   white-space: nowrap;
+  /* Alvo de toque confortável: .btn--sm sozinho fica em 44px. */
+  min-height: 48px;
 }
 
 /* Espaço para o CTA fixo não cobrir conteúdo */
 body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); }
-
-/* ===================== WhatsApp flutuante (desktop) =====================
-   Reaproveita .btn.btn--green (mesma fonte, cor, raio de borda e hover dos
-   outros CTAs do site) só adicionando posição fixa e sombra — nenhum
-   estilo visual novo é criado aqui. Escondido por padrão porque o CTA
-   fixo mobile já cobre esse papel abaixo de 900px. */
-.floating-whatsapp {
-  display: none;
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 40;
-  box-shadow: 0 16px 40px rgba(17, 17, 17, .28);
-}
 
 /* ============================= Responsive ============================= */
 @media (min-width: 480px) {
@@ -1472,8 +1673,17 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
   .section { padding: 72px 0; }
 
   .leisure {
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+    overflow: visible;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
+  .leisure__card {
+    flex: initial;
+    min-width: 0;
   }
 
   .plans {
@@ -1598,15 +1808,13 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
      valores mantêm o texto dentro dele de 900px a 2560px. */
   .hero__content { width: min(600px, max(410px, 31vw)); }
 
-  .hero__title { font-size: min(3.02vw, 2.7rem); }
+  .hero__title { font-size: min(2.85vw, 2.5rem); }
 
-  /* Base fluida: os 5 chips sempre cabem em uma linha, em qualquer largura */
-  .spec {
-    flex: 1 1 0;
-    min-width: 0;
+  /* Os 5 chips cabem em uma linha só a partir do desktop */
+  .specs {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
   }
-
-  .specs { gap: 10px; }
 
   /* Localização */
   .loc__grid {
@@ -1674,15 +1882,10 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
     background: linear-gradient(90deg, rgba(17, 17, 17, .55) 45%, rgba(17, 17, 17, 0) 100%);
   }
 
-  /* CTA fixo some no desktop — o flutuante assume o papel dele */
+  /* CTA fixo some no desktop (é um recurso pensado para a barra de toque do celular) */
   .mobile-cta { display: none; }
-  .floating-whatsapp { display: inline-flex; }
 
   body { padding-bottom: 0; }
-}
-
-@media (min-width: 1100px) {
-  .poi { grid-template-columns: repeat(3, 1fr); }
 }
 
 

@@ -70,7 +70,10 @@
     }
   ];
 
-  function buildQualificationMessage(qualificationData) {
+  /* `planta` vem do CTA de cada card de planta (data-planta) e só entra na
+     mensagem quando o lead abriu o modal por ali — assim o consultor já
+     recebe qual planta despertou o interesse. */
+  function buildQualificationMessage(qualificationData, planta) {
     function labelFor(questionKey, value) {
       var question, i, j;
       for (i = 0; i < QUALIFICATION_QUESTIONS.length; i++) {
@@ -85,6 +88,7 @@
 
     return 'Olá! Vi o Urban Vila Guilherme pelo site e gostaria de verificar quais ' +
       'unidades são compatíveis com meu perfil.\n\n' +
+      (planta ? 'Planta de interesse:\n' + planta + '\n\n' : '') +
       'Renda familiar aproximada:\n' + labelFor('renda', qualificationData.renda) + '\n\n' +
       'FGTS / entrada:\n' + labelFor('entrada', qualificationData.entrada) + '\n\n' +
       'Pretensão de compra:\n' + labelFor('prazo', qualificationData.prazo) + '\n\n' +
@@ -331,6 +335,7 @@
     var qualificationData = { renda: '', entrada: '', prazo: '' };
     var totalSteps = QUALIFICATION_QUESTIONS.length;
     var currentStep = 1;
+    var plantaInteresse = '';
     var lastFocusedTrigger = null;
     var advanceTimer = null;
 
@@ -341,7 +346,7 @@
     function renderStep() {
       var question = currentQuestion();
 
-      stepCountEl.textContent = 'Passo ' + currentStep + ' de ' + totalSteps;
+      stepCountEl.textContent = currentStep + '/' + totalSteps;
       barFillEl.style.width = (currentStep / totalSteps * 100) + '%';
 
       var optionsHtml = question.options.map(function (opt) {
@@ -398,9 +403,11 @@
       renderStep();
 
       if (currentStep < totalSteps) {
+        // Avanço rápido, mas com tempo suficiente para o usuário ver a opção
+        // marcada antes de trocar de pergunta.
         advanceTimer = setTimeout(function () {
           goToStep(currentStep + 1);
-        }, 380);
+        }, 280);
       } else if (continueBtn) {
         continueBtn.focus();
       }
@@ -408,6 +415,7 @@
 
     function openQualificationModal(trigger) {
       lastFocusedTrigger = trigger || document.activeElement;
+      plantaInteresse = (trigger && trigger.getAttribute('data-planta')) || '';
 
       qualificationData.renda = '';
       qualificationData.entrada = '';
@@ -419,7 +427,8 @@
       modal.showModal();
 
       trackEvent('qualification_modal_open', {
-        source: (trigger && trigger.getAttribute('data-source')) || 'unknown'
+        source: (trigger && trigger.getAttribute('data-source')) || 'unknown',
+        planta: plantaInteresse
       });
 
       var firstOption = modal.querySelector('.qm__option');
@@ -483,10 +492,11 @@
       trackEvent('qualification_complete', {
         income_range: qualificationData.renda,
         entry_status: qualificationData.entrada,
-        purchase_timing: qualificationData.prazo
+        purchase_timing: qualificationData.prazo,
+        planta: plantaInteresse
       });
 
-      var message = buildQualificationMessage(qualificationData);
+      var message = buildQualificationMessage(qualificationData, plantaInteresse);
 
       trackEvent('whatsapp_click', { source: 'qualification_modal' });
 

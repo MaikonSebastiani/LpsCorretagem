@@ -50,7 +50,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap"></noscript>
 
-<link rel="preload" as="image" href="assets/images/hero.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/images/hero.webp" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
 
 <!--
@@ -134,7 +134,7 @@
          com o painel de concreto à esquerda, o chevron verde e a fachada.
          Os chevrons verdes NÃO são mais desenhados em CSS: já vêm na imagem. -->
     <div class="hero__bg">
-      <img src="assets/images/hero.png" width="1672" height="941"
+      <img src="assets/images/hero.webp" width="1672" height="941"
            alt="Perspectiva ilustrada da fachada do Urban Vila Guilherme"
            fetchpriority="high" decoding="async">
     </div>
@@ -142,19 +142,36 @@
     <div class="hero__grid container">
       <div class="hero__content">
         <p class="eyebrow">Urban Vila Guilherme</p>
-        <h1 class="hero__title" id="hero-title">2 dormitórios na <br>Zona Norte de São Paulo</h1>
+
+        <!-- O título carrega a frase inteira (produto + local + programa) para
+             SEO, mas em dois níveis visuais: a linha principal grande e a do
+             programa habitacional menor e em verde, evitando as 4 linhas
+             irregulares que a frase corrida gerava. -->
+        <h1 class="hero__title" id="hero-title">
+          Seu 2 dormitórios na Vila Guilherme
+          <span class="hero__title-sub">pelo Minha Casa Minha Vida</span>
+        </h1>
+
         <p class="hero__text">
-          Plantas de 32 a 44 m², com opções de terraço, suíte e vaga.
-          Lazer completo e localização estratégica na Vila <span class="dash-end">Guilherme.</span>
+          Lazer completo e localização estratégica na Zona Norte de São
+          <span class="dash-end">Paulo.</span>
         </p>
 
-        <a class="btn btn--green btn--lg whatsapp-link" data-source="hero" data-open-qualification
-           data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">
-          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Quero saber quais unidades posso comprar
-        </a>
+        <!-- Etiqueta de preço: bloco próprio com filete verde, para o valor
+             ser lido de relance sem virar banner promocional. -->
+        <p class="hero__price">
+          <span class="hero__price-label">Apartamentos a partir de</span>
+          <strong class="hero__price-value">R$ 255 mil<sup>*</sup></strong>
+        </p>
 
-        <p class="hero__note">Consulte valores, disponibilidade e condições de acordo com seu perfil.</p>
+        <div class="hero__actions">
+          <a class="btn btn--green btn--lg whatsapp-link" data-source="hero" data-open-qualification
+             data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de ver preços e unidades disponíveis.">
+            <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
+            Ver preços e unidades disponíveis
+          </a>
+          <p class="hero__micro">Simulação rápida pelo WhatsApp</p>
+        </div>
 
         <ul class="specs" aria-label="Destaques do empreendimento">
           <li class="spec"><svg class="ico" aria-hidden="true"><use href="#i-bed"></use></svg><span>2 dormitórios</span></li>
@@ -163,10 +180,29 @@
           <li class="spec"><svg class="ico" aria-hidden="true"><use href="#i-suite"></use></svg><span>Suíte</span></li>
           <li class="spec spec--green"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg><span>Lazer completo</span></li>
         </ul>
+
+        <p class="hero__note">*Valores, disponibilidade e condições podem variar conforme unidade, renda, enquadramento habitacional e análise de crédito.</p>
       </div>
 
     </div>
   </section>
+
+  <!-- ================= FAIXA DE CONFIANÇA (discreta, logo após a hero) =================
+       Só reforça marca/atendimento com uma linha curta — a seção completa de
+       credibilidade (construtora + consultor) continua mais abaixo, intacta. -->
+  <div class="trust-strip">
+    <div class="container trust-strip__inner">
+      <span class="trust-strip__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-medal"></use></svg>
+        Empreendimento <strong>Cury</strong>
+      </span>
+      <span class="trust-strip__sep" aria-hidden="true"></span>
+      <span class="trust-strip__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-user"></use></svg>
+        Atendimento <strong>Sebastiani Imóveis</strong>
+      </span>
+    </div>
+  </div>
 
   <!-- ================= LOCALIZAÇÃO ================= -->
   <section class="section section--texture" id="localizacao" aria-labelledby="loc-title">
@@ -178,19 +214,16 @@
         </p>
 
         <ul class="poi" aria-label="Pontos próximos ao empreendimento">
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Santa Maria Supermercado</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Parque do Trote</span></li>
           <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Shopping Center Norte</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>UNIP Vila Guilherme</span></li>
+          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Parque do Trote</span></li>
           <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Carrefour Hipermercado</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Academia Smart fit</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>7 min</strong>Extra Mercado</span></li>
           <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>7 min</strong>Expo Center Norte</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>8 min</strong>Assaí Atacadista</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>9 min</strong>ETEC Prof. Horácio Augusto</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>14 min</strong>Kalunga</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>15 min</strong>UNINOVE Campus Vila Maria</span></li>
         </ul>
+
+        <p class="loc__mobility">
+          Fácil acesso a shopping, parque, mercado e vias principais da Zona Norte —
+          o dia a dia perto de casa, sem abrir mão da praticidade para se locomover pela cidade.
+        </p>
 
         <a class="btn btn--outline btn--arrow whatsapp-link" data-source="location" data-open-qualification
            data-message="Olá! Vi a localização do Urban Vila Guilherme e gostaria de conhecer melhor o empreendimento.">
@@ -201,7 +234,7 @@
 
       <figure class="loc__media">
         <!-- SUBSTITUIR: assets/images/localizacao.webp (mapa/aérea da região, ~800x620) -->
-        <img src="assets/images/localizacao.png" width="800" height="620"
+        <img src="assets/images/localizacao.webp" width="800" height="620"
              alt="Mapa aéreo da Vila Guilherme com a localização do Urban Vila Guilherme"
              loading="lazy" decoding="async">
       </figure>
@@ -212,7 +245,7 @@
   <section class="section mcmv" id="minha-casa-minha-vida" aria-labelledby="mcmv-title">
     <div class="container mcmv__grid">
       <figure class="mcmv__media">
-        <img src="assets/images/mcmv-photo.png" width="1100" height="733"
+        <img src="assets/images/mcmv-photo.webp" width="1100" height="733"
              alt="Living decorado de um apartamento do Urban Vila Guilherme"
              loading="lazy" decoding="async">
       </figure>
@@ -245,9 +278,9 @@
         </ul>
 
         <a class="btn btn--green btn--lg btn--block whatsapp-link" data-source="mcmv" data-open-qualification
-           data-message="Olá! Gostaria de saber se posso comprar uma unidade do Urban Vila Guilherme e quais condições se aplicam ao meu perfil.">
+           data-message="Olá! Gostaria de simular pela minha renda quais unidades do Urban Vila Guilherme se enquadram no Minha Casa Minha Vida.">
           <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Quero saber se posso comprar
+          Simular pela minha renda
         </a>
 
         <p class="mcmv__note">
@@ -262,6 +295,8 @@
   <section class="section section--light" id="plantas" aria-labelledby="plantas-title">
     <div class="container">
       <h2 class="title title--center title--chevrons" id="plantas-title">Uma planta para cada momento da sua vida</h2>
+      <p class="plans__price">Apartamentos a partir de <strong>R$ 255 mil<sup>*</sup></strong></p>
+      <p class="plans__price-note">*Valor de referência. Preço final depende da planta, unidade e condições vigentes.</p>
       <p class="badge-line">
         <svg class="ico" aria-hidden="true"><use href="#i-floor"></use></svg>
         Piso laminado nos dormitórios
@@ -271,102 +306,102 @@
            O CTA de WhatsApp de cada planta é um link à parte, com mensagem própria. -->
       <ul class="plans" aria-label="Plantas disponíveis">
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/32m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/32m2.webp"
                   aria-label="Ampliar planta de 32,03 m²">
-            <img class="plan__img" src="assets/images/plantas/32m2.png" width="709" height="513"
+            <img class="plan__img" src="assets/images/plantas/32m2.webp" width="709" height="513"
                  alt="Planta de 32,03 m² com 2 dormitórios" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">32,03 m²</span>
           <span class="plan__desc">2 dormitórios</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="32,03 m²"
              data-message="Olá! Vi a planta de 32,03 m² com 2 dormitórios do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/36.80m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/36.80m2.webp"
                   aria-label="Ampliar planta de 36,80 m²">
-            <img class="plan__img" src="assets/images/plantas/36.80m2.png" width="625" height="499"
+            <img class="plan__img" src="assets/images/plantas/36.80m2.webp" width="625" height="499"
                  alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">36,80 m²</span>
           <span class="plan__desc">2 dormitórios + terraço</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="36,80 m²"
              data-message="Olá! Vi a planta de 36,80 m² com 2 dormitórios e terraço do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/36.83m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/36.83m2.webp"
                   aria-label="Ampliar planta de 36,83 m²">
-            <img class="plan__img" src="assets/images/plantas/36.83m2.png" width="607" height="508"
+            <img class="plan__img" src="assets/images/plantas/36.83m2.webp" width="607" height="508"
                  alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">36,83 m²</span>
           <span class="plan__desc">2 dormitórios + terraço</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="36,83 m²"
              data-message="Olá! Vi a planta de 36,83 m² com 2 dormitórios e terraço do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/37.83m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/37.83m2.webp"
                   aria-label="Ampliar planta de 37,86 m²">
-            <img class="plan__img" src="assets/images/plantas/37.83m2.png" width="637" height="504"
+            <img class="plan__img" src="assets/images/plantas/37.83m2.webp" width="637" height="504"
                  alt="Planta de 37,86 m² com 2 dormitórios e terraço" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">37,86 m²</span>
           <span class="plan__desc">2 dormitórios + terraço</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="37,86 m²"
              data-message="Olá! Vi a planta de 37,86 m² com 2 dormitórios e terraço do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/42m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/42m2.webp"
                   aria-label="Ampliar planta de 42,31 m²">
-            <img class="plan__img" src="assets/images/plantas/42m2.png" width="730" height="465"
+            <img class="plan__img" src="assets/images/plantas/42m2.webp" width="730" height="465"
                  alt="Planta de 42,31 m² com 2 dormitórios e terraço" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">42,31 m²</span>
           <span class="plan__desc">2 dormitórios + terraço</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="42,31 m²"
              data-message="Olá! Vi a planta de 42,31 m² com 2 dormitórios e terraço do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
         <li class="plan">
-          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/44m2.png"
+          <button type="button" class="plan__img-btn" data-lightbox-src="assets/images/plantas/44m2.webp"
                   aria-label="Ampliar planta de 44,73 m²">
-            <img class="plan__img" src="assets/images/plantas/44m2.png" width="754" height="475"
+            <img class="plan__img" src="assets/images/plantas/44m2.webp" width="754" height="475"
                  alt="Planta de 44,73 m² com 2 dormitórios, suíte e terraço" loading="lazy" decoding="async">
             <span class="plan__zoom" aria-hidden="true"><svg class="ico"><use href="#i-zoom"></use></svg></span>
           </button>
           <span class="plan__area">44,73 m²</span>
           <span class="plan__desc">2 dormitórios + suíte + terraço</span>
-          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification
+          <a class="plan__cta whatsapp-link" data-source="floorplans" data-open-qualification data-planta="44,73 m²"
              data-message="Olá! Vi a planta de 44,73 m² com suíte e terraço do Urban Vila Guilherme e gostaria de consultar valores e disponibilidade.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Consultar esta planta
+            Ver preço desta planta
           </a>
         </li>
       </ul>
 
       <p class="section__cta">
         <a class="btn btn--green whatsapp-link" data-source="floorplans" data-open-qualification
-           data-message="Olá! Estou vendo as plantas do Urban Vila Guilherme e gostaria de consultar disponibilidade e valores.">
+           data-message="Olá! Estou vendo as plantas do Urban Vila Guilherme e gostaria de consultar preços e disponibilidade.">
           <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Consultar disponibilidade no WhatsApp
+          Ver preços de todas as plantas
         </a>
       </p>
     </div>
@@ -379,35 +414,35 @@
 
       <ul class="leisure" aria-label="Itens de lazer">
         <li class="leisure__card">
-          <img src="assets/images/lazer/piscina.jpg" width="700" height="396" alt="Piscina adulto e infantil" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/piscina.webp" width="700" height="396" alt="Piscina adulto e infantil" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Piscina adulto e infantil</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/fitness.jpg" width="700" height="349" alt="Espaço fitness" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/fitness.webp" width="700" height="349" alt="Espaço fitness" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Fitness</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/coworking.jpg" width="700" height="393" alt="Espaço coworking" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/coworking.webp" width="700" height="393" alt="Espaço coworking" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Coworking</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/beach-tennis.jpg" width="700" height="392" alt="Quadra de beach tennis" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/beach-tennis.webp" width="700" height="392" alt="Quadra de beach tennis" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Beach Tennis</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/pet-place.jpg" width="700" height="393" alt="Pet place" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/pet-place.webp" width="700" height="393" alt="Pet place" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Pet Place</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/salao-de-festas.jpg" width="700" height="394" alt="Salão de festas" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/salao-de-festas.webp" width="700" height="394" alt="Salão de festas" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Salão de Festas</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/churrasqueira.jpg" width="700" height="392" alt="Espaço com churrasqueira" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/churrasqueira.webp" width="700" height="392" alt="Espaço com churrasqueira" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Churrasqueira</span>
         </li>
         <li class="leisure__card">
-          <img src="assets/images/lazer/brinquedoteca.jpg" width="700" height="394" alt="Brinquedoteca" loading="lazy" decoding="async">
+          <img src="assets/images/lazer/brinquedoteca.webp" width="700" height="394" alt="Brinquedoteca" loading="lazy" decoding="async">
           <span class="leisure__label"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg>Brinquedoteca</span>
         </li>
       </ul>
@@ -439,7 +474,7 @@
   <section class="section section--texture buy" id="como-comprar" aria-labelledby="buy-title">
     <div class="container buy__grid">
       <figure class="buy__media">
-        <img src="assets/images/living.png" width="1100" height="733"
+        <img src="assets/images/living.webp" width="1100" height="733"
              alt="Living decorado de um apartamento do Urban Vila Guilherme" loading="lazy" decoding="async">
       </figure>
 
@@ -447,8 +482,9 @@
         <h2 class="title" id="buy-title">Não é só escolher a planta</h2>
         <p class="section__text">
           O Urban Vila Guilherme possui unidades com diferentes categorias e regras de aquisição.
-          Por isso, antes de definir qual apartamento comprar, é importante entender quais unidades
-          estão disponíveis para sua renda e seu perfil.
+          As opções disponíveis dependem da sua renda familiar, do enquadramento no programa
+          habitacional, da capacidade de financiamento, da entrada ou FGTS disponível e da
+          análise de crédito.
         </p>
         <p class="buy__highlight">Eu faço essa análise inicial com você.</p>
         <a class="btn btn--green whatsapp-link" data-source="profile" data-open-qualification
@@ -532,19 +568,22 @@
 
   <!-- ================= CTA FINAL ================= -->
   <section class="final-cta" aria-labelledby="final-title">
-    <img class="final-cta__bg" src="assets/images/skyline.jpg" width="1920" height="640"
+    <img class="final-cta__bg" src="assets/images/skyline.webp" width="1920" height="640"
          alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="container final-cta__inner">
       <div class="final-cta__content">
-        <h2 class="title" id="final-title">Quer descobrir quais opções fazem sentido para você?</h2>
+        <h2 class="title" id="final-title">Quer descobrir qual unidade faz sentido para o seu perfil?</h2>
         <p class="section__text">
-          Fale comigo no WhatsApp e eu verifico as unidades e condições compatíveis com o seu perfil.
+          Consulte valores, condições e disponibilidade do Urban Vila Guilherme.
         </p>
+        <p class="final-cta__price">A partir de <strong>R$ 255 mil<sup>*</sup></strong></p>
         <a class="btn btn--green btn--lg whatsapp-link" data-source="final" data-open-qualification
            data-message="Olá! Gostaria de saber quais opções do Urban Vila Guilherme fazem sentido para o meu perfil.">
           <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Chamar no WhatsApp
+          Falar com um consultor no WhatsApp
         </a>
+        <p class="final-cta__micro">Atendimento sem compromisso.</p>
+        <p class="final-cta__note">*Valores, disponibilidade e condições podem variar conforme unidade, renda, enquadramento habitacional e análise de crédito.</p>
       </div>
     </div>
   </section>
@@ -599,7 +638,7 @@
 <!-- ================= CTA FIXO MOBILE ================= -->
 <div class="mobile-cta" role="complementary" aria-label="Atalho para WhatsApp">
   <div class="mobile-cta__inner">
-    <p class="mobile-cta__text">Consultar unidades disponíveis</p>
+    <p class="mobile-cta__text">Ver preços e unidades</p>
     <a class="btn btn--green btn--sm whatsapp-link" data-source="mobile_fixed" data-open-qualification
        data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">
       <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
@@ -608,15 +647,6 @@
   </div>
 </div>
 
-<!-- ================= WHATSAPP FLUTUANTE (desktop) =================
-     Só aparece a partir de 900px: no mobile o CTA fixo acima já cobre
-     esse papel; nas duas larguras juntas duplicaria o mesmo atalho. -->
-<a class="btn btn--green floating-whatsapp whatsapp-link" data-source="floating" data-open-qualification
-   data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil."
-   aria-label="Falar no WhatsApp">
-  <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-  <span>WhatsApp</span>
-</a>
 
 <!-- ================= LIGHTBOX (plantas ampliadas) ================= -->
 <dialog class="lightbox" id="plan-lightbox" aria-label="Planta ampliada">
@@ -633,7 +663,8 @@
   </button>
 
   <div class="qm__progress">
-    <span class="qm__step-count" id="qm-step-count">Passo 1 de 3</span>
+    <span class="qm__step-count" id="qm-step-count">1/3</span>
+    <span class="qm__speed">Rápido — leva menos de 30 segundos</span>
     <div class="qm__bar"><div class="qm__bar-fill" id="qm-bar-fill"></div></div>
   </div>
 
