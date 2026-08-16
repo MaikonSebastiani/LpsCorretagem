@@ -25,25 +25,28 @@ Para ativar depois:
    `AW-XXXXXXXXX/XXXXXXXXXXXXXXXX`. Use uma ação de conversão **própria do
    Mérito**, não a do Urban.
 
-## Modal de qualificação
+## CTAs de WhatsApp
 
-Mesma lógica do Urban Vila Guilherme: 3 perguntas de múltipla escolha
-(renda, FGTS/entrada, prazo de compra) antes de abrir o WhatsApp, sem
-formulário nem envio para servidor — tudo no front-end.
+Todos os botões levam direto para a conversa — não há modal de qualificação.
 
-- Qualquer elemento com a classe `.js-open-lead` abre o modal.
-- Nos cards de planta, o atributo `data-planta` entra na mensagem do WhatsApp.
+- Qualquer elemento com a classe `.js-open-lead` vira um link de WhatsApp.
+- A mensagem de cada CTA vem do próprio `data-message`, contextual por seção
+  (localização, plantas, categorias, consultor etc.).
+- Nos cards de planta, o `data-planta` entra na mensagem e no evento.
+- O `href` é montado no carregamento, então os botões funcionam mesmo sem
+  JavaScript.
 - UTMs e `gclid` são guardados na sessão e vão nos eventos de rastreamento,
   mas nunca dentro da mensagem enviada ao cliente.
 
 ### Eventos preparados
 
-`qualification_modal_open` → `qualification_step_1/2/3` →
-`qualification_complete` (com `income_range`, `entry_status`, `purchase_timing`)
-→ `whatsapp_click`.
+`whatsapp_click` (com `source` e `planta`) e, quando houver tag instalada, a
+conversão do Google Ads.
 
-Enquanto não houver tag na página, esses eventos não são enviados a lugar
-nenhum e o WhatsApp abre imediatamente.
+A conversão segue o snippet oficial: dispara o evento e só abre o WhatsApp no
+`event_callback`, com timeout de segurança de 300ms caso o gtag não responda
+e queda para a mesma aba se o navegador bloquear o pop-up. Sem tag instalada
+(`adsConversionLabel` vazio) o WhatsApp abre na hora, sem esperar nada.
 
 ## Conteúdo incorporado
 

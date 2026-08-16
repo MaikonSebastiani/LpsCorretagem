@@ -33,9 +33,8 @@
   <!--
     Google Ads / GA4: ainda não instalado nesta página.
     Quando for a hora, cole aqui a tag do gtag.js e preencha
-    `adsConversionLabel` em assets/js/main.js. Todos os eventos do modal
-    (qualification_*, whatsapp_click) já estão prontos e passam a ser
-    enviados sozinhos assim que a tag existir.
+    `adsConversionLabel` em assets/js/main.js. O evento whatsapp_click e a
+    conversão já estão prontos e passam a ser enviados assim que a tag existir.
   -->
 </head>
 <body>
@@ -51,7 +50,7 @@
         <a href="#lazer">Lazer</a>
         <a href="#como-comprar">Como comprar</a>
       </nav>
-      <button class="btn btn-small btn-navy js-open-lead">Consultar unidades</button>
+      <a class="btn btn-small btn-navy js-open-lead" data-source="header" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de consultar as unidades disponíveis.">Consultar unidades</a>
     </div>
   </header>
 
@@ -79,11 +78,19 @@
             <span class="eyebrow">MÉRITO IPIRANGA</span>
             <h1>Um novo capítulo<br><em>da sua história.</em></h1>
             <p class="hero-lead">Apartamentos de <strong>1 e 2 dormitórios</strong>, com terraço, opção de suíte e vaga, lazer completo e a praticidade de viver perto de tudo no Ipiranga.</p>
+
+            <!-- Etiqueta de preço: filete dourado à esquerda, para o valor ser
+                 lido de relance sem virar banner promocional. -->
+            <p class="hero-price">
+              <span class="hero-price__label">Apartamentos a partir de</span>
+              <strong class="hero-price__value">R$ 255 mil<sup>*</sup></strong>
+            </p>
+
             <div class="hero-actions">
-              <button class="btn btn-gold js-open-lead">Quero saber quais unidades posso comprar</button>
+              <a class="btn btn-gold js-open-lead" data-source="hero" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de ver as unidades disponíveis e as condições de compra.">Quero saber quais unidades posso comprar</a>
               <a class="text-link" href="#plantas">Conhecer as plantas</a>
             </div>
-            <p class="microcopy">Consulte disponibilidade, valores e condições de acordo com a unidade e o seu perfil.</p>
+            <p class="microcopy">*Valores, disponibilidade e condições podem variar conforme a unidade, a categoria (HIS-2 ou R2V), a renda familiar e a análise de crédito.</p>
           </div>
         </div>
       </div>
@@ -127,7 +134,7 @@
             <div><b>10 min</b><span>Estação Vila Prudente</span></div>
             <div><b>10 min</b><span>Central Plaza Shopping</span></div>
           </div>
-          <button class="btn btn-navy js-open-lead">Quero conhecer o Mérito</button>
+          <a class="btn btn-navy js-open-lead" data-source="location" data-message="Olá! Vi a localização do Mérito Ipiranga e gostaria de conhecer melhor o empreendimento.">Quero conhecer o Mérito</a>
         </div>
       </div>
     </section>
@@ -167,7 +174,7 @@
               <p>Classificação urbanística sem limitador próprio de renda familiar mensal.</p>
             </article>
           </div>
-          <button class="btn btn-gold js-open-lead">Ver quais unidades posso comprar</button>
+          <a class="btn btn-gold js-open-lead" data-source="profile" data-message="Olá! Gostaria de verificar quais unidades do Mérito Ipiranga são compatíveis com o meu perfil e a minha renda.">Ver quais unidades posso comprar</a>
           <p class="legal-note">A análise depende da categoria da unidade, renda, documentação, análise de crédito e regras vigentes no momento da contratação.</p>
         </div>
         <div class="profile-media reveal reveal-delay">
@@ -182,7 +189,8 @@
         <div class="section-heading reveal">
           <span class="eyebrow gold">PLANTAS</span>
           <h2>Escolha o espaço ideal para <em>o seu próximo capítulo.</em></h2>
-          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento.</p>
+          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento. Apartamentos <strong class="price-inline">a partir de R$ 255 mil*</strong>.</p>
+          <p class="legal-note">*Valor de referência. O preço final depende da planta, da unidade e das condições vigentes.</p>
         </div>
         <div class="plan-benefit reveal">
           <span>Piso laminado nos dormitórios</span>
@@ -191,19 +199,19 @@
           <span>Opção de vaga</span>
         </div>
         <div class="plans-grid">
-          <article class="plan-card reveal"><img src="assets/images/planta-45-59.webp" alt="Planta de 45,59 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,59 m²</strong><span>2 dorms. • suíte • terraço</span></div><button class="btn-link js-open-lead" data-planta="45,59 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-45-66.webp" alt="Planta de 45,66 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,66 m²</strong><span>2 dorms. • suíte • terraço</span></div><button class="btn-link js-open-lead" data-planta="45,66 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-41-84.webp" alt="Planta de 41,84 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>41,84 m²</strong><span>2 dorms. • terraço</span></div><button class="btn-link js-open-lead" data-planta="41,84 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-40-94.webp" alt="Planta de 40,94 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>40,94 m²</strong><span>2 dorms. • terraço</span></div><button class="btn-link js-open-lead" data-planta="40,94 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><button class="btn-link js-open-lead" data-planta="36,80 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-36-83.webp" alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,83 m²</strong><span>2 dorms. • terraço</span></div><button class="btn-link js-open-lead" data-planta="36,83 m²">Consultar esta planta →</button></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><button class="btn-link js-open-lead" data-planta="26,39 m²">Consultar esta planta →</button></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-45-59.webp" alt="Planta de 45,59 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,59 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,59 m²" data-message="Olá! Vi a planta de 45,59 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-45-66.webp" alt="Planta de 45,66 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,66 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,66 m²" data-message="Olá! Vi a planta de 45,66 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-41-84.webp" alt="Planta de 41,84 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>41,84 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="41,84 m²" data-message="Olá! Vi a planta de 41,84 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-40-94.webp" alt="Planta de 40,94 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>40,94 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="40,94 m²" data-message="Olá! Vi a planta de 40,94 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,80 m²" data-message="Olá! Vi a planta de 36,80 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-36-83.webp" alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,83 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,83 m²" data-message="Olá! Vi a planta de 36,83 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="26,39 m²" data-message="Olá! Vi a planta de 26,39 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
         </div>
         <div class="special-benefits reveal">
           <strong>Em plantas selecionadas, o material oficial também destaca:</strong>
           <span>Persianas de enrolar</span><span>Infraestrutura para ar-condicionado</span><span>Bancadas em granito</span>
         </div>
-        <div class="center"><button class="btn btn-navy js-open-lead">Consultar disponibilidade</button></div>
+        <div class="center"><a class="btn btn-navy js-open-lead" data-source="floorplans" data-message="Olá! Estou vendo as plantas do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Ver valores das plantas</a></div>
       </div>
     </section>
 
@@ -243,7 +251,7 @@
           <ul class="check-list">
             <li>Portaria e pulmão de segurança</li><li>Delivery</li><li>Lavanderia e mercadinho</li><li>Coworking e fitness</li><li>Salão de festas e sport bar</li><li>Pet care e pet place</li><li>Brinquedoteca e playground</li><li>Beach tennis e piscina</li>
           </ul>
-          <button class="btn btn-gold js-open-lead">Receber informações do empreendimento</button>
+          <a class="btn btn-gold js-open-lead" data-source="implantation" data-message="Olá! Gostaria de receber mais informações sobre o Mérito Ipiranga.">Receber informações do empreendimento</a>
         </div>
         <div class="implantation-media reveal reveal-delay"><img src="assets/images/implantacao.webp" alt="Implantação do Mérito Ipiranga" loading="lazy"></div>
       </div>
@@ -261,7 +269,7 @@
             <div><strong>13x</strong><span>Master Imobiliário</span></div>
             <div><strong>14x</strong><span>Destaque ADEMI</span></div>
           </div>
-          <button class="btn btn-navy js-open-lead">Falar com um consultor</button>
+          <a class="btn btn-navy js-open-lead" data-source="consultant" data-message="Olá! Vi o site do Mérito Ipiranga e gostaria de falar com um consultor.">Falar com um consultor</a>
         </div>
       </div>
     </section>
@@ -286,8 +294,10 @@
         <span class="eyebrow gold">SEU PRÓXIMO CAPÍTULO PODE COMEÇAR AQUI</span>
         <h2>Quer descobrir quais opções <em>fazem sentido para você?</em></h2>
         <p>Eu verifico as unidades, categorias e condições disponíveis de acordo com o seu perfil.</p>
-        <button class="btn btn-gold js-open-lead">Chamar no WhatsApp</button>
-        <small>Atendimento com consultor • Sebastiani Imóveis</small>
+        <p class="final-price">A partir de <strong>R$ 255 mil<sup>*</sup></strong></p>
+        <a class="btn btn-gold js-open-lead" data-source="final" data-message="Olá! Gostaria de saber quais opções do Mérito Ipiranga fazem sentido para o meu perfil.">Falar com um consultor no WhatsApp</a>
+        <small>Atendimento sem compromisso • Sebastiani Imóveis</small>
+        <p class="legal-note final-note">*Valores, disponibilidade e condições podem variar conforme a unidade, a categoria, a renda familiar e a análise de crédito.</p>
       </div>
     </section>
   </main>
@@ -300,22 +310,8 @@
     <div class="container disclaimer">Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação.</div>
   </footer>
 
-  <button class="whatsapp-float js-open-lead" aria-label="Falar no WhatsApp"><span>✦</span><b>WhatsApp</b></button>
+  <a class="whatsapp-float js-open-lead" data-source="floating" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de mais informações." aria-label="Falar no WhatsApp"><span>✦</span><b>WhatsApp</b></a>
 
-  <!-- ================= MODAL DE QUALIFICAÇÃO DE LEAD =================
-       <dialog> nativo: Esc e foco preso vêm do navegador, sem JS extra. -->
-  <dialog class="lead-modal" id="leadModal" aria-labelledby="leadTitle">
-    <button type="button" class="modal-close js-close-lead" aria-label="Fechar">×</button>
-    <div class="modal-head">
-      <span class="step-count" id="stepCount">Passo 1 de 3</span>
-      <div class="modal-progress"><span id="progressBar"></span></div>
-    </div>
-    <div class="modal-body" id="modalBody" aria-live="polite"></div>
-    <div class="modal-actions">
-      <button type="button" class="btn btn-ghost" id="qmBack" hidden>Voltar</button>
-      <button type="button" class="btn btn-gold" id="qmContinue" hidden>Continuar no WhatsApp</button>
-    </div>
-  </dialog>
 
   <script src="assets/js/main.js"></script>
 </body>
