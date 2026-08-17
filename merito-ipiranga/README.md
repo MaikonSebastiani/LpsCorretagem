@@ -59,6 +59,19 @@ e queda para a mesma aba se o navegador bloquear o pop-up. Sem tag instalada
 - Tempos de deslocamento informados no book.
 - Informações institucionais da Cury divulgadas no book.
 
+## Lançamento / imóvel na planta
+
+A página deixa claro em quatro pontos que o empreendimento é vendido na planta:
+selo na hero, seção própria (`#lancamento`), pergunta no FAQ e meta description.
+
+O argumento comercial é o valor de entrada menor que o de um imóvel pronto.
+De propósito, a página **não** promete valorização (seria promessa de
+investimento) e **não** cita prazo de entrega — o texto remete ao prazo
+previsto em contrato. Se o prazo oficial for divulgado, vale acrescentá-lo na
+seção e no FAQ.
+
 ## Observação
 
-A página evita afirmar preço atual ou disponibilidade fixa. Esses dados devem ser consultados no momento do atendimento.
+O preço exibido (a partir de R$ 255 mil) é valor de referência e aparece
+sempre acompanhado de disclaimer. Disponibilidade e condições devem ser
+consultadas no momento do atendimento.
