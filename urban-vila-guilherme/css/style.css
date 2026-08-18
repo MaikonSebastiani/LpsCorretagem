@@ -518,18 +518,34 @@ ul {
   margin-bottom: 20px;
 }
 
+/* Preço e entrada dividem a mesma linha e quebram juntos quando não cabem. */
+.hero__offer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 22px;
+}
+
 /* Etiqueta de preço: bloco com filete verde à esquerda, para o valor ser
    lido de relance mantendo a sobriedade do restante da página (usa o
    --green-ink já existente, sem cor nova). */
 .hero__price {
-  display: inline-flex;
+  flex: 1 1 195px;
+  display: flex;
   flex-direction: column;
   gap: 1px;
-  margin: 0 0 22px;
-  padding: 10px 18px;
+  margin: 0;
+  padding: 10px 16px;
   border-left: 4px solid var(--urban-green);
   border-radius: 2px var(--radius) var(--radius) 2px;
   background: rgba(255, 255, 255, .68);
+}
+
+.hero__price-hint {
+  margin-top: 3px;
+  font-size: .75rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
 }
 
 .hero__price-label {
@@ -544,7 +560,7 @@ ul {
 .hero__price-value {
   font-family: var(--font-title);
   font-weight: 700;
-  font-size: clamp(1.9rem, 7vw, 2.7rem);
+  font-size: clamp(1.6rem, 5.6vw, 2.15rem);
   line-height: 1.05;
   letter-spacing: .01em;
   color: var(--green-ink);
@@ -1325,11 +1341,18 @@ ul {
 }
 
 /* ============================= Final CTA ============================= */
+/* Mesmo tratamento do CTA final do Mérito: bloco alto, conteúdo centralizado
+   e véu escuro uniforme sobre a foto inteira — antes o véu cobria só 62% à
+   esquerda e a metade direita ficava vazia. */
 .final-cta {
   position: relative;
+  display: flex;
+  align-items: center;
   overflow: hidden;
+  min-height: 460px;
   background: var(--urban-black);
   color: var(--urban-white);
+  text-align: center;
 }
 
 /* skyline.jpg já vem escura do lado esquerdo (onde o texto fica) e com o
@@ -1342,7 +1365,7 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left center;
+  object-position: center;
 }
 
 /* Véu leve: reforço de contraste, não a fonte principal dele — a própria
@@ -1352,18 +1375,31 @@ ul {
   content: "";
   position: absolute;
   z-index: 1;
-  inset: 0 auto 0 0;
-  width: 100%;
-  background: linear-gradient(180deg, rgba(17, 17, 17, .5) 0%, rgba(17, 17, 17, .35) 55%, rgba(17, 17, 17, .55) 100%);
+  inset: 0;
+  background: linear-gradient(rgba(17, 17, 17, .74), rgba(17, 17, 17, .86));
 }
 
 .final-cta__inner {
   position: relative;
   z-index: 2;
+  width: 100%;
   padding-block: 56px;
 }
 
-.final-cta__content { max-width: 34rem; }
+/* Bloco centralizado; todo texto interno acompanha */
+.final-cta__content {
+  max-width: 47rem;
+  margin-inline: auto;
+}
+
+.final-cta__content .section__text { margin-inline: auto; }
+
+.final-cta__brand {
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.final-cta__eyebrow { color: var(--urban-green); }
 
 .final-cta .title { margin-bottom: 16px; }
 
@@ -1396,10 +1432,13 @@ ul {
   color: var(--urban-green);
 }
 
+/* `margin` com atalho zeraria o auto das laterais e a caixa colaria à
+   esquerda — por isso o auto vem aqui dentro, não numa regra separada. */
 .final-cta__note {
-  max-width: 42ch;
-  margin: 8px 0 0;
+  max-width: 52ch;
+  margin: 10px auto 0;
   font-size: .75rem;
+  line-height: 1.5;
   color: #8A9089;
 }
 
@@ -1407,15 +1446,39 @@ ul {
 .site-footer {
   background: var(--surface-night);
   color: var(--urban-light);
-  padding: 30px 0 26px;
+  padding: 22px 0 18px;
 }
 
+/* Linha 1 do rodapé, no mesmo desenho do Mérito Ipiranga: no celular os
+   blocos empilham à esquerda; a partir de 700px ficam nas pontas. */
 .site-footer__inner {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+/* Marca e linha descritiva lado a lado */
+.footer-brand {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 18px;
+}
+
+/* Fica ao lado da marca (não abaixo), como no Mérito: o bloco todo tem a
+   altura da marca em vez de somar duas linhas. */
+.footer-brand__tag {
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--urban-gray);
+}
+
+/* Navegação e redes andam juntas na ponta direita */
+.footer-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 24px;
 }
 
 .footer-nav ul {
@@ -1458,17 +1521,19 @@ ul {
 }
 
 .site-footer__legal {
-  margin-top: 22px;
-  padding-top: 18px;
+  margin-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, .12);
 }
 
 .site-footer__legal p {
-  margin: 0 0 6px;
-  font-size: .75rem;
+  margin: 0;
+  font-size: .6875rem;
   line-height: 1.5;
-  color: var(--urban-gray);
+  color: #7C837E;
 }
+
+.site-footer__legal p + p { margin-top: 5px; }
 
 /* ============================ Mobile CTA ============================ */
 .mobile-cta {
@@ -1530,6 +1595,14 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
 
 @media (min-width: 700px) {
   :root { --pad: 28px; }
+
+  /* Rodapé: marca à esquerda, navegação à direita (igual ao Mérito) */
+  .site-footer__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
 
   .section { padding: 72px 0; }
 
@@ -1738,13 +1811,11 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
     align-items: center;
   }
 
-  /* CTA final */
-  .final-cta__inner { padding-block: 96px; }
+  /* CTA final — o véu segue cobrindo a foto inteira (o conteúdo é centralizado,
+     então não há mais um lado "livre" para deixar sem escurecer). */
+  .final-cta { min-height: 560px; }
 
-  .final-cta::before {
-    width: 62%;
-    background: linear-gradient(90deg, rgba(17, 17, 17, .55) 45%, rgba(17, 17, 17, 0) 100%);
-  }
+  .final-cta__inner { padding-block: 96px; }
 
   /* CTA fixo some no desktop (é um recurso pensado para a barra de toque do celular) */
   .mobile-cta { display: none; }
