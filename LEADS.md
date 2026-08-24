@@ -1,91 +1,149 @@
-# Leads — como funciona e como colocar no ar
+# Leads — como funciona e como operar
 
 Captura, armazenamento e distribuição dos leads das landing pages.
 
 ```
-Formulário na LP  →  POST /api/lead  →  D1 (tabela leads)  →  /painel/
-                                              ↓
-                                     e-mail para a equipe
+Formulário na LP  →  POST /api/lead  →  D1 "leads"  →  /painel/  ou  CRM
+                                            ↓
+                                   e-mail para a equipe (opcional)
 ```
 
-O formulário **não abre o WhatsApp**. Ele é o fim do caminho: a pessoa preenche,
-vê a confirmação, e a equipe entra em contato pelo painel.
+O formulário **não abre o WhatsApp**. Ele é o fim do caminho: a pessoa
+preenche, vê a confirmação, e a equipe entra em contato.
 
 ---
 
-## Por que D1 e não planilha
+## Arquitetura — leia antes de mexer
 
-O D1 guarda; o painel é o que faz o processo funcionar. Um banco sem interface
-seria inútil para a equipe — e uma planilha compartilhada tem dois problemas que
-matam a divisão de leads:
+O projeto no Cloudflare (`lpscorretagem`) é um **Worker com assets estáticos**,
+**não** um projeto Pages. Isso muda três coisas:
 
-- **Colisão.** Duas pessoas editando a mesma célula não se avisam. No painel, o
-  "pegar" é uma condição no `UPDATE`: quem clica primeiro leva, e o segundo
-  recebe um aviso de quem já pegou.
-- **Fragilidade.** Qualquer um reordena a planilha e embaralha tudo, ou apaga
-  uma linha sem querer.
+1. **Não existe pasta `functions/`.** Aquela convenção — um arquivo por rota,
+   roteamento automático — é exclusiva do Pages. Aqui há um script de entrada
+   só, `worker/index.js`, que roteia à mão.
+2. **Bindings vêm do `wrangler.toml`**, não do painel. A partir do momento em
+   que esse arquivo existe no repositório, ele é a fonte da verdade e as
+   configurações do painel deixam de valer.
+3. **Deploy é manual.** Não há integração com o GitHub — `git push` não
+   publica nada.
 
----
+```
+worker/
+├── index.js    roteador: /api/* aqui, todo o resto vai para os assets
+├── lead.js     POST /api/lead  — grava no D1
+└── painel.js   /api/painel     — leitura e atribuição, exige Access
+```
 
-## Colocar no ar — 5 passos
+### `.assetsignore`
 
-### 1. Criar a tabela
+O diretório de assets é a **raiz do repositório**. Sem esse arquivo, o código
+do Worker, a documentação interna e o `schema.sql` ficariam acessíveis por URL.
+
+Se acrescentar arquivo que não deve ser público, inclua ali. Para conferir:
 
 ```bash
-npx wrangler d1 execute leads --remote --file=schema.sql
+curl -s -o /dev/null -w "%{http_code}\n" https://sebastianiimoveis.com.br/schema.sql
+# 404 = correto
 ```
 
-### 2. Ligar o banco ao site
+---
 
-O `wrangler.toml` já declara o binding `DB`. Se o deploy for automático pelo
-GitHub, ele também precisa ser criado no painel:
+## Publicar
 
-**Workers & Pages → o projeto → Settings → Bindings → D1** — variável `DB`,
-banco `leads`.
+```bash
+npx wrangler deploy
+```
 
-### 3. Proteger o painel com Cloudflare Access
+Para testar antes sem afetar quem está no site:
 
-**Este passo não é opcional.** Sem ele o painel fica aberto na internet com nome
-e telefone de todo mundo.
+```bash
+npx wrangler versions upload      # devolve uma URL de preview
+npx wrangler versions deploy      # promove para produção
+```
 
-No **Zero Trust → Access → Applications**, crie uma aplicação *Self-hosted*:
+> Em terminal não interativo o wrangler trava esperando confirmação. Canalize
+> um stdin vazio: `echo "" | npx wrangler ...`
 
-- **Domínios:** `gruposaitama.com.br/painel` e `gruposaitama.com.br/api/painel`
-- **Política:** *Allow* → *Emails* → os e-mails da equipe
-- **Método de login:** One-time PIN (chega por e-mail, não exige conta) ou Google
+Se algo quebrar, `npx wrangler rollback` volta para a versão anterior.
 
-O plano gratuito do Zero Trust cobre **até 50 usuários** — mais que suficiente.
+---
 
-Depois de criar, copie o **Application Audience (AUD) tag** e o **team domain**
-(`suaequipe.cloudflareaccess.com`) e configure como variáveis do projeto:
+## Banco
 
-| Variável | Valor |
+```bash
+npx wrangler d1 migrations apply leads --remote
+```
+
+As migrations moram no **repositório do CRM** (`saitama-crm/drizzle/`), que é
+quem evoluiu o schema. O `schema.sql` daqui é a referência da tabela base.
+
+Consultar:
+
+```bash
+npx wrangler d1 execute leads --remote --command "SELECT criado_em, nome, telefone, status FROM leads ORDER BY criado_em DESC LIMIT 30"
+```
+
+**Não crie rota pública de leitura.** A tabela tem dado pessoal; qualquer URL
+sem autenticação expõe a base inteira.
+
+---
+
+## O que ainda falta configurar
+
+### Cloudflare Access — o painel está desprotegido
+
+`/painel/` carrega para qualquer um. **Nenhum dado vaza** — o `/api/painel`
+recusa tudo enquanto `ACCESS_TEAM_DOMAIN` e `ACCESS_AUD` não existirem, e a
+tela mostra "sem permissão". Mas isso é falhar fechado, não é proteção.
+
+No **Zero Trust → Access → Applications → Self-hosted**, crie uma aplicação com
+**duas** destinations:
+
+| Subdomain | Domain | Path |
+|---|---|---|
+| *(vazio)* | `sebastianiimoveis.com.br` | `painel` |
+| *(vazio)* | `sebastianiimoveis.com.br` | `api/painel` |
+
+Política *Allow* → *Emails* da equipe. Login por One-time PIN não exige conta.
+
+⚠️ **Nunca crie destination só com o domínio e Path vazio** — protegeria o site
+inteiro, e quem viesse do Google Ads cairia numa tela de PIN em vez da LP.
+
+⚠️ Em *Cookie settings*, **`Enforce cookie path attribute` DESLIGADO**. Ligado,
+o cookie vale só para `/painel` e a chamada a `/api/painel` chega sem
+autenticação — o painel loga e mostra "sem permissão" para sempre.
+
+Depois, em **Workers & Pages → lpscorretagem → Settings → Variables**:
+
+| Variável | Onde achar |
 |---|---|
-| `ACCESS_TEAM_DOMAIN` | `suaequipe.cloudflareaccess.com` |
-| `ACCESS_AUD` | o AUD tag da aplicação |
+| `ACCESS_TEAM_DOMAIN` | Zero Trust → Settings → General |
+| `ACCESS_AUD` | aba Overview da aplicação |
 
-> Sem essas duas variáveis, `/api/painel` **recusa tudo**. Falhar fechado é de
-> propósito: uma rota de leads aberta por engano vaza a base inteira.
+E republique — variável só entra no próximo deploy.
 
-### 4. Avisar a equipe por e-mail (opcional)
+### Domínio novo
 
-Sem isso, o painel só funciona para quem lembra de abrir. Com uma conta no
-Resend (3.000 e-mails/mês grátis), configure:
+`gruposaitama.com.br` ainda não está registrado. As canônicas, o Open Graph e a
+política de privacidade apontam para `sebastianiimoveis.com.br`, que é o que
+está no ar.
 
-| Variável | Exemplo |
-|---|---|
-| `RESEND_API_KEY` | `re_...` |
-| `NOTIFY_FROM` | `leads@gruposaitama.com.br` (domínio verificado no Resend) |
-| `NOTIFY_TO` | e-mails da equipe, separados por vírgula |
+Quando o novo entrar: trocar em `urban-vila-guilherme/index.html`,
+`merito-ipiranga/index.html`, `privacidade/index.html` e `worker/lead.js`, e
+criar uma **Redirect Rule 301** do domínio antigo para o novo — senão a
+indexação se perde.
 
-Se faltar qualquer uma, o lead é gravado do mesmo jeito e ninguém é avisado —
-**notificar jamais pode derrubar a captura.**
+### Notificação por e-mail
 
-### 5. Criar a caixa de privacidade
+Sem ela, o painel só funciona para quem lembra de abrir. Com uma conta no
+Resend (3.000/mês grátis), configure `RESEND_API_KEY`, `NOTIFY_FROM` e
+`NOTIFY_TO`. Faltando qualquer uma, o lead é gravado do mesmo jeito e ninguém é
+avisado — **notificar jamais pode derrubar a captura**.
 
-A política em `/privacidade/` manda o titular escrever para
-`privacidade@gruposaitama.com.br`. A caixa precisa existir e ser lida: a LGPD dá
-15 dias para responder.
+### Caixa de privacidade
+
+A política manda escrever para `privacidade@sebastianiimoveis.com.br`. A caixa
+precisa existir e ser lida: a LGPD dá 15 dias para responder.
 
 ---
 
@@ -93,42 +151,24 @@ A política em `/privacidade/` manda o titular escrever para
 
 `/painel/` — feito para o celular, que é onde os corretores vão usar.
 
-A distribuição é **manual de propósito**: não há rodízio automático nem regra de
-atribuição. Quem está livre pega. O papel do painel é dar visão, não decidir.
+A distribuição é **manual de propósito**: não há rodízio automático. Quem está
+livre pega. O papel do painel é dar visão, não decidir.
 
-**Visão de relance**, no topo: quantos leads entraram hoje, quantos nos últimos
-7 dias, e quantos estão parados na fila agora (em vermelho).
-
-**Lead esperando há mais de 30 minutos fica com o cartão vermelho.** O combinado
-de vocês é atender assim que chega — o painel precisa deixar escancarado quando
-isso não aconteceu.
-
-**Busca** por nome ou telefone, e filtros por situação (com contagem em cada) e
-por empreendimento — este último só aparece quando há mais de uma LP na base.
-
-**Ações:** pegar, abrir no WhatsApp (link já com o 55), marcar como fechado,
-devolver para a fila.
-
-**Baixar CSV** do que está na tela, para quem preferir olhar em planilha.
-
-Atualiza sozinho a cada 45 segundos, só com a aba visível.
+- **Resumo** no topo: hoje, 7 dias, e quantos estão parados na fila
+- **Cartão vermelho** para lead esperando há mais de 30 minutos
+- **Busca** por nome ou telefone, filtros por situação e empreendimento
+- **Pegar**, abrir no WhatsApp, marcar fechado, devolver para a fila
+- **Baixar CSV** do que está na tela
 
 ### A corrida entre dois corretores
 
-Se duas pessoas clicam em "pegar" ao mesmo tempo, o `UPDATE` só altera a linha
-se `atendido_por` ainda estiver vazio. Quem perde recebe 409 e vê de quem é o
-lead. É por isso que a atribuição fica no banco e não na interface.
+O `UPDATE` do "pegar" só altera a linha se ninguém pegou antes. Quem perde
+recebe 409 e vê de quem é o lead. Sem isso, dois corretores ligariam para a
+mesma pessoa — pior que demorar para atender.
 
----
-
-## Consultar fora do painel
-
-```bash
-npx wrangler d1 execute leads --remote --command "SELECT criado_em, nome, telefone, empreendimento, status, atendido_por FROM leads ORDER BY criado_em DESC LIMIT 30"
-```
-
-**Não crie endpoint público de leitura.** A tabela tem dado pessoal; qualquer URL
-sem autenticação expõe a base inteira.
+> Existe também o **CRM em Next.js** (`saitama-crm`), com a mesma função mais
+> anotações, tempo de resposta e detalhe do lead. O `/painel/` é o caminho
+> simples que já está no ar; o CRM é o que cresce.
 
 ---
 
@@ -141,7 +181,6 @@ sem autenticação expõe a base inteira.
   usando o nome de vocês.
 - Retenção declarada: **24 meses** após o último contato. Alguém precisa
   efetivamente apagar o que passar disso.
-- Pedido de exclusão:
 
 ```bash
 npx wrangler d1 execute leads --remote --command "DELETE FROM leads WHERE id = 123"
@@ -149,7 +188,7 @@ npx wrangler d1 execute leads --remote --command "DELETE FROM leads WHERE id = 1
 
 ---
 
-## Eventos de rastreamento
+## Rastreamento
 
 | Evento | Quando |
 |---|---|
@@ -157,25 +196,33 @@ npx wrangler d1 execute leads --remote --command "DELETE FROM leads WHERE id = 1
 | `lead_submit` | gravou com sucesso — **é esta a conversão do Ads agora** |
 | `lead_form_error` | falhou ao gravar |
 | `lead_form_abandoned` | fechou sem enviar |
+| `section_view` | chegou no preço, nas plantas ou no CTA final |
+| `faq_open` | abriu uma pergunta |
 
-A conversão do Google Ads dispara junto com `lead_submit`. **Não é mais o clique
-no WhatsApp.** Quando as campanhas voltarem, a ação de conversão precisa apontar
-para este evento.
+A conversão do Google Ads dispara junto com `lead_submit`. **Não é mais o
+clique no WhatsApp** — quando as campanhas voltarem, a ação de conversão
+precisa apontar para este evento.
 
 ---
 
-## O que ainda não foi resolvido
+## Verificado em produção (24/08/2026)
 
-**Os outros 14 CTAs continuam abrindo o WhatsApp direto.** Só os 3 com
-`data-qualify` (hero, CTA final e barra fixa) abrem o formulário. Ou seja, a
-maior parte dos cliques ainda não vira registro no banco, cai no celular de uma
-pessoa só, e a mesma página tem dois comportamentos diferentes para "falar com
-vocês".
+- Formulário das duas LPs gravando no D1, com telefone normalizado para
+  dígitos, planta, origem, `gclid` e consentimento
+- Acentuação íntegra (`João Conceição`, `44,73 m²`)
+- `/api/lead` sem nome → 400 · método errado → 405 · `/api/painel` sem
+  Access → 403
+- Código-fonte, docs e SQL → 404
+- **O redirecionamento da raiz preserva a query string** — `?gclid=...` chega
+  inteiro na LP, então a atribuição do Ads sobrevive
 
-**A busca cobre os últimos 200 leads**, que é o que a API devolve. Quando a
-base passar disso e alguém precisar procurar em histórico antigo, dá para
-paginar ou buscar no servidor — mas só quando fizer falta.
+---
+
+## Ainda não resolvido
 
 **Não há limite de envios por IP.** A armadilha de robô no formulário pega o
-básico, mas um ataque dirigido enche a tabela. Se acontecer, resolve-se com uma
-Rate Limiting Rule no Cloudflare, sem mexer no código.
+básico, mas um ataque dirigido enche a tabela. Resolve-se com uma Rate Limiting
+Rule no Cloudflare, sem mexer no código.
+
+**A busca do `/painel/` cobre os últimos 200 leads**, que é o que a API
+devolve. Quando a base passar disso, paginar — mas só quando fizer falta.

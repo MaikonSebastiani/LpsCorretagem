@@ -54,7 +54,12 @@ Resolve os itens 02, 13 e 16 de uma vez.
    deploy for automático pelo GitHub.
 3. Criar a caixa `privacidade@gruposaitama.com.br`, citada na política.
 
-### A.1 — Os outros 14 CTAs ainda vão para o WhatsApp
+### A.1 — Todos os CTAs viraram formulário ✅ *feito em 23/08/2026*
+
+Os 18 do Urban e os 19 do Mérito abrem o formulário. Não existe mais caminho
+direto para o WhatsApp.
+
+### A.2 — Histórico: o que era o problema
 
 Só os 3 CTAs com `data-qualify` abrem o formulário. Os demais (plantas, lazer,
 localização, consultor, header) continuam abrindo o WhatsApp direto — ou seja,
@@ -90,7 +95,7 @@ Combinado que entra depois. Destrava metade do item 05.
 
 ## Crítico
 
-### 02 — WhatsApp é o único caminho, sem plano B
+### 02 — WhatsApp é o único caminho, sem plano B ✅ *resolvido em 23/08/2026*
 
 *urban · mérito*
 
@@ -287,7 +292,9 @@ botão flutuante circular, sem texto.
 
 ## Itens novos — vindos da reestruturação da equipe
 
-### 13 — Registrar o lead num destino compartilhado
+### 13 — Registrar o lead num destino compartilhado ✅ *feito em 24/08/2026*
+
+Cloudflare D1 + `/painel/` + CRM em Next.js. Em produção e verificado.
 
 *urban · mérito* — **crítico para o modelo de equipe**
 
@@ -344,7 +351,10 @@ o processo de divisão de vocês. Migrar para CRM quando o volume justificar.
 **Correção.** Consolidar para que a mudança de marca vire um valor único. Fazer
 junto com o item 14, para não mexer duas vezes.
 
-### 16 — LGPD
+### 16 — LGPD ✅ *feito em 23/08/2026*
+
+Política em `/privacidade/`, aceite obrigatório no formulário e gravado na
+coluna `consentimento`. Falta criar a caixa de e-mail que a política cita.
 
 *urban · mérito* — **obrigatório a partir do item 13**
 
@@ -372,6 +382,35 @@ respondeu**, e não para clique.
 
 **Só faz sentido com volume.** Abaixo de ~30 conversões/mês o algoritmo não
 aprende. Reavaliar quando as campanhas voltarem.
+
+---
+
+## Estado da publicação — 24/08/2026
+
+As duas LPs estão **no ar** em `sebastianiimoveis.com.br`, com o formulário
+gravando no D1. Deploy feito por `wrangler deploy` (não há integração com o
+GitHub — `git push` não publica).
+
+### Descoberta que mudou a arquitetura
+
+O projeto no Cloudflare é um **Worker com assets estáticos**, não um projeto
+Pages. A pasta `functions/` — convenção exclusiva do Pages — não funcionava:
+`/api/lead` daria 404 e nenhum lead seria gravado. Reescrito como Worker,
+com roteamento à mão em `worker/index.js`.
+
+Era também a explicação do binding de D1 que "não fazia nada" no painel: não
+havia código publicado para conectar ao banco.
+
+### Falta para ficar completo
+
+- [ ] **Cloudflare Access** no `/painel/` e `/api/painel`. Hoje o painel
+      carrega para qualquer um; nenhum dado vaza porque a API falha fechada,
+      mas isso não é proteção. Passo a passo no `LEADS.md`.
+- [ ] **Domínio novo.** `gruposaitama.com.br` não está registrado. Tudo
+      aponta para `sebastianiimoveis.com.br`, que é o que resolve.
+- [ ] **Notificação por e-mail** (Resend) e a caixa `privacidade@`.
+- [ ] **Ação de conversão do Ads** apontando para `lead_submit`, que passou
+      a ser a conversão — não é mais o clique no WhatsApp.
 
 ---
 
