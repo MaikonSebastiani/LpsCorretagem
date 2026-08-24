@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de leads | Grupo Saitama</title>
+
+<!-- Uso interno: nunca deve aparecer em busca nem em prévia de link. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+
+<style>
+  :root {
+    --ink: #14171C;
+    --ink-soft: #5A6472;
+    --line: #E3E6EB;
+    --paper: #F4F6F8;
+    --card: #FFFFFF;
+    --verde: #2E7D32;
+    --verde-claro: #E7F3E8;
+    --ambar: #9A6700;
+    --ambar-claro: #FBF3E0;
+    --azul: #1B5E8A;
+    --alerta: #A8382B;
+    --alerta-claro: #FBECEA;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 18px 14px 60px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .wrap { max-width: 780px; margin-inline: auto; }
+
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  h1 { font-size: 1.375rem; margin: 0; }
+  .eu { font-size: .8125rem; color: var(--ink-soft); }
+
+  /* Resumo: o "de relance" que o painel precisa dar. */
+  .resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .resumo div {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 12px;
+    text-align: center;
+  }
+
+  .resumo strong {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .resumo span {
+    font-size: .6875rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .resumo .esperando strong { color: var(--alerta); }
+
+  .busca {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    font-size: 16px; /* evita zoom no iOS */
+    color: var(--ink);
+  }
+
+  .filtros {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .filtro {
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink-soft);
+    font-size: .8125rem;
+    cursor: pointer;
+  }
+
+  .filtro[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+
+  .filtro b { font-variant-numeric: tabular-nums; }
+
+  .lead {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  /* Na fila há muito tempo: precisa gritar. */
+  .lead--esperando {
+    border-color: #E9BDB6;
+    background: var(--alerta-claro);
+  }
+
+  .lead__topo {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .lead__nome { font-weight: 600; font-size: 1.0625rem; }
+  .lead__quando { font-size: .75rem; color: var(--ink-soft); white-space: nowrap; }
+  .lead--esperando .lead__quando { color: var(--alerta); font-weight: 600; }
+
+  .lead__meta { margin: 7px 0 0; font-size: .8125rem; color: var(--ink-soft); }
+  .lead__meta strong { color: var(--ink); font-weight: 600; }
+
+  .selo {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: .6875rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .selo--novo { background: var(--verde-claro); color: var(--verde); }
+  .selo--em_atendimento { background: var(--ambar-claro); color: var(--ambar); }
+  .selo--fechado { background: #ECEFF3; color: var(--ink-soft); }
+
+  .dono { font-size: .75rem; color: var(--ink-soft); }
+
+  .acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  button.acao, a.zap {
+    flex: 1 1 140px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--card);
+    color: var(--ink);
+    font-size: .9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  button.acao--principal { background: var(--verde); border-color: var(--verde); color: #fff; }
+  button.acao:disabled { opacity: .55; cursor: default; }
+  a.zap { border-color: var(--azul); color: var(--azul); }
+
+  .vazio, .erro {
+    padding: 26px 18px;
+    text-align: center;
+    color: var(--ink-soft);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .erro { color: var(--alerta); }
+
+  .rodape {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: .8125rem;
+    color: var(--ink-soft);
+  }
+
+  .rodape button {
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  @media (max-width: 420px) {
+    .resumo strong { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Leads</h1>
+    <span class="eu" id="eu"></span>
+  </header>
+
+  <div class="resumo" id="resumo" aria-live="polite"></div>
+
+  <input class="busca" id="busca" type="search" placeholder="Buscar por nome ou telefone" autocomplete="off">
+
+  <div class="filtros" id="filtros" role="group" aria-label="Filtrar"></div>
+
+  <main id="lista"><p class="vazio">Carregando…</p></main>
+
+  <div class="rodape">
+    <span id="atualizado"></span>
+    <button type="button" id="exportar">Baixar CSV</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var API = '/api/painel';
+  var lista = document.getElementById('lista');
+
+  /* Fila parada por mais que isso fica em destaque vermelho. O combinado é
+     atender assim que chega — o painel precisa deixar óbvio quando não foi. */
+  var MINUTOS_ESPERANDO = 30;
+
+  var estado = { leads: [], eu: '', status: 'novo', empreendimento: 'todos', busca: '' };
+
+  var ROTULO = { novo: 'Na fila', em_atendimento: 'Em atendimento', fechado: 'Fechado' };
+
+  var RENDA = {
+    'ate-4000': 'até R$ 4.000',
+    '4000-8000': 'R$ 4.000 a R$ 8.000',
+    'acima-8000': 'acima de R$ 8.000',
+    'nao-informado': 'não quis informar'
+  };
+
+  var EMPREENDIMENTO = {
+    'urban-vila-guilherme': 'Urban Vila Guilherme',
+    'merito-ipiranga': 'Mérito Ipiranga'
+  };
+
+  function escapar(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function minutosDesde(iso) {
+    var d = new Date(iso);
+    return isNaN(d) ? 0 : Math.floor((Date.now() - d.getTime()) / 60000);
+  }
+
+  function quando(iso) {
+    var min = minutosDesde(iso);
+    if (min < 1) return 'agora';
+    if (min < 60) return min + ' min';
+    if (min < 1440) return Math.floor(min / 60) + ' h';
+    var d = new Date(iso);
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+  }
+
+  function telefoneBonito(d) {
+    if (!d) return '';
+    if (d.length === 11) return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    if (d.length === 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return d;
+  }
+
+  function esperandoDemais(l) {
+    return l.status === 'novo' && minutosDesde(l.criado_em) >= MINUTOS_ESPERANDO;
+  }
+
+  /* --------------------------- resumo --------------------------- */
+  function pintarResumo() {
+    var hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+    var seteDias = Date.now() - 7 * 86400000;
+
+    var doDia = 0, daSemana = 0, naFila = 0;
+    estado.leads.forEach(function (l) {
+      var t = new Date(l.criado_em).getTime();
+      if (t >= hoje.getTime()) doDia++;
+      if (t >= seteDias) daSemana++;
+      if (l.status === 'novo') naFila++;
+    });
+
+    document.getElementById('resumo').innerHTML =
+      '<div><strong>' + doDia + '</strong><span>hoje</span></div>' +
+      '<div><strong>' + daSemana + '</strong><span>7 dias</span></div>' +
+      '<div class="esperando"><strong>' + naFila + '</strong><span>na fila</span></div>';
+  }
+
+  /* --------------------------- filtros --------------------------- */
+  function pintarFiltros() {
+    var conta = { novo: 0, em_atendimento: 0, fechado: 0 };
+    estado.leads.forEach(function (l) {
+      if (conta[l.status] !== undefined) conta[l.status]++;
+    });
+
+    var status = [
+      ['novo', 'Na fila'],
+      ['em_atendimento', 'Em atendimento'],
+      ['fechado', 'Fechados'],
+      ['todos', 'Todos']
+    ].map(function (par) {
+      var n = par[0] === 'todos' ? estado.leads.length : conta[par[0]];
+      return '<button class="filtro" data-tipo="status" data-valor="' + par[0] + '"' +
+        ' aria-pressed="' + (estado.status === par[0]) + '">' +
+        par[1] + ' <b>' + n + '</b></button>';
+    }).join('');
+
+    /* Só mostra o filtro de empreendimento se houver mais de um na base —
+       com uma LP só, o botão seria ruído. */
+    var quais = {};
+    estado.leads.forEach(function (l) { quais[l.empreendimento] = true; });
+    var chaves = Object.keys(quais);
+
+    var emp = '';
+    if (chaves.length > 1) {
+      emp = '<span style="width:100%"></span>' +
+        ['todos'].concat(chaves).map(function (k) {
+          var nome = k === 'todos' ? 'Todos os empreendimentos' : (EMPREENDIMENTO[k] || k);
+          return '<button class="filtro" data-tipo="emp" data-valor="' + escapar(k) + '"' +
+            ' aria-pressed="' + (estado.empreendimento === k) + '">' + escapar(nome) + '</button>';
+        }).join('');
+    }
+
+    document.getElementById('filtros').innerHTML = status + emp;
+  }
+
+  /* --------------------------- lista --------------------------- */
+  function visiveis() {
+    var busca = estado.busca.trim().toLowerCase();
+    var digitos = busca.replace(/\D/g, '');
+
+    return estado.leads.filter(function (l) {
+      if (estado.status !== 'todos' && l.status !== estado.status) return false;
+      if (estado.empreendimento !== 'todos' && l.empreendimento !== estado.empreendimento) return false;
+      if (!busca) return true;
+      if (String(l.nome).toLowerCase().indexOf(busca) !== -1) return true;
+      return digitos && String(l.telefone).indexOf(digitos) !== -1;
+    });
+  }
+
+  function cartao(l) {
+    var meu = l.atendido_por && l.atendido_por === estado.eu;
+    var p = [];
+
+    p.push('<div class="lead' + (esperandoDemais(l) ? ' lead--esperando' : '') + '" data-id="' + l.id + '">');
+    p.push('<div class="lead__topo"><span class="lead__nome">' + escapar(l.nome) + '</span>');
+    p.push('<span class="lead__quando">' + quando(l.criado_em) + '</span></div>');
+
+    p.push('<span class="selo selo--' + escapar(l.status) + '">' + (ROTULO[l.status] || l.status) + '</span>');
+    if (l.atendido_por) {
+      p.push(' <span class="dono">' + (meu ? 'com você' : 'com ' + escapar(l.atendido_por)) + '</span>');
+    }
+
+    p.push('<p class="lead__meta"><strong>' + telefoneBonito(l.telefone) + '</strong>');
+    p.push(' · ' + escapar(EMPREENDIMENTO[l.empreendimento] || l.empreendimento));
+    if (l.planta) p.push(' · <strong>' + escapar(l.planta) + '</strong>');
+    if (l.renda) p.push(' · renda ' + escapar(RENDA[l.renda] || l.renda));
+    if (l.utm_campaign) p.push(' · ' + escapar(l.utm_campaign));
+    p.push('</p>');
+
+    p.push('<div class="acoes">');
+    if (l.status === 'novo') {
+      p.push('<button class="acao acao--principal" data-acao="pegar">Pegar este lead</button>');
+    } else if (meu) {
+      p.push('<a class="zap" target="_blank" rel="noopener" href="https://wa.me/55' + escapar(l.telefone) + '">Abrir no WhatsApp</a>');
+      if (l.status !== 'fechado') {
+        p.push('<button class="acao" data-acao="fechar">Fechado</button>');
+        p.push('<button class="acao" data-acao="devolver">Devolver</button>');
+      }
+    } else if (l.atendido_por) {
+      p.push('<button class="acao" disabled>Já está com ' + escapar(l.atendido_por) + '</button>');
+    }
+    p.push('</div></div>');
+
+    return p.join('');
+  }
+
+  function render() {
+    pintarResumo();
+    pintarFiltros();
+
+    var itens = visiveis();
+    lista.innerHTML = itens.length
+      ? itens.map(cartao).join('')
+      : '<p class="vazio">Nenhum lead aqui.</p>';
+  }
+
+  function carregar() {
+    return fetch(API, { headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        if (r.status === 403) throw new Error('Sem permissão. Confira o Cloudflare Access.');
+        if (!r.ok) throw new Error('Falha ao carregar (' + r.status + ').');
+        return r.json();
+      })
+      .then(function (d) {
+        estado.leads = d.leads || [];
+        estado.eu = d.eu || '';
+        document.getElementById('eu').textContent = estado.eu;
+        document.getElementById('atualizado').textContent =
+          'Atualizado às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        render();
+      })
+      .catch(function (e) {
+        lista.innerHTML = '<p class="erro">' + escapar(e.message) + '</p>';
+      });
+  }
+
+  /* --------------------------- ações --------------------------- */
+  lista.addEventListener('click', function (ev) {
+    var botao = ev.target.closest('button[data-acao]');
+    if (!botao) return;
+
+    var id = Number(botao.closest('.lead').getAttribute('data-id'));
+    botao.disabled = true;
+    botao.textContent = 'Aguarde…';
+
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, acao: botao.getAttribute('data-acao') })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        /* 409 = outro corretor pegou primeiro. Recarrega para mostrar de quem
+           é, em vez de deixar a tela mentindo. */
+        if (r.status === 409) alert('Esse lead já está com ' + (d.por || 'outra pessoa') + '.');
+        else if (!r.ok) alert('Não deu certo. Tente de novo.');
+        return carregar();
+      });
+    }).catch(function () {
+      alert('Sem conexão. Tente de novo.');
+      carregar();
+    });
+  });
+
+  document.getElementById('filtros').addEventListener('click', function (ev) {
+    var b = ev.target.closest('.filtro');
+    if (!b) return;
+    if (b.getAttribute('data-tipo') === 'status') estado.status = b.getAttribute('data-valor');
+    else estado.empreendimento = b.getAttribute('data-valor');
+    render();
+  });
+
+  document.getElementById('busca').addEventListener('input', function (ev) {
+    estado.busca = ev.target.value;
+    render();
+  });
+
+  /* CSV do que está na tela: quem preferir olhar em planilha, olha. */
+  document.getElementById('exportar').addEventListener('click', function () {
+    var col = ['criado_em','nome','telefone','empreendimento','planta','renda','origem','utm_campaign','status','atendido_por'];
+    var linhas = [col.join(';')].concat(visiveis().map(function (l) {
+      return col.map(function (c) {
+        return '"' + String(l[c] == null ? '' : l[c]).replace(/"/g, '""') + '"';
+      }).join(';');
+    }));
+
+    /* BOM para o Excel abrir os acentos certo. */
+    var blob = new Blob(['﻿' + linhas.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'leads-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  carregar();
+
+  /* Atualiza sozinho, só com a aba visível — não gasta requisição à toa. */
+  setInterval(function () { if (!document.hidden) carregar(); }, 45000);
+})();
+</script>
+
+</body>
+</html>

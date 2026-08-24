@@ -1,0 +1,26 @@
+# Redirecionamentos servidos pelo Cloudflare Pages, na borda.
+# Este arquivo precisa ficar na raiz do que é publicado.
+#
+# ATENÇÃO: aqui só se casa CAMINHO, não domínio. A migração de
+# sebastianiimoveis.com.br para gruposaitama.com.br NÃO se faz neste arquivo —
+# ela é uma Redirect Rule no painel do Cloudflare, na zona do domínio antigo.
+
+# ---------------------------------------------------------------------
+# Raiz → lançamento ativo
+#
+# 302, não 301, de propósito: isto é temporário. Quando a página
+# institucional do Grupo Saitama existir, ela passa a ocupar a raiz. Um 301
+# fica gravado no navegador de quem visitou e seria difícil de desfazer.
+# ---------------------------------------------------------------------
+/  /urban-vila-guilherme/  302
+
+# ---------------------------------------------------------------------
+# Aposentadoria de lançamento
+#
+# Quando as vendas de uma LP terminarem, descomente a linha dela. Nunca
+# deixar virar 404: a URL continua viva em posts, prints e conversas
+# salvas, e quem chega meses depois deve cair no que está à venda hoje.
+# Aqui o 301 é correto — o encerramento é definitivo.
+# ---------------------------------------------------------------------
+# /urban-vila-guilherme/*  /  301
+# /merito-ipiranga/*       /  301

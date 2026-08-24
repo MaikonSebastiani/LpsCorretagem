@@ -4,13 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mérito Ipiranga | Apartamentos de 1 e 2 dormitórios</title>
-  <meta name="description" content="Lançamento no Ipiranga: apartamentos de 1 e 2 dormitórios na planta a partir de R$ 255 mil, com entrada a partir de R$ 800 parcelada durante a obra. Terraço, opções de suíte e vaga e lazer completo em São Paulo." />
+  <meta name="description" content="Lançamento no Ipiranga: apartamentos de 1 e 2 dormitórios na planta a partir de R$ 230 mil, com entrada a partir de R$ 800 parcelada durante a obra. Terraço, opções de suíte e vaga e lazer completo em São Paulo." />
   <meta name="theme-color" content="#29315b" />
   <meta property="og:title" content="Mérito Ipiranga | 1 e 2 dormitórios" />
   <meta property="og:description" content="Um novo capítulo da sua história no Ipiranga. Conheça plantas, lazer, localização e consulte as unidades disponíveis." />
-  <meta property="og:image" content="assets/images/hero.webp" />
+  <meta property="og:image" content="https://gruposaitama.com.br/merito-ipiranga/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://gruposaitama.com.br/merito-ipiranga/" />
+  <meta property="og:site_name" content="Mérito Ipiranga" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="author" content="Grupo Saitama" />
   <meta property="og:type" content="website" />
-  <link rel="canonical" href="https://sebastianiimoveis.com.br/merito-ipiranga/" />
+  <link rel="canonical" href="https://gruposaitama.com.br/merito-ipiranga/" />
 
   <!-- Favicon: marca M do logo, recortada e isolada da palavra "Mérito". -->
   <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32">
@@ -30,13 +36,20 @@
        escondem o conteúdo quando há JS para revelá-lo de volta. -->
   <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18388777321"></script>
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag.
+       Um loader só atende os dois IDs; carregar o gtag.js duas vezes seria
+       um download a mais sem ganho nenhum.
+
+       A propriedade GA4 é a mesma do Urban Vila Guilherme: cobre o site
+       inteiro. Nos relatórios, separe os dois empreendimentos por caminho
+       da página (/merito-ipiranga/ e /urban-vila-guilherme/). -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
+    gtag('config', 'G-VF9K820XDQ');
     gtag('config', 'AW-18388777321');
   </script>
 
@@ -53,11 +66,11 @@
       </a>
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <nav class="main-nav" aria-label="Navegação principal">
-        <a href="#localizacao">Localização</a>
         <a href="#lancamento">Lançamento</a>
+        <a href="#localizacao">Localização</a>
+        <a href="#como-comprar">Como comprar</a>
         <a href="#plantas">Plantas</a>
         <a href="#lazer">Lazer</a>
-        <a href="#como-comprar">Como comprar</a>
       </nav>
       <a class="btn btn-small btn-navy js-open-lead" data-source="header" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de consultar as unidades disponíveis.">Consultar unidades</a>
     </div>
@@ -101,7 +114,7 @@
             <div class="hero-offer">
               <p class="hero-price">
                 <span class="hero-price__label">Apartamentos a partir de</span>
-                <strong class="hero-price__value">R$ 255 mil<sup>*</sup></strong>
+                <strong class="hero-price__value">R$ 230 mil<sup>*</sup></strong>
               </p>
               <p class="hero-price hero-price--entry">
                 <span class="hero-price__label">Entrada a partir de</span>
@@ -111,7 +124,7 @@
             </div>
 
             <div class="hero-actions">
-              <a class="btn btn-gold js-open-lead" data-source="hero" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de ver as unidades disponíveis e as condições de compra.">Quero saber quais unidades posso comprar</a>
+              <a class="btn btn-gold js-open-lead" data-source="hero" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de simular a parcela e ver quais unidades cabem no meu perfil.">Simular minha parcela</a>
               <a class="text-link" href="#plantas">Conhecer as plantas</a>
             </div>
             <p class="microcopy">*Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a categoria (HIS-2 ou R2V), a renda familiar e a análise de crédito.</p>
@@ -130,83 +143,15 @@
       </div>
     </section>
 
-    <section class="story-strip">
+    <!-- Faixa sem título próprio: <div>, não <section>. Uma <section> sem
+         nome acessível não ajuda leitor de tela. -->
+    <div class="story-strip">
       <div class="container story-grid">
         <div class="story-line"></div>
         <p>Independência na rotina. <strong>Conexão nos encontros.</strong> Liberdade nas escolhas.</p>
         <span>Viva um novo capítulo da sua história.</span>
       </div>
-    </section>
-
-    <section class="section location" id="localizacao">
-      <div class="container location-grid">
-        <div class="location-media reveal">
-          <img src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" />
-          <div class="media-caption">IPIRANGA • SÃO PAULO</div>
-        </div>
-        <div class="location-copy reveal reveal-delay">
-          <span class="eyebrow gold">LOCALIZAÇÃO</span>
-          <h2>Independência mesmo é estar perto de tudo <em>e ainda poder ir além.</em></h2>
-          <p>A poucos minutos de alguns dos principais pontos do Ipiranga e com fácil acesso às avenidas Dom Pedro I, Alcântara Machado e Presidente Wilson.</p>
-          <div class="time-grid">
-            <div><b>6 min</b><span>Parque da Independência</span></div>
-            <div><b>6 min</b><span>Estação Juventus-Mooca (CPTM)</span></div>
-            <div><b>8 min</b><span>Estação Ipiranga (CPTM)</span></div>
-            <div><b>8 min</b><span>Hospital Dom Alvarenga</span></div>
-            <div><b>8 min</b><span>Aquário de São Paulo</span></div>
-            <div><b>9 min</b><span>Mooca Plaza Shopping</span></div>
-            <div><b>10 min</b><span>Estação Vila Prudente</span></div>
-            <div><b>10 min</b><span>Central Plaza Shopping</span></div>
-          </div>
-          <a class="btn btn-navy js-open-lead" data-source="location" data-message="Olá! Vi a localização do Mérito Ipiranga e gostaria de conhecer melhor o empreendimento.">Quero conhecer o Mérito</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section condo-stats">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow gold">O EMPREENDIMENTO</span>
-          <h2>Um condomínio pensado para <em>acompanhar sua rotina.</em></h2>
-        </div>
-        <div class="stats-grid reveal">
-          <article><strong>4.336 m²</strong><span>área do terreno</span></article>
-          <article><strong>2</strong><span>torres</span></article>
-          <article><strong>672</strong><span>apartamentos</span></article>
-          <article><strong>24</strong><span>pavimentos + térreo</span></article>
-          <article><strong>5</strong><span>elevadores por torre</span></article>
-          <article><strong>13 / 15</strong><span>aptos. por andar - torres A / B</span></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section profile" id="como-comprar">
-      <div class="container profile-grid">
-        <div class="profile-copy reveal">
-          <span class="eyebrow">CATEGORIAS DE UNIDADES</span>
-          <h2>Antes de escolher a planta, descubra <em>qual unidade combina com o seu perfil.</em></h2>
-          <p>O Mérito Ipiranga possui unidades enquadradas em categorias diferentes. São <strong>552 unidades HIS-2</strong> e <strong>120 unidades R2V</strong>.</p>
-          <div class="profile-cards">
-            <article>
-              <span class="card-kicker">HIS-2</span>
-              <h3>Habitação de Interesse Social</h3>
-              <p>Destinada a famílias que atendam aos limites de renda definidos pela legislação municipal vigente.</p>
-            </article>
-            <article>
-              <span class="card-kicker">R2V</span>
-              <h3>Residencial multifamiliar vertical</h3>
-              <p>Classificação urbanística sem limitador próprio de renda familiar mensal.</p>
-            </article>
-          </div>
-          <a class="btn btn-gold js-open-lead" data-source="profile" data-message="Olá! Gostaria de verificar quais unidades do Mérito Ipiranga são compatíveis com o meu perfil e a minha renda.">Ver quais unidades posso comprar</a>
-          <p class="legal-note">A análise depende da categoria da unidade, renda, documentação, análise de crédito e regras vigentes no momento da contratação.</p>
-        </div>
-        <div class="profile-media reveal reveal-delay">
-          <img src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" />
-          <div class="floating-quote">“Cada dia marca um novo capítulo de uma vida que é só sua.”</div>
-        </div>
-      </div>
-    </section>
+    </div>
 
     <!-- ================= LANÇAMENTO / NA PLANTA =================
          Explica o estágio do empreendimento e as vantagens reais de comprar
@@ -245,6 +190,10 @@
           </article>
         </div>
 
+        <!-- Urgência real, não inventada: a tabela é corrigida todo mês, em
+             todos os empreendimentos. Não é promessa de valorização. -->
+        <p class="launch-urgency">A tabela é <strong>corrigida todo mês</strong>. Quem fecha agora entra pelo valor de hoje; quem deixa para depois entra pelo de depois.</p>
+
         <div class="center">
           <a class="btn btn-gold js-open-lead" data-source="launch"
              data-message="Olá! Vi que o Mérito Ipiranga é um lançamento e gostaria de entender as condições de compra na planta.">Entender as condições na planta</a>
@@ -257,16 +206,157 @@
       </div>
     </section>
 
+    <section class="section location" id="localizacao">
+      <div class="container location-grid">
+        <div class="location-media reveal">
+          <img src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" />
+          <div class="media-caption">IPIRANGA • SÃO PAULO</div>
+        </div>
+        <div class="location-copy reveal reveal-delay">
+          <span class="eyebrow gold">LOCALIZAÇÃO</span>
+          <h2>Independência mesmo é estar perto de tudo <em>e ainda poder ir além.</em></h2>
+          <p>A poucos minutos de alguns dos principais pontos do Ipiranga e com fácil acesso às avenidas Dom Pedro I, Alcântara Machado e Presidente Wilson.</p>
+          <div class="time-grid">
+            <div><b>6 min</b><span>Parque da Independência</span></div>
+            <div><b>6 min</b><span>Estação Juventus-Mooca (CPTM)</span></div>
+            <div><b>8 min</b><span>Estação Ipiranga (CPTM)</span></div>
+            <div><b>8 min</b><span>Hospital Dom Alvarenga</span></div>
+            <div><b>8 min</b><span>Aquário de São Paulo</span></div>
+            <div><b>9 min</b><span>Mooca Plaza Shopping</span></div>
+            <div><b>10 min</b><span>Estação Vila Prudente</span></div>
+            <div><b>10 min</b><span>Central Plaza Shopping</span></div>
+          </div>
+          <a class="btn btn-navy js-open-lead" data-source="location" data-message="Olá! Vi a localização do Mérito Ipiranga e gostaria de conhecer melhor o empreendimento.">Quero conhecer o Mérito</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALUGUEL × PARCELA
+
+         A conta que quem paga aluguel faz de cabeça. Era um bloco dentro de
+         "como comprar", mas empurrava aquela seção para perto de 1.500px — e o
+         argumento é forte o bastante para ocupar espaço próprio.
+
+         Vem antes de "como comprar" de propósito: primeiro a pessoa vê quanto
+         está queimando, depois vê como parar.
+    -->
+    <section class="section rent" id="aluguel">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow gold">SE VOCÊ PAGA ALUGUEL</span>
+          <h2>O aluguel não volta. <em>A parcela, sim.</em></h2>
+        </div>
+
+        <p class="rent__lead reveal">Um aluguel de <strong>R$ 1.800</strong> por mês, ao longo de <strong>8 anos</strong>, soma <strong>R$ 172.800</strong> — dinheiro que sai todo mês e não vira patrimônio. Aqui, esse mesmo valor mensal constrói o seu.</p>
+
+        <p class="rent__fgts reveal">E o saldo do seu <strong>FGTS</strong> pode compor parte da compra, conforme análise.</p>
+
+        <p class="rent__note reveal">Números ilustrativos, só para dar a ordem de grandeza. Faça a conta com o seu aluguel e o seu tempo — a parcela real depende do seu perfil, da unidade e da análise de crédito.</p>
+
+        <div class="center"><a class="btn btn-gold js-open-lead" data-source="aluguel" data-message="Olá! Pago aluguel hoje e gostaria de comparar com a parcela de um apartamento no Mérito Ipiranga.">Comparar com a minha parcela</a></div>
+      </div>
+    </section>
+
+    <section class="section profile" id="como-comprar">
+      <div class="container profile-grid">
+        <div class="profile-copy reveal">
+          <span class="eyebrow">CATEGORIAS DE UNIDADES</span>
+          <h2>Antes de escolher a planta, descubra <em>qual unidade combina com o seu perfil.</em></h2>
+          <p>O Mérito Ipiranga possui unidades enquadradas em categorias diferentes. São <strong>552 unidades HIS-2</strong> e <strong>120 unidades R2V</strong>.</p>
+          <div class="profile-cards">
+            <article>
+              <span class="card-kicker">HIS-2</span>
+              <h3>Habitação de Interesse Social</h3>
+              <p>Destinada a famílias que atendam aos limites de renda definidos pela legislação municipal vigente.</p>
+            </article>
+            <article>
+              <span class="card-kicker">R2V</span>
+              <h3>Residencial multifamiliar vertical</h3>
+              <p>Classificação urbanística sem limitador próprio de renda familiar mensal.</p>
+            </article>
+          </div>
+          <a class="btn btn-gold js-open-lead" data-source="profile" data-message="Olá! Gostaria de verificar quais unidades do Mérito Ipiranga são compatíveis com o meu perfil e a minha renda.">Ver quais unidades posso comprar</a>
+          <p class="legal-note">A análise depende da categoria da unidade, renda, documentação, análise de crédito e regras vigentes no momento da contratação.</p>
+        </div>
+        <div class="profile-media reveal reveal-delay">
+          <img src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" />
+          <div class="floating-quote">“Cada dia marca um novo capítulo de uma vida que é só sua.”</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DECORADO / COMO É MORAR AQUI =================
+         Em lançamento na planta o comprador não pode visitar nada — o vídeo é
+         o que substitui a visita. Vem antes das plantas de propósito: planta é
+         desenho técnico e só faz sentido depois de a pessoa ter visto o espaço.
+
+         ---------------------------------------------------------------
+         A SEÇÃO INTEIRA ESTÁ OCULTA (atributo hidden no <section>).
+
+         O Mérito não tem nenhuma foto de interior — só fachada, aérea, lazer
+         e plantas. Uma seção chamada "Como é morar no Mérito" mostrando o
+         prédio por fora quebra a própria promessa, então é melhor não
+         aparecer. Para publicar, basta UMA das duas coisas:
+
+         (a) FOTO — pegue as imagens do decorado no material oficial da Cury,
+             salve como assets/images/decorado.webp e remova o hidden do
+             <section>. Reponha também o link "Decorado" no menu.
+
+         (b) VÍDEO:
+
+         1. Suba o vídeo do decorado no YouTube. Pode ser "não listado".
+         2. Troque COLE_O_ID_AQUI pelo id do vídeo — é o trecho depois de
+            "v=" na URL. Em https://youtube.com/watch?v=abc123XYZ o id é
+            abc123XYZ.
+         3. Salve um frame do vídeo como assets/images/decorado-poster.webp
+            (1280x720) e troque o src da imagem abaixo.
+         4. Remova o atributo hidden de .tour__video e adicione hidden em
+            .tour__still.
+
+         O vídeo NÃO é embutido no carregamento: o iframe só entra quando a
+         pessoa clica no play. Um embed de YouTube carregado de saída custa
+         perto de 1 MB e derrubaria a primeira dobra no celular.
+         --------------------------------------------------------------- -->
+    <section class="section tour" id="decorado" hidden>
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow gold">DECORADO</span>
+          <h2>Como é morar <em>no Mérito.</em></h2>
+        </div>
+        <p class="tour__lead reveal">O apartamento ainda está em obra, mas o decorado mostra o acabamento, a distribuição dos ambientes e a sensação de espaço das unidades.</p>
+
+        <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
+        <div class="tour__video reveal" data-video-id="COLE_O_ID_AQUI" hidden>
+          <button type="button" class="tour__play" data-tour-play>
+            <img class="tour__poster" src="assets/images/decorado-poster.webp"
+                 width="1280" height="720" alt="" loading="lazy" decoding="async">
+            <span class="tour__play-ico" aria-hidden="true">▶</span>
+            <span class="tour__play-label">Ver o decorado em vídeo</span>
+          </button>
+        </div>
+
+        <!-- Enquanto não há vídeo, a foto segura a seção sozinha. -->
+        <figure class="tour__still reveal">
+          <img src="assets/images/decorado.webp" width="1100" height="733"
+               alt="Apartamento decorado do Mérito Ipiranga" loading="lazy" decoding="async">
+          <figcaption>Decorado — imagem ilustrativa.</figcaption>
+        </figure>
+
+        <div class="center"><a class="btn btn-gold js-open-lead" data-source="tour" data-message="Olá! Vi o decorado do Mérito Ipiranga e gostaria de agendar uma visita ao apartamento modelo.">Quero visitar o decorado</a></div>
+      </div>
+    </section>
+
     <section class="section plans" id="plantas">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow gold">PLANTAS</span>
           <h2>Escolha o espaço ideal para <em>o seu próximo capítulo.</em></h2>
-          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento. Apartamentos <strong class="price-inline">a partir de R$ 255 mil*</strong>.</p>
+          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento. Apartamentos <strong class="price-inline">a partir de R$ 230 mil*</strong>.</p>
           <p class="legal-note">*Valor de referência. O preço final depende da planta, da unidade e das condições vigentes.</p>
         </div>
         <div class="plan-benefit reveal">
           <span>Piso laminado nos dormitórios</span>
+          <span>Piso nas áreas molhadas</span>
           <span>Terraço</span>
           <span>Opção de suíte</span>
           <span>Opção de vaga</span>
@@ -312,25 +402,15 @@
           <span>Lavanderia¹</span><span>Mercadinho¹</span><span>Sport Bar</span><span>Pet Care</span><span>Delivery</span><span>Bicicletário</span><span>Piscina adulto e infantil</span><span>Apoio churrasqueiras</span>
         </div>
         <p class="legal-note light-note">¹ Mercadinho e lavanderia poderão contar com serviço terceirizado e independente da incorporadora, com utilização mediante pagamento pelo condômino (pay-per-use).</p>
+        <div class="center"><a class="btn btn-navy js-open-lead" data-source="leisure" data-message="Olá! Gostei da estrutura de lazer do Mérito Ipiranga e gostaria de receber mais informações.">Quero conhecer o lazer</a></div>
       </div>
     </section>
 
-    <section class="section implantation">
-      <div class="container implantation-grid">
-        <div class="implantation-copy reveal">
-          <span class="eyebrow gold">IMPLANTAÇÃO</span>
-          <h2>Tudo organizado para você aproveitar <em>cada espaço.</em></h2>
-          <p>O projeto reúne lazer, conveniência e áreas de apoio distribuídos pelo condomínio, conectando a rotina ao bem-estar.</p>
-          <ul class="check-list">
-            <li>Portaria e pulmão de segurança</li><li>Delivery</li><li>Lavanderia e mercadinho</li><li>Coworking e fitness</li><li>Salão de festas e sport bar</li><li>Pet care e pet place</li><li>Brinquedoteca e playground</li><li>Beach tennis e piscina</li>
-          </ul>
-          <a class="btn btn-gold js-open-lead" data-source="implantation" data-message="Olá! Gostaria de receber mais informações sobre o Mérito Ipiranga.">Receber informações do empreendimento</a>
-        </div>
-        <div class="implantation-media reveal reveal-delay"><img src="assets/images/implantacao.webp" alt="Implantação do Mérito Ipiranga" loading="lazy"></div>
-      </div>
-    </section>
 
-    <section class="section cury-section">
+
+
+
+    <section class="section cury-section" id="construtora">
       <div class="container cury-grid">
         <div class="cury-media reveal"><img src="assets/images/aerea-noite.webp" alt="Fotomontagem aérea do Mérito Ipiranga" loading="lazy"></div>
         <div class="cury-copy reveal reveal-delay">
@@ -345,6 +425,17 @@
           <a class="btn btn-navy js-open-lead" data-source="consultant" data-message="Olá! Vi o site do Mérito Ipiranga e gostaria de falar com um consultor.">Falar com um consultor</a>
         </div>
       </div>
+      <div class="container cury-numbers">
+        <h3 class="cury-numbers__title">O empreendimento em números</h3>
+        <div class="stats-grid reveal">
+          <article><strong>4.336 m²</strong><span>área do terreno</span></article>
+          <article><strong>2</strong><span>torres</span></article>
+          <article><strong>672</strong><span>apartamentos</span></article>
+          <article><strong>24</strong><span>pavimentos + térreo</span></article>
+          <article><strong>5</strong><span>elevadores por torre</span></article>
+          <article><strong>13 / 15</strong><span>aptos. por andar - torres A / B</span></article>
+        </div>
+      </div>
     </section>
 
     <section class="section faq" id="faq">
@@ -357,19 +448,21 @@
           <details><summary>Quais são as plantas disponíveis?</summary><p>O material oficial apresenta plantas de 1 dormitório com 26,39 m² e opções de 2 dormitórios entre 36,80 m² e 45,66 m², com terraço e opções de suíte e vaga.</p></details>
           <details><summary>O empreendimento tem lazer completo?</summary><p>Sim. Entre os ambientes divulgados estão piscina adulto e infantil, fitness, coworking, salão de festas, sport bar, beach tennis, brinquedoteca, playground, pet place, pet care, churrasqueiras, bicicletário, lavanderia e mercadinho.</p></details>
           <details><summary>Como saber se posso comprar uma unidade HIS-2?</summary><p>As unidades HIS-2 exigem enquadramento conforme os limites de renda e demais regras da legislação municipal vigente. A análise deve considerar renda, documentação, categoria da unidade e condições da contratação.</p></details>
+          <details><summary>O apartamento é entregue com piso?</summary><p>Sim. Os dormitórios são entregues com piso laminado e as áreas molhadas — banheiro, cozinha e área de serviço — com piso padrão, em todas as unidades.</p></details>
+          <details><summary>O preço muda com o tempo?</summary><p>Sim. A tabela é corrigida todo mês, como é padrão em todos os empreendimentos. Por isso quem fecha antes entra pelo valor vigente naquele momento. Não é promessa de valorização do imóvel — é o preço de compra acompanhando o avanço da obra.</p></details>
           <details><summary>Quais são os valores e a disponibilidade?</summary><p>Valores e disponibilidade variam por unidade e podem mudar. Consulte as opções atuais para receber uma orientação compatível com seu perfil.</p></details>
         </div>
       </div>
     </section>
 
-    <section class="final-cta">
+    <section class="final-cta" id="contato">
       <div class="final-bg"></div>
       <div class="container final-content reveal">
         <img src="assets/images/logo-merito.png" alt="Mérito Ipiranga" class="final-logo" />
         <span class="eyebrow gold">SEU PRÓXIMO CAPÍTULO PODE COMEÇAR AQUI</span>
         <h2>Quer descobrir quais opções <em>fazem sentido para você?</em></h2>
         <p>Eu verifico as unidades, categorias e condições disponíveis de acordo com o seu perfil.</p>
-        <p class="final-price">A partir de <strong>R$ 255 mil<sup>*</sup></strong> com entrada a partir de <strong>R$ 800<sup>*</sup></strong></p>
+        <p class="final-price">A partir de <strong>R$ 230 mil<sup>*</sup></strong> com entrada a partir de <strong>R$ 800<sup>*</sup></strong></p>
         <a class="btn btn-gold js-open-lead" data-source="final" data-message="Olá! Gostaria de saber quais opções do Mérito Ipiranga fazem sentido para o meu perfil.">Falar com um consultor no WhatsApp</a>
         <small>Atendimento sem compromisso • Sebastiani Imóveis</small>
         <p class="legal-note final-note">*Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a categoria, a renda familiar e a análise de crédito.</p>
@@ -386,8 +479,93 @@
     <div class="container disclaimer">Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação.</div>
   </footer>
 
-  <a class="whatsapp-float js-open-lead" data-source="floating" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de mais informações." aria-label="Falar no WhatsApp"><span>✦</span><b>WhatsApp</b></a>
+  <!-- Barra fixa no mobile. Substitui o antigo botão flutuante circular:
+       ele não carregava texto nenhum, e este espaço é o CTA mais visto da
+       página. Carrega os dois valores, com o preço primeiro. -->
+  <div class="mobile-cta" role="complementary" aria-label="Atalho para WhatsApp">
+    <div class="mobile-cta__inner">
+      <p class="mobile-cta__text">A partir de R$ 230 mil<span>entrada R$ 800</span></p>
+      <a class="btn btn-gold btn-small js-open-lead" data-source="mobile_fixed"
+         data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">Falar no WhatsApp</a>
+    </div>
+  </div>
 
+
+
+  <!-- FORMULÁRIO DE LEAD
+
+       Abre em TODOS os CTAs da página. Não existe mais caminho direto para o
+       WhatsApp: lead que não passa pelo painel não é dividido com ninguém.
+       
+       Grava em /api/lead (Cloudflare D1) e ESPERA a resposta — como não há
+       WhatsApp de rede de segurança, uma falha silenciosa perderia o lead. Por
+       isso existem os painéis de confirmação e de erro.
+       
+       O href de WhatsApp que o JS monta nos botões fica só como fallback para
+       quem estiver sem JavaScript. -->
+  <dialog class="qz" id="qualifier" aria-labelledby="qz-title">
+    <button type="button" class="qz__close" data-qz-close aria-label="Fechar">&times;</button>
+
+    <div class="qz__panel" data-qz-panel="form">
+      <p class="qz__eyebrow">Consulta sem compromisso</p>
+      <h2 class="qz__title" id="qz-title">Deixe seu contato</h2>
+      <p class="qz__helper">Um consultor da equipe retorna com os valores e as unidades que cabem no seu perfil.</p>
+
+      <form class="qz__form" id="qz-form" novalidate>
+        <div class="qz__field">
+          <label class="qz__label" for="qz-nome">Nome</label>
+          <input class="qz__input" id="qz-nome" name="nome" type="text"
+                 autocomplete="name" maxlength="120" required placeholder="Como podemos te chamar">
+          <p class="qz__erro" id="qz-erro-nome" hidden>Escreva seu nome para continuar.</p>
+        </div>
+
+        <div class="qz__field">
+          <label class="qz__label" for="qz-fone">WhatsApp</label>
+          <input class="qz__input" id="qz-fone" name="telefone" type="tel"
+                 inputmode="tel" autocomplete="tel" maxlength="16" required
+                 placeholder="(11) 90000-0000">
+          <p class="qz__erro" id="qz-erro-fone" hidden>Confira o número com DDD.</p>
+        </div>
+
+        <fieldset class="qz__field qz__fieldset">
+          <legend class="qz__label">Renda familiar aproximada <span class="qz__opcional">(opcional)</span></legend>
+          <p class="qz__hint">Some a renda de quem vai entrar no financiamento. Ajuda a já separar o que cabe no seu perfil.</p>
+          <div class="qz__options" id="qz-options"></div>
+        </fieldset>
+
+        <!-- Armadilha para robô: invisível e fora da ordem de tabulação.
+             Nenhum humano preenche; se vier preenchido, o servidor descarta. -->
+        <div class="qz__hp" aria-hidden="true">
+          <label for="qz-site">Não preencha este campo</label>
+          <input id="qz-site" name="site" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="qz__consent">
+          <input type="checkbox" id="qz-consent" name="consentimento" required>
+          <span>Autorizo o contato e o registro dos meus dados, conforme a <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</span>
+        </label>
+        <p class="qz__erro" id="qz-erro-consent" hidden>Precisamos do seu aceite para registrar o contato.</p>
+
+        <button type="submit" class="qz__submit" id="qz-submit">Quero receber os valores</button>
+      </form>
+    </div>
+
+    <!-- Confirmação. O formulário é o fim do caminho: não há WhatsApp aqui. -->
+    <div class="qz__panel qz__done" data-qz-panel="ok" hidden>
+      <p class="qz__done-ico" aria-hidden="true">✓</p>
+      <h2 class="qz__title">Recebemos seu contato</h2>
+      <p class="qz__helper">Um consultor entra em contato pelo WhatsApp <strong>em poucos minutos</strong>, no número que você deixou.</p>
+      <button type="button" class="qz__submit" data-qz-close>Fechar</button>
+    </div>
+
+    <!-- Falha ao gravar. Sem WhatsApp de fallback o lead se perderia, então
+         esta tela existe para a pessoa poder tentar de novo. -->
+    <div class="qz__panel qz__fail" data-qz-panel="erro" hidden>
+      <h2 class="qz__title">Não conseguimos registrar agora</h2>
+      <p class="qz__helper">Pode ter sido a conexão. Tente novamente — seus dados continuam preenchidos.</p>
+      <button type="button" class="qz__submit" data-qz-retry>Tentar de novo</button>
+    </div>
+  </dialog>
 
   <script src="assets/js/main.js"></script>
 </body>

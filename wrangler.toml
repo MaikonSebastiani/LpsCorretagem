@@ -1,0 +1,29 @@
+# Worker das landing pages.
+#
+# ATENÇÃO: este projeto é um **Worker com assets estáticos**, não um projeto
+# Pages. A convenção de /functions (um arquivo por rota) não vale aqui — o
+# roteamento é feito à mão em worker/index.js.
+
+# Precisa bater com o nome do projeto no Cloudflare. Se divergir, o wrangler
+# publica em outro projeto (ou cria um novo).
+name = "lpscorretagem"
+main = "worker/index.js"
+compatibility_date = "2026-08-23"
+
+# Os arquivos publicados são a própria raiz do repositório. O .assetsignore
+# ao lado diz o que não deve subir (código do Worker, docs, SQL).
+[assets]
+directory = "."
+binding = "ASSETS"
+
+# Banco dos leads, o mesmo que o CRM lê.
+#
+# A partir do momento em que este arquivo existe no repositório, ele é a fonte
+# da verdade das configurações: bindings criados pelo painel deixam de valer.
+[[d1_databases]]
+binding = "DB"
+database_name = "leads"
+database_id = "3163576c-8b86-4d00-b586-2861cc2dbb9e"
+
+[observability]
+enabled = true

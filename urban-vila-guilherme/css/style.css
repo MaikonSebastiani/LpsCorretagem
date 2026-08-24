@@ -541,11 +541,15 @@ ul {
   background: rgba(255, 255, 255, .68);
 }
 
+/* A ressalva precisa viajar junto com a promessa. Em 12px cinza-claro
+   ela sumia ao lado de um número de 25,6px em verde e negrito — e é ela
+   que impede "entrada de R$ 800" de soar como pegadinha. */
 .hero__price-hint {
-  margin-top: 3px;
-  font-size: .75rem;
+  margin-top: 4px;
+  font-size: .8125rem;
+  font-weight: 500;
   line-height: 1.35;
-  color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .hero__price-label {
@@ -922,12 +926,22 @@ ul {
 
 .badge-line {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 8px 26px;
   margin: 16px 0 28px;
   font-size: .875rem;
   color: var(--ink-soft);
+}
+
+/* Cada selo é uma linha própria de ícone + texto. Sem isso, o gap do
+   contêiner separaria ícone e texto na mesma medida que separa um selo do
+   outro, e os dois pares se misturariam quando a linha quebrasse. */
+.badge-line li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .badge-line .ico {
@@ -1110,6 +1124,505 @@ ul {
 
 .lightbox__close:hover,
 .lightbox__close:focus-visible { background: var(--urban-black); }
+
+
+/* ================= Pergunta de qualificação =================
+   <dialog> nativo: Esc e foco preso vêm do navegador. Uma pergunta só,
+   sem etapas nem barra de progresso — a resposta já leva ao WhatsApp. */
+.qz {
+  padding: 26px 22px 20px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--surface-paper);
+  color: var(--ink);
+  width: min(calc(100% - 32px), 470px);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(17, 17, 17, .35);
+  animation: qz-pop .2s ease;
+}
+
+.qz::backdrop { background: rgba(17, 17, 17, .72); }
+
+@keyframes qz-pop {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.qz__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, .06);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.qz__close:hover,
+.qz__close:focus-visible { background: rgba(17, 17, 17, .12); color: var(--ink); }
+
+.qz__eyebrow {
+  margin: 0 40px 6px 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+}
+
+.qz__title {
+  font-size: clamp(1.25rem, 4.6vw, 1.5rem);
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.qz__helper {
+  margin: 0 0 18px;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.qz__form { display: grid; gap: 15px; }
+
+.qz__field { display: grid; gap: 6px; }
+
+.qz__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.qz__label {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.qz__opcional {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.qz__hint {
+  margin: 0 0 4px;
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.qz__input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--urban-white);
+  color: var(--ink);
+  font-family: var(--font-text);
+  /* 16px evita o zoom automático do iOS ao focar o campo. */
+  font-size: 1rem;
+}
+
+.qz__input:focus-visible {
+  border-color: var(--urban-green);
+  outline: none;
+}
+
+.qz__erro {
+  margin: 0;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: #B3261E;
+}
+
+/* Renda: radios que parecem os selos de antes. */
+.qz__options { display: grid; gap: 8px; }
+
+.qz__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--urban-white);
+  font-size: .9375rem;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+.qz__option:hover { border-color: var(--urban-green); }
+
+.qz__option input { accent-color: var(--urban-green); }
+
+.qz__option:has(input:checked) {
+  border-color: var(--urban-green);
+  background: rgba(134, 205, 53, .1);
+  font-weight: 600;
+}
+
+/* Armadilha de robô: fora da tela, e não display:none — robô detecta. */
+.qz__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.qz__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.qz__consent input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  accent-color: var(--urban-green);
+}
+
+.qz__consent a { color: var(--green-ink); }
+
+.qz__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--urban-green);
+  color: var(--urban-white);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.qz__submit:hover:not(:disabled) { background: var(--urban-green-dark); }
+
+.qz__submit:disabled { opacity: .6; cursor: progress; }
+
+/* Confirmação e falha */
+.qz__done,
+.qz__fail { text-align: center; }
+
+.qz__done .qz__helper,
+.qz__fail .qz__helper { margin-inline: auto; }
+
+.qz__done-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 4px auto 14px;
+  border-radius: 50%;
+  background: rgba(134, 205, 53, .16);
+  color: var(--green-ink);
+  font-size: 28px;
+  line-height: 1;
+}
+
+
+/* No celular o formulário inteiro não cabe em 88vh e o botão de envio nasce
+   fora da área visível do diálogo — quem abre não vê o que fazer. As faixas
+   de renda em duas colunas resolvem a maior parte, e o resto vem de folgas
+   um pouco menores. */
+@media (max-width: 560px) {
+  .qz { padding: 20px 18px 18px; }
+  .qz__form { gap: 12px; }
+  .qz__helper { margin-bottom: 14px; }
+  .qz__options { grid-template-columns: 1fr 1fr; gap: 7px; }
+
+  .qz__option {
+    min-height: 44px;
+    padding: 9px 10px;
+    font-size: .875rem;
+  }
+
+  .qz__input { min-height: 46px; }
+  .qz__submit { min-height: 50px; }
+}
+/* Trava o scroll da página atrás do diálogo */
+html.qz-open,
+html.qz-open body { overflow: hidden; }
+
+
+/* ============================ Decorado ============================
+   Vídeo do decorado e fotos do apartamento modelo. A fachada do vídeo
+   (capa + play) tem proporção fixa 16:9 para não empurrar o conteúdo
+   quando a imagem carrega. */
+.tour__lead {
+  max-width: 58ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tour__video,
+.tour__still {
+  max-width: 900px;
+  margin: 28px auto 0;
+}
+
+.tour__still { margin-bottom: 0; }
+
+.tour__still img,
+.tour__poster {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.tour__still figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: .8125rem;
+  color: var(--ink-soft);
+}
+
+/* Botão de play: a capa inteira é clicável. */
+.tour__play {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--surface-night);
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.tour__poster {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  transition: transform .3s ease, opacity .2s ease;
+}
+
+.tour__play:hover .tour__poster,
+.tour__play:focus-visible .tour__poster {
+  transform: scale(1.03);
+  opacity: .82;
+}
+
+.tour__play-ico {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--urban-green);
+  color: var(--urban-white);
+  box-shadow: 0 8px 28px rgba(17, 17, 17, .4);
+  transition: background-color .15s ease;
+}
+
+.tour__play-ico .ico {
+  width: 34px;
+  height: 34px;
+  margin-left: 3px;   /* o triângulo pesa à esquerda; compensa o centro óptico */
+}
+
+.tour__play:hover .tour__play-ico { background: var(--urban-green-dark); }
+
+.tour__play-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 46px 18px 16px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--urban-white);
+  text-align: center;
+  background: linear-gradient(to top, rgba(17, 17, 17, .78), transparent);
+}
+
+/* O iframe entra no lugar da fachada, mantendo a mesma caixa. */
+.tour__video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+@media (max-width: 560px) {
+  .tour__play-ico {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tour__play-ico .ico {
+    width: 27px;
+    height: 27px;
+  }
+
+  .tour__play-label {
+    font-size: .9375rem;
+    padding: 38px 14px 13px;
+  }
+}
+
+
+/* Prêmios da construtora. Número grande em verde sobre o fundo escuro —
+   mesma leitura dos prêmios do Mérito, na pele do Urban. */
+.awards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0 24px;
+}
+
+.awards li {
+  padding: 16px 14px;
+  border-radius: var(--radius);
+  background: var(--surface-night);
+  text-align: center;
+}
+
+.awards strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--urban-green);
+}
+
+.awards span {
+  display: block;
+  margin-top: 5px;
+  font-size: .6875rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #C9CFCA;
+}
+
+@media (max-width: 420px) {
+  .awards { gap: 7px; }
+  .awards li { padding: 13px 8px; }
+  .awards strong { font-size: 1.375rem; }
+  .awards span { font-size: .625rem; }
+}
+
+
+/* ===================== Aluguel × parcela =====================
+   Seção própria. Antes era um bloco dentro de "como comprar", que passava
+   de 1.400px — o argumento é forte o bastante para ter espaço só dele. */
+.rent__inner { text-align: center; }
+
+.rent__lead {
+  max-width: 54ch;
+  margin: 22px auto 0;
+  font-size: clamp(1.0625rem, 2.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.rent__note {
+  max-width: 60ch;
+  margin: 14px auto 0;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+/* ===================== Urgência do lançamento =====================
+   A tabela sobe todo mês. É factual e verificável — nada de cronômetro. */
+.launch__urgency {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  max-width: 62ch;
+  margin: 26px auto 0;
+  padding: 15px 18px;
+  border: 2px dashed var(--urban-green);
+  border-radius: var(--radius);
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.launch__urgency .ico {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--green-ink);
+}
+
+/* ===================== O empreendimento em números ===================== */
+.trust-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.trust-numbers li {
+  padding: 15px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--urban-white);
+  text-align: center;
+}
+
+.trust-numbers strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.trust-numbers span {
+  display: block;
+  margin-top: 4px;
+  font-size: .75rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 560px) {
+  .trust-numbers { grid-template-columns: repeat(2, 1fr); }
+  .trust-numbers strong { font-size: 1.25rem; }
+}
 
 /* ============================= Leisure =============================
    Mobile: carrossel horizontal (mesmo padrão de scroll-snap já usado em
@@ -1555,6 +2068,14 @@ ul {
   max-width: var(--container);
   margin-inline: auto;
   padding: 10px var(--pad);
+}
+
+.mobile-cta__text span {
+  display: block;
+  font-weight: 400;
+  font-size: .8125rem;
+  letter-spacing: .02em;
+  opacity: .85;
 }
 
 .mobile-cta__text {

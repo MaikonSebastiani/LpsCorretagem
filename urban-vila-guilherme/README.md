@@ -132,20 +132,42 @@ Se fizer isso, atualize também o `<link rel="preload" as="image">` no `<head>`.
 
 ## 4. Tracking (GA4 / GTM / Google Ads)
 
-Nada está instalado. A estrutura está pronta:
+Instalados no `<head>` do `index.html`, na mesma tag do `gtag.js`:
 
-- `trackEvent(nome, dados)` em `js/main.js` — envia para `dataLayer` (GTM) e/ou
-  `gtag` (GA4) **se existirem**. Sem nada instalado, não faz nada e não dá erro.
+- **GA4** — `G-VF9K820XDQ`
+- **Google Ads** — `AW-18388777321`
+
+Um loader só atende os dois IDs; carregar o `gtag.js` duas vezes seria um
+download a mais sem ganho nenhum.
+
+A propriedade GA4 é a mesma do Mérito Ipiranga: cobre o site inteiro. Nos
+relatórios, separe os dois empreendimentos por caminho da página
+(`/urban-vila-guilherme/` e `/merito-ipiranga/`).
+
+- `trackEvent(nome, dados)` em `js/main.js` — envia para `dataLayer` (GTM) e
+  para o `gtag`. Sem `send_to`, o evento vai para todos os destinos
+  configurados: GA4 e Ads.
 - Todo clique em CTA dispara `whatsapp_click` com `source`:
-  `hero`, `location`, `mcmv`, `floorplans`, `leisure`, `profile`, `consultant`,
-  `final`, `footer`, `mobile_fixed`.
+  `hero`, `launch`, `location`, `profile`, `decorado`, `floorplans`, `leisure`,
+  `consultant`, `final`, `footer`, `mobile_fixed`.
+
+  > O `source` **`mcmv` deixou de existir** na reestruturação de 22/08/2026: a
+  > seção Minha Casa Minha Vida foi fundida com "Não é só escolher a planta" e
+  > o CTA sobrevivente usa `profile`. Se houver relatório antigo filtrando por
+  > `mcmv`, ele para de receber dados novos a partir dessa data.
+- `video_play` (com `video: "decorado"`) quando alguém dá play no vídeo do
+  decorado.
 - Abrir uma planta no lightbox dispara `plan_zoom` com `area` (ex.: "32,03
   m²"). Não é um clique de WhatsApp, mas é um sinal de interesse por planta
-  específica que vale a pena olhar no GA4 se um dia instalar.
+  específica que vale a pena olhar no GA4.
+- Os eventos da pergunta de qualificação estão na seção 5.
 
-Para instalar o GTM ou o gtag.js, cole a tag deles no `<head>` do `index.html`.
-Para marcar conversão do Google Ads, descomente a linha `send_to: 'AW-...'`
-dentro de `trackEvent`.
+A conversão do Google Ads é disparada em `reportWhatsAppConversion()`, com o
+rótulo `AW-18388777321/7T_mCNngruEcEOnyucBE`.
+
+O GA4 agrupa eventos em lote antes de enviar — no DevTools a requisição para
+`/g/collect` pode levar alguns segundos para aparecer depois do clique. Não é
+erro. Para conferir em tempo real, use o DebugView do GA4.
 
 ### UTM e gclid
 
@@ -158,7 +180,120 @@ mude `appendCampaignToMessage` para `true`.
 
 ---
 
-## 5. Fontes
+## 5. Atualização mensal dos valores
+
+A tabela sobe conforme a obra avança — é o argumento honesto de urgência da
+página, e a consequência é que **os valores envelhecem sozinhos**. Preço
+desatualizado em página de tráfego pago não é detalhe: é lead chegando com
+expectativa errada e tempo do time gasto à toa.
+
+Os valores estão cravados no HTML de propósito. Injetar por JavaScript faria
+o preço aparecer depois do carregamento — e ele é o maior elemento da
+primeira dobra (o LCP). A troca é manual, mas é segura, porque cada valor é
+uma string única.
+
+### Como trocar
+
+Substituir a string inteira, incluindo "R$" e "mil", em **todo o arquivo**:
+
+| Onde | O que trocar |
+|------|--------------|
+| `index.html` | `R$ 255 mil` → o valor novo |
+| `index.html` | `R$ 800` → o valor novo, se a entrada mudar |
+
+**`R$ 255 mil` — 5 lugares:** `meta name="description"`, hero, seção de
+plantas, CTA final e barra fixa mobile.
+
+**`R$ 800` — 7 lugares:** `meta name="description"`, hero, barra fixa mobile,
+os títulos de "Entrada a partir de R$ 800" nas seções *Como comprar* e
+*Lançamento*, a resposta do FAQ e o CTA final.
+
+> O `grep` acusa uma ocorrência a mais de `R$ 800`: existe uma dentro de um
+> comentário HTML, explicando por que a linha de apoio é obrigatória. Essa
+> não precisa ser trocada.
+
+### Conferir depois de trocar
+
+```bash
+grep -c "R\$ 255 mil" index.html
+```
+
+Se voltar algo diferente de zero depois da troca, sobrou valor antigo em
+algum lugar.
+
+> A `meta name="description"` também carrega o preço. É ela que aparece no
+> Google — esquecer dela deixa o valor velho no resultado de busca mesmo com
+> a página certa.
+
+## 6. Ordem das seções
+
+A ordem não é estética: ela responde as perguntas de quem chega na sequência
+em que elas aparecem.
+
+| # | Seção | Pergunta que responde |
+|---|-------|----------------------|
+| 1 | Hero | O que é e quanto custa? |
+| 2 | Faixa de confiança | Quem está vendendo? |
+| 3 | `#lancamento` | Não está pronto? Como assim? |
+| 4 | `#localizacao` | Onde fica? |
+| 5 | `#como-comprar` | Eu consigo comprar isso? |
+| 6 | `#decorado` | Como é o apartamento? |
+| 7 | `#plantas` | Qual unidade? |
+| 8 | `#lazer` | E o condomínio? |
+| 9 | Cury + consultor | Posso confiar? |
+| 10 | FAQ | Ainda tenho dúvidas |
+| 11 | CTA final | Falar agora |
+
+Duas decisões que valem registro:
+
+- **`#lancamento` subiu para a posição 3.** Avisar cedo que é obra na planta
+  economiza o tempo de quem quer imóvel pronto e transforma "não está pronto"
+  de objeção em argumento antes da pessoa investir leitura.
+- **`#como-comprar` fica antes do decorado e das plantas.** Para este público
+  o bloqueio é "eu consigo comprar?", não "eu quero?". Dinheiro antes do
+  desejo.
+
+### Vídeo do decorado
+
+A seção `#decorado` está pronta para receber o vídeo, mas hoje mostra apenas a
+foto — a área do vídeo fica com `hidden` até existir vídeo, para não publicar
+uma caixa vazia. As instruções de ativação (4 passos) estão no comentário HTML
+logo acima da seção, no `index.html`.
+
+O vídeo usa **fachada**: a capa é só uma imagem, e o `<iframe>` do YouTube só
+entra quando a pessoa clica no play. Um embed carregado de saída custa perto
+de 1 MB e derrubaria a primeira dobra no celular — em tráfego pago, isso é
+dinheiro jogado fora. O embed usa `youtube-nocookie.com`, que não grava cookie
+de rastreamento antes do play.
+
+## 7. Pergunta de qualificação
+
+Três CTAs passam por uma pergunta antes de abrir o WhatsApp: o do hero, o
+do CTA final e o botão flutuante. Todos os outros (plantas, seções, header,
+consultor) continuam indo direto para a conversa.
+
+A regra é uma pergunta, um toque, e ninguém bloqueado: a última opção
+("Prefiro falar sem informar") deixa passar sem responder, e nesse caso a
+renda não entra na mensagem.
+
+Para mudar quem passa pela pergunta, é só pôr ou tirar o atributo
+`data-qualify` no CTA — nada mais precisa ser tocado. As opções de resposta
+ficam em `QUALIFIER_OPTIONS`, no `main.js`.
+
+### Eventos da pergunta
+
+- `qualification_shown` — a pergunta apareceu (com `source`).
+- `qualification_answered` — respondeu (com `source` e `income_range`).
+- `qualification_abandoned` — fechou sem responder (com `source`).
+
+Os três existem para medir o custo da porteira. Se `shown` for muito maior
+que `answered`, a pergunta está espantando mais gente do que qualificando —
+e aí basta remover o `data-qualify` dos CTAs.
+
+A conversão do Google Ads dispara junto com `whatsapp_click`, uma vez só,
+seja o CTA direto ou com pergunta.
+
+## 8. Fontes
 
 Barlow Condensed (títulos) + Inter (textos), carregadas do Google Fonts em uma
 requisição, com `preconnect`, `preload` e `display=swap`. Há fallback local
@@ -172,7 +307,7 @@ conexões externas do caminho crítico.
 
 ---
 
-## 6. Publicar
+## 9. Publicar
 
 O site é 100% estático. Não precisa de Node.js em produção.
 
@@ -194,7 +329,7 @@ npx serve .
 
 ---
 
-## 7. Notas de manutenção
+## 10. Notas de manutenção
 
 - O `css/style.css` está dividido em blocos comentados na mesma ordem das
   seções da página, com o bloco `Responsive` no final.

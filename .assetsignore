@@ -1,0 +1,19 @@
+# Nada aqui deve ser servido publicamente.
+#
+# Sem este arquivo, o código do Worker, a documentação interna e o schema do
+# banco ficariam acessíveis por URL — o diretório de assets é a raiz do
+# repositório.
+
+worker/
+wrangler.toml
+.assetsignore
+
+*.md
+*.sql
+
+.git/
+.wrangler/
+.gitignore
+.gitattributes
+.claude/
+node_modules/

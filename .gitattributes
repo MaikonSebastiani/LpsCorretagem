@@ -1,0 +1,17 @@
+# Normaliza a quebra de linha no repositório.
+#
+# Sem isso, arquivos gravados no Windows entram como CRLF e outros como LF,
+# e o diff acusa o arquivo inteiro como alterado quando só uma linha mudou.
+# Com uma equipe mexendo nos mesmos arquivos, isso vira conflito à toa.
+* text=auto eol=lf
+
+# Binários: nunca converter.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.ico  binary
+*.woff  binary
+*.woff2 binary
+*.pdf  binary

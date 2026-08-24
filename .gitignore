@@ -1,0 +1,25 @@
+# Imagens originais e versões descartadas.
+#
+# Nada aqui pode entrar no repositório: são arquivos pesados que nenhuma
+# página referencia, mas que subiriam em todo deploy e em todo clone.
+# Os originais das duas LPs ficam em ../LpsCorretagem-originais/.
+_originais/
+_nao-usadas/
+_descartadas/
+*.psd
+*.ai
+
+# Lixo de sistema
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Se algum dia entrar ferramenta de build
+node_modules/
+dist/
+.wrangler/

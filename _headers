@@ -1,0 +1,80 @@
+# Cabeçalhos dos assets estáticos do Worker.
+# Precisa ficar na raiz do diretório publicado.
+#
+# REGRA: só é permitido UM curinga por linha. Para casar o nome do
+# empreendimento use um marcador nomeado (:lp), não um segundo "*" — regras
+# com dois curingas são descartadas em silêncio.
+
+# ---------------------------------------------------------------------
+# Segurança — vale para tudo
+# ---------------------------------------------------------------------
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+
+# Sem Content-Security-Policy de propósito: as páginas usam script inline
+# (a tag do gtag e o script que marca a classe .js). Uma CSP que permitisse
+# 'unsafe-inline' não protegeria de quase nada, e uma CSP restritiva quebraria
+# o rastreamento. Vale revisitar se um dia o inline sair do HTML.
+
+# ---------------------------------------------------------------------
+# Páginas internas e API
+#
+# O painel mostra nome e telefone de leads. Além do Cloudflare Access na
+# frente, nada aqui pode ser indexado nem guardado em cache.
+# ---------------------------------------------------------------------
+/painel/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
+/api/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/privacidade/*
+  X-Robots-Tag: noindex, follow
+
+# ---------------------------------------------------------------------
+# Cache
+#
+# Nenhum arquivo tem hash no nome (não há build), então "immutable" só é
+# seguro onde o conteúdo realmente nunca muda. CSS e JS mudam no mesmo
+# caminho a cada ajuste: se forem cacheados por muito tempo, quem já visitou
+# continua vendo a versão velha depois do deploy.
+# ---------------------------------------------------------------------
+
+# Ícones e fontes: o conteúdo não muda, e se mudar ganha nome novo.
+/:lp/assets/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/:lp/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imagens: mudam raramente, mas já mudaram no mesmo nome (recompressão).
+# 30 dias é o meio-termo entre performance e conseguir trocar uma foto.
+/:lp/assets/images/*
+  Cache-Control: public, max-age=2592000
+
+# CSS e JS: revalidam sempre. Com ETag, a resposta é um 304 vazio quando nada
+# mudou — barato — e o deploy chega na hora em quem já visitou.
+/:lp/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/:lp/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/:lp/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/:lp/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/shared/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# HTML: nunca servir versão velha de uma landing page de campanha.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
