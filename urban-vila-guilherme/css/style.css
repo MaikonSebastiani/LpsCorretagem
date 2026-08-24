@@ -18,7 +18,7 @@
 
   /* Superfícies tiradas da arte de referência.
      Os fundos escuros da arte são quase pretos — não o grafite esverdeado. */
-  --surface-night: #1A1A1A;   /* lazer, rodapé, card do consultor */
+  --surface-night: #1A1A1A;   /* lazer, rodapé, prêmios da construtora */
   --surface-hero: #131313;    /* painel escuro do banner */
   --surface-cream: #F3F3F1;   /* seções claras com textura */
   --surface-paper: #F7F7F5;   /* plantas e FAQ, mais limpo */
@@ -1770,44 +1770,6 @@ html.qz-open body { overflow: hidden; }
   color: var(--urban-dark);
 }
 
-.consultant {
-  padding: 28px 22px;
-  background: var(--surface-night);
-  border-radius: var(--radius);
-  text-align: center;
-  color: var(--urban-white);
-}
-
-.consultant__avatar {
-  width: 46px;
-  height: 46px;
-  margin: 0 auto 14px;
-  color: var(--urban-green);
-  stroke-width: 1.4;
-}
-
-.consultant__label {
-  margin: 0;
-  font-size: .8125rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--urban-gray);
-}
-
-.consultant__name {
-  margin: 6px 0 18px;
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: 1.7rem;
-  letter-spacing: .02em;
-}
-
-.consultant__creci {
-  margin: -12px 0 16px;
-  font-size: .8125rem;
-  color: var(--urban-gray);
-}
-
 /* ================================ FAQ ================================ */
 .faq .title { margin-bottom: 28px; }
 
@@ -2330,11 +2292,9 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
   .buy__media { margin: 0; }
 
   /* Credibilidade */
-  .trust__grid {
-    grid-template-columns: 1.45fr 1fr;
-    gap: 48px;
-    align-items: center;
-  }
+  /* Coluna única desde que o card de consultor saiu: sem a segunda coluna,
+     duas faixas deixariam metade da seção vazia. */
+  .trust__grid { max-width: 62ch; }
 
   /* CTA final — o véu segue cobrindo a foto inteira (o conteúdo é centralizado,
      então não há mais um lado "livre" para deixar sem escurecer). */

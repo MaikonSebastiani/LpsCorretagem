@@ -1,7 +1,7 @@
 /* =====================================================================
    URBAN VILA GUILHERME — main.js
    JavaScript puro, sem dependências. Responsável por:
-   1) configuração central (WhatsApp / consultor)
+   1) configuração central (WhatsApp)
    2) montagem automática de todos os links de WhatsApp
    3) menu mobile
    4) tracking preparado para GA4 / GTM / Google Ads
@@ -17,9 +17,6 @@
   ------------------------------------------------------------------ */
   var SITE_CONFIG = {
     whatsapp: '5511953713310',
-    consultantName: 'Sebastiani Imóveis',
-    creci: '',
-    legalText: '',
     /* Anexa a origem da campanha (utm/gclid) na mensagem do WhatsApp.
        Deixe false enquanto não for necessário. */
     appendCampaignToMessage: false
@@ -176,29 +173,6 @@
         '[Urban Vila Guilherme] Configure o número do WhatsApp em js/main.js ' +
         '(SITE_CONFIG.whatsapp).'
       );
-    }
-  }
-
-  /* ------------------------------------------------------------------
-     5) Dados do consultor (nome / CRECI / texto jurídico)
-  ------------------------------------------------------------------ */
-  function setupConsultant() {
-    var nameEl = document.querySelector('[data-consultant-name]');
-    var creciEl = document.querySelector('[data-consultant-creci]');
-    var legalEl = document.querySelector('[data-legal]');
-
-    if (nameEl && SITE_CONFIG.consultantName) {
-      nameEl.textContent = SITE_CONFIG.consultantName;
-    }
-
-    if (creciEl && SITE_CONFIG.creci) {
-      creciEl.textContent = 'CRECI ' + SITE_CONFIG.creci;
-      creciEl.hidden = false;
-    }
-
-    if (legalEl && SITE_CONFIG.legalText) {
-      legalEl.textContent = SITE_CONFIG.legalText;
-      legalEl.hidden = false;
     }
   }
 
@@ -652,7 +626,6 @@
   ------------------------------------------------------------------ */
   function init() {
     setupWhatsAppLinks();
-    setupConsultant();
     setupMobileMenu();
     setupPlanLightbox();
     setupQualifier();

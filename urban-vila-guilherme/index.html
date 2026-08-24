@@ -216,7 +216,7 @@
 
   <!-- ================= FAIXA DE CONFIANÇA (discreta, logo após a hero) =================
        Só reforça marca/atendimento com uma linha curta — a seção completa de
-       credibilidade (construtora + consultor) continua mais abaixo, intacta. -->
+       credibilidade da construtora continua mais abaixo. -->
   <div class="trust-strip">
     <div class="container trust-strip__inner">
       <span class="trust-strip__item">
@@ -269,10 +269,14 @@
       <!-- Urgência real, não inventada: a tabela é corrigida todo mês, em
            todos os empreendimentos. Não é promessa de valorização — é o preço
            de compra subindo enquanto a obra anda. -->
+      <!-- O texto precisa vir dentro de um <span>: o contêiner é flex, e sem
+           ele cada trecho solto e o <strong> viram itens flex separados,
+           quebrando a frase em colunas. -->
       <p class="launch__urgency">
         <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-        A tabela é <strong>corrigida todo mês</strong>. Quem fecha agora entra
-        pelo valor de hoje; quem deixa para depois entra pelo de depois.
+        <span>A tabela é <strong>corrigida todo mês</strong>. Quem fecha agora
+        entra pelo valor de hoje; quem deixa para depois entra pelo de
+        depois.</span>
       </p>
 
       <p class="section__cta">
@@ -700,17 +704,6 @@
         <li><strong>16 / 17</strong><span>pavimentos — torres A·B / C·D</span></li>
       </ul>
 
-      <aside class="consultant" aria-labelledby="consultant-title">
-        <svg class="ico consultant__avatar" aria-hidden="true"><use href="#i-user"></use></svg>
-        <p class="consultant__label">Atendimento com consultor</p>
-        <p class="consultant__name" id="consultant-title" data-consultant-name>Sebastiani Imóveis</p>
-        <p class="consultant__creci" data-consultant-creci hidden></p>
-        <a class="btn btn--green btn--block whatsapp-link" data-source="consultant"
-           data-message="Olá! Vi o site do Urban Vila Guilherme e gostaria de falar com um consultor.">
-          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Falar no WhatsApp
-        </a>
-      </aside>
     </div>
   </section>
 
