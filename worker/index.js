@@ -6,16 +6,17 @@
  * rota sozinho; num Worker existe um script de entrada só, e o roteamento é
  * feito aqui na mão.
  *
- * Tudo que não for /api/* cai nos assets — as próprias landing pages, o
- * painel, a política de privacidade.
+ * Tudo que não for /api/* cai nos assets — as landing pages e a política
+ * de privacidade.
  */
 
 import { onLead } from './lead.js';
-import { onPainel } from './painel.js';
 
+/* O antigo /painel/ foi aposentado: o CRM faz o mesmo e mais. Manter duas
+   interfaces sobre o mesmo banco significava toda mudança feita duas vezes —
+   e já tinha divergido, porque só o CRM gravava atendido_em. */
 const ROTAS = {
-  '/api/lead': onLead,
-  '/api/painel': onPainel
+  '/api/lead': onLead
 };
 
 export default {

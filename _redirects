@@ -15,6 +15,19 @@
 /  /urban-vila-guilherme/  302
 
 # ---------------------------------------------------------------------
+# Painel aposentado
+#
+# O /painel/ virou o CRM. 302 e não 301 de propósito: o endereço do CRM
+# muda quando o domínio novo entrar, e um 301 fica gravado no navegador
+# de quem já usou.
+#
+# Para funcionar sem pedir login antes, as destinations 'painel' e
+# 'api/painel' precisam sair da aplicação do Cloudflare Access.
+# ---------------------------------------------------------------------
+/painel/*  https://crm.sebastianiimoveis.com.br/leads  302
+/painel    https://crm.sebastianiimoveis.com.br/leads  302
+
+# ---------------------------------------------------------------------
 # Aposentadoria de lançamento
 #
 # Quando as vendas de uma LP terminarem, descomente a linha dela. Nunca

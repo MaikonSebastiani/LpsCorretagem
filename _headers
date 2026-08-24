@@ -20,16 +20,10 @@
 # o rastreamento. Vale revisitar se um dia o inline sair do HTML.
 
 # ---------------------------------------------------------------------
-# Páginas internas e API
+# API
 #
-# O painel mostra nome e telefone de leads. Além do Cloudflare Access na
-# frente, nada aqui pode ser indexado nem guardado em cache.
+# A API de captura nunca pode ser indexada nem cacheada.
 # ---------------------------------------------------------------------
-/painel/*
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store
-  Referrer-Policy: no-referrer
-
 /api/*
   Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow

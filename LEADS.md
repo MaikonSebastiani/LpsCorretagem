@@ -3,7 +3,7 @@
 Captura, armazenamento e distribuição dos leads das landing pages.
 
 ```
-Formulário na LP  →  POST /api/lead  →  D1 "leads"  →  /painel/  ou  CRM
+Formulário na LP  →  POST /api/lead  →  D1 "leads"  →  CRM
                                             ↓
                                    e-mail para a equipe (opcional)
 ```
@@ -30,8 +30,7 @@ O projeto no Cloudflare (`lpscorretagem`) é um **Worker com assets estáticos**
 ```
 worker/
 ├── index.js    roteador: /api/* aqui, todo o resto vai para os assets
-├── lead.js     POST /api/lead  — grava no D1
-└── painel.js   /api/painel     — leitura e atribuição, exige Access
+└── lead.js     POST /api/lead  — grava no D1
 ```
 
 ### `.assetsignore`
@@ -147,31 +146,24 @@ precisa existir e ser lida: a LGPD dá 15 dias para responder.
 
 ---
 
-## O painel
+## O CRM
 
-`/painel/` — feito para o celular, que é onde os corretores vão usar.
+ — projeto , Next.js, mesmo banco.
 
-A distribuição é **manual de propósito**: não há rodízio automático. Quem está
-livre pega. O papel do painel é dar visão, não decidir.
+Existia também um  em HTML puro dentro deste repositório, feito
+antes do CRM. **Foi aposentado em 24/08/2026**: fazia a mesma coisa, e manter
+duas interfaces sobre o mesmo banco significava toda mudança feita duas vezes.
 
-- **Resumo** no topo: hoje, 7 dias, e quantos estão parados na fila
-- **Cartão vermelho** para lead esperando há mais de 30 minutos
-- **Busca** por nome ou telefone, filtros por situação e empreendimento
-- **Pegar**, abrir no WhatsApp, marcar fechado, devolver para a fila
-- **Baixar CSV** do que está na tela
+Elas já tinham divergido — só o CRM gravava , então lead pego
+pelo painel antigo nunca mostrava tempo de resposta.
 
-### A corrida entre dois corretores
+ agora redireciona (302) para o CRM, para quem tiver o link salvo.
 
-O `UPDATE` do "pegar" só altera a linha se ninguém pegou antes. Quem perde
-recebe 409 e vê de quem é o lead. Sem isso, dois corretores ligariam para a
-mesma pessoa — pior que demorar para atender.
-
-> Existe também o **CRM em Next.js** (`saitama-crm`), com a mesma função mais
-> anotações, tempo de resposta e detalhe do lead. O `/painel/` é o caminho
-> simples que já está no ar; o CRM é o que cresce.
+> **Falta tirar do Access** as destinations  e . Enquanto
+> estiverem lá, o redirecionamento pede login antes de acontecer — funciona,
+> mas é um passo a mais sem motivo.
 
 ---
-
 ## LGPD
 
 - Base legal: **consentimento**, marcado no formulário e gravado na coluna
