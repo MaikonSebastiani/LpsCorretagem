@@ -23,7 +23,20 @@ const CAMPOS_UTM = [
 
 const EMPREENDIMENTOS = ['urban-vila-guilherme', 'merito-ipiranga'];
 
-const RENDAS = ['ate-4000', '4000-8000', 'acima-8000', 'nao-informado'];
+/* Faixas do Minha Casa Minha Vida. Lista fechada: valor fora daqui vira
+   null em vez de sujar a coluna.
+
+   Quando o programa reajustar os limites, muda aqui, nos dois main.js das
+   LPs e no CRM (schema.ts e format.ts). Os leads já gravados mantêm a faixa
+   vigente na data — é isso que se quer, não reescrever o passado. */
+const RENDAS = [
+  'faixa-1',
+  'faixa-2',
+  'faixa-3',
+  'faixa-4',
+  'acima-teto',
+  'nao-informado'
+];
 
 /* Corpo maior que isso não é lead, é abuso. */
 const MAX_BYTES = 4096;

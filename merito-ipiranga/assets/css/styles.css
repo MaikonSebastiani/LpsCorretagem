@@ -97,10 +97,12 @@ img{display:block;max-width:100%;height:auto}button,a{font:inherit}button{cursor
    visível. Faixas de renda em duas colunas + folgas menores. */
 @media(max-width:560px){
 .qz{padding:20px 18px 18px}
-.qz__form{gap:12px}
+.qz__form{gap:10px}
 .qz__helper{margin-bottom:14px}
-.qz__options{grid-template-columns:1fr 1fr;gap:7px}
-.qz__option{min-height:44px;padding:9px 10px;font-size:.875rem}
+.qz__options{grid-template-columns:1fr 1fr;gap:6px}
+/* Seis faixas em duas colunas dão tres linhas: cada pixel de folga
+   mantem o botao de envio dentro da area visivel do dialogo. */
+.qz__option{min-height:40px;padding:7px 9px;font-size:.8125rem;gap:7px}
 .qz__input{min-height:46px}
 .qz__submit{min-height:50px}
 }

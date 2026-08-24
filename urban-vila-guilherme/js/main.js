@@ -299,10 +299,12 @@
      não informar" também é sinal útil.
   ------------------------------------------------------------------ */
   const QUALIFIER_OPTIONS = [
-    { value: 'ate-4000', label: 'Até R$ 4.000' },
-    { value: '4000-8000', label: 'R$ 4.000 a R$ 8.000' },
-    { value: 'acima-8000', label: 'Acima de R$ 8.000' },
-    { value: 'nao-informado', label: 'Prefiro não informar' }
+    { value: 'faixa-1', label: 'Até R$ 3.200' },
+    { value: 'faixa-2', label: 'R$ 3.200 – 5.000' },
+    { value: 'faixa-3', label: 'R$ 5.000 – 9.600' },
+    { value: 'faixa-4', label: 'R$ 9.600 – 13.000' },
+    { value: 'acima-teto', label: 'Acima de R$ 13.000' },
+    { value: 'nao-informado', label: 'Prefiro não dizer' }
   ];
 
   const LEAD_ENDPOINT = '/api/lead';

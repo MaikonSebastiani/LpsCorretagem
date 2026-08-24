@@ -1357,14 +1357,18 @@ ul {
    um pouco menores. */
 @media (max-width: 560px) {
   .qz { padding: 20px 18px 18px; }
-  .qz__form { gap: 12px; }
-  .qz__helper { margin-bottom: 14px; }
-  .qz__options { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .qz__form { gap: 10px; }
+  .qz__helper { margin-bottom: 12px; }
+  .qz__options { grid-template-columns: 1fr 1fr; gap: 6px; }
 
+  /* Seis faixas do MCMV em duas colunas dão três linhas. Cada pixel de
+     folga aqui é o que mantém o botão de envio dentro da área visível
+     do diálogo — sem isso quem abre não vê o que fazer. */
   .qz__option {
-    min-height: 44px;
-    padding: 9px 10px;
-    font-size: .875rem;
+    min-height: 40px;
+    padding: 7px 9px;
+    font-size: .8125rem;
+    gap: 7px;
   }
 
   .qz__input { min-height: 46px; }
