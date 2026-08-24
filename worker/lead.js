@@ -73,7 +73,7 @@ async function avisarEquipe(env, lead) {
     `Empreendimento: ${lead.empreendimento}`,
     `Origem na página: ${lead.origem || '—'}`,
     '',
-    'Pegue o lead no painel: https://gruposaitama.com.br/painel/'
+    'Pegue o lead no painel: https://sebastianiimoveis.com.br/painel/'
   ].filter(Boolean).join('\n');
 
   try {
