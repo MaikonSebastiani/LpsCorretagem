@@ -154,6 +154,6 @@ html.qz-open,html.qz-open body{overflow:hidden}
 .rent__note{max-width:60ch;margin:14px auto 22px;font-size:.8125rem;line-height:1.45;color:var(--muted)}
 /* ===================== Urgência do lançamento ===================== */
 /* A tabela sobe todo mês: factual e verificável, sem cronômetro. */
-.launch-urgency{max-width:62ch;margin:26px auto 0;padding:15px 18px;border:2px dashed var(--gold);border-radius:16px;font-size:.9375rem;line-height:1.5;text-align:center;color:var(--ink)}
+.launch-urgency{max-width:62ch;margin:26px auto 28px;padding:15px 18px;border:2px dashed var(--gold);border-radius:16px;font-size:.9375rem;line-height:1.5;text-align:center;color:var(--ink)}
 
 @media(max-width:980px){.hero-top{display:flex;flex-direction:column}.hero-grid{order:1}.hero-art-band{display:none}.hero-art{order:2;position:static;width:100%;margin-top:30px;clip-path:none;box-shadow:none;border-radius:20px}.hero-art img{height:auto;aspect-ratio:1208/1086}}
