@@ -27,3 +27,12 @@ database_id = "3163576c-8b86-4d00-b586-2861cc2dbb9e"
 
 [observability]
 enabled = true
+
+# Identidade do Cloudflare Access. Não são segredos: o AUD e o team domain
+# aparecem na própria URL de redirecionamento do login, então ficam aqui em
+# vez de virarem secret.
+#
+# Sem estas duas, /api/painel recusa tudo — falha fechado de propósito.
+[vars]
+ACCESS_TEAM_DOMAIN = "plain-grass-964d.cloudflareaccess.com"
+ACCESS_AUD = "5e73cc2d3ef95ff7b6746b4dc8d2b9dab7430a31f4091824dd776e599508133c"
