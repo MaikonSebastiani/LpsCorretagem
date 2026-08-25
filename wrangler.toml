@@ -36,3 +36,21 @@ enabled = true
 [vars]
 ACCESS_TEAM_DOMAIN = "plain-grass-964d.cloudflareaccess.com"
 ACCESS_AUD = "5e73cc2d3ef95ff7b6746b4dc8d2b9dab7430a31f4091824dd776e599508133c"
+
+# Remetente e destino do aviso de lead. O remetente precisa ser do domínio
+# verificado; o destino precisa estar verificado no Email Routing.
+NOTIFY_FROM = "leads@sebastianiimoveis.com.br"
+NOTIFY_TO = "sebastianiimoveis@gmail.com"
+
+# Aviso de lead novo por e-mail, pelo Email Routing da Cloudflare.
+#
+# Escolhido em vez de um serviço externo: não exige conta nova nem chave de
+# API guardada como secret, e o mesmo Email Routing dá a caixa privacidade@
+# que a política de privacidade promete.
+#
+# O send_email só entrega para endereços VERIFICADOS no Email Routing. Isso
+# é limitação e salvaguarda ao mesmo tempo: impede que esta função seja usada
+# para escrever aos leads.
+[[send_email]]
+name = "EMAIL"
+destination_address = "sebastianiimoveis@gmail.com"

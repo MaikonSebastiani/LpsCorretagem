@@ -67,16 +67,48 @@ function telefone(valor) {
 }
 
 /**
- * Avisa a equipe que chegou lead.
+ * Codifica um cabeçalho MIME que tenha caractere fora do ASCII.
  *
- * Opcional: só roda se RESEND_API_KEY, NOTIFY_TO e NOTIFY_FROM estiverem
- * configurados. Sem eles, o lead é gravado do mesmo jeito e ninguém é avisado
- * — **notificar jamais pode derrubar a captura**.
+ * Um assunto com "João" ou "Mérito" cru quebra em vários clientes de
+ * e-mail — o RFC 2047 exige base64 ou quoted-printable nesses casos.
+ */
+function cabecalhoMime(texto) {
+  // eslint-disable-next-line no-control-regex
+  if (!/[^\u0000-\u007F]/.test(texto)) return texto;
+
+  const bytes = new TextEncoder().encode(texto);
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+
+  return `=?UTF-8?B?${btoa(bin)}?=`;
+}
+
+/** Corpo em base64: evita problema com acento e com linha longa. */
+function corpoBase64(texto) {
+  const bytes = new TextEncoder().encode(texto);
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+
+  /* Linhas de no máximo 76 caracteres, como manda o RFC 2045. */
+  return (btoa(bin).match(/.{1,76}/g) || []).join('\r\n');
+}
+
+/**
+ * Avisa a equipe que chegou lead, pelo Email Routing da Cloudflare.
  *
- * Vai por waitUntil: a resposta ao navegador não espera o e-mail sair.
+ * Escolhemos o send_email em vez de um serviço externo por três motivos:
+ * não exige conta nova, não exige chave de API guardada como secret, e o
+ * mesmo Email Routing dá a caixa privacidade@ que a LGPD exige.
+ *
+ * A limitação — só entrega para endereços verificados no Email Routing —
+ * não atrapalha: o destino é a própria equipe. E é uma salvaguarda, porque
+ * impede que alguém use esta função para escrever aos leads.
+ *
+ * Opcional: sem o binding EMAIL ou sem NOTIFY_TO, o lead é gravado do mesmo
+ * jeito e ninguém é avisado — **notificar jamais pode derrubar a captura**.
  */
 async function avisarEquipe(env, lead) {
-  if (!env.RESEND_API_KEY || !env.NOTIFY_TO || !env.NOTIFY_FROM) return;
+  if (!env.EMAIL || !env.NOTIFY_TO || !env.NOTIFY_FROM) return;
 
   const linhas = [
     `Nome: ${lead.nome}`,
@@ -89,21 +121,30 @@ async function avisarEquipe(env, lead) {
     'Pegue o lead no CRM: https://crm.sebastianiimoveis.com.br/leads'
   ].filter(Boolean).join('\n');
 
+  const assunto = `Novo lead: ${lead.nome} — ${lead.empreendimento}`;
+
+  /* MIME montado à mão em vez de trazer uma biblioteca: é um e-mail de
+     texto simples, e uma dependência a mais num Worker sem build não se
+     paga. CRLF entre cabeçalhos e corpo é obrigatório. */
+  const mime = [
+    `From: Leads <${env.NOTIFY_FROM}>`,
+    `To: <${env.NOTIFY_TO}>`,
+    `Subject: ${cabecalhoMime(assunto)}`,
+    `Message-ID: <${crypto.randomUUID()}@sebastianiimoveis.com.br>`,
+    `Date: ${new Date().toUTCString()}`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset="utf-8"',
+    'Content-Transfer-Encoding: base64',
+    '',
+    corpoBase64(linhas)
+  ].join('\r\n');
+
   try {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        from: env.NOTIFY_FROM,
-        /* Aceita vários destinos separados por vírgula. */
-        to: env.NOTIFY_TO.split(',').map(e => e.trim()).filter(Boolean),
-        subject: `Novo lead: ${lead.nome} — ${lead.empreendimento}`,
-        text: linhas
-      })
-    });
+    const { EmailMessage } = await import('cloudflare:email');
+
+    await env.EMAIL.send(
+      new EmailMessage(env.NOTIFY_FROM, env.NOTIFY_TO, mime)
+    );
   } catch (erro) {
     console.error('falha ao avisar equipe:', erro && erro.message);
   }
