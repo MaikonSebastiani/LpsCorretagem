@@ -6,13 +6,16 @@
 # ela é uma Redirect Rule no painel do Cloudflare, na zona do domínio antigo.
 
 # ---------------------------------------------------------------------
-# Raiz → lançamento ativo
+# Raiz
 #
-# 302, não 301, de propósito: isto é temporário. Quando a página
-# institucional do Grupo Saitama existir, ela passa a ocupar a raiz. Um 301
-# fica gravado no navegador de quem visitou e seria difícil de desfazer.
+# Não redireciona mais. A raiz agora lista os empreendimentos em
+# index.html — mandar todo mundo para o Urban escondia o Mérito de quem
+# chegava pelo domínio.
+#
+# O redirect anterior era 302, então nenhum navegador guardou o destino:
+# a troca vale na primeira visita. Era exatamente para isto que ele não
+# era 301.
 # ---------------------------------------------------------------------
-/  /urban-vila-guilherme/  302
 
 # ---------------------------------------------------------------------
 # Painel aposentado

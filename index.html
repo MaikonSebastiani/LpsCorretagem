@@ -1,28 +1,421 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual às LPs.
+       A propriedade é única para o site inteiro; os empreendimentos se
+       separam nos relatórios por caminho da página. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  <title>Redirecionando...</title>
+  gtag('config', 'G-VF9K820XDQ');
+  gtag('config', 'AW-18388777321');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sebastiani Imóveis | Lançamentos em São Paulo</title>
+<meta name="description" content="Apartamentos na planta em São Paulo: Urban Vila Guilherme, na Zona Norte, e Mérito Ipiranga, na Zona Sul. Escolha o empreendimento e fale com a nossa equipe.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#f4f3f0">
 
-  <script>
-    const destino = "/urban-vila-guilherme/";
+<!-- MARCA: o nome visível ainda é Sebastiani Imóveis porque é o que está no
+     ar e o que aparece no rodapé das duas LPs. Quando o Grupo Saitama
+     assumir, o nome está em UM lugar só nesta página (.brand__name) mais o
+     <title>, a description e o rodapé.
 
-    // Mantém parâmetros do Google Ads, UTMs, gclid etc.
-    window.location.replace(
-      destino + window.location.search + window.location.hash
-    );
-  </script>
+     DOMÍNIO: mesma situação do resto do site — trocar aqui, no og:url e no
+     og:image quando gruposaitama.com.br entrar no ar. -->
+<link rel="canonical" href="https://sebastianiimoveis.com.br/">
 
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=/urban-vila-guilherme/">
-  </noscript>
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Sebastiani Imóveis">
+<meta property="og:title" content="Lançamentos em São Paulo | Sebastiani Imóveis">
+<meta property="og:description" content="Apartamentos na planta na Zona Norte e na Zona Sul de São Paulo. Escolha o empreendimento e fale com a nossa equipe.">
+<meta property="og:url" content="https://sebastianiimoveis.com.br/">
+<meta property="og:image" content="https://sebastianiimoveis.com.br/urban-vila-guilherme/assets/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Perspectiva ilustrada do Urban Vila Guilherme">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lançamentos em São Paulo | Sebastiani Imóveis">
+<meta name="twitter:description" content="Apartamentos na planta na Zona Norte e na Zona Sul de São Paulo.">
+<meta name="twitter:image" content="https://sebastianiimoveis.com.br/urban-vila-guilherme/assets/images/og-image.jpg">
+
+<style>
+/* ---------------------------------------------------------------------
+   Página de entrada — lista os empreendimentos.
+   Estilo embutido de propósito: são ~180 linhas usadas por esta página só,
+   e um arquivo separado custaria uma requisição a mais para economizar
+   nada. As LPs continuam com o CSS delas.
+
+   Sem fonte externa. O Urban já carrega fontes de fora e isso é um problema
+   registrado no backlog (item 09); não faz sentido criar mais um.
+   --------------------------------------------------------------------- */
+
+:root {
+  /* O fundo é o meio-termo entre o claro do Urban (#F3F3F1) e o do Mérito
+     (#f2efe8): assim a entrada não puxa para a pele de nenhum dos dois. */
+  --ground: #f4f3f0;
+  --surface: #ffffff;
+  --ink: #1d201f;
+  --muted: #6d7370;
+  --line: #e3e1db;
+
+  /* Cores de marca de cada empreendimento, iguais às das LPs. Cada cartão
+     usa a sua — é o que dá identidade sem repetir o logo. */
+  --urban: #86cd35;
+  --merito: #c88117;
+
+  --sombra: 0 1px 2px rgba(29, 32, 31, .05), 0 8px 24px rgba(29, 32, 31, .07);
+  --sombra-alta: 0 2px 4px rgba(29, 32, 31, .06), 0 16px 40px rgba(29, 32, 31, .12);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.container {
+  width: min(100% - 40px, 1080px);
+  margin-inline: auto;
+}
+
+/* ---------------- Cabeçalho ---------------- */
+
+.topo {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.brand__name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.brand__sub {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------------- Abertura ---------------- */
+
+.abertura {
+  padding: 64px 0 44px;
+}
+
+.abertura h1 {
+  margin: 0 0 14px;
+  font-size: clamp(30px, 5.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.abertura p {
+  margin: 0;
+  max-width: 54ch;
+  font-size: clamp(16px, 2.2vw, 19px);
+  color: var(--muted);
+}
+
+/* ---------------- Cartões ---------------- */
+
+/* Grid com gap em vez de margem nos filhos: sem margem que colapsa e sem
+   precisar de :last-child para tirar a sobra do fim. */
+.lista {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 72px;
+}
+
+@media (min-width: 760px) {
+  .lista { grid-template-columns: 1fr 1fr; }
+}
+
+/* O cartão inteiro é o link — alvo grande, que é o que importa no celular. */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: var(--sombra);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-alta);
+}
+
+.card__foto {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #d9d7d1;
+}
+
+.card__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A arte do Urban tem uma faixa branca à esquerda: puxar o enquadramento
+   para a direita deixa o prédio ocupando o cartão. */
+.card--urban .card__foto img { object-position: 72% center; }
+
+.card__corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 24px;
+  flex: 1;
+}
+
+/* O filete colorido é o que identifica o empreendimento sem repetir logo. */
+.card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card__tag::before {
+  content: "";
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--cor);
+}
+
+.card--urban { --cor: var(--urban); }
+.card--merito { --cor: var(--merito); }
+
+.card__nome {
+  margin: 0;
+  font-size: clamp(21px, 3vw, 25px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+.card__local {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.card__specs {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card__specs li {
+  font-size: 13px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* margin-top:auto encosta a chamada no rodapé do cartão, então dois cartões
+   de alturas diferentes terminam alinhados. */
+.card__ir {
+  margin-top: auto;
+  padding-top: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card__ir span[aria-hidden] {
+  transition: transform .18s ease;
+}
+
+.card:hover .card__ir span[aria-hidden] {
+  transform: translateX(4px);
+}
+
+/* ---------------- Rodapé ---------------- */
+
+.rodape {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 40px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.rodape__linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rodape nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.rodape a { text-decoration: none; border-bottom: 1px solid transparent; }
+.rodape a:hover { border-bottom-color: currentColor; }
+
+.rodape__legal {
+  margin: 18px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  max-width: 78ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
 </head>
 
 <body>
-  <p>
-    Redirecionando para
-    <a href="/urban-vila-guilherme/">Urban Vila Guilherme</a>...
-  </p>
+
+<header class="topo">
+  <div class="container">
+    <a class="brand" href="/">
+      <span class="brand__name">Sebastiani</span>
+      <span class="brand__sub">Imóveis</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="container abertura">
+    <h1>Apartamentos na planta em São Paulo</h1>
+    <p>
+      Dois lançamentos, um em cada ponta da cidade. Escolha o empreendimento
+      para ver plantas, lazer, localização e condições de entrada.
+    </p>
+  </section>
+
+  <!-- Sem preço aqui de propósito: os valores mudam todo mês, e repetir o
+       número nesta página criaria um terceiro lugar para atualizar — que é
+       exatamente onde aparece a informação vencida. O preço vive na LP. -->
+  <section class="container lista" aria-label="Empreendimentos">
+
+    <a class="card card--urban" href="/urban-vila-guilherme/">
+      <div class="card__foto">
+        <img src="/urban-vila-guilherme/assets/images/og-image.jpg"
+             width="1200" height="630"
+             alt="Perspectiva ilustrada do Urban Vila Guilherme"
+             loading="eager" decoding="async">
+      </div>
+      <div class="card__corpo">
+        <span class="card__tag">Lançamento</span>
+        <h2 class="card__nome">Urban Vila Guilherme</h2>
+        <p class="card__local">Vila Guilherme &middot; Zona Norte</p>
+        <ul class="card__specs">
+          <li>2 dormitórios</li>
+          <li>32 a 44 m²</li>
+          <li>Terraço e suíte</li>
+        </ul>
+        <span class="card__ir">
+          Ver o empreendimento
+          <span aria-hidden="true">&rarr;</span>
+        </span>
+      </div>
+    </a>
+
+    <a class="card card--merito" href="/merito-ipiranga/">
+      <div class="card__foto">
+        <img src="/merito-ipiranga/assets/images/og-image.jpg"
+             width="1200" height="630"
+             alt="Perspectiva ilustrada do Mérito Ipiranga"
+             loading="eager" decoding="async">
+      </div>
+      <div class="card__corpo">
+        <span class="card__tag">Lançamento</span>
+        <h2 class="card__nome">Mérito Ipiranga</h2>
+        <p class="card__local">Ipiranga &middot; Zona Sul</p>
+        <ul class="card__specs">
+          <li>1 e 2 dormitórios</li>
+          <li>26 a 45 m²</li>
+          <li>Terraço e vaga</li>
+        </ul>
+        <span class="card__ir">
+          Ver o empreendimento
+          <span aria-hidden="true">&rarr;</span>
+        </span>
+      </div>
+    </a>
+
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__linha">
+      <span>Apresentação comercial independente &bull; Sebastiani Imóveis</span>
+      <nav aria-label="Rodapé">
+        <a href="/privacidade/">Política de privacidade</a>
+        <a href="https://www.instagram.com/sebastiani.imoveis"
+           target="_blank" rel="noopener noreferrer">Instagram</a>
+      </nav>
+    </div>
+
+    <!-- CRECI entra aqui quando o do gestor for definido — mesma linha do
+         aviso legal, como nas duas LPs. -->
+    <p class="rodape__legal">
+      Imagens meramente ilustrativas. Plantas, medidas, acabamentos e condições
+      comerciais sujeitos a alteração e à análise de crédito. Este site não é
+      um canal oficial da incorporadora.
+    </p>
+  </div>
+</footer>
+
 </body>
 </html>
