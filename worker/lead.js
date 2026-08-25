@@ -66,31 +66,57 @@ function telefone(valor) {
   return digitos.length === 10 || digitos.length === 11 ? digitos : null;
 }
 
+/** Bytes em base64. Sem Buffer: o Worker nao roda Node. */
+function base64(bytes) {
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin);
+}
+
 /**
  * Codifica um cabeçalho MIME que tenha caractere fora do ASCII.
  *
  * Um assunto com "João" ou "Mérito" cru quebra em vários clientes de
  * e-mail — o RFC 2047 exige base64 ou quoted-printable nesses casos.
  */
-function cabecalhoMime(texto) {
+function cabecalhoMime(valor) {
   // eslint-disable-next-line no-control-regex
-  if (!/[^\u0000-\u007F]/.test(texto)) return texto;
+  if (!/[^\u0000-\u007F]/.test(valor)) return valor;
 
-  const bytes = new TextEncoder().encode(texto);
-  let bin = '';
-  for (const b of bytes) bin += String.fromCharCode(b);
+  const bytes = new TextEncoder().encode(valor);
 
-  return `=?UTF-8?B?${btoa(bin)}?=`;
+  /* Uma palavra codificada não pode passar de 75 caracteres. Descontando
+     o "=?UTF-8?B?" e o "?=", sobram 63 para o base64; como base64 anda de
+     4 em 4, usamos 60 — o que corresponde a 45 bytes de entrada.
+
+     Assunto de lead estoura isso com facilidade: "Novo lead: João
+     Conceição — merito-ipiranga" dá 84 caracteres. Cliente tolerante
+     decodifica assim mesmo; outros mostram a palavra crua na tela. */
+  const palavras = [];
+
+  for (let i = 0; i < bytes.length; ) {
+    let fim = Math.min(i + 45, bytes.length);
+
+    /* O corte precisa cair ENTRE caracteres. Byte de continuação em UTF-8
+       começa com 10xxxxxx; enquanto for um deles, estamos no meio de um
+       caractere — recua. Partir um "ç" ao meio produz exatamente o lixo
+       que esta função existe para evitar. */
+    while (fim < bytes.length && (bytes[fim] & 0xc0) === 0x80) fim--;
+
+    palavras.push(`=?UTF-8?B?${base64(bytes.subarray(i, fim))}?=`);
+    i = fim;
+  }
+
+  /* Palavras seguidas se separam com CRLF + espaço (a "dobra"). Esse
+     espaço some na leitura, então não vira espaço extra no assunto. */
+  return palavras.join('\r\n ');
 }
 
 /** Corpo em base64: evita problema com acento e com linha longa. */
-function corpoBase64(texto) {
-  const bytes = new TextEncoder().encode(texto);
-  let bin = '';
-  for (const b of bytes) bin += String.fromCharCode(b);
-
+function corpoBase64(valor) {
   /* Linhas de no máximo 76 caracteres, como manda o RFC 2045. */
-  return (btoa(bin).match(/.{1,76}/g) || []).join('\r\n');
+  return (base64(new TextEncoder().encode(valor)).match(/.{1,76}/g) || [])
+    .join('\r\n');
 }
 
 /**

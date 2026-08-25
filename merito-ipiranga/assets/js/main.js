@@ -485,14 +485,14 @@ function setupTour() {
     /* nocookie: não grava cookie de rastreamento do YouTube enquanto a
        pessoa não der play, o que evita exigir consentimento à toa. */
     frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
-    frame.title = 'Vídeo do decorado';
+    frame.title = 'Apresentação do Mérito Ipiranga';
     frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
     frame.allowFullscreen = true;
 
     caixa.innerHTML = '';
     caixa.appendChild(frame);
 
-    trackEvent('video_play', { video: 'decorado' });
+    trackEvent('video_play', { video: 'apresentacao' });
   });
 }
 

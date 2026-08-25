@@ -69,6 +69,7 @@
         <a href="#lancamento">Lançamento</a>
         <a href="#localizacao">Localização</a>
         <a href="#como-comprar">Como comprar</a>
+        <a href="#video">O projeto</a>
         <a href="#plantas">Plantas</a>
         <a href="#lazer">Lazer</a>
       </nav>
@@ -285,64 +286,40 @@
       </div>
     </section>
 
-    <!-- ================= DECORADO / COMO É MORAR AQUI =================
-         Em lançamento na planta o comprador não pode visitar nada — o vídeo é
-         o que substitui a visita. Vem antes das plantas de propósito: planta é
-         desenho técnico e só faz sentido depois de a pessoa ter visto o espaço.
+    <!-- ================= APRESENTAÇÃO DO PROJETO =================
+         Ficou oculta enquanto não havia nem foto de interior nem vídeo: uma
+         seção chamada "Como é morar no Mérito" mostrando o prédio por fora
+         quebrava a própria promessa.
 
-         ---------------------------------------------------------------
-         A SEÇÃO INTEIRA ESTÁ OCULTA (atributo hidden no <section>).
+         Resolvido pelo outro lado — o vídeo é a apresentação oficial do
+         empreendimento, e a seção passou a prometer isso. O decorado ficou
+         para a visita presencial, que é o que o CTA agenda.
 
-         O Mérito não tem nenhuma foto de interior — só fachada, aérea, lazer
-         e plantas. Uma seção chamada "Como é morar no Mérito" mostrando o
-         prédio por fora quebra a própria promessa, então é melhor não
-         aparecer. Para publicar, basta UMA das duas coisas:
+         O iframe NÃO entra no carregamento, só no clique do play: um embed
+         de YouTube de saída custa perto de 1 MB.
 
-         (a) FOTO — pegue as imagens do decorado no material oficial da Cury,
-             salve como assets/images/decorado.webp e remova o hidden do
-             <section>. Reponha também o link "Decorado" no menu.
-
-         (b) VÍDEO:
-
-         1. Suba o vídeo do decorado no YouTube. Pode ser "não listado".
-         2. Troque COLE_O_ID_AQUI pelo id do vídeo — é o trecho depois de
-            "v=" na URL. Em https://youtube.com/watch?v=abc123XYZ o id é
-            abc123XYZ.
-         3. Salve um frame do vídeo como assets/images/decorado-poster.webp
-            (1280x720) e troque o src da imagem abaixo.
-         4. Remova o atributo hidden de .tour__video e adicione hidden em
-            .tour__still.
-
-         O vídeo NÃO é embutido no carregamento: o iframe só entra quando a
-         pessoa clica no play. Um embed de YouTube carregado de saída custa
-         perto de 1 MB e derrubaria a primeira dobra no celular.
-         --------------------------------------------------------------- -->
-    <section class="section tour" id="decorado" hidden>
+         A capa é o frame oficial do vídeo, servido daqui — puxar do
+         i.ytimg.com entregaria o IP de quem só passou pela página.
+         ============================================================ -->
+    <section class="section tour" id="video">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow gold">DECORADO</span>
-          <h2>Como é morar <em>no Mérito.</em></h2>
+          <span class="eyebrow gold">APRESENTAÇÃO</span>
+          <h2>Conheça <em>o Mérito.</em></h2>
         </div>
-        <p class="tour__lead reveal">O apartamento ainda está em obra, mas o decorado mostra o acabamento, a distribuição dos ambientes e a sensação de espaço das unidades.</p>
+        <p class="tour__lead reveal">Dois minutos com a apresentação oficial do empreendimento: a fachada, a localização, as áreas comuns e o padrão de entrega. O decorado fica para a visita presencial.</p>
 
         <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
-        <div class="tour__video reveal" data-video-id="COLE_O_ID_AQUI" hidden>
+        <div class="tour__video reveal" data-video-id="2a6CZsaKMu4">
           <button type="button" class="tour__play" data-tour-play>
-            <img class="tour__poster" src="assets/images/decorado-poster.webp"
+            <img class="tour__poster" src="assets/images/video-poster.webp"
                  width="1280" height="720" alt="" loading="lazy" decoding="async">
             <span class="tour__play-ico" aria-hidden="true">▶</span>
-            <span class="tour__play-label">Ver o decorado em vídeo</span>
+            <span class="tour__play-label">Assistir à apresentação</span>
           </button>
         </div>
 
-        <!-- Enquanto não há vídeo, a foto segura a seção sozinha. -->
-        <figure class="tour__still reveal">
-          <img src="assets/images/decorado.webp" width="1100" height="733"
-               alt="Apartamento decorado do Mérito Ipiranga" loading="lazy" decoding="async">
-          <figcaption>Decorado — imagem ilustrativa.</figcaption>
-        </figure>
-
-        <div class="center"><a class="btn btn-gold js-open-lead" data-source="tour" data-message="Olá! Vi o decorado do Mérito Ipiranga e gostaria de agendar uma visita ao apartamento modelo.">Quero visitar o decorado</a></div>
+        <div class="center"><a class="btn btn-gold js-open-lead" data-source="tour" data-message="Olá! Vi a apresentação do Mérito Ipiranga e gostaria de agendar uma visita ao decorado.">Quero visitar o decorado</a></div>
       </div>
     </section>
 

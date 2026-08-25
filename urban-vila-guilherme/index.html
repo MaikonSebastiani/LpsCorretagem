@@ -129,7 +129,7 @@
         <li><a href="#lancamento">Lançamento</a></li>
         <li><a href="#localizacao">Localização</a></li>
         <li><a href="#como-comprar">Como comprar</a></li>
-        <li><a href="#decorado">Decorado</a></li>
+        <li><a href="#video">O projeto</a></li>
         <li><a href="#plantas">Plantas</a></li>
         <li><a href="#lazer">Lazer</a></li>
       </ul>
@@ -425,60 +425,48 @@
     </div>
   </section>
 
-  <!-- ================= DECORADO / COMO É MORAR AQUI =================
-       Em lançamento na planta o comprador não pode visitar nada — o vídeo é o
-       que substitui a visita. Vem antes das plantas de propósito: planta é um
+  <!-- ================= APRESENTAÇÃO DO PROJETO =================
+       Em lançamento na planta o comprador não pode visitar nada — o vídeo é
+       o que substitui a visita. Vem antes das plantas de propósito: planta é
        desenho técnico e só faz sentido depois de a pessoa ter visto o espaço.
 
-       ---------------------------------------------------------------
-       PARA ATIVAR O VÍDEO (hoje a seção mostra só a foto):
+       O vídeo é a apresentação oficial do empreendimento, não um tour de
+       decorado: o decorado ficou para a visita presencial, que é o que o
+       CTA desta seção agenda.
 
-       1. Suba o vídeo do decorado no YouTube. Pode ser "não listado".
-       2. Troque COLE_O_ID_AQUI pelo id do vídeo — é o trecho depois de
-          "v=" na URL. Em https://youtube.com/watch?v=abc123XYZ o id é
-          abc123XYZ.
-       3. Salve um frame do vídeo como assets/images/decorado-poster.webp
-          (1280x720) e troque o src da imagem abaixo.
-       4. Remova o atributo hidden de .tour__video e adicione hidden em
-          .tour__still.
+       O iframe NÃO entra no carregamento — só no clique do play. Um embed
+       de YouTube carregado de saída custa perto de 1 MB e derrubaria a
+       primeira dobra no celular; em tráfego pago isso é dinheiro fora.
 
-       O vídeo NÃO é embutido no carregamento: o iframe só entra quando a
-       pessoa clica no play. Um embed de YouTube carregado de saída custa
-       perto de 1 MB e derrubaria a primeira dobra no celular — em tráfego
-       pago isso é dinheiro jogado fora.
-       --------------------------------------------------------------- -->
-  <section class="section section--light tour" id="decorado" aria-labelledby="tour-title">
+       A capa é o frame oficial do próprio vídeo, servido daqui: puxar a
+       thumbnail do i.ytimg.com entregaria o IP de quem só passou pela
+       página ao Google, sem play nenhum.
+       ============================================================ -->
+  <section class="section section--light tour" id="video" aria-labelledby="tour-title">
     <div class="container">
-      <p class="eyebrow eyebrow--lines">Decorado</p>
-      <h2 class="title title--center" id="tour-title">Como é morar no Urban</h2>
+      <p class="eyebrow eyebrow--lines">Apresentação</p>
+      <h2 class="title title--center" id="tour-title">Conheça o Urban Vila Guilherme</h2>
       <p class="section__text tour__lead">
-        O apartamento ainda está em obra, mas o decorado mostra o acabamento, a
-        distribuição dos ambientes e a sensação de espaço das unidades.
+        Dois minutos com a apresentação oficial do empreendimento: a fachada, a
+        localização, as áreas comuns e o padrão de entrega. O decorado fica para
+        a visita presencial.
       </p>
 
       <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
-      <div class="tour__video" data-video-id="COLE_O_ID_AQUI" hidden>
+      <div class="tour__video" data-video-id="6axzV4gheEU">
         <button type="button" class="tour__play" data-tour-play>
-          <img class="tour__poster" src="assets/images/decorado-poster.webp"
+          <img class="tour__poster" src="assets/images/video-poster.webp"
                width="1280" height="720" alt="" loading="lazy" decoding="async">
           <span class="tour__play-ico" aria-hidden="true">
             <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
           </span>
-          <span class="tour__play-label">Ver o decorado em vídeo</span>
+          <span class="tour__play-label">Assistir à apresentação</span>
         </button>
       </div>
 
-      <!-- Enquanto não há vídeo, a foto do decorado segura a seção sozinha. -->
-      <figure class="tour__still">
-        <img src="assets/images/living.webp" width="1100" height="733"
-             alt="Living decorado de um apartamento do Urban Vila Guilherme"
-             loading="lazy" decoding="async">
-        <figcaption>Decorado — imagem ilustrativa.</figcaption>
-      </figure>
-
       <p class="section__cta">
         <a class="btn btn--green btn--arrow whatsapp-link" data-source="tour"
-           data-message="Olá! Vi o decorado do Urban Vila Guilherme e gostaria de agendar uma visita ao apartamento modelo.">
+           data-message="Olá! Vi a apresentação do Urban Vila Guilherme e gostaria de agendar uma visita ao decorado.">
           Quero visitar o decorado
           <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
         </a>

@@ -527,7 +527,7 @@
   }
 
   /* ------------------------------------------------------------------
-     Vídeo do decorado
+     Vídeo de apresentação
 
      A capa é só uma imagem: o iframe do YouTube só entra quando a pessoa
      clica no play. Um embed carregado de saída custa perto de 1 MB e
@@ -551,14 +551,14 @@
          pessoa não der play, o que evita exigir consentimento à toa. */
       frame.src = "https://www.youtube-nocookie.com/embed/" + id +
         "?autoplay=1&rel=0&modestbranding=1";
-      frame.title = "Vídeo do decorado";
+      frame.title = "Apresentação do Urban Vila Guilherme";
       frame.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
       frame.allowFullscreen = true;
 
       caixa.innerHTML = "";
       caixa.appendChild(frame);
 
-      trackEvent("video_play", { video: "decorado" });
+      trackEvent("video_play", { video: "apresentacao" });
     });
   }
 
