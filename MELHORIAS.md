@@ -175,7 +175,21 @@ Sem inventar número que não existe.
 > Melhorou com a equipe: agora dá para somar o atendimento de todo mundo num
 > número só, que é verdadeiro e maior do que o de qualquer um sozinho.
 
-### 06 — Nenhum vídeo, num produto que ainda não existe
+### 06 — Nenhum vídeo, num produto que ainda não existe ✅ *resolvido em 25/08/2026*
+
+As duas LPs têm a apresentação oficial da Cury em `#video`, com fachada de
+capa: o iframe só entra no clique. Urban `6axzV4gheEU`, Mérito
+`2a6CZsaKMu4`.
+
+O que mudou em relação ao plano original: **não é vídeo de decorado.** O
+vídeo apresenta o empreendimento, e o decorado ficou para a visita
+presencial — que é o que o CTA da seção agenda. Prometer decorado e
+entregar institucional custaria mais confiança do que a seção rende.
+
+A capa é o frame oficial do próprio vídeo, convertido para webp (88 KB) e
+servido do nosso domínio. Puxar a thumbnail do `i.ytimg.com` entregaria o
+IP de quem apenas passou pela página ao Google, sem play nenhum.
+
 
 **Área pronta no Urban desde 22/08/2026** — falta só o vídeo. Ver item 26.
 
@@ -264,7 +278,18 @@ estrutura parecida. A diferença está nas fotos de lazer e nas plantas.
 **Correção.** Reprocessar as fotos de lazer do Mérito nas mesmas larguras de
 exibição usadas no Urban.
 
-### 11 — O Mérito não mostra apartamento decorado
+### 11 — O Mérito não mostra apartamento decorado ✅ *resolvido em 25/08/2026*
+
+Resolvido pelo outro lado, sem foto de interior. A seção estava com
+`hidden` justamente porque não havia o que mostrar; agora ela promete a
+apresentação do projeto e entrega exatamente isso.
+
+Saiu junto a `figure` que apontava para `decorado.webp` — arquivo que nunca
+existiu e que teria virado imagem quebrada na publicação.
+
+Continua valendo pegar fotos do decorado no material da Cury quando
+houver: elas entram como seção própria, não dentro desta.
+
 
 **Virou bloqueio:** a seção `#decorado` está pronta mas oculta até existir foto de interior ou vídeo.
 
