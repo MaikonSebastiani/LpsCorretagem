@@ -31,6 +31,23 @@
 /painel    https://crm.sebastianiimoveis.com.br/leads  302
 
 # ---------------------------------------------------------------------
+# Links de indicação — parceria com influenciadores
+#
+# Formato: /i/<identificador>/urban  ou  /i/<identificador>/merito
+# O identificador vira o utm_source do lead automaticamente — é assim que
+# o CRM sabe de quem veio cada indicação. Combine com a pessoa um
+# identificador em minúsculas, sem espaço e sem acento (ex.: "joaosilva"),
+# e é isso que ela cola na bio. Duas regras só, servem para QUALQUER
+# influencer: não precisa mexer neste arquivo para adicionar gente nova.
+#
+# 302 porque, se um dia o caminho de destino mudar (ex.: LP fora do ar),
+# o link que já está na bio da pessoa não pode ficar gravado como 301 no
+# navegador de quem clicou antes.
+# ---------------------------------------------------------------------
+/i/:influencer/urban   /urban-vila-guilherme/?utm_source=:influencer&utm_medium=influencer&utm_campaign=indicacao  302
+/i/:influencer/merito  /merito-ipiranga/?utm_source=:influencer&utm_medium=influencer&utm_campaign=indicacao       302
+
+# ---------------------------------------------------------------------
 # Aposentadoria de lançamento
 #
 # Quando as vendas de uma LP terminarem, descomente a linha dela. Nunca
