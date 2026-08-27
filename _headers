@@ -70,5 +70,24 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 # HTML: nunca servir versão velha de uma landing page de campanha.
+#
+# A regra abaixo (*.html) nunca bateu em produção: as URLs reais não têm
+# extensão (/urban-vila-guilherme/, não /urban-vila-guilherme/index.html).
+# Sem Cache-Control nenhum batendo nesses caminhos, a Cloudflare aplicava
+# o próprio padrão de cache — foi isso que deixou o redirect do domínio
+# preso atrás de uma cópia em cache de antes do deploy. Ficam as duas
+# formas, explícitas, para não repetir o erro.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/urban-vila-guilherme/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/merito-ipiranga/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/privacidade/
+  Cache-Control: public, max-age=0, must-revalidate
+
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
