@@ -132,7 +132,7 @@
     try {
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'conversion', {
-          send_to: 'AW-18388777321/7T_mCNngruEcEOnyucBE',
+          send_to: 'AW-18388777321/3SSRCK-m0OkcEOnyucBE',
           value: 1.0,
           currency: 'BRL',
           transport_type: 'beacon'
