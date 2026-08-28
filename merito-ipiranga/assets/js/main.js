@@ -15,13 +15,17 @@
 ------------------------------------------------------------------ */
 const SITE_CONFIG = {
   whatsapp: '5511953713310',
-  /* Conversão do Google Ads disparada no clique que leva ao WhatsApp,
+  /* Conversão do Google Ads disparada no envio do formulário de lead,
      no formato 'AW-XXXXXXXXX/XXXXXXXXXXXXXXXX'.
      Em branco ('') = nenhuma conversão é disparada.
-     Hoje aponta para a mesma ação de conversão do Urban Vila Guilherme —
-     os leads dos dois empreendimentos caem juntos nesse relatório. Para
-     separar, crie uma ação de conversão só do Mérito e troque o rótulo. */
-  adsConversionLabel: 'AW-18388777321/7T_mCNngruEcEOnyucBE'
+
+     Ação de conversão PRÓPRIA do Mérito Ipiranga (criada em 28/08/2026).
+     O Urban tem a dele em urban-vila-guilherme/js/main.js — separadas de
+     propósito, para o Smart Bidding otimizar cada campanha pelo próprio
+     resultado e o relatório mostrar o custo por lead de cada
+     empreendimento. Antes as duas dividiam o mesmo rótulo e os leads
+     caíam somados num relatório só. */
+  adsConversionLabel: 'AW-18388777321/oA-1CMHMyOkcEOnyucBE'
 };
 
 /* ------------------------------------------------------------------
