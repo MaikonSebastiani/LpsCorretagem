@@ -1,0 +1,28 @@
+# Grupo Saitama — gruposaitama.com.br
+#
+# Regra geral: o site inteiro é rastreável. As páginas que não devem
+# aparecer na busca usam a meta tag `robots` (ou o cabeçalho X-Robots-Tag
+# em _headers), NÃO um Disallow aqui.
+#
+# A diferença importa: Disallow impede o Google de LER a página, e uma
+# página que ele não lê é uma página cujo "noindex" ele nunca enxerga —
+# ela pode acabar indexada assim mesmo, só que sem descrição. Para tirar
+# da busca, o caminho certo é deixar rastrear e mandar noindex.
+
+User-agent: *
+Allow: /
+
+# A API de captura não é conteúdo. Nunca deve ser rastreada nem indexada;
+# aqui é reforço do X-Robots-Tag que _headers já aplica em /api/*.
+Disallow: /api/
+
+# Rotas internas: o CRM vive em outro domínio e atrás do Cloudflare Access,
+# mas o caminho antigo ainda redireciona e não tem por que ser rastreado.
+Disallow: /painel/
+
+# Parâmetros de campanha geram infinitas variações da mesma página. O
+# canonical de cada página já resolve a duplicidade para o Google; esta
+# linha evita o desperdício de rastreamento nos buscadores que a respeitam.
+Disallow: /*?utm_
+
+Sitemap: https://gruposaitama.com.br/sitemap.xml

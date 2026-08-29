@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap do Grupo Saitama.
+
+  Só entra aqui o que deve aparecer na busca. /privacidade/ fica de fora
+  de propósito: ela é `noindex, follow` — listar no sitemap uma página que
+  pede para não ser indexada é um sinal contraditório para o Google.
+
+  MANUTENÇÃO: este arquivo é escrito à mão porque o projeto não tem build.
+  Ao criar página nova (região, conteúdo, empreendimento), acrescente aqui.
+  Ao encerrar as vendas de um lançamento, remova a entrada dele junto com
+  o redirect em _redirects — sitemap apontando para 301 desperdiça
+  rastreamento.
+
+  `lastmod` deve refletir mudança real de CONTEÚDO. Atualizar a data a cada
+  deploy, sem o texto ter mudado, ensina o Google a ignorar o campo.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Entrada do site: apresenta o grupo e lista os empreendimentos. -->
+  <url>
+    <loc>https://gruposaitama.com.br/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Análise de perfil: é a página de maior valor comercial do site,
+       porque capta quem ainda não escolheu empreendimento. -->
+  <url>
+    <loc>https://gruposaitama.com.br/simulacao/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- /equipe/ NÃO entra aqui ainda: está `noindex` enquanto não houver
+       consultor cadastrado (ver equipe/js/consultores.js). Listar no
+       sitemap uma página que pede para não ser indexada é sinal
+       contraditório. Ao cadastrar o primeiro consultor, troque o `robots`
+       da página e acrescente a entrada aqui. -->
+
+  <!-- Lançamentos. Vida útil limitada: saem daqui quando as vendas
+       terminarem. -->
+  <url>
+    <loc>https://gruposaitama.com.br/urban-vila-guilherme/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://gruposaitama.com.br/merito-ipiranga/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

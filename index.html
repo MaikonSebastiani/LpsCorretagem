@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual às LPs.
-       A propriedade é única para o site inteiro; os empreendimentos se
-       separam nos relatórios por caminho da página. -->
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual ao resto
+       do site. Propriedade única; os fluxos se separam nos relatórios por
+       caminho da página. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -15,24 +15,21 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grupo Saitama | Lançamentos em São Paulo</title>
-<meta name="description" content="Apartamentos na planta em São Paulo: Urban Vila Guilherme, na Zona Norte, e Mérito Ipiranga, na Zona Sul. Escolha o empreendimento e fale com a nossa equipe.">
+<title>Grupo Saitama | Apartamentos e Minha Casa Minha Vida em São Paulo</title>
+<meta name="description" content="Nossa equipe analisa sua renda, entrada, FGTS e região para encontrar apartamentos compatíveis com o seu perfil em São Paulo. Análise inicial gratuita, sem compromisso.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4f3f0">
 
-<!-- MARCA: Grupo Saitama desde 27/08/2026, alinhado com o domínio.
-     A política de privacidade também usa Grupo Saitama agora. O e-mail
+<!-- MARCA: Grupo Saitama desde 27/08/2026, alinhado com o domínio. O e-mail
      (privacidade@, leads@) continua em sebastianiimoveis.com.br de
-     propósito -- trocar isso exige montar Email Routing do zero no
-     domínio novo, e não é o que foi pedido aqui. -->
+     propósito — trocar exige montar Email Routing no domínio novo. -->
 <link rel="canonical" href="https://gruposaitama.com.br/">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Grupo Saitama">
-<meta property="og:title" content="Lançamentos em São Paulo | Grupo Saitama">
-<meta property="og:description" content="Apartamentos na planta na Zona Norte e na Zona Sul de São Paulo. Escolha o empreendimento e fale com a nossa equipe.">
+<meta property="og:title" content="Encontre o apartamento que realmente faz sentido para você">
+<meta property="og:description" content="Minha Casa Minha Vida e oportunidades imobiliárias em São Paulo. Análise inicial gratuita, sem compromisso.">
 <meta property="og:url" content="https://gruposaitama.com.br/">
 <meta property="og:image" content="https://gruposaitama.com.br/urban-vila-guilherme/assets/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -40,350 +37,303 @@
 <meta property="og:image:alt" content="Perspectiva ilustrada do Urban Vila Guilherme">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lançamentos em São Paulo | Grupo Saitama">
-<meta name="twitter:description" content="Apartamentos na planta na Zona Norte e na Zona Sul de São Paulo.">
+<meta name="twitter:title" content="Grupo Saitama | Apartamentos em São Paulo">
+<meta name="twitter:description" content="Análise de perfil para encontrar o apartamento compatível com a sua renda, entrada e região.">
 <meta name="twitter:image" content="https://gruposaitama.com.br/urban-vila-guilherme/assets/images/og-image.jpg">
 
-<style>
-/* ---------------------------------------------------------------------
-   Página de entrada — lista os empreendimentos.
-   Estilo embutido de propósito: são ~180 linhas usadas por esta página só,
-   e um arquivo separado custaria uma requisição a mais para economizar
-   nada. As LPs continuam com o CSS delas.
-
-   Sem fonte externa. O Urban já carrega fontes de fora e isso é um problema
-   registrado no backlog (item 09); não faz sentido criar mais um.
-   --------------------------------------------------------------------- */
-
-:root {
-  /* O fundo é o meio-termo entre o claro do Urban (#F3F3F1) e o do Mérito
-     (#f2efe8): assim a entrada não puxa para a pele de nenhum dos dois. */
-  --ground: #f4f3f0;
-  --surface: #ffffff;
-  --ink: #1d201f;
-  --muted: #6d7370;
-  --line: #e3e1db;
-
-  /* Cores de marca de cada empreendimento, iguais às das LPs. Cada cartão
-     usa a sua — é o que dá identidade sem repetir o logo. */
-  --urban: #86cd35;
-  --merito: #c88117;
-
-  --sombra: 0 1px 2px rgba(29, 32, 31, .05), 0 8px 24px rgba(29, 32, 31, .07);
-  --sombra-alta: 0 2px 4px rgba(29, 32, 31, .06), 0 16px 40px rgba(29, 32, 31, .12);
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
-  font-size: 17px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-img { max-width: 100%; display: block; }
-
-a { color: inherit; }
-
-:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.container {
-  width: min(100% - 40px, 1080px);
-  margin-inline: auto;
-}
-
-/* ---------------- Cabeçalho ---------------- */
-
-.topo {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 9px;
-  text-decoration: none;
-}
-
-.brand__name {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-
-/* ---------------- Abertura ---------------- */
-
-.abertura {
-  padding: 64px 0 44px;
-}
-
-.abertura h1 {
-  margin: 0 0 14px;
-  font-size: clamp(30px, 5.2vw, 46px);
-  line-height: 1.12;
-  letter-spacing: -.02em;
-  text-wrap: balance;
-}
-
-.abertura p {
-  margin: 0;
-  max-width: 54ch;
-  font-size: clamp(16px, 2.2vw, 19px);
-  color: var(--muted);
-}
-
-/* ---------------- Cartões ---------------- */
-
-/* Grid com gap em vez de margem nos filhos: sem margem que colapsa e sem
-   precisar de :last-child para tirar a sobra do fim. */
-.lista {
-  display: grid;
-  gap: 24px;
-  padding-bottom: 72px;
-}
-
-@media (min-width: 760px) {
-  .lista { grid-template-columns: 1fr 1fr; }
-}
-
-/* O cartão inteiro é o link — alvo grande, que é o que importa no celular. */
-.card {
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  overflow: hidden;
-  text-decoration: none;
-  box-shadow: var(--sombra);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-
-.card:hover,
-.card:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: var(--sombra-alta);
-}
-
-.card__foto {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #d9d7d1;
-}
-
-.card__foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* A arte do Urban tem uma faixa branca à esquerda: puxar o enquadramento
-   para a direita deixa o prédio ocupando o cartão. */
-.card--urban .card__foto img { object-position: 72% center; }
-
-.card__corpo {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 22px 24px 24px;
-  flex: 1;
-}
-
-/* O filete colorido é o que identifica o empreendimento sem repetir logo. */
-.card__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.card__tag::before {
-  content: "";
-  width: 22px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--cor);
-}
-
-.card--urban { --cor: var(--urban); }
-.card--merito { --cor: var(--merito); }
-
-.card__nome {
-  margin: 0;
-  font-size: clamp(21px, 3vw, 25px);
-  line-height: 1.2;
-  letter-spacing: -.01em;
-}
-
-.card__local {
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-.card__specs {
-  margin: 4px 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.card__specs li {
-  font-size: 13px;
-  padding: 5px 11px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* margin-top:auto encosta a chamada no rodapé do cartão, então dois cartões
-   de alturas diferentes terminam alinhados. */
-.card__ir {
-  margin-top: auto;
-  padding-top: 16px;
-  font-weight: 600;
-  font-size: 15px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.card__ir span[aria-hidden] {
-  transition: transform .18s ease;
-}
-
-.card:hover .card__ir span[aria-hidden] {
-  transform: translateX(4px);
-}
-
-/* ---------------- Rodapé ---------------- */
-
-.rodape {
-  border-top: 1px solid var(--line);
-  padding: 28px 0 40px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.rodape__linha {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 22px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.rodape nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-.rodape a { text-decoration: none; border-bottom: 1px solid transparent; }
-.rodape a:hover { border-bottom-color: currentColor; }
-
-.rodape__legal {
-  margin: 18px 0 0;
-  font-size: 12.5px;
-  line-height: 1.55;
-  max-width: 78ch;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
-}
-</style>
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
 <header class="topo">
-  <div class="container">
-    <a class="brand" href="/">
-      <span class="brand__name">Grupo Saitama</span>
-    </a>
+  <div class="container topo__inner">
+    <a class="marca" href="/">Grupo Saitama</a>
+    <nav class="topo__nav" aria-label="Navegação principal">
+      <a href="#empreendimentos">Empreendimentos</a>
+      <a href="#regioes">Regiões</a>
+      <a href="/equipe/">Equipe</a>
+      <a href="/simulacao/">Análise de perfil</a>
+    </nav>
   </div>
 </header>
 
-<main>
-  <section class="container abertura">
-    <h1>Apartamentos na planta em São Paulo</h1>
-    <p>
-      Dois lançamentos, um em cada ponta da cidade. Escolha o empreendimento
-      para ver plantas, lazer, localização e condições de entrada.
-    </p>
+<main id="conteudo">
+
+  <!-- ================= HERO =================
+       Vende a SOLUÇÃO antes do produto. A home antiga abria listando
+       apartamentos, o que só serve para quem já sabe o que quer — e o
+       público que este site passa a captar é justamente quem ainda não
+       sabe ("ganho X, o que eu consigo?"). -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="sobrescrito">Grupo Saitama</p>
+      <h1 class="titulo hero__titulo">
+        Encontre o apartamento que realmente faz sentido para você
+      </h1>
+      <p class="hero__sub">
+        Minha Casa Minha Vida e oportunidades imobiliárias em São Paulo.
+      </p>
+      <p class="apoio">
+        Nossa equipe analisa sua renda, região, entrada e momento de compra
+        para buscar opções compatíveis com o seu perfil.
+      </p>
+
+      <div class="hero__acoes">
+        <a class="botao botao--principal" href="/simulacao/" data-cta="hero">
+          Descobrir minhas opções
+        </a>
+        <a class="botao botao--vazado" href="#empreendimentos">
+          Ver empreendimentos
+        </a>
+      </div>
+
+      <p class="microcopia">
+        Análise inicial gratuita &bull; Leva menos de 1 minuto &bull; Sem compromisso
+      </p>
+    </div>
   </section>
 
-  <!-- Sem preço aqui de propósito: os valores mudam todo mês, e repetir o
+  <!-- ================= DIFERENCIAL DO GRUPO ================= -->
+  <section class="secao secao--clara" id="grupo">
+    <div class="container">
+      <h2 class="titulo">
+        Mais conhecimento. Mais opções. Mais chances de encontrar o imóvel certo.
+      </h2>
+      <p class="apoio secao__lead">
+        O Grupo Saitama reúne consultores imobiliários que atuam em diferentes
+        regiões e empreendimentos de São Paulo. Em vez de tentar encaixar você
+        em um único imóvel, primeiro entendemos seu perfil para buscar
+        oportunidades compatíveis com sua renda, localização e objetivo.
+      </p>
+
+      <ul class="pilares">
+        <li class="pilar">
+          <h3>Análise de perfil</h3>
+          <p>Entendemos renda, entrada, FGTS e momento de compra.</p>
+        </li>
+        <li class="pilar">
+          <h3>Diferentes regiões</h3>
+          <p>Consultores atuando em diferentes áreas de São Paulo.</p>
+        </li>
+        <li class="pilar">
+          <h3>Mais oportunidades</h3>
+          <p>Acesso a diferentes empreendimentos e lançamentos.</p>
+        </li>
+        <li class="pilar">
+          <h3>Atendimento especializado</h3>
+          <p>Seu contato é direcionado para o consultor mais adequado ao seu perfil.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= EMPREENDIMENTOS =================
+       Sem preço aqui de propósito: os valores mudam todo mês, e repetir o
        número nesta página criaria um terceiro lugar para atualizar — que é
-       exatamente onde aparece a informação vencida. O preço vive na LP. -->
-  <section class="container lista" aria-label="Empreendimentos">
+       exatamente onde aparece informação vencida. O preço vive na LP. -->
+  <section class="secao" id="empreendimentos">
+    <div class="container">
+      <h2 class="titulo">Lançamentos que estamos vendendo agora</h2>
+      <p class="apoio secao__lead">
+        Dois empreendimentos na planta, um em cada ponta da cidade. Se nenhum
+        deles servir para o seu caso, a análise de perfil busca outras opções.
+      </p>
 
-    <a class="card card--urban" href="/urban-vila-guilherme/">
-      <div class="card__foto">
-        <img src="/urban-vila-guilherme/assets/images/og-image.jpg"
-             width="1200" height="630"
-             alt="Perspectiva ilustrada do Urban Vila Guilherme"
-             loading="eager" decoding="async">
-      </div>
-      <div class="card__corpo">
-        <span class="card__tag">Lançamento</span>
-        <h2 class="card__nome">Urban Vila Guilherme</h2>
-        <p class="card__local">Vila Guilherme &middot; Zona Norte</p>
-        <ul class="card__specs">
-          <li>2 dormitórios</li>
-          <li>32 a 44 m²</li>
-          <li>Terraço e suíte</li>
-        </ul>
-        <span class="card__ir">
-          Ver o empreendimento
-          <span aria-hidden="true">&rarr;</span>
-        </span>
-      </div>
-    </a>
+      <div class="lista">
+        <a class="card card--urban" href="/urban-vila-guilherme/" data-cta="card-urban">
+          <div class="card__foto">
+            <img src="/urban-vila-guilherme/assets/images/og-image.jpg"
+                 width="1200" height="630"
+                 alt="Perspectiva ilustrada do Urban Vila Guilherme"
+                 loading="lazy" decoding="async">
+          </div>
+          <div class="card__corpo">
+            <span class="card__tag">Lançamento</span>
+            <h3 class="card__nome">Urban Vila Guilherme</h3>
+            <p class="card__local">Vila Guilherme &middot; Zona Norte</p>
+            <ul class="card__specs">
+              <li>2 dormitórios</li>
+              <li>32 a 44 m²</li>
+              <li>Terraço e suíte</li>
+            </ul>
+            <span class="card__ir">
+              Ver o empreendimento <span aria-hidden="true">&rarr;</span>
+            </span>
+          </div>
+        </a>
 
-    <a class="card card--merito" href="/merito-ipiranga/">
-      <div class="card__foto">
-        <img src="/merito-ipiranga/assets/images/og-image.jpg"
-             width="1200" height="630"
-             alt="Perspectiva ilustrada do Mérito Ipiranga"
-             loading="eager" decoding="async">
+        <a class="card card--merito" href="/merito-ipiranga/" data-cta="card-merito">
+          <div class="card__foto">
+            <img src="/merito-ipiranga/assets/images/og-image.jpg"
+                 width="1200" height="630"
+                 alt="Perspectiva ilustrada do Mérito Ipiranga"
+                 loading="lazy" decoding="async">
+          </div>
+          <div class="card__corpo">
+            <span class="card__tag">Lançamento</span>
+            <h3 class="card__nome">Mérito Ipiranga</h3>
+            <p class="card__local">Ipiranga &middot; Zona Sul</p>
+            <ul class="card__specs">
+              <li>1 e 2 dormitórios</li>
+              <li>26 a 45 m²</li>
+              <li>Terraço e vaga</li>
+            </ul>
+            <span class="card__ir">
+              Ver o empreendimento <span aria-hidden="true">&rarr;</span>
+            </span>
+          </div>
+        </a>
       </div>
-      <div class="card__corpo">
-        <span class="card__tag">Lançamento</span>
-        <h2 class="card__nome">Mérito Ipiranga</h2>
-        <p class="card__local">Ipiranga &middot; Zona Sul</p>
-        <ul class="card__specs">
-          <li>1 e 2 dormitórios</li>
-          <li>26 a 45 m²</li>
-          <li>Terraço e vaga</li>
-        </ul>
-        <span class="card__ir">
-          Ver o empreendimento
-          <span aria-hidden="true">&rarr;</span>
-        </span>
-      </div>
-    </a>
-
+    </div>
   </section>
+
+  <!-- ================= REGIÕES =================
+       Cada card leva para a análise de perfil já com a região marcada — o
+       visitante não repete uma escolha que acabou de fazer.
+
+       Quando as páginas por região existirem (/imoveis/zona-norte), o href
+       passa a apontar para elas. A chave na URL já é o slug da rota futura,
+       então a troca não muda mais nada. -->
+  <section class="secao secao--clara" id="regioes">
+    <div class="container">
+      <h2 class="titulo">Onde você quer morar?</h2>
+      <p class="apoio secao__lead">
+        Nossos consultores atuam em regiões diferentes da cidade. Escolha a
+        sua e a análise já começa por aí.
+      </p>
+
+      <div class="regioes">
+        <a class="regiao" href="/simulacao/?regiao=zona-norte">Zona Norte</a>
+        <a class="regiao" href="/simulacao/?regiao=zona-sul">Zona Sul</a>
+        <a class="regiao" href="/simulacao/?regiao=zona-leste">Zona Leste</a>
+        <a class="regiao" href="/simulacao/?regiao=zona-oeste">Zona Oeste</a>
+        <a class="regiao" href="/simulacao/?regiao=centro">Centro</a>
+        <a class="regiao" href="/simulacao/?regiao=grande-sp">Grande São Paulo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MINHA CASA MINHA VIDA =================
+       Sem números do programa aqui de propósito. Teto, faixas e percentual
+       de subsídio mudam por decisão do governo, e este site não tem rotina
+       de revisão — número desatualizado sobre dinheiro alheio destrói mais
+       confiança do que a ausência dele constrói. Os valores vivem em UM
+       lugar só: as faixas do formulário, em worker/config.js. -->
+  <section class="secao" id="mcmv">
+    <div class="container container--leitura">
+      <p class="sobrescrito">Primeiro imóvel</p>
+      <h2 class="titulo">Dúvida sobre financiamento é o que mais trava uma compra</h2>
+
+      <p class="apoio">
+        "Será que eu consigo financiar?", "minha renda é suficiente?", "dá
+        para usar o FGTS na entrada?". Essas perguntas param mais gente do
+        que o preço do imóvel.
+      </p>
+      <p class="apoio">
+        O Minha Casa Minha Vida atende faixas de renda diferentes, com
+        condições diferentes em cada uma — e as regras mudam de tempos em
+        tempos. Nossa equipe trabalha com isso todo dia e faz essa leitura
+        com você, sem custo, antes de qualquer visita.
+      </p>
+
+      <p class="apoio">
+        <strong>O que não fazemos:</strong> prometer aprovação. Quem aprova
+        crédito é o banco, e a análise depende de renda, documentação e
+        histórico. O que a gente faz é dizer com honestidade o que costuma
+        caber no seu perfil — e o que não cabe.
+      </p>
+
+      <a class="botao botao--principal" href="/simulacao/" data-cta="mcmv">
+        Descobrir minhas opções
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= FAQ =================
+       As perguntas são as que a equipe realmente ouve no atendimento. Usa
+       <details> nativo: abre e fecha sem uma linha de JavaScript. -->
+  <section class="secao secao--clara" id="faq">
+    <div class="container container--leitura">
+      <h2 class="titulo">Perguntas frequentes</h2>
+
+      <details class="faq">
+        <summary>Não tenho entrada. Ainda assim consigo comprar?</summary>
+        <p>
+          Em lançamento na planta, é comum a entrada ser parcelada até a
+          entrega, o que reduz muito o valor inicial. Se você tem FGTS, ele
+          também pode compor. Vale conversar: a resposta depende da sua renda
+          e da unidade.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Quanto preciso ganhar para financiar?</summary>
+        <p>
+          Não existe um número único — depende do valor do imóvel, do prazo,
+          da sua idade e das condições vigentes. É exatamente o tipo de conta
+          que fazemos junto com você na análise de perfil.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Posso usar o FGTS?</summary>
+        <p>
+          Em geral sim, se você atende às regras do fundo. Na análise
+          verificamos se o seu caso se encaixa — e não precisamos do saldo
+          exato para começar essa conversa.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Vocês cobram alguma coisa?</summary>
+        <p>
+          Não. A análise de perfil e o atendimento são gratuitos. Nossa
+          remuneração vem da incorporadora quando a venda acontece.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Só trabalham com esses dois empreendimentos?</summary>
+        <p>
+          Esses são os lançamentos que estamos vendendo agora, mas os
+          consultores do grupo acompanham opções em outras regiões. Se
+          nenhum dos dois servir, buscamos alternativas.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Meus dados vão para onde?</summary>
+        <p>
+          Ficam com a nossa equipe, para o atendimento. Não vendemos nem
+          cedemos dados para publicidade de terceiros. Os detalhes estão na
+          <a href="/privacidade/">política de privacidade</a>.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="secao fechamento">
+    <div class="container container--leitura">
+      <h2 class="titulo">Vamos descobrir o que cabe no seu bolso?</h2>
+      <p class="apoio">
+        São algumas perguntas rápidas sobre renda, entrada e região. Um
+        consultor do grupo analisa e retorna com as opções que fizerem
+        sentido para o seu caso.
+      </p>
+
+      <a class="botao botao--principal" href="/simulacao/" data-cta="final">
+        Descobrir minhas opções
+      </a>
+      <p class="microcopia">
+        Leva menos de 1 minuto &bull; Sem compromisso &bull; Sem custo
+      </p>
+    </div>
+  </section>
+
 </main>
 
 <footer class="rodape">
@@ -391,19 +341,24 @@ a { color: inherit; }
     <div class="rodape__linha">
       <span>Apresentação comercial independente &bull; Grupo Saitama</span>
       <nav aria-label="Rodapé">
+        <a href="/equipe/">Equipe</a>
+        <a href="/simulacao/">Análise de perfil</a>
         <a href="/privacidade/">Política de privacidade</a>
       </nav>
     </div>
 
-    <!-- CRECI entra aqui quando o do gestor for definido — mesma linha do
-         aviso legal, como nas duas LPs. -->
+    <!-- O CRECI da pessoa jurídica entra aqui quando for definido — mesma
+         linha do aviso legal, como nas duas landing pages. -->
     <p class="rodape__legal">
-      Imagens meramente ilustrativas. Plantas, medidas, acabamentos e condições
-      comerciais sujeitos a alteração e à análise de crédito. Este site não é
-      um canal oficial da incorporadora.
+      Imagens meramente ilustrativas. Plantas, medidas, acabamentos, valores
+      e condições comerciais estão sujeitos a alteração, à disponibilidade e
+      à análise de crédito. Este site não é um canal oficial da
+      incorporadora.
     </p>
   </div>
 </footer>
 
+<script src="/shared/origem.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

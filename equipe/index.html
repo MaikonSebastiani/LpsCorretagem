@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VF9K820XDQ');
+  gtag('config', 'AW-18388777321');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nossa equipe | Grupo Saitama</title>
+<meta name="description" content="O Grupo Saitama reúne consultores imobiliários que atuam em diferentes regiões de São Paulo, compartilhando conhecimento e oportunidades.">
+
+<!-- NOINDEX ENQUANTO NÃO HOUVER CONSULTOR CADASTRADO.
+     A lista está vazia (equipe/js/consultores.js), então a página hoje é
+     só a apresentação do grupo. Indexar uma página de equipe sem equipe é
+     conteúdo raso — e conteúdo raso sobre assunto financeiro derruba
+     exatamente a confiança que esta página existe para construir.
+
+     Ao cadastrar o primeiro consultor: troque para "index, follow" e
+     acrescente /equipe/ ao sitemap.xml. -->
+<meta name="robots" content="noindex, follow">
+
+<meta name="theme-color" content="#f4f3f0">
+<link rel="canonical" href="https://gruposaitama.com.br/equipe/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Grupo Saitama">
+<meta property="og:title" content="Nossa equipe | Grupo Saitama">
+<meta property="og:description" content="Consultores imobiliários atuando juntos em diferentes regiões de São Paulo.">
+<meta property="og:url" content="https://gruposaitama.com.br/equipe/">
+
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+<header class="topo">
+  <div class="container topo__inner">
+    <a class="marca" href="/">Grupo Saitama</a>
+    <nav class="topo__nav" aria-label="Navegação principal">
+      <a href="/">Empreendimentos</a>
+      <a href="/simulacao/">Análise de perfil</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <section class="container abertura">
+    <p class="sobrescrito">Nossa equipe</p>
+    <h1 class="titulo">Um grupo de consultores trabalhando pelo mesmo objetivo</h1>
+    <p class="apoio">
+      O Grupo Saitama nasceu da união de profissionais que acreditam que
+      compartilhar conhecimento, oportunidades e experiência permite oferecer
+      um atendimento melhor ao comprador.
+    </p>
+  </section>
+
+  <!-- Os cartões são montados por js/main.js a partir de
+       js/consultores.js. Enquanto a lista estiver vazia, aparece só o
+       bloco de convite abaixo. -->
+  <section class="container">
+    <div class="equipe" data-equipe hidden></div>
+
+    <div class="convite" data-vazio>
+      <h2>Como trabalhamos</h2>
+      <p>
+        Em vez de tentar encaixar você em um único imóvel, primeiro
+        entendemos o seu perfil — renda, entrada, FGTS, região e momento de
+        compra — para então buscar oportunidades compatíveis. Cada consultor
+        do grupo conhece regiões e empreendimentos diferentes, e é isso que
+        amplia as opções que conseguimos colocar na sua mesa.
+      </p>
+      <p>
+        O contato é direcionado ao consultor mais adequado ao que você
+        procura.
+      </p>
+
+      <a class="botao botao--principal" href="/simulacao/" data-cta-equipe>
+        Descobrir minhas opções
+      </a>
+      <p class="microcopia">
+        Análise inicial gratuita &bull; Leva menos de 1 minuto &bull; Sem compromisso
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__linha">
+      <span>Apresentação comercial independente &bull; Grupo Saitama</span>
+      <nav aria-label="Rodapé">
+        <a href="/">Empreendimentos</a>
+        <a href="/simulacao/">Análise de perfil</a>
+        <a href="/privacidade/">Política de privacidade</a>
+      </nav>
+    </div>
+
+    <!-- O CRECI da pessoa jurídica entra aqui, ao lado do aviso legal,
+         quando for definido. O CRECI individual de cada consultor é
+         separado disso e fica no cartão dele (ver js/consultores.js). -->
+    <p class="rodape__legal">
+      Imagens meramente ilustrativas. Plantas, medidas, acabamentos e
+      condições comerciais sujeitos a alteração e à análise de crédito. Este
+      site não é um canal oficial da incorporadora.
+    </p>
+  </div>
+</footer>
+
+<script src="/shared/origem.js"></script>
+<script src="js/consultores.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

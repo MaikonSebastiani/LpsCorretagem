@@ -1,0 +1,251 @@
+/* ---------------------------------------------------------------------
+   Home do Grupo Saitama — específicos.
+   Tokens, botões, cabeçalho e rodapé vêm de /shared/base.css.
+   --------------------------------------------------------------------- */
+
+/* ---------------- Hero ---------------- */
+
+.hero { padding: 64px 0 52px; }
+
+.hero__titulo { max-width: 18ch; }
+
+.hero__sub {
+  margin: 0 0 18px;
+  font-size: clamp(17px, 2.6vw, 21px);
+  color: var(--acento);
+  font-weight: 600;
+  max-width: 34ch;
+}
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ---------------- Seções ---------------- */
+
+.secao { padding: 56px 0; }
+.secao--clara { background: var(--surface); border-block: 1px solid var(--line); }
+
+.secao__lead { margin-bottom: 32px; }
+
+/* ---------------- Pilares ---------------- */
+
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Filete no topo em vez de cartão fechado: quatro caixas com borda deixam
+   a seção pesada, e o pedido era evitar excesso de cards. */
+.pilar { border-top: 2px solid var(--acento); padding-top: 16px; }
+
+.pilar h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  letter-spacing: -.01em;
+}
+
+.pilar p {
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--ink-2);
+}
+
+/* ---------------- Empreendimentos ---------------- */
+
+.lista {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 760px) {
+  .lista { grid-template-columns: 1fr 1fr; }
+}
+
+/* O cartão inteiro é o link — alvo grande, que é o que importa no celular. */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: var(--sombra);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.secao--clara .card { background: var(--ground); }
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-alta);
+}
+
+.card__foto {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #d9d7d1;
+}
+
+.card__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+/* A arte do Urban tem uma faixa branca à esquerda: puxar o enquadramento
+   para a direita deixa o prédio ocupando o cartão. */
+.card--urban .card__foto img { object-position: 72% center; }
+
+.card__corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 24px;
+  flex: 1;
+}
+
+/* O filete colorido identifica o empreendimento sem repetir o logo. */
+.card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card__tag::before {
+  content: "";
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--cor);
+}
+
+/* Cores de marca de cada empreendimento, iguais às das LPs. */
+.card--urban { --cor: #86cd35; }
+.card--merito { --cor: #c88117; }
+
+.card__nome {
+  margin: 0;
+  font-size: clamp(20px, 3vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+.card__local { margin: 0; color: var(--muted); font-size: 15px; }
+
+.card__specs {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card__specs li {
+  font-size: 13px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* margin-top:auto encosta a chamada no rodapé do cartão: dois cartões de
+   alturas diferentes terminam alinhados. */
+.card__ir {
+  margin-top: auto;
+  padding-top: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card__ir span[aria-hidden] { transition: transform .18s ease; }
+.card:hover .card__ir span[aria-hidden] { transform: translateX(4px); }
+
+/* ---------------- Regiões ---------------- */
+
+.regioes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  gap: 12px;
+}
+
+.regiao {
+  display: flex;
+  align-items: center;
+  min-height: 62px;
+  padding: 16px 20px;
+  background: var(--ground);
+  border: 1.5px solid var(--line);
+  border-radius: var(--raio);
+  font-size: 16.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.secao--clara .regiao { background: var(--surface); }
+
+.regiao:hover {
+  border-color: var(--acento);
+  background: var(--acento-suave);
+}
+
+/* ---------------- FAQ ---------------- */
+
+.faq {
+  border-bottom: 1px solid var(--line);
+  padding: 4px 0;
+}
+
+.faq summary {
+  padding: 16px 34px 16px 0;
+  font-size: 16.5px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+
+/* Remove o marcador nativo nos dois motores e desenha o próprio. */
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--acento);
+}
+
+.faq[open] summary::after { content: "\2212"; }
+
+.faq p {
+  margin: 0 0 18px;
+  padding-right: 34px;
+  color: var(--ink-2);
+  font-size: 16px;
+}
+
+/* ---------------- Fechamento ---------------- */
+
+.fechamento { padding-bottom: 72px; }
+.fechamento .titulo { margin-bottom: 12px; }
+.fechamento .apoio { margin-bottom: 28px; }

@@ -1,0 +1,279 @@
+/* ---------------------------------------------------------------------
+   Análise de perfil — /simulacao
+
+   Escrito mobile-first: a maior parte do tráfego chega de Instagram,
+   Google e WhatsApp, tudo no celular. As medidas de toque seguem o mínimo
+   de 44px recomendado, e as opções ficam bem acima disso (56px) porque
+   errar o alvo no meio de um formulário de 7 etapas é abandono na certa.
+
+   Sem fonte externa e sem biblioteca: esta é a página que mais precisa
+   carregar rápido do site inteiro — é o destino do tráfego pago.
+   --------------------------------------------------------------------- */
+
+
+
+
+/* ---------------- Topo e progresso ---------------- */
+
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--ground);
+  border-bottom: 1px solid var(--line);
+}
+
+.faixa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(100% - 32px, 640px);
+  margin-inline: auto;
+  padding: 16px 0;
+}
+
+.marca {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.passo-conta {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.barra {
+  height: 3px;
+  background: var(--line);
+}
+
+.barra__preenchida {
+  height: 100%;
+  width: 0;
+  background: var(--acento);
+  transition: width .3s ease;
+}
+
+/* ---------------- Telas ---------------- */
+
+.tela { display: none; }
+.tela--ativa { display: block; }
+
+.quadro {
+  width: min(100% - 32px, 640px);
+  margin-inline: auto;
+  padding: 36px 0 56px;
+}
+
+.sobrescrito {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+h1, h2 {
+  margin: 0 0 12px;
+  font-size: clamp(25px, 6vw, 33px);
+  line-height: 1.18;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.apoio {
+  margin: 0 0 26px;
+  color: var(--ink-2);
+  max-width: 46ch;
+}
+
+.microcopia {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.aviso {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  font-size: 15px;
+}
+
+/* ---------------- Opções ---------------- */
+
+/* Grid com gap: sem margem que colapsa, e o espaçamento entre opções fica
+   definido num lugar só. */
+.opcoes {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--raio);
+  font: inherit;
+  font-size: 16.5px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+/* A bolinha é desenhada com ::before em vez de <input type=radio> porque o
+   controle nativo não aceita o tamanho e o alinhamento que o alvo de toque
+   precisa. O papel de rádio é declarado no HTML (role/aria-checked), então
+   o leitor de tela continua anunciando certo. */
+.opcao::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.opcao:hover { border-color: #cfd4cd; }
+
+.opcao[aria-checked="true"],
+.opcao[aria-pressed="true"] {
+  border-color: var(--acento);
+  background: var(--acento-suave);
+}
+
+.opcao[aria-checked="true"]::before,
+.opcao[aria-pressed="true"]::before {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 5px var(--acento);
+}
+
+/* Múltipla escolha usa quadrado, não círculo: a forma já avisa que dá
+   para marcar mais de uma antes de a pessoa tentar. */
+[data-multiplo] .opcao::before { border-radius: 5px; }
+
+/* ---------------- Botões ---------------- */
+
+
+
+/* ---------------- Formulário ---------------- */
+
+.campo { margin-bottom: 18px; }
+
+.campo label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.opcional {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.campo input {
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--raio);
+  font: inherit;
+  /* 16px é o mínimo que impede o Safari do iPhone de dar zoom ao focar o
+     campo — o zoom desalinha a tela inteira no meio do preenchimento. */
+  font-size: 16.5px;
+  color: var(--ink);
+}
+
+.campo input:focus { border-color: var(--acento); outline: none; }
+.campo input[aria-invalid="true"] { border-color: var(--erro); }
+
+.erro {
+  margin: 7px 0 0;
+  font-size: 14px;
+  color: var(--erro);
+}
+
+.consentimento {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 6px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.consentimento input {
+  flex: 0 0 auto;
+  width: 21px;
+  height: 21px;
+  margin-top: 1px;
+  accent-color: var(--acento);
+}
+
+/* Honeypot: fora da tela, mas sem display:none — alguns robôs ignoram
+   campo escondido com display, e este precisa ser preenchível por eles. */
+.favo {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------------- Telas finais ---------------- */
+
+.tela--fim .quadro { padding-top: 56px; }
+
+.selo {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: var(--acento-suave);
+  color: var(--acento);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* ---------------- Rodapé ---------------- */
+
+
+
+/* ---------------- Desktop ---------------- */
+
+@media (min-width: 720px) {
+  .quadro { padding: 56px 0 72px; }
+
+  /* Opções curtas em duas colunas: numa tela larga, uma coluna só de
+     botões de 56px vira uma escada muito comprida. */
+  [data-tela="fgts"] .opcoes,
+  [data-tela="preferencia"] .opcoes,
+  [data-tela="regiao"] .opcoes {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .botao { width: auto; min-width: 260px; }
+}
+

@@ -11,12 +11,14 @@
  */
 
 import { onLead } from './lead.js';
+import { onSimulacao } from './simulacao.js';
 
 /* O antigo /painel/ foi aposentado: o CRM faz o mesmo e mais. Manter duas
    interfaces sobre o mesmo banco significava toda mudança feita duas vezes —
    e já tinha divergido, porque só o CRM gravava atendido_em. */
 const ROTAS = {
-  '/api/lead': onLead
+  '/api/lead': onLead,
+  '/api/simulacao': onSimulacao
 };
 
 /* Migração de domínio: sebastianiimoveis.com.br → gruposaitama.com.br.

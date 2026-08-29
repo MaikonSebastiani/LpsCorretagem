@@ -335,12 +335,13 @@
   <section class="section section--light rent" id="aluguel" aria-labelledby="rent-title">
     <div class="container rent__inner">
       <p class="eyebrow eyebrow--lines">Se você paga aluguel</p>
-      <h2 class="title title--center" id="rent-title">O aluguel não volta. A parcela, <span class="dash-end">sim.</span></h2>
+      <h2 class="title title--center" id="rent-title">O aluguel é despesa. A parcela constrói <span class="dash-end">patrimônio.</span></h2>
 
       <p class="rent__lead">
         Um aluguel de <strong>R$ 1.800</strong> por mês, ao longo de <strong>8 anos</strong>,
-        soma <strong>R$ 172.800</strong> — dinheiro que sai todo mês e não vira
-        patrimônio. Aqui, esse mesmo valor mensal constrói o seu.
+        soma <strong>R$ 172.800</strong> — uma despesa mensal que não deixa nada
+        no seu nome. Comprar um imóvel pode transformar esse mesmo valor em
+        patrimônio seu.
       </p>
 
       <p class="rent__note">Números ilustrativos, só para dar a ordem de grandeza. Faça a conta com o seu aluguel e o seu tempo — a parcela real depende do seu perfil, da unidade e da análise de crédito.</p>
@@ -398,11 +399,11 @@
           <li>
             <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-user-check"></use></svg></span>
             <h3>Análise do seu perfil</h3>
-            <p>Eu verifico quais opções fazem sentido para a sua renda.</p>
+            <p>Nossa equipe verifica quais opções fazem sentido para a sua renda.</p>
           </li>
         </ul>
 
-        <p class="buy__highlight">Eu faço essa análise inicial com você.</p>
+        <p class="buy__highlight">Um de nossos consultores faz essa análise inicial com você.</p>
 
         <a class="btn btn--green btn--lg btn--block whatsapp-link" data-source="profile"
            data-message="Olá! Gostaria de verificar quais unidades do Urban Vila Guilherme são compatíveis com a minha renda e o meu perfil.">
@@ -911,6 +912,18 @@
         <p class="qz__hint">Some a renda de quem vai financiar.</p>
         <div class="qz__options" id="qz-options"></div>
       </fieldset>
+
+      <div class="qz__field">
+        <label class="qz__label" for="qz-momento">Quando pretende comprar <span class="qz__opcional">(opcional)</span></label>
+        <select class="qz__input" id="qz-momento" name="momento">
+          <option value="">Prefiro não dizer</option>
+          <option value="agora">Quero comprar agora</option>
+          <option value="ate-3-meses">Nos próximos 3 meses</option>
+          <option value="3-a-6-meses">Entre 3 e 6 meses</option>
+          <option value="mais-para-frente">Mais para frente</option>
+          <option value="pesquisando">Ainda estou pesquisando</option>
+        </select>
+      </div>
 
       <!-- Armadilha para robô: invisível e fora da ordem de tabulação.
            Nenhum humano preenche; se vier preenchido, o servidor descarta. -->

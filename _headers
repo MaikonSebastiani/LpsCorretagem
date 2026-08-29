@@ -69,6 +69,14 @@
 /shared/*
   Cache-Control: public, max-age=0, must-revalidate
 
+# CSS e JS da home, na raiz. As regras /:lp/css/* acima não pegam aqui:
+# o marcador :lp exige um segmento de pasta antes, e estes caminhos não têm.
+/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 # HTML: nunca servir versão velha de uma landing page de campanha.
 #
 # A regra abaixo (*.html) nunca bateu em produção: as URLs reais não têm

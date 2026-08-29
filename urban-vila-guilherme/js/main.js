@@ -273,11 +273,12 @@
      não informar" também é sinal útil.
   ------------------------------------------------------------------ */
   const QUALIFIER_OPTIONS = [
-    { value: 'faixa-1', label: 'Até R$ 3.200' },
-    { value: 'faixa-2', label: 'R$ 3.200 – 5.000' },
-    { value: 'faixa-3', label: 'R$ 5.000 – 9.600' },
-    { value: 'faixa-4', label: 'R$ 9.600 – 13.000' },
-    { value: 'acima-teto', label: 'Acima de R$ 13.000' },
+    { value: 'ate-3200', label: 'Até R$ 3.200' },
+    { value: '3200-5000', label: 'R$ 3.200 – 5.000' },
+    { value: '5000-7000', label: 'R$ 5.000 – 7.000' },
+    { value: '7000-9600', label: 'R$ 7.000 – 9.600' },
+    { value: '9600-13000', label: 'R$ 9.600 – 13.000' },
+    { value: 'acima-13000', label: 'Acima de R$ 13.000' },
     { value: 'nao-informado', label: 'Prefiro não dizer' }
   ];
 
@@ -362,6 +363,25 @@
 
     function sourceDo() {
       return (trigger && trigger.getAttribute('data-source')) || 'unknown';
+    }
+
+    /* Momento de compra: string vazia (= "prefiro não dizer") vira null,
+       para o servidor não tentar validar "" contra a lista. */
+    function momentoDo() {
+      var campo = document.getElementById('qz-momento');
+      return campo && campo.value ? campo.value : null;
+    }
+
+    /* Só o referrer EXTERNO interessa: navegação dentro do próprio site
+       sobrescreveria a origem real por uma página nossa. */
+    function referrerExterno() {
+      try {
+        if (!document.referrer) return null;
+        var de = new URL(document.referrer);
+        return de.hostname === location.hostname ? null : document.referrer;
+      } catch (e) {
+        return null;
+      }
     }
 
     /* Metragem do card, quando o formulário abriu por um CTA de planta.
@@ -450,7 +470,9 @@
         nome: nome,
         telefone: fone,
         renda: renda,
+        momento: momentoDo(),
         planta: plantaDo(),
+        referrer: referrerExterno(),
         origem: source,
         campanha: campaign,
         pagina: location.pathname,

@@ -1,0 +1,206 @@
+/* ---------------------------------------------------------------------
+   Base do Grupo Saitama — home, /simulacao e /equipe.
+
+   As landing pages de empreendimento NÃO usam este arquivo: cada uma tem a
+   pele da própria incorporadora, e é assim de propósito. Aqui vive a
+   identidade do grupo, que precisa ser neutra entre elas.
+
+   Sem fonte externa: estas páginas são o destino do tráfego pago e do
+   orgânico, e cada requisição de fonte atrasa o primeiro texto visível.
+   --------------------------------------------------------------------- */
+
+:root {
+  /* O fundo é o meio-termo entre o claro do Urban (#F3F3F1) e o do Mérito
+     (#f2efe8): a marca do grupo não puxa para a pele de nenhum dos dois. */
+  --ground: #f4f3f0;
+  --surface: #ffffff;
+  --ink: #1d201f;
+  --ink-2: #4a4f4c;
+  --muted: #797f7b;
+  --line: #e3e1db;
+
+  /* Verde petróleo: distinto do verde-limão do Urban e do dourado do
+     Mérito. É a cor do grupo, não a de um empreendimento. */
+  --acento: #1e5c4d;
+  --acento-escuro: #164539;
+  --acento-suave: #eaf2ef;
+
+  --erro: #a4342a;
+
+  --raio: 10px;
+  --sombra: 0 1px 2px rgba(29, 32, 31, .04), 0 8px 24px rgba(29, 32, 31, .06);
+  --sombra-alta: 0 2px 4px rgba(29, 32, 31, .06), 0 16px 40px rgba(29, 32, 31, .12);
+
+  --largura: 1080px;
+  --largura-leitura: 640px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Link de pulo: escondido até receber foco pelo teclado. */
+.pular { position: absolute; left: -9999px; }
+.pular:focus {
+  left: 12px; top: 12px; z-index: 10;
+  background: var(--surface);
+  padding: 10px 16px;
+  border-radius: var(--raio);
+}
+
+.container {
+  width: min(100% - 32px, var(--largura));
+  margin-inline: auto;
+}
+
+.container--leitura { max-width: var(--largura-leitura); }
+
+/* ---------------- Cabeçalho ---------------- */
+
+.topo {
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+}
+
+.topo__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+}
+
+.marca {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.topo__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 15px;
+}
+
+.topo__nav a { text-decoration: none; color: var(--ink-2); }
+.topo__nav a:hover { color: var(--ink); }
+
+/* ---------------- Tipografia ---------------- */
+
+.sobrescrito {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+.titulo {
+  margin: 0 0 14px;
+  font-size: clamp(27px, 5vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.apoio {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--ink-2);
+  font-size: clamp(16px, 2.2vw, 18.5px);
+}
+
+.microcopia {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* ---------------- Botões ---------------- */
+
+.botao {
+  display: inline-block;
+  min-height: 54px;
+  padding: 15px 26px;
+  border: 1.5px solid transparent;
+  border-radius: var(--raio);
+  font: inherit;
+  font-size: 16.5px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.botao--principal { background: var(--acento); color: #fff; }
+.botao--principal:hover { background: var(--acento-escuro); }
+
+.botao--vazado {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.botao--vazado:hover { border-color: var(--ink); }
+
+.botao[disabled] { opacity: .55; cursor: default; }
+
+/* No celular o botão ocupa a linha toda: alvo maior e menos chance de erro
+   de toque, que num funil de conversão é abandono direto. */
+@media (max-width: 560px) {
+  .botao { display: block; width: 100%; }
+}
+
+/* ---------------- Rodapé ---------------- */
+
+.rodape {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 44px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.rodape__linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rodape nav { display: flex; flex-wrap: wrap; gap: 18px; }
+.rodape a { text-decoration: none; border-bottom: 1px solid transparent; }
+.rodape a:hover { border-bottom-color: currentColor; }
+
+.rodape__legal {
+  margin: 18px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  max-width: 78ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

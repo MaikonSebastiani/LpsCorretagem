@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) — GA4 + Google Ads, igual ao resto do site.
+       Propriedade única; os fluxos se separam nos relatórios por caminho
+       da página. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VF9K820XDQ');
+  gtag('config', 'AW-18388777321');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Análise de perfil | Grupo Saitama</title>
+<meta name="description" content="Responda algumas perguntas rápidas e nossa equipe analisa quais imóveis podem fazer sentido para a sua renda, região e momento de compra.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#f4f3f0">
+<link rel="canonical" href="https://gruposaitama.com.br/simulacao/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Grupo Saitama">
+<meta property="og:title" content="Descubra quais imóveis podem fazer sentido para você">
+<meta property="og:description" content="Análise inicial gratuita. Leva menos de 1 minuto, sem compromisso.">
+<meta property="og:url" content="https://gruposaitama.com.br/simulacao/">
+
+<!-- base.css traz os tokens, botões e rodapé compartilhados com a home e a
+     /equipe. Precisa vir ANTES do css próprio, que sobrescreve o que é
+     específico deste formulário. -->
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="pular" href="#form">Ir para o formulário</a>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Grupo Saitama</a>
+
+    <!-- O passo aparece como texto também: barra sozinha não diz quanto
+         falta, e "2 de 7" é o que reduz o abandono no meio. -->
+    <p class="passo-conta" data-conta hidden>
+      Etapa <strong data-passo-atual>1</strong> de <span data-passo-total>7</span>
+    </p>
+  </div>
+
+  <div class="barra" role="progressbar" aria-label="Progresso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-barra>
+    <div class="barra__preenchida" data-barra-preenchida></div>
+  </div>
+</header>
+
+<main id="form">
+
+  <!-- ============ Abertura: só aparece antes de começar ============ -->
+  <section class="tela tela--ativa" data-tela="abertura">
+    <div class="quadro">
+      <p class="sobrescrito">Análise de perfil</p>
+      <h1>Descubra quais imóveis podem fazer sentido para você</h1>
+      <p class="apoio">
+        Responda algumas perguntas rápidas e nossa equipe irá analisar
+        oportunidades compatíveis com o seu perfil.
+      </p>
+
+      <button type="button" class="botao botao--principal" data-comecar>
+        Começar
+      </button>
+
+      <p class="microcopia">
+        Leva menos de 1 minuto &bull; Sem compromisso &bull; Sem custo
+      </p>
+
+      <noscript>
+        <p class="aviso">
+          Este formulário precisa de JavaScript. Você também pode falar
+          direto com a nossa equipe pelo
+          <a href="https://wa.me/5511953713310">WhatsApp</a>.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 1 — RENDA =================== -->
+  <section class="tela" data-tela="renda" data-campo="renda" hidden>
+    <div class="quadro">
+      <h2>Qual é a renda familiar aproximada?</h2>
+      <p class="apoio">Some a renda de quem vai comprar junto com você.</p>
+
+      <div class="opcoes" role="radiogroup" aria-label="Renda familiar">
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-3200">Até R$ 3.200</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="3200-5000">R$ 3.201 a R$ 5.000</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="5000-7000">R$ 5.001 a R$ 7.000</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="7000-9600">R$ 7.001 a R$ 9.600</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="9600-13000">R$ 9.601 a R$ 13.000</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="acima-13000">Acima de R$ 13.000</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 2 — ENTRADA =================== -->
+  <section class="tela" data-tela="entrada" data-campo="entrada" hidden>
+    <div class="quadro">
+      <h2>Quanto você possui aproximadamente para entrada?</h2>
+      <p class="apoio">Vale dinheiro guardado, FGTS ou os dois juntos.</p>
+
+      <div class="opcoes" role="radiogroup" aria-label="Valor para entrada">
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="sem-entrada">Ainda não tenho entrada</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-5k">Até R$ 5 mil</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="5k-15k">R$ 5 mil a R$ 15 mil</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="15k-30k">R$ 15 mil a R$ 30 mil</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="acima-30k">Acima de R$ 30 mil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 3 — FGTS =================== -->
+  <section class="tela" data-tela="fgts" data-campo="fgts" hidden>
+    <div class="quadro">
+      <h2>Você possui FGTS disponível?</h2>
+      <p class="apoio">
+        Não faz mal não saber agora — é uma das coisas que a nossa equipe
+        ajuda a verificar.
+      </p>
+
+      <div class="opcoes" role="radiogroup" aria-label="FGTS disponível">
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="sim">Sim</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="nao">Não</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="nao-sei">Não sei quanto tenho</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 4 — REGIÃO =================== -->
+  <section class="tela" data-tela="regiao" data-campo="regiao" hidden>
+    <div class="quadro">
+      <h2>Onde você gostaria de morar?</h2>
+      <p class="apoio">Dá para ajustar depois, na conversa com o consultor.</p>
+
+      <div class="opcoes" role="radiogroup" aria-label="Região">
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="zona-norte">Zona Norte</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="zona-sul">Zona Sul</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="zona-leste">Zona Leste</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="zona-oeste">Zona Oeste</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="centro">Centro</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="grande-sp">Grande São Paulo</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="nao-sei">Ainda não sei</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 5 — MOMENTO =================== -->
+  <section class="tela" data-tela="momento" data-campo="momento" hidden>
+    <div class="quadro">
+      <h2>Quando pretende comprar?</h2>
+      <p class="apoio">Isso define o ritmo do nosso atendimento com você.</p>
+
+      <div class="opcoes" role="radiogroup" aria-label="Momento de compra">
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="agora">Quero comprar agora</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-3-meses">Nos próximos 3 meses</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="3-a-6-meses">Entre 3 e 6 meses</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="mais-para-frente">Mais para frente</button>
+        <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="pesquisando">Ainda estou pesquisando</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ETAPA 6 — PREFERÊNCIA (múltipla) ============ -->
+  <section class="tela" data-tela="preferencia" data-campo="preferencia" data-multiplo hidden>
+    <div class="quadro">
+      <h2>O que você procura?</h2>
+      <p class="apoio">Pode marcar mais de uma opção.</p>
+
+      <div class="opcoes" role="group" aria-label="Preferência de imóvel">
+        <button type="button" class="opcao" aria-pressed="false" data-valor="1-dorm">1 dormitório</button>
+        <button type="button" class="opcao" aria-pressed="false" data-valor="2-dorm">2 dormitórios</button>
+        <button type="button" class="opcao" aria-pressed="false" data-valor="3-dorm">3 dormitórios</button>
+        <button type="button" class="opcao" aria-pressed="false" data-valor="com-vaga">Com vaga</button>
+        <button type="button" class="opcao" aria-pressed="false" data-valor="sem-preferencia">Sem preferência</button>
+      </div>
+
+      <button type="button" class="botao botao--principal" data-avancar>Continuar</button>
+    </div>
+  </section>
+
+  <!-- =================== ETAPA 7 — DADOS =================== -->
+  <section class="tela" data-tela="dados" hidden>
+    <div class="quadro">
+      <h2>Para onde enviamos a análise?</h2>
+      <p class="apoio">
+        Um consultor do Grupo Saitama vai olhar o seu perfil e retornar com
+        as opções que fizerem sentido.
+      </p>
+
+      <form novalidate data-formulario>
+        <div class="campo">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" autocomplete="name"
+                 required maxlength="120" placeholder="Como podemos te chamar?">
+          <p class="erro" data-erro-de="nome" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="telefone">WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" autocomplete="tel"
+                 inputmode="numeric" required placeholder="(11) 99999-9999">
+          <p class="erro" data-erro-de="telefone" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail <span class="opcional">opcional</span></label>
+          <input type="email" id="email" name="email" autocomplete="email"
+                 maxlength="160" placeholder="voce@email.com">
+        </div>
+
+        <!-- Armadilha para robô: invisível, e nenhum humano preenche.
+             É o anti-spam do site — CAPTCHA custaria conversão real para
+             resolver um problema que este campo já resolve. -->
+        <div class="favo" aria-hidden="true">
+          <label for="site">Não preencha este campo</label>
+          <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="consentimento">
+          <input type="checkbox" name="consentimento" required>
+          <span>
+            Concordo em ser contatado pelo Grupo Saitama sobre oportunidades
+            de imóveis e com o tratamento dos meus dados conforme a
+            <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.
+          </span>
+        </label>
+        <p class="erro" data-erro-de="consentimento" hidden></p>
+
+        <button type="submit" class="botao botao--principal" data-enviar>
+          Ver minhas possibilidades
+        </button>
+
+        <p class="microcopia">
+          Não pedimos CPF, dados bancários nem documentos nesta página.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- =================== SUCESSO =================== -->
+  <section class="tela tela--fim" data-tela="pronto" hidden>
+    <div class="quadro">
+      <div class="selo" aria-hidden="true">✓</div>
+      <h2>Recebemos seu perfil</h2>
+      <p class="apoio">
+        Agora nossa equipe irá analisar quais oportunidades podem fazer
+        sentido para você. Um consultor do Grupo Saitama poderá entrar em
+        contato pelo WhatsApp para entender melhor o que você procura.
+      </p>
+
+      <a class="botao botao--principal" data-whatsapp
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        Falar com o Grupo Saitama
+      </a>
+
+      <a class="botao botao--vazado" href="/">Ver empreendimentos</a>
+    </div>
+  </section>
+
+  <!-- =================== ERRO =================== -->
+  <section class="tela tela--fim" data-tela="erro" hidden>
+    <div class="quadro">
+      <h2>Não conseguimos enviar agora</h2>
+      <p class="apoio">
+        Pode ter sido a conexão. Tente de novo — ou fale direto com a
+        equipe pelo WhatsApp, que resolvemos por lá.
+      </p>
+
+      <button type="button" class="botao botao--principal" data-tentar>
+        Tentar de novo
+      </button>
+
+      <a class="botao botao--vazado"
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="container container--leitura">
+    <div class="rodape__linha">
+      <span>Grupo Saitama</span>
+      <nav aria-label="Rodapé">
+        <a href="/">Empreendimentos</a>
+        <a href="/equipe/">Equipe</a>
+        <a href="/privacidade/">Política de privacidade</a>
+      </nav>
+    </div>
+    <p class="rodape__legal">
+      Análise inicial de perfil, sem custo e sem compromisso. Não é proposta
+      de crédito nem garantia de aprovação: condições dependem de análise de
+      crédito, da unidade escolhida, da disponibilidade e das regras vigentes.
+    </p>
+  </div>
+</footer>
+
+<script src="/shared/origem.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

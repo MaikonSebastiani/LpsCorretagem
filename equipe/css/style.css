@@ -1,0 +1,132 @@
+/* ---------------------------------------------------------------------
+   /equipe — específicos.
+   Tokens, botões, cabeçalho e rodapé vêm de /shared/base.css.
+   --------------------------------------------------------------------- */
+
+.abertura { padding: 56px 0 36px; }
+
+/* ---------------- Grade de consultores ---------------- */
+
+/* auto-fit + minmax: a grade se ajeita sozinha de 1 a 4 consultores sem
+   media query. Com 3 corretores hoje e 10 depois, o layout continua
+   respirando sem ninguém tocar no CSS. */
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 20px;
+  padding-bottom: 16px;
+}
+
+.consultor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.consultor__foto,
+.consultor__inicial {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 6px;
+}
+
+.consultor__foto { object-fit: cover; }
+
+.consultor__inicial {
+  display: grid;
+  place-items: center;
+  background: var(--acento-suave);
+  color: var(--acento);
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.consultor__nome {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+
+/* O CRECI é credencial: merece destaque discreto, não texto apagado. */
+.consultor__creci {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--acento);
+}
+
+.consultor__regioes {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.consultor__sobre {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.consultor__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.consultor__tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* margin-top:auto encosta o botão no rodapé do cartão: consultores com
+   textos de tamanhos diferentes terminam com os botões alinhados. */
+.consultor__cta {
+  margin-top: auto;
+  padding-top: 14px;
+  align-self: stretch;
+  min-height: 46px;
+  padding: 12px 18px;
+  font-size: 15px;
+}
+
+/* ---------------- Bloco de convite ---------------- */
+
+.convite {
+  max-width: var(--largura-leitura);
+  padding-bottom: 64px;
+}
+
+.convite h2 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 4vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+.convite p {
+  margin: 0 0 14px;
+  color: var(--ink-2);
+}
+
+/* Quando há consultores na grade, o convite vira o fechamento da página e
+   ganha um respiro maior acima. */
+.convite--apos {
+  margin-top: 40px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
