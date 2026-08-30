@@ -15,9 +15,11 @@
 /* ------------------------------------------------------------------
    Renda familiar
 
-   São as faixas do Minha Casa Minha Vida, com a Faixa 3 dividida em duas
-   (o corte em R$ 7.000 não é do programa — é comercial, separa quem ainda
-   depende de subsídio de quem já discute financiamento normal).
+   As 4 faixas oficiais do Minha Casa Minha Vida, mais "acima do teto" e
+   "prefiro não dizer". Faixa 4 corresponde à "Classe Média" na
+   classificação oficial (R$ 9.600,01 a R$ 13.000) — o rótulo não entra
+   na chave nem no formulário porque não muda a experiência de quem
+   escolhe, só a nomenclatura interna do programa.
 
    A coluna guarda a chave, nunca o rótulo: o valor em reais de cada faixa
    é reajustado pelo programa, e um lead de hoje precisa continuar
@@ -28,8 +30,7 @@
 export const RENDAS = [
   'ate-3200',
   '3200-5000',
-  '5000-7000',
-  '7000-9600',
+  '5000-9600',
   '9600-13000',
   'acima-13000',
   'nao-informado'
@@ -145,8 +146,7 @@ export const PESOS = {
   renda: {
     'ate-3200': 12,
     '3200-5000': 18,
-    '5000-7000': 22,
-    '7000-9600': 22,
+    '5000-9600': 22,
     '9600-13000': 18,
     'acima-13000': 12,
     'nao-informado': 4

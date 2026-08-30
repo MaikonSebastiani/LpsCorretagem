@@ -275,8 +275,7 @@
   const QUALIFIER_OPTIONS = [
     { value: 'ate-3200', label: 'Até R$ 3.200' },
     { value: '3200-5000', label: 'R$ 3.200 – 5.000' },
-    { value: '5000-7000', label: 'R$ 5.000 – 7.000' },
-    { value: '7000-9600', label: 'R$ 7.000 – 9.600' },
+    { value: '5000-9600', label: 'R$ 5.000 – 9.600' },
     { value: '9600-13000', label: 'R$ 9.600 – 13.000' },
     { value: 'acima-13000', label: 'Acima de R$ 13.000' },
     { value: 'nao-informado', label: 'Prefiro não dizer' }
