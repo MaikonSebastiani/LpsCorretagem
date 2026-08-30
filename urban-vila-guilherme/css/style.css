@@ -491,7 +491,11 @@ ul {
   color: var(--ink-soft);
 }
 
-.hero__flag img {
+/* Especificidade maior que ".hero__bg img" (que define width/height:100%
+   para a foto do hero) de propósito: sem isso, a regra do breakpoint
+   desktop de ".hero__bg img" (mais abaixo no arquivo) vence por ordem de
+   cascata e a imagem do selo volta ao tamanho natural. */
+.hero__bg .hero__flag img {
   display: block;
   width: 84px;
   height: auto;
