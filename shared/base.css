@@ -14,6 +14,9 @@
      (#f2efe8): a marca do grupo não puxa para a pele de nenhum dos dois. */
   --ground: #f4f3f0;
   --surface: #ffffff;
+  /* Um degrau entre o fundo e o branco: separa faixas de seção sem
+     precisar de borda em volta de cada uma. */
+  --surface-2: #eceae4;
   --ink: #1d201f;
   --ink-2: #4a4f4c;
   --muted: #797f7b;

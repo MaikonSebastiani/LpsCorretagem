@@ -69,6 +69,12 @@
 /shared/*
   Cache-Control: public, max-age=0, must-revalidate
 
+# Imagens da home (hero e primeiro imóvel). Cada variante tem a largura no
+# nome, então trocar a arte gera arquivo novo e o cache longo é seguro —
+# diferente das imagens das LPs, que já mudaram no mesmo nome.
+/assets/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # CSS e JS da home, na raiz. As regras /:lp/css/* acima não pegam aqui:
 # o marcador :lp exige um segmento de pasta antes, e estes caminhos não têm.
 /css/*

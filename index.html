@@ -43,10 +43,35 @@
 
 <link rel="stylesheet" href="/shared/base.css">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- A arte do hero é o maior elemento visível no carregamento (LCP). O
+     preload aponta para o AVIF de 1200px, que é o que a maioria dos
+     desktops vai escolher no srcset. -->
+<link rel="preload" as="image" href="assets/images/hero-fachada-1200.avif"
+      imagesrcset="assets/images/hero-fachada-800.avif 800w, assets/images/hero-fachada-1200.avif 1200w, assets/images/hero-fachada-1600.avif 1600w"
+      imagesizes="(max-width: 960px) 100vw, 52vw" fetchpriority="high" type="image/avif">
 </head>
 <body>
 
 <a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+<!-- ============ Sprite de ícones (SVG inline, sem biblioteca) ============ -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.4 12.2 2.4 2.4 4.8-4.8"/></symbol>
+  <symbol id="i-perfil" viewBox="0 0 24 24"><path d="M14.5 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14.5 3.5v4h4"/><path d="M8.8 12.4h6.4M8.8 15.6h4.2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.2S18.8 15 18.8 10a6.8 6.8 0 1 0-13.6 0c0 5 6.8 11.2 6.8 11.2Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-predios" viewBox="0 0 24 24"><path d="M3.5 20.5V8.8l6-3.3v15M9.5 20.5h11V11l-11-2.2M20.5 20.5h-17"/><path d="M12.4 12.2h.01M15.6 12.2h.01M12.4 15.6h.01M15.6 15.6h.01M6.4 11.4h.01M6.4 15.2h.01"/></symbol>
+  <symbol id="i-fone" viewBox="0 0 24 24"><path d="M4.2 14.5v-2.6a7.8 7.8 0 0 1 15.6 0v2.6"/><path d="M19.8 14a2 2 0 0 1-2 2h-.8v-4h.8a2 2 0 0 1 2 2ZM4.2 14a2 2 0 0 0 2 2H7v-4h-.8a2 2 0 0 0-2 2Z"/><path d="M19.8 16v.8a3 3 0 0 1-3 3h-2.6"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3.6 10.4 12 3.6l8.4 6.8V20a.9.9 0 0 1-.9.9h-15a.9.9 0 0 1-.9-.9z"/><path d="M9.6 20.9v-6.2h4.8v6.2"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4.5 12h14m0 0-5.5-5.5M18.5 12 13 17.5"/></symbol>
+  <!-- Regiões: formas distintas para o olho separar sem ler o rótulo. -->
+  <symbol id="i-r-norte" viewBox="0 0 24 24"><path d="M12 3.4 20 8v8l-8 4.6L4 16V8z"/><path d="M12 8.6v6.8M9.2 11.4 12 8.6l2.8 2.8"/></symbol>
+  <symbol id="i-r-sul" viewBox="0 0 24 24"><path d="M12 3.4 20 8v8l-8 4.6L4 16V8z"/><path d="M12 15.4V8.6M14.8 12.6 12 15.4l-2.8-2.8"/></symbol>
+  <symbol id="i-r-leste" viewBox="0 0 24 24"><path d="M12 3.4 20 8v8l-8 4.6L4 16V8z"/><path d="M8.6 12h6.8M12.6 9.2 15.4 12l-2.8 2.8"/></symbol>
+  <symbol id="i-r-oeste" viewBox="0 0 24 24"><path d="M12 3.4 20 8v8l-8 4.6L4 16V8z"/><path d="M15.4 12H8.6M11.4 14.8 8.6 12l2.8-2.8"/></symbol>
+  <symbol id="i-r-centro" viewBox="0 0 24 24"><path d="M12 3.4 20 8v8l-8 4.6L4 16V8z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-r-grande" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2M12 3.4c2.2 2.4 3.4 5.4 3.4 8.6S14.2 18.2 12 20.6c-2.2-2.4-3.4-5.4-3.4-8.6S9.8 5.8 12 3.4Z"/></symbol>
+</svg>
 
 <header class="topo">
   <div class="container topo__inner">
@@ -68,61 +93,89 @@
        público que este site passa a captar é justamente quem ainda não
        sabe ("ganho X, o que eu consigo?"). -->
   <section class="hero">
-    <div class="container hero__inner">
-      <p class="sobrescrito">Grupo Saitama</p>
-      <h1 class="titulo hero__titulo">
-        Encontre o apartamento que realmente faz sentido para você
-      </h1>
-      <p class="hero__sub">
-        Minha Casa Minha Vida e oportunidades imobiliárias em São Paulo.
-      </p>
-      <p class="apoio">
-        Nossa equipe analisa sua renda, região, entrada e momento de compra
-        para buscar opções compatíveis com o seu perfil.
-      </p>
+    <div class="hero__grade">
+      <div class="hero__texto">
+        <p class="sobrescrito">Sua conquista, nosso propósito</p>
+        <h1 class="titulo hero__titulo">
+          Encontre o apartamento que realmente faz sentido para você
+        </h1>
+        <p class="hero__sub">
+          Minha Casa Minha Vida e oportunidades imobiliárias em São Paulo.
+        </p>
+        <p class="apoio">
+          Nossa equipe analisa sua renda, região, entrada e momento de compra
+          para buscar opções compatíveis com o seu perfil.
+        </p>
 
-      <div class="hero__acoes">
-        <a class="botao botao--principal" href="/simulacao/" data-cta="hero">
-          Descobrir minhas opções
-        </a>
-        <a class="botao botao--vazado" href="#empreendimentos">
-          Ver empreendimentos
-        </a>
+        <div class="hero__acoes">
+          <a class="botao botao--principal" href="/simulacao/" data-cta="hero">
+            Descobrir minhas opções
+          </a>
+          <a class="botao botao--vazado" href="#empreendimentos">
+            Ver empreendimentos
+          </a>
+        </div>
+
+        <ul class="selos">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Análise inicial gratuita</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Leva menos de 1 minuto</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Sem compromisso</li>
+        </ul>
       </div>
 
-      <p class="microcopia">
-        Análise inicial gratuita &bull; Leva menos de 1 minuto &bull; Sem compromisso
-      </p>
+      <!-- Imagem de marca, não de empreendimento: nada no texto ao redor diz
+           que este prédio é o Urban ou o Mérito. Nas landing pages só entram
+           as artes oficiais da Cury. -->
+      <div class="hero__arte">
+        <picture>
+          <source type="image/avif"
+                  srcset="assets/images/hero-fachada-800.avif 800w, assets/images/hero-fachada-1200.avif 1200w, assets/images/hero-fachada-1600.avif 1600w"
+                  sizes="(max-width: 960px) 100vw, 52vw">
+          <img src="assets/images/hero-fachada-1200.webp"
+               srcset="assets/images/hero-fachada-800.webp 800w, assets/images/hero-fachada-1200.webp 1200w, assets/images/hero-fachada-1600.webp 1600w"
+               sizes="(max-width: 960px) 100vw, 52vw"
+               width="1672" height="941"
+               alt="Fachada de um condomínio residencial ao entardecer, com áreas verdes"
+               fetchpriority="high" decoding="async">
+        </picture>
+      </div>
     </div>
   </section>
 
   <!-- ================= DIFERENCIAL DO GRUPO ================= -->
-  <section class="secao secao--clara" id="grupo">
+  <section class="secao" id="grupo">
     <div class="container">
-      <h2 class="titulo">
-        Mais conhecimento. Mais opções. Mais chances de encontrar o imóvel certo.
-      </h2>
-      <p class="apoio secao__lead">
-        O Grupo Saitama reúne consultores imobiliários que atuam em diferentes
-        regiões e empreendimentos de São Paulo. Em vez de tentar encaixar você
-        em um único imóvel, primeiro entendemos seu perfil para buscar
-        oportunidades compatíveis com sua renda, localização e objetivo.
-      </p>
+      <div class="cabeca">
+        <p class="sobrescrito">Com acompanhamento especializado</p>
+        <h2 class="titulo">
+          Mais conhecimento. Mais opções.<br>Mais chances de encontrar o imóvel certo.
+        </h2>
+        <p class="apoio">
+          O Grupo Saitama reúne consultores imobiliários que atuam em diferentes
+          regiões e empreendimentos de São Paulo. Em vez de tentar encaixar você
+          em um único imóvel, primeiro entendemos seu perfil para buscar
+          oportunidades compatíveis com sua renda, localização e objetivo.
+        </p>
+      </div>
 
       <ul class="pilares">
         <li class="pilar">
+          <span class="pilar__ico"><svg class="ico" aria-hidden="true"><use href="#i-perfil"></use></svg></span>
           <h3>Análise de perfil</h3>
           <p>Entendemos renda, entrada, FGTS e momento de compra.</p>
         </li>
         <li class="pilar">
+          <span class="pilar__ico"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg></span>
           <h3>Diferentes regiões</h3>
           <p>Consultores atuando em diferentes áreas de São Paulo.</p>
         </li>
         <li class="pilar">
+          <span class="pilar__ico"><svg class="ico" aria-hidden="true"><use href="#i-predios"></use></svg></span>
           <h3>Mais oportunidades</h3>
           <p>Acesso a diferentes empreendimentos e lançamentos.</p>
         </li>
         <li class="pilar">
+          <span class="pilar__ico"><svg class="ico" aria-hidden="true"><use href="#i-fone"></use></svg></span>
           <h3>Atendimento especializado</h3>
           <p>Seu contato é direcionado para o consultor mais adequado ao seu perfil.</p>
         </li>
@@ -134,58 +187,66 @@
        Sem preço aqui de propósito: os valores mudam todo mês, e repetir o
        número nesta página criaria um terceiro lugar para atualizar — que é
        exatamente onde aparece informação vencida. O preço vive na LP. -->
-  <section class="secao" id="empreendimentos">
+  <section class="secao secao--sem-topo" id="empreendimentos">
     <div class="container">
-      <h2 class="titulo">Lançamentos que estamos vendendo agora</h2>
-      <p class="apoio secao__lead">
-        Dois empreendimentos na planta, um em cada ponta da cidade. Se nenhum
-        deles servir para o seu caso, a análise de perfil busca outras opções.
-      </p>
+      <div class="faixa">
+        <div class="cabeca">
+          <p class="sobrescrito">Em destaque</p>
+          <h2 class="titulo">Lançamentos que estamos vendendo agora</h2>
+          <p class="apoio">
+            Dois empreendimentos na planta, um em cada ponta da cidade.
+            Se nenhum deles servir para o seu caso, a análise de perfil busca
+            outras opções.
+          </p>
+        </div>
 
-      <div class="lista">
-        <a class="card card--urban" href="/urban-vila-guilherme/" data-cta="card-urban">
-          <div class="card__foto">
-            <img src="/urban-vila-guilherme/assets/images/og-image.jpg"
-                 width="1200" height="630"
-                 alt="Perspectiva ilustrada do Urban Vila Guilherme"
-                 loading="lazy" decoding="async">
-          </div>
-          <div class="card__corpo">
-            <span class="card__tag">Lançamento</span>
-            <h3 class="card__nome">Urban Vila Guilherme</h3>
-            <p class="card__local">Vila Guilherme &middot; Zona Norte</p>
-            <ul class="card__specs">
-              <li>2 dormitórios</li>
-              <li>32 a 44 m²</li>
-              <li>Terraço e suíte</li>
-            </ul>
-            <span class="card__ir">
-              Ver o empreendimento <span aria-hidden="true">&rarr;</span>
-            </span>
-          </div>
-        </a>
+        <div class="lista">
+          <a class="card card--urban" href="/urban-vila-guilherme/" data-cta="card-urban">
+            <div class="card__foto">
+              <img src="/urban-vila-guilherme/assets/images/og-image.jpg"
+                   width="1200" height="630"
+                   alt="Perspectiva ilustrada do Urban Vila Guilherme"
+                   loading="lazy" decoding="async">
+              <span class="card__selo">Lançamento</span>
+            </div>
+            <div class="card__corpo">
+              <h3 class="card__nome">Urban Vila Guilherme</h3>
+              <p class="card__local">Vila Guilherme &middot; Zona Norte</p>
+              <ul class="card__specs">
+                <li>2 dormitórios</li>
+                <li>32 a 44 m²</li>
+                <li>Terraço e suíte</li>
+              </ul>
+              <span class="card__ir">
+                Ver o empreendimento
+                <svg class="ico" aria-hidden="true"><use href="#i-seta"></use></svg>
+              </span>
+            </div>
+          </a>
 
-        <a class="card card--merito" href="/merito-ipiranga/" data-cta="card-merito">
-          <div class="card__foto">
-            <img src="/merito-ipiranga/assets/images/og-image.jpg"
-                 width="1200" height="630"
-                 alt="Perspectiva ilustrada do Mérito Ipiranga"
-                 loading="lazy" decoding="async">
-          </div>
-          <div class="card__corpo">
-            <span class="card__tag">Lançamento</span>
-            <h3 class="card__nome">Mérito Ipiranga</h3>
-            <p class="card__local">Ipiranga &middot; Zona Sul</p>
-            <ul class="card__specs">
-              <li>1 e 2 dormitórios</li>
-              <li>26 a 45 m²</li>
-              <li>Terraço e vaga</li>
-            </ul>
-            <span class="card__ir">
-              Ver o empreendimento <span aria-hidden="true">&rarr;</span>
-            </span>
-          </div>
-        </a>
+          <a class="card card--merito" href="/merito-ipiranga/" data-cta="card-merito">
+            <div class="card__foto">
+              <img src="/merito-ipiranga/assets/images/og-image.jpg"
+                   width="1200" height="630"
+                   alt="Perspectiva ilustrada do Mérito Ipiranga"
+                   loading="lazy" decoding="async">
+              <span class="card__selo">Lançamento</span>
+            </div>
+            <div class="card__corpo">
+              <h3 class="card__nome">Mérito Ipiranga</h3>
+              <p class="card__local">Ipiranga &middot; Zona Sul</p>
+              <ul class="card__specs">
+                <li>1 e 2 dormitórios</li>
+                <li>26 a 45 m²</li>
+                <li>Terraço e vaga</li>
+              </ul>
+              <span class="card__ir">
+                Ver o empreendimento
+                <svg class="ico" aria-hidden="true"><use href="#i-seta"></use></svg>
+              </span>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -197,140 +258,186 @@
        Quando as páginas por região existirem (/imoveis/zona-norte), o href
        passa a apontar para elas. A chave na URL já é o slug da rota futura,
        então a troca não muda mais nada. -->
-  <section class="secao secao--clara" id="regioes">
+  <section class="secao secao--sem-topo" id="regioes">
     <div class="container">
-      <h2 class="titulo">Onde você quer morar?</h2>
-      <p class="apoio secao__lead">
-        Nossos consultores atuam em regiões diferentes da cidade. Escolha a
-        sua e a análise já começa por aí.
-      </p>
+      <div class="cabeca">
+        <p class="sobrescrito">Escolha sua região</p>
+        <h2 class="titulo">Onde você quer morar?</h2>
+        <p class="apoio">
+          Nossos consultores atuam em regiões diferentes da cidade.
+          Escolha a sua e a análise já começa por aí.
+        </p>
+      </div>
 
       <div class="regioes">
-        <a class="regiao" href="/simulacao/?regiao=zona-norte">Zona Norte</a>
-        <a class="regiao" href="/simulacao/?regiao=zona-sul">Zona Sul</a>
-        <a class="regiao" href="/simulacao/?regiao=zona-leste">Zona Leste</a>
-        <a class="regiao" href="/simulacao/?regiao=zona-oeste">Zona Oeste</a>
-        <a class="regiao" href="/simulacao/?regiao=centro">Centro</a>
-        <a class="regiao" href="/simulacao/?regiao=grande-sp">Grande São Paulo</a>
+        <a class="regiao" href="/simulacao/?regiao=zona-norte">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-norte"></use></svg>Zona Norte
+        </a>
+        <a class="regiao" href="/simulacao/?regiao=zona-sul">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-sul"></use></svg>Zona Sul
+        </a>
+        <a class="regiao" href="/simulacao/?regiao=zona-leste">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-leste"></use></svg>Zona Leste
+        </a>
+        <a class="regiao" href="/simulacao/?regiao=zona-oeste">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-oeste"></use></svg>Zona Oeste
+        </a>
+        <a class="regiao" href="/simulacao/?regiao=centro">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-centro"></use></svg>Centro
+        </a>
+        <a class="regiao" href="/simulacao/?regiao=grande-sp">
+          <svg class="ico" aria-hidden="true"><use href="#i-r-grande"></use></svg>Grande São Paulo
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ================= MINHA CASA MINHA VIDA =================
+  <!-- ================= PRIMEIRO IMÓVEL =================
        Sem números do programa aqui de propósito. Teto, faixas e percentual
        de subsídio mudam por decisão do governo, e este site não tem rotina
        de revisão — número desatualizado sobre dinheiro alheio destrói mais
        confiança do que a ausência dele constrói. Os valores vivem em UM
        lugar só: as faixas do formulário, em worker/config.js. -->
-  <section class="secao" id="mcmv">
-    <div class="container container--leitura">
-      <p class="sobrescrito">Primeiro imóvel</p>
-      <h2 class="titulo">Dúvida sobre financiamento é o que mais trava uma compra</h2>
+  <section class="secao secao--sem-topo" id="mcmv">
+    <div class="container">
+      <div class="dupla">
+        <div class="dupla__foto">
+          <picture>
+            <source type="image/avif"
+                    srcset="assets/images/living-800.avif 800w, assets/images/living-1200.avif 1200w, assets/images/living-1600.avif 1600w"
+                    sizes="(max-width: 900px) 100vw, 44vw">
+            <img src="assets/images/living-1200.webp"
+                 srcset="assets/images/living-800.webp 800w, assets/images/living-1200.webp 1200w, assets/images/living-1600.webp 1600w"
+                 sizes="(max-width: 900px) 100vw, 44vw"
+                 width="1672" height="941"
+                 alt="Sala de estar iluminada, com sofá claro e varanda ao fundo"
+                 loading="lazy" decoding="async">
+          </picture>
+        </div>
 
-      <p class="apoio">
-        "Será que eu consigo financiar?", "minha renda é suficiente?", "dá
-        para usar o FGTS na entrada?". Essas perguntas param mais gente do
-        que o preço do imóvel.
-      </p>
-      <p class="apoio">
-        O Minha Casa Minha Vida atende faixas de renda diferentes, com
-        condições diferentes em cada uma — e as regras mudam de tempos em
-        tempos. Nossa equipe trabalha com isso todo dia e faz essa leitura
-        com você, sem custo, antes de qualquer visita.
-      </p>
+        <div class="dupla__texto">
+          <p class="sobrescrito">Primeiro imóvel</p>
+          <h2 class="titulo">Dúvida sobre financiamento é o que mais trava uma compra</h2>
 
-      <p class="apoio">
-        <strong>O que não fazemos:</strong> prometer aprovação. Quem aprova
-        crédito é o banco, e a análise depende de renda, documentação e
-        histórico. O que a gente faz é dizer com honestidade o que costuma
-        caber no seu perfil — e o que não cabe.
-      </p>
+          <p>
+            "Será que eu consigo financiar?", "minha renda é suficiente?", "dá
+            para usar o FGTS na entrada?". Essas perguntas param muita gente.
+          </p>
+          <p>
+            O Minha Casa Minha Vida atende faixas de renda diferentes, com
+            condições diferentes em cada uma — e as regras mudam de tempos em
+            tempos. Nossa equipe trabalha com isso todo dia e faz essa leitura
+            com você, sem custo, antes de qualquer visita.
+          </p>
+          <p>
+            <strong>O que não fazemos:</strong> prometer aprovação. Quem aprova
+            crédito é o banco, e a análise depende de renda, documentação e
+            histórico. O que a gente faz é dizer com honestidade o que costuma
+            caber no seu perfil — e o que não cabe.
+          </p>
 
-      <a class="botao botao--principal" href="/simulacao/" data-cta="mcmv">
-        Descobrir minhas opções
-      </a>
+          <a class="botao botao--principal" href="/simulacao/" data-cta="mcmv">
+            Descobrir minhas opções
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ================= FAQ =================
        As perguntas são as que a equipe realmente ouve no atendimento. Usa
        <details> nativo: abre e fecha sem uma linha de JavaScript. -->
-  <section class="secao secao--clara" id="faq">
-    <div class="container container--leitura">
-      <h2 class="titulo">Perguntas frequentes</h2>
+  <section class="secao secao--sem-topo" id="faq">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Tire suas dúvidas</p>
+        <h2 class="titulo">Perguntas frequentes</h2>
+      </div>
 
-      <details class="faq">
-        <summary>Não tenho entrada. Ainda assim consigo comprar?</summary>
-        <p>
-          Em lançamento na planta, é comum a entrada ser parcelada até a
-          entrega, o que reduz muito o valor inicial. Se você tem FGTS, ele
-          também pode compor. Vale conversar: a resposta depende da sua renda
-          e da unidade.
-        </p>
-      </details>
+      <div class="faqs">
+        <details class="faq">
+          <summary>Não tenho entrada. Ainda assim consigo comprar?</summary>
+          <p>
+            Em lançamento na planta, é comum a entrada ser parcelada até a
+            entrega, o que reduz muito o valor inicial. Se você tem FGTS, ele
+            também pode compor. Vale conversar: a resposta depende da sua renda
+            e da unidade.
+          </p>
+        </details>
 
-      <details class="faq">
-        <summary>Quanto preciso ganhar para financiar?</summary>
-        <p>
-          Não existe um número único — depende do valor do imóvel, do prazo,
-          da sua idade e das condições vigentes. É exatamente o tipo de conta
-          que fazemos junto com você na análise de perfil.
-        </p>
-      </details>
+        <details class="faq">
+          <summary>Quanto preciso ganhar para financiar?</summary>
+          <p>
+            Não existe um número único — depende do valor do imóvel, do prazo,
+            da sua idade e das condições vigentes. É exatamente o tipo de conta
+            que fazemos junto com você na análise de perfil.
+          </p>
+        </details>
 
-      <details class="faq">
-        <summary>Posso usar o FGTS?</summary>
-        <p>
-          Em geral sim, se você atende às regras do fundo. Na análise
-          verificamos se o seu caso se encaixa — e não precisamos do saldo
-          exato para começar essa conversa.
-        </p>
-      </details>
+        <details class="faq">
+          <summary>Posso usar o FGTS?</summary>
+          <p>
+            Em geral sim, se você atende às regras do fundo. Na análise
+            verificamos se o seu caso se encaixa — e não precisamos do saldo
+            exato para começar essa conversa.
+          </p>
+        </details>
 
-      <details class="faq">
-        <summary>Vocês cobram alguma coisa?</summary>
-        <p>
-          Não. A análise de perfil e o atendimento são gratuitos. Nossa
-          remuneração vem da incorporadora quando a venda acontece.
-        </p>
-      </details>
+        <details class="faq">
+          <summary>Vocês cobram alguma coisa?</summary>
+          <p>
+            Não. A análise de perfil e o atendimento são gratuitos. Nossa
+            remuneração vem da incorporadora quando a venda acontece.
+          </p>
+        </details>
 
-      <details class="faq">
-        <summary>Só trabalham com esses dois empreendimentos?</summary>
-        <p>
-          Esses são os lançamentos que estamos vendendo agora, mas os
-          consultores do grupo acompanham opções em outras regiões. Se
-          nenhum dos dois servir, buscamos alternativas.
-        </p>
-      </details>
+        <details class="faq">
+          <summary>Só trabalham com esses dois empreendimentos?</summary>
+          <p>
+            Esses são os lançamentos que estamos vendendo agora, mas os
+            consultores do grupo acompanham opções em outras regiões. Se
+            nenhum dos dois servir, buscamos alternativas.
+          </p>
+        </details>
 
-      <details class="faq">
-        <summary>Meus dados vão para onde?</summary>
-        <p>
-          Ficam com a nossa equipe, para o atendimento. Não vendemos nem
-          cedemos dados para publicidade de terceiros. Os detalhes estão na
-          <a href="/privacidade/">política de privacidade</a>.
-        </p>
-      </details>
+        <details class="faq">
+          <summary>Meus dados vão para onde?</summary>
+          <p>
+            Ficam com a nossa equipe, para o atendimento. Não vendemos nem
+            cedemos dados para publicidade de terceiros. Os detalhes estão na
+            <a href="/privacidade/">política de privacidade</a>.
+          </p>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ================= CTA FINAL ================= -->
-  <section class="secao fechamento">
-    <div class="container container--leitura">
-      <h2 class="titulo">Vamos descobrir o que cabe no seu bolso?</h2>
-      <p class="apoio">
-        São algumas perguntas rápidas sobre renda, entrada e região. Um
-        consultor do grupo analisa e retorna com as opções que fizerem
-        sentido para o seu caso.
-      </p>
+  <section class="secao secao--sem-topo">
+    <div class="container">
+      <div class="fechamento">
+        <span class="fechamento__ico" aria-hidden="true">
+          <svg class="ico"><use href="#i-casa"></use></svg>
+        </span>
 
-      <a class="botao botao--principal" href="/simulacao/" data-cta="final">
-        Descobrir minhas opções
-      </a>
-      <p class="microcopia">
-        Leva menos de 1 minuto &bull; Sem compromisso &bull; Sem custo
-      </p>
+        <div class="fechamento__texto">
+          <h2>Vamos descobrir o que cabe no seu bolso?</h2>
+          <p>
+            São algumas perguntas rápidas sobre renda, entrada e região. Um
+            consultor do grupo analisa e retorna com as opções que fizerem
+            sentido para o seu caso.
+          </p>
+        </div>
+
+        <div class="fechamento__acao">
+          <a class="botao botao--claro" href="/simulacao/" data-cta="final">
+            Descobrir minhas opções
+          </a>
+          <p class="fechamento__micro">
+            Leva menos de 1 minuto &bull; Sem compromisso &bull; Sem custo
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -338,9 +445,17 @@
 
 <footer class="rodape">
   <div class="container">
-    <div class="rodape__linha">
-      <span>Apresentação comercial independente &bull; Grupo Saitama</span>
+    <div class="rodape__grade">
+      <div>
+        <p class="rodape__marca">Grupo Saitama</p>
+        <p class="rodape__tag">
+          Acompanhamento imobiliário independente, focado em encontrar o
+          imóvel certo para você.
+        </p>
+      </div>
+
       <nav aria-label="Rodapé">
+        <a href="#empreendimentos">Empreendimentos</a>
         <a href="/equipe/">Equipe</a>
         <a href="/simulacao/">Análise de perfil</a>
         <a href="/privacidade/">Política de privacidade</a>
@@ -348,7 +463,11 @@
     </div>
 
     <!-- O CRECI da pessoa jurídica entra aqui quando for definido — mesma
-         linha do aviso legal, como nas duas landing pages. -->
+         linha do aviso legal, como nas duas landing pages.
+
+         Sem ícones de rede social por enquanto, por decisão de 27/08/2026:
+         o Instagram saiu do ar e não há canal próprio ativo. Quando voltar,
+         entra nesta linha, à direita. -->
     <p class="rodape__legal">
       Imagens meramente ilustrativas. Plantas, medidas, acabamentos, valores
       e condições comerciais estão sujeitos a alteração, à disponibilidade e

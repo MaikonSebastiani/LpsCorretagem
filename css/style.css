@@ -1,20 +1,67 @@
 /* ---------------------------------------------------------------------
    Home do Grupo Saitama — específicos.
-   Tokens, botões, cabeçalho e rodapé vêm de /shared/base.css.
+   Tokens, botões, cabeçalho e rodapé base vêm de /shared/base.css.
    --------------------------------------------------------------------- */
+
+/* Sprite fora da tela: os <symbol> só existem para o <use> referenciar. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Ícone de contorno. Sem preenchimento e com a cor herdada do texto, o
+   mesmo desenho serve em fundo claro e no fundo verde do fechamento. */
+.ico {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 /* ---------------- Hero ---------------- */
 
-.hero { padding: 64px 0 52px; }
+.hero { padding: 0 0 8px; }
 
-.hero__titulo { max-width: 18ch; }
+.hero__grade {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero__grade {
+    grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+    gap: 40px;
+    align-items: stretch;
+  }
+}
+
+.hero__texto {
+  width: min(100% - 32px, 560px);
+  margin-inline: auto;
+  padding: 44px 0 8px;
+}
+
+@media (min-width: 960px) {
+  .hero__texto {
+    /* Alinha com a coluna do container geral em vez de centralizar: a
+       margem esquerda do texto acompanha a do cabeçalho acima. */
+    width: auto;
+    max-width: 560px;
+    margin: 0 0 0 max(20px, calc((100vw - 1080px) / 2));
+    padding: 64px 24px 64px 0;
+  }
+}
+
+.hero__titulo { max-width: 15ch; }
 
 .hero__sub {
-  margin: 0 0 18px;
-  font-size: clamp(17px, 2.6vw, 21px);
+  margin: 0 0 16px;
+  font-size: clamp(17px, 2.4vw, 20px);
   color: var(--acento);
   font-weight: 600;
-  max-width: 34ch;
+  max-width: 32ch;
 }
 
 .hero__acoes {
@@ -24,46 +71,129 @@
   margin-top: 28px;
 }
 
+/* Selos de garantia. Ficam sob os botões porque respondem a objeção de
+   quem já decidiu clicar: "vai me custar alguma coisa?". */
+.selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.selos li { display: inline-flex; align-items: center; gap: 8px; }
+.selos .ico { width: 18px; height: 18px; color: var(--acento); }
+
+/* A arte sangra até a borda direita da janela e tem um recorte curvo do
+   lado esquerdo — a curva é o que evita o corte reto contra o texto. */
+.hero__arte { position: relative; }
+
+.hero__arte img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  max-height: 560px;
+  object-fit: cover;
+  border-radius: 0 0 0 96px;
+}
+
+@media (max-width: 959px) {
+  .hero__arte img {
+    max-height: 300px;
+    border-radius: 0;
+  }
+}
+
 /* ---------------- Seções ---------------- */
 
-.secao { padding: 56px 0; }
-.secao--clara { background: var(--surface); border-block: 1px solid var(--line); }
+.secao { padding: 72px 0; }
+.secao--sem-topo { padding-top: 0; }
 
-.secao__lead { margin-bottom: 32px; }
+/* Cabeçalho centralizado das seções. max-width no parágrafo em vez de no
+   bloco: o título pode ocupar mais largura que o texto de apoio. */
+.cabeca {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cabeca .apoio {
+  margin-inline: auto;
+  max-width: 62ch;
+}
+
+.cabeca .titulo { margin-bottom: 16px; }
 
 /* ---------------- Pilares ---------------- */
 
 .pilares {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
-  gap: 22px;
+  gap: 20px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Filete no topo em vez de cartão fechado: quatro caixas com borda deixam
-   a seção pesada, e o pedido era evitar excesso de cards. */
-.pilar { border-top: 2px solid var(--acento); padding-top: 16px; }
-
-.pilar h3 {
-  margin: 0 0 6px;
-  font-size: 17px;
-  letter-spacing: -.01em;
+.pilar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 30px 22px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
 }
+
+.pilar__ico {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  color: var(--acento);
+}
+
+.pilar__ico .ico { width: 30px; height: 30px; }
+
+.pilar h3 { margin: 0 0 4px; font-size: 17px; letter-spacing: -.01em; }
 
 .pilar p {
   margin: 0;
-  font-size: 15.5px;
-  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
 }
 
-/* ---------------- Empreendimentos ---------------- */
-
-.lista {
-  display: grid;
-  gap: 24px;
+/* Filete de fechamento: encerra o cartão sem precisar de mais uma borda. */
+.pilar::after {
+  content: "";
+  width: 26px;
+  height: 2px;
+  margin-top: 16px;
+  background: var(--acento);
+  border-radius: 2px;
 }
+
+/* ---------------- Faixa dos empreendimentos ---------------- */
+
+/* Fundo próprio para destacar do resto sem virar mais um cartão dentro de
+   cartão — a seção inteira é que muda de tom. */
+.faixa {
+  background: var(--surface-2, #eceae4);
+  border-radius: 18px;
+  padding: 52px 28px;
+}
+
+@media (max-width: 600px) {
+  .faixa { padding: 40px 18px; border-radius: 14px; }
+}
+
+.lista { display: grid; gap: 22px; }
 
 @media (min-width: 760px) {
   .lista { grid-template-columns: 1fr 1fr; }
@@ -75,14 +205,11 @@
   flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--raio);
+  border-radius: 14px;
   overflow: hidden;
   text-decoration: none;
-  box-shadow: var(--sombra);
   transition: transform .18s ease, box-shadow .18s ease;
 }
-
-.secao--clara .card { background: var(--ground); }
 
 .card:hover,
 .card:focus-visible {
@@ -91,6 +218,7 @@
 }
 
 .card__foto {
+  position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #d9d7d1;
@@ -102,46 +230,36 @@
    para a direita deixa o prédio ocupando o cartão. */
 .card--urban .card__foto img { object-position: 72% center; }
 
+.card__selo {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--acento);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
 .card__corpo {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
   padding: 22px 24px 24px;
   flex: 1;
 }
 
-/* O filete colorido identifica o empreendimento sem repetir o logo. */
-.card__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.card__tag::before {
-  content: "";
-  width: 22px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--cor);
-}
-
-/* Cores de marca de cada empreendimento, iguais às das LPs. */
-.card--urban { --cor: #86cd35; }
-.card--merito { --cor: #c88117; }
-
 .card__nome {
   margin: 0;
-  font-size: clamp(20px, 3vw, 24px);
+  font-size: clamp(19px, 2.6vw, 22px);
   line-height: 1.2;
   letter-spacing: -.01em;
 }
 
-.card__local { margin: 0; color: var(--muted); font-size: 15px; }
+.card__local { margin: 0; color: var(--muted); font-size: 14.5px; }
 
 .card__specs {
   margin: 4px 0 0;
@@ -153,8 +271,8 @@
 }
 
 .card__specs li {
-  font-size: 13px;
-  padding: 5px 11px;
+  font-size: 12.5px;
+  padding: 5px 12px;
   border: 1px solid var(--line);
   border-radius: 100px;
   color: var(--muted);
@@ -166,55 +284,107 @@
 .card__ir {
   margin-top: auto;
   padding-top: 16px;
-  font-weight: 600;
-  font-size: 15px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--acento);
 }
 
-.card__ir span[aria-hidden] { transition: transform .18s ease; }
-.card:hover .card__ir span[aria-hidden] { transform: translateX(4px); }
+.card__ir .ico { width: 18px; height: 18px; }
+.card__ir .ico { transition: transform .18s ease; }
+.card:hover .card__ir .ico { transform: translateX(4px); }
 
 /* ---------------- Regiões ---------------- */
 
 .regioes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 
 .regiao {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  min-height: 62px;
-  padding: 16px 20px;
-  background: var(--ground);
-  border: 1.5px solid var(--line);
-  border-radius: var(--raio);
-  font-size: 16.5px;
+  gap: 10px;
+  min-height: 54px;
+  padding: 14px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 15.5px;
   font-weight: 600;
   text-decoration: none;
-  transition: border-color .15s ease, background .15s ease;
+  white-space: nowrap;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
 }
 
-.secao--clara .regiao { background: var(--surface); }
+.regiao .ico { width: 20px; height: 20px; color: var(--acento); }
 
 .regiao:hover {
   border-color: var(--acento);
   background: var(--acento-suave);
 }
 
-/* ---------------- FAQ ---------------- */
+/* ---------------- Primeiro imóvel ---------------- */
 
-.faq {
-  border-bottom: 1px solid var(--line);
-  padding: 4px 0;
+.dupla {
+  display: grid;
+  gap: 0;
+  background: var(--surface-2, #eceae4);
+  border-radius: 18px;
+  overflow: hidden;
 }
 
+@media (min-width: 900px) {
+  .dupla { grid-template-columns: 44fr 56fr; align-items: stretch; }
+}
+
+.dupla__foto { min-height: 240px; }
+
+.dupla__foto picture,
+.dupla__foto img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.dupla__texto { padding: 44px 32px; }
+
+@media (min-width: 900px) {
+  .dupla__texto { padding: 52px 48px; }
+}
+
+.dupla__texto p {
+  margin: 0 0 16px;
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.dupla__texto .titulo { margin-bottom: 18px; max-width: 22ch; }
+.dupla__texto .botao { margin-top: 10px; }
+
+/* ---------------- FAQ ---------------- */
+
+.faqs {
+  max-width: var(--largura-leitura);
+  margin-inline: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 4px 22px;
+}
+
+.faq { border-bottom: 1px solid var(--line); }
+.faq:last-child { border-bottom: 0; }
+
 .faq summary {
-  padding: 16px 34px 16px 0;
-  font-size: 16.5px;
+  padding: 17px 34px 17px 0;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
@@ -227,12 +397,13 @@
 .faq summary::after {
   content: "+";
   position: absolute;
-  right: 4px;
+  right: 2px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 400;
   color: var(--acento);
+  line-height: 1;
 }
 
 .faq[open] summary::after { content: "\2212"; }
@@ -241,11 +412,108 @@
   margin: 0 0 18px;
   padding-right: 34px;
   color: var(--ink-2);
-  font-size: 16px;
+  font-size: 15.5px;
 }
 
 /* ---------------- Fechamento ---------------- */
 
-.fechamento { padding-bottom: 72px; }
-.fechamento .titulo { margin-bottom: 12px; }
-.fechamento .apoio { margin-bottom: 28px; }
+.fechamento {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  padding: 40px 34px;
+  background: var(--acento);
+  border-radius: 18px;
+  color: #fff;
+}
+
+@media (min-width: 900px) {
+  .fechamento {
+    grid-template-columns: auto 1fr auto;
+    gap: 30px;
+    padding: 44px 48px;
+  }
+}
+
+.fechamento__ico {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  /* Círculo translúcido em vez de cor fixa: acompanha o fundo verde sem
+     precisar de um token só para ele. */
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+}
+
+.fechamento__ico .ico { width: 32px; height: 32px; }
+
+.fechamento__texto h2 {
+  margin: 0 0 8px;
+  font-size: clamp(21px, 3vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+
+.fechamento__texto p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  /* Branco rebaixado: separa o apoio do título sem sair da paleta. */
+  color: rgba(255, 255, 255, .82);
+  max-width: 52ch;
+}
+
+.fechamento__acao { text-align: center; }
+
+/* Botão claro sobre o verde: a inversão do principal, para o CTA continuar
+   sendo o elemento de maior contraste da faixa. */
+.botao--claro {
+  background: #fff;
+  color: var(--acento);
+  white-space: nowrap;
+}
+
+.botao--claro:hover { background: #eef4f1; }
+
+.fechamento__micro {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, .78);
+}
+
+/* ---------------- Rodapé ---------------- */
+
+.rodape__grade {
+  display: grid;
+  gap: 22px;
+  padding-bottom: 22px;
+}
+
+@media (min-width: 760px) {
+  .rodape__grade {
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+}
+
+.rodape__marca {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.rodape__tag {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.rodape__legal { border-top: 1px solid var(--line); padding-top: 20px; }
