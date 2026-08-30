@@ -463,25 +463,37 @@ ul {
   object-position: right center;
 }
 
-/* Selo do Minha Casa Minha Vida, "grudado" no topo da foto. No mobile a
-   foto é um bloco próprio abaixo do texto, então top:0 já cai na borda
-   certa; no desktop precisa descer (ver media 900px) para não ficar
-   atrás do header, que é absoluto e sobrepõe o início do hero. */
+/* Selo do Minha Casa Minha Vida, no canto superior direito da foto. No
+   mobile a foto é um bloco próprio abaixo do texto; no desktop precisa
+   descer (ver media 900px) para não ficar atrás do header, que é
+   absoluto e sobrepõe o início do hero. */
 .hero__flag {
   position: absolute;
-  top: 0;
-  right: 16px;
+  top: 20px;
+  right: 20px;
   z-index: 1;
   display: flex;
-  padding: 8px 10px 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px 18px;
   background: var(--urban-white);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .22);
+}
+
+.hero__flag-label {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
 .hero__flag img {
   display: block;
-  width: 52px;
+  width: 84px;
   height: auto;
 }
 
@@ -2217,8 +2229,8 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
   /* No desktop o header fica absoluto por cima do hero (72px + folga);
      o selo desce até abaixo dele, senão fica escondido atrás do menu. */
   .hero__flag {
-    top: 96px;
-    right: 40px;
+    top: 100px;
+    right: 48px;
   }
 
   .hero__grid {
