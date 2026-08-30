@@ -6,6 +6,10 @@
 /* Sprite fora da tela: os <symbol> só existem para o <use> referenciar. */
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 
+/* O cabeçalho encosta na arte do hero: a linha de base do base.css criaria
+   um traço atravessando a imagem. */
+.topo { border-bottom: 0; }
+
 /* Ícone de contorno. Sem preenchimento e com a cor herdada do texto, o
    mesmo desenho serve em fundo claro e no fundo verde do fechamento. */
 .ico {
@@ -21,19 +25,21 @@
 
 /* ---------------- Hero ---------------- */
 
-.hero { padding: 0 0 8px; }
+.hero { padding: 0; }
 
 .hero__grade {
   display: grid;
-  gap: 32px;
+  gap: 0;
   align-items: center;
 }
 
 @media (min-width: 960px) {
   .hero__grade {
-    grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
-    gap: 40px;
+    grid-template-columns: minmax(0, 53fr) minmax(0, 47fr);
+    /* stretch para a arte ocupar a altura toda da faixa: com `center` ela
+       ficaria flutuando, com faixa branca acima e abaixo. */
     align-items: stretch;
+    min-height: 640px;
   }
 }
 
@@ -47,10 +53,13 @@
   .hero__texto {
     /* Alinha com a coluna do container geral em vez de centralizar: a
        margem esquerda do texto acompanha a do cabeçalho acima. */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: auto;
-    max-width: 560px;
+    max-width: 580px;
     margin: 0 0 0 max(20px, calc((100vw - 1080px) / 2));
-    padding: 64px 24px 64px 0;
+    padding: 56px 40px 56px 0;
   }
 }
 
@@ -73,21 +82,39 @@
 
 /* Selos de garantia. Ficam sob os botões porque respondem a objeção de
    quem já decidiu clicar: "vai me custar alguma coisa?". */
+/* Os três selos precisam caber numa linha só: quebrados em duas, viram
+   uma listinha e perdem a leitura rápida de "não custa, não demora, não
+   compromete". Cabiam em 580px e a coluna dá 530, então o ajuste é no
+   ícone, no corpo da fonte e nos espaços — o texto fica intacto. */
 .selos {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 22px;
-  margin: 26px 0 0;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 30px 0 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
 }
 
-.selos li { display: inline-flex; align-items: center; gap: 8px; }
-.selos .ico { width: 18px; height: 18px; color: var(--acento); }
+.selos li { display: inline-flex; align-items: center; gap: 7px; }
+.selos .ico { width: 17px; height: 17px; color: var(--acento); }
 
-/* A arte sangra até a borda direita da janela e tem um recorte curvo do
+/* Filete entre os selos. Em ::before do item seguinte, não em ::after do
+   anterior: assim o último não precisa de :last-child para não sobrar um
+   traço solto no fim da linha. */
+@media (min-width: 620px) {
+  .selos li + li::before {
+    content: "";
+    width: 1px;
+    height: 16px;
+    margin-right: 12px;
+    background: var(--line);
+  }
+}
+
+/* A arte sangra até a borda direita da janela e tem um recorte em arco do
    lado esquerdo — a curva é o que evita o corte reto contra o texto. */
 .hero__arte { position: relative; }
 
@@ -95,16 +122,46 @@
   width: 100%;
   height: 100%;
   min-height: 260px;
-  max-height: 560px;
   object-fit: cover;
-  border-radius: 0 0 0 96px;
+  display: block;
+}
+
+@media (min-width: 960px) {
+  /* Nada de margem negativa aqui: .hero__grade já ocupa a largura toda da
+     página, então esta coluna termina na borda por construção. Puxar com
+     `calc(100vw - ...)` fazia a arte passar 85px do limite — e `100vw`
+     conta a barra de rolagem, que o layout não tem. */
+
+  /* O arco.
+     Só o canto superior esquerdo é curvo, e com raios enormes: 44% da
+     largura na horizontal e 100% da ALTURA na vertical. Isso estica o que
+     seria um quarto de círculo até virar um único arco que desce do topo
+     ao canto inferior esquerdo — a base da imagem fica reta.
+
+     Arredondar também o canto de baixo (a primeira tentativa) fechava a
+     forma nas duas pontas e a imagem virava uma folha. */
+  .hero__arte img {
+    border-radius: 44% 0 0 0 / 100% 0 0 0;
+  }
+
+  /* O fio verde acompanhando a curva.
+     Herda o mesmo border-radius e desenha só a borda esquerda: o navegador
+     traça a lateral inteira incluindo os dois arcos, então o fio nasce
+     alinhado à imagem sem precisar de um SVG à parte. */
+  .hero__arte::before {
+    content: "";
+    position: absolute;
+    inset: -10px 0 -10px -10px;
+    border-radius: inherit;
+    border-left: 1.5px solid var(--acento);
+    border-radius: 44% 0 0 0 / 100% 0 0 0;
+    opacity: .45;
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 959px) {
-  .hero__arte img {
-    max-height: 300px;
-    border-radius: 0;
-  }
+  .hero__arte img { max-height: 300px; }
 }
 
 /* ---------------- Seções ---------------- */
