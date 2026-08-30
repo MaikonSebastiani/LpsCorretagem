@@ -301,16 +301,29 @@
   <section class="secao secao--sem-topo" id="mcmv">
     <div class="container">
       <div class="dupla">
+        <!-- Direção de arte, não só troca de resolução.
+             No desktop esta coluna é ALTA (medido: 475x675, proporção 0.70) e
+             a arte original é 16:9. Encaixar uma na outra com object-fit
+             descartava 60% da largura e cortava a cena em qualquer lugar.
+             Aqui o desktop recebe um recorte vertical próprio, e o celular
+             — onde a área é larga e baixa — continua com o horizontal. -->
         <div class="dupla__foto">
           <picture>
+            <source media="(min-width: 900px)" type="image/avif"
+                    srcset="assets/images/living-vertical-700.avif 700w, assets/images/living-vertical-950.avif 950w, assets/images/living-vertical-1400.avif 1400w"
+                    sizes="44vw">
+            <source media="(min-width: 900px)" type="image/webp"
+                    srcset="assets/images/living-vertical-700.webp 700w, assets/images/living-vertical-950.webp 950w, assets/images/living-vertical-1400.webp 1400w"
+                    sizes="44vw">
+
             <source type="image/avif"
-                    srcset="assets/images/living-800.avif 800w, assets/images/living-1200.avif 1200w, assets/images/living-1600.avif 1600w"
-                    sizes="(max-width: 900px) 100vw, 44vw">
+                    srcset="assets/images/living-800.avif 800w, assets/images/living-1200.avif 1200w"
+                    sizes="100vw">
             <img src="assets/images/living-1200.webp"
                  srcset="assets/images/living-800.webp 800w, assets/images/living-1200.webp 1200w, assets/images/living-1600.webp 1600w"
-                 sizes="(max-width: 900px) 100vw, 44vw"
+                 sizes="100vw"
                  width="1672" height="941"
-                 alt="Sala de estar iluminada, com sofá claro e varanda ao fundo"
+                 alt="Sala de estar iluminada, com sofá claro, planta e varanda ao fundo"
                  loading="lazy" decoding="async">
           </picture>
         </div>

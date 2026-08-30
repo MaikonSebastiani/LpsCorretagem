@@ -143,9 +143,9 @@
          com o painel de concreto à esquerda, o chevron verde e a fachada.
          Os chevrons verdes NÃO são mais desenhados em CSS: já vêm na imagem. -->
     <div class="hero__bg">
-      <img src="assets/images/hero.webp" width="1672" height="941"
+      <picture><source type="image/avif" srcset="assets/images/hero.avif"><img src="assets/images/hero.webp" width="1672" height="941"
            alt="Perspectiva ilustrada da fachada do Urban Vila Guilherme"
-           fetchpriority="high" decoding="async">
+           fetchpriority="high" decoding="async"></picture>
     </div>
 
     <div class="hero__grid container">
@@ -317,9 +317,9 @@
 
       <figure class="loc__media">
         <!-- SUBSTITUIR: assets/images/localizacao.webp (mapa/aérea da região, ~800x620) -->
-        <img src="assets/images/localizacao.webp" width="800" height="620"
+        <picture><source type="image/avif" srcset="assets/images/localizacao.avif"><img src="assets/images/localizacao.webp" width="800" height="620"
              alt="Mapa aéreo da Vila Guilherme com a localização do Urban Vila Guilherme"
-             loading="lazy" decoding="async">
+             loading="lazy" decoding="async"></picture>
       </figure>
     </div>
   </section>
@@ -370,9 +370,9 @@
   <section class="section mcmv" id="como-comprar" aria-labelledby="buy-title">
     <div class="container mcmv__grid">
       <figure class="mcmv__media">
-        <img src="assets/images/mcmv-photo.webp" width="1100" height="733"
+        <picture><source type="image/avif" srcset="assets/images/mcmv-photo.avif"><img src="assets/images/mcmv-photo.webp" width="1100" height="733"
              alt="Living decorado de um apartamento do Urban Vila Guilherme"
-             loading="lazy" decoding="async">
+             loading="lazy" decoding="async"></picture>
       </figure>
 
       <div class="mcmv__content">
@@ -449,8 +449,8 @@
       <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
       <div class="tour__video" data-video-id="6axzV4gheEU">
         <button type="button" class="tour__play" data-tour-play>
-          <img class="tour__poster" src="assets/images/video-poster.webp"
-               width="1280" height="720" alt="" loading="lazy" decoding="async">
+          <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" src="assets/images/video-poster.webp"
+               width="1280" height="720" alt="" loading="lazy" decoding="async"></picture>
           <span class="tour__play-ico" aria-hidden="true">
             <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
           </span>
@@ -762,8 +762,8 @@
 
   <!-- ================= CTA FINAL ================= -->
   <section class="final-cta" id="contato" aria-labelledby="final-title">
-    <img class="final-cta__bg" src="assets/images/skyline.webp" width="3840" height="1280"
-         alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <picture><source type="image/avif" srcset="assets/images/skyline.avif"><img class="final-cta__bg" src="assets/images/skyline.webp" width="3840" height="1280"
+         alt="" aria-hidden="true" loading="lazy" decoding="async"></picture>
     <div class="container final-cta__inner">
       <div class="final-cta__content">
         <span class="brand brand--footer final-cta__brand" aria-hidden="true">

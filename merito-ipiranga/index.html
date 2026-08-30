@@ -89,11 +89,16 @@
              faixa de destaques logo abaixo. -->
         <div class="hero-art-band"></div>
         <div class="hero-art">
+          <picture>
+          <!-- As larguras precisam acompanhar as do <img> abaixo: sem elas o
+               navegador serviria a arte de 900px tambem no desktop. -->
+          <source type="image/avif" sizes="100vw"
+                  srcset="assets/images/hero-mobile.avif 900w, assets/images/hero.avif 1208w">
           <img src="assets/images/hero.webp"
                srcset="assets/images/hero-mobile.webp 900w, assets/images/hero.webp 1208w"
                sizes="100vw" width="1208" height="1086"
                alt="Perspectiva ilustrativa da fachada do Mérito Ipiranga"
-               fetchpriority="high" decoding="async">
+               fetchpriority="high" decoding="async"></picture>
         </div>
         <div class="container hero-grid">
           <div class="hero-copy reveal">
@@ -209,7 +214,7 @@
     <section class="section location" id="localizacao">
       <div class="container location-grid">
         <div class="location-media reveal">
-          <img src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" />
+          <picture><source type="image/avif" srcset="assets/images/aerea-localizacao.avif"><img src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" /></picture>
           <div class="media-caption">IPIRANGA • SÃO PAULO</div>
         </div>
         <div class="location-copy reveal reveal-delay">
@@ -279,7 +284,7 @@
           <p class="legal-note">A análise depende da categoria da unidade, renda, documentação, análise de crédito e regras vigentes no momento da contratação.</p>
         </div>
         <div class="profile-media reveal reveal-delay">
-          <img src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" />
+          <picture><source type="image/avif" srcset="assets/images/portaria.avif"><img src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" /></picture>
           <div class="floating-quote">“Cada dia marca um novo capítulo de uma vida que é só sua.”</div>
         </div>
       </div>
@@ -311,8 +316,8 @@
         <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
         <div class="tour__video reveal" data-video-id="2a6CZsaKMu4">
           <button type="button" class="tour__play" data-tour-play>
-            <img class="tour__poster" src="assets/images/video-poster.webp"
-                 width="1280" height="720" alt="" loading="lazy" decoding="async">
+            <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" src="assets/images/video-poster.webp"
+                 width="1280" height="720" alt="" loading="lazy" decoding="async"></picture>
             <span class="tour__play-ico" aria-hidden="true">▶</span>
             <span class="tour__play-label">Assistir à apresentação</span>
           </button>
@@ -342,9 +347,9 @@
           <article class="plan-card reveal"><img src="assets/images/planta-45-66.webp" alt="Planta de 45,66 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,66 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,66 m²" data-message="Olá! Vi a planta de 45,66 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
           <article class="plan-card reveal"><img src="assets/images/planta-41-84.webp" alt="Planta de 41,84 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>41,84 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="41,84 m²" data-message="Olá! Vi a planta de 41,84 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
           <article class="plan-card reveal"><img src="assets/images/planta-40-94.webp" alt="Planta de 40,94 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>40,94 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="40,94 m²" data-message="Olá! Vi a planta de 40,94 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,80 m²" data-message="Olá! Vi a planta de 36,80 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-36-80.avif"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,80 m²" data-message="Olá! Vi a planta de 36,80 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
           <article class="plan-card reveal"><img src="assets/images/planta-36-83.webp" alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,83 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,83 m²" data-message="Olá! Vi a planta de 36,83 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="26,39 m²" data-message="Olá! Vi a planta de 26,39 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
+          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-26-39.avif"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="26,39 m²" data-message="Olá! Vi a planta de 26,39 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Consultar esta planta →</a></div></article>
         </div>
         <div class="special-benefits reveal">
           <strong>Em plantas selecionadas, o material oficial também destaca:</strong>
@@ -361,18 +366,18 @@
           <h2>Diversão na hora que quiser.<br><em>Descanso na hora que precisar.</em></h2>
         </div>
         <div class="leisure-feature reveal">
-          <img src="assets/images/piscina.webp" alt="Piscina adulto e infantil do Mérito Ipiranga" loading="lazy">
+          <picture><source type="image/avif" srcset="assets/images/piscina.avif"><img src="assets/images/piscina.webp" alt="Piscina adulto e infantil do Mérito Ipiranga" loading="lazy"></picture>
           <div><span>ÁREAS COMUNS</span><strong>Entregues equipadas e decoradas</strong><p>Ambientes para cuidar do corpo, trabalhar, receber amigos, curtir a família e aproveitar cada momento sem sair de casa.</p></div>
         </div>
         <div class="leisure-grid">
           <figure class="reveal"><img src="assets/images/fitness.webp" alt="Fitness" loading="lazy"><figcaption>Fitness</figcaption></figure>
           <figure class="reveal"><img src="assets/images/coworking.webp" alt="Coworking" loading="lazy"><figcaption>Coworking</figcaption></figure>
-          <figure class="reveal"><img src="assets/images/beach-tennis.webp" alt="Beach tennis" loading="lazy"><figcaption>Beach Tennis</figcaption></figure>
-          <figure class="reveal"><img src="assets/images/pet-place.webp" alt="Pet place" loading="lazy"><figcaption>Pet Place</figcaption></figure>
+          <figure class="reveal"><picture><source type="image/avif" srcset="assets/images/beach-tennis.avif"><img src="assets/images/beach-tennis.webp" alt="Beach tennis" loading="lazy"></picture><figcaption>Beach Tennis</figcaption></figure>
+          <figure class="reveal"><picture><source type="image/avif" srcset="assets/images/pet-place.avif"><img src="assets/images/pet-place.webp" alt="Pet place" loading="lazy"></picture><figcaption>Pet Place</figcaption></figure>
           <figure class="reveal"><img src="assets/images/salao-festas.webp" alt="Salão de festas" loading="lazy"><figcaption>Salão de Festas</figcaption></figure>
           <figure class="reveal"><img src="assets/images/churrasqueira.webp" alt="Churrasqueira" loading="lazy"><figcaption>Churrasqueiras</figcaption></figure>
           <figure class="reveal"><img src="assets/images/brinquedoteca.webp" alt="Brinquedoteca" loading="lazy"><figcaption>Brinquedoteca</figcaption></figure>
-          <figure class="reveal"><img src="assets/images/playground.webp" alt="Playground" loading="lazy"><figcaption>Playground</figcaption></figure>
+          <figure class="reveal"><picture><source type="image/avif" srcset="assets/images/playground.avif"><img src="assets/images/playground.webp" alt="Playground" loading="lazy"></picture><figcaption>Playground</figcaption></figure>
         </div>
         <div class="amenities-list reveal">
           <span>Lavanderia¹</span><span>Mercadinho¹</span><span>Sport Bar</span><span>Pet Care</span><span>Delivery</span><span>Bicicletário</span><span>Piscina adulto e infantil</span><span>Apoio churrasqueiras</span>
@@ -388,7 +393,7 @@
 
     <section class="section cury-section" id="construtora">
       <div class="container cury-grid">
-        <div class="cury-media reveal"><img src="assets/images/aerea-noite.webp" alt="Fotomontagem aérea do Mérito Ipiranga" loading="lazy"></div>
+        <div class="cury-media reveal"><picture><source type="image/avif" srcset="assets/images/aerea-noite.avif"><img src="assets/images/aerea-noite.webp" alt="Fotomontagem aérea do Mérito Ipiranga" loading="lazy"></picture></div>
         <div class="cury-copy reveal reveal-delay">
           <span class="eyebrow gold">CONSTRUÍDO POR CURY</span>
           <h2>Qualidade, confiança <em>e solidez.</em></h2>
