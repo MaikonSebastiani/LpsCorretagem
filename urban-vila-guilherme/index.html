@@ -123,12 +123,16 @@
     </button>
 
     <nav class="main-nav" id="menu-principal" aria-label="Navegação principal">
+      <!-- Ordem espelha a leitura da página, não o alfabeto: Plantas é a
+           2ª seção agora (ver comentário na seção), então sobe para 2º
+           lugar aqui também — um menu que ainda a lista por último
+           contradiz a própria mudança de posição. -->
       <ul class="main-nav__list">
+        <li><a href="#plantas">Plantas</a></li>
         <li><a href="#lancamento">Lançamento</a></li>
         <li><a href="#localizacao">Localização</a></li>
         <li><a href="#como-comprar">Como comprar</a></li>
         <li><a href="#video">O projeto</a></li>
-        <li><a href="#plantas">Plantas</a></li>
         <li><a href="#lazer">Lazer</a></li>
       </ul>
     </nav>
@@ -189,11 +193,17 @@
           </p>
         </div>
 
+        <!-- MANUTENÇÃO MENSAL: atualizar junto da correção da tabela
+             (mesmo ciclo mencionado na seção de lançamento e no FAQ). Mês
+             parado aqui é pior que não ter data -- avisa "isso está velho"
+             para quem acabou de clicar num anúncio pago. -->
+        <p class="hero__updated">Tabela vigente — agosto de 2026</p>
+
         <div class="hero__actions">
           <a class="btn btn--green btn--lg whatsapp-link" data-source="hero"
-             data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de simular a parcela e ver quais unidades cabem no meu perfil.">
+             data-message="Olá! Gostaria de solicitar uma cotação do Urban Vila Guilherme e ver quais unidades cabem no meu perfil.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Simular minha parcela
+            Solicitar cotação
           </a>
           <p class="hero__micro">Resposta pelo WhatsApp, sem compromisso</p>
         </div>
@@ -223,250 +233,6 @@
       </span>
     </div>
   </div>
-
-  <!-- ================= LANÇAMENTO / NA PLANTA =================
-       Explica o estágio do empreendimento e as vantagens reais de comprar
-       na planta. Sem promessa de valorização (que seria promessa de
-       investimento) e sem prazo de entrega inventado — o prazo oficial é o
-       que estiver em contrato. Reaproveita a grade de colunas da seção
-       Minha Casa Minha Vida, sem CSS novo de layout. -->
-  <section class="section launch" id="lancamento" aria-labelledby="launch-title">
-    <div class="container">
-      <p class="eyebrow eyebrow--lines">Lançamento</p>
-      <h2 class="title title--center" id="launch-title">Comprar na planta custa menos</h2>
-      <p class="section__text launch__lead">
-        O Urban Vila Guilherme é um lançamento: as unidades são vendidas na planta
-        e o condomínio ainda está em construção. Você não recebe as chaves agora —
-        e é justamente por isso que as condições de entrada são mais acessíveis do
-        que as de um apartamento pronto.
-      </p>
-
-      <ul class="mcmv__cols launch__cols">
-        <li>
-          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-fgts"></use></svg></span>
-          <h3>Valor de entrada menor</h3>
-          <p>Imóvel na planta costuma partir de um valor abaixo do de uma unidade pronta equivalente.</p>
-        </li>
-        <li>
-          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-doc-check"></use></svg></span>
-          <h3>Entrada a partir de R$ 800</h3>
-          <p>Você começa com um valor baixo e divide o restante da entrada ao longo da obra, no formato que couber no seu orçamento.</p>
-        </li>
-        <li>
-          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-floor"></use></svg></span>
-          <h3>Mais opções de escolha</h3>
-          <p>Enquanto o empreendimento está em lançamento, há mais alternativas de planta, andar e posição.</p>
-        </li>
-      </ul>
-
-      <!-- Urgência real, não inventada: a tabela é corrigida todo mês, em
-           todos os empreendimentos. Não é promessa de valorização — é o preço
-           de compra subindo enquanto a obra anda. -->
-      <!-- O texto precisa vir dentro de um <span>: o contêiner é flex, e sem
-           ele cada trecho solto e o <strong> viram itens flex separados,
-           quebrando a frase em colunas. -->
-      <p class="launch__urgency">
-        <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-        <span>A tabela é <strong>corrigida todo mês</strong>. Quem fecha agora
-        entra pelo valor de hoje; quem deixa para depois entra pelo de
-        depois.</span>
-      </p>
-
-      <p class="section__cta">
-        <a class="btn btn--green whatsapp-link" data-source="launch"
-           data-message="Olá! Vi que o Urban Vila Guilherme é um lançamento e gostaria de entender as condições de compra na planta.">
-          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Entender as condições na planta
-        </a>
-      </p>
-
-      <p class="launch__note">
-        Empreendimento em construção. O prazo de entrega é o previsto no contrato.
-        Imagens ilustrativas.
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= LOCALIZAÇÃO ================= -->
-  <section class="section section--texture" id="localizacao" aria-labelledby="loc-title">
-    <div class="container loc__grid">
-      <div class="loc__content">
-        <h2 class="title" id="loc-title">O melhor da região <br>no centro da sua <span class="dash-end">vida</span></h2>
-        <p class="section__text">
-          Viver na Vila Guilherme é estar conectado a alguns dos principais pontos da Zona <span class="dash-end">Norte.</span>
-        </p>
-
-        <ul class="poi" aria-label="Pontos próximos ao empreendimento">
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Shopping Center Norte</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Parque do Trote</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Carrefour Hipermercado</span></li>
-          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>7 min</strong>Expo Center Norte</span></li>
-        </ul>
-
-        <p class="loc__mobility">
-          Fácil acesso a shopping, parque, mercado e vias principais da Zona Norte —
-          o dia a dia perto de casa, sem abrir mão da praticidade para se locomover pela cidade.
-        </p>
-
-        <a class="btn btn--outline btn--arrow whatsapp-link" data-source="location"
-           data-message="Olá! Vi a localização do Urban Vila Guilherme e gostaria de conhecer melhor o empreendimento.">
-          Quero conhecer o Urban
-          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-        </a>
-      </div>
-
-      <figure class="loc__media">
-        <!-- SUBSTITUIR: assets/images/localizacao.webp (mapa/aérea da região, ~800x620) -->
-        <picture><source type="image/avif" srcset="assets/images/localizacao.avif"><img src="assets/images/localizacao.webp" width="800" height="620"
-             alt="Mapa aéreo da Vila Guilherme com a localização do Urban Vila Guilherme"
-             loading="lazy" decoding="async"></picture>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ================= ALUGUEL × PARCELA =================
-       A conta que quem paga aluguel faz de cabeça. Era um bloco dentro de
-       "como comprar", mas empurrava aquela seção para perto de 1.500px — e o
-       argumento é forte o bastante para ocupar espaço próprio.
-
-       Vem antes de "como comprar" de propósito: primeiro a pessoa vê quanto
-       está queimando, depois vê como parar.
-  -->
-  <section class="section section--light rent" id="aluguel" aria-labelledby="rent-title">
-    <div class="container rent__inner">
-      <p class="eyebrow eyebrow--lines">Se você paga aluguel</p>
-      <h2 class="title title--center" id="rent-title">O aluguel é despesa. A parcela constrói <span class="dash-end">patrimônio.</span></h2>
-
-      <p class="rent__lead">
-        Um aluguel de <strong>R$ 1.800</strong> por mês, ao longo de <strong>8 anos</strong>,
-        soma <strong>R$ 172.800</strong> — uma despesa mensal que não deixa nada
-        no seu nome. Comprar um imóvel pode transformar esse mesmo valor em
-        patrimônio seu.
-      </p>
-
-      <p class="rent__note">Números ilustrativos, só para dar a ordem de grandeza. Faça a conta com o seu aluguel e o seu tempo — a parcela real depende do seu perfil, da unidade e da análise de crédito.</p>
-
-      <p class="section__cta">
-        <a class="btn btn--green whatsapp-link" data-source="aluguel"
-           data-message="Olá! Pago aluguel hoje e gostaria de comparar com a parcela de um apartamento no Urban Vila Guilherme.">
-          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Comparar com a minha parcela
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= COMO COMPRAR / SEU PERFIL =================
-       Fusão do que antes eram duas seções: "Minha Casa Minha Vida" e "Não é
-       só escolher a planta". As duas diziam a mesma coisa — as unidades têm
-       categorias diferentes, o que você pode comprar depende de renda,
-       enquadramento e crédito, e a análise é feita com o consultor — e as
-       duas terminavam no mesmo CTA. Uma seção forte converte mais que duas
-       repetidas.
-
-       Fica alta na página de propósito: para este público o bloqueio é
-       "eu consigo comprar?", não "eu quero?". A dúvida de dinheiro vem antes
-       do desejo. -->
-  <section class="section mcmv" id="como-comprar" aria-labelledby="buy-title">
-    <div class="container mcmv__grid">
-      <figure class="mcmv__media">
-        <picture><source type="image/avif" srcset="assets/images/mcmv-photo.avif"><img src="assets/images/mcmv-photo.webp" width="1100" height="733"
-             alt="Living decorado de um apartamento do Urban Vila Guilherme"
-             loading="lazy" decoding="async"></picture>
-      </figure>
-
-      <div class="mcmv__content">
-        <p class="eyebrow eyebrow--lines">Minha Casa Minha Vida</p>
-        <h2 class="title" id="buy-title">Descubra qual unidade cabe no seu bolso</h2>
-        <p class="section__text mcmv__lead">
-          O Urban Vila Guilherme tem unidades de categorias diferentes. O que
-          você pode comprar depende da sua renda familiar, do enquadramento no
-          programa habitacional, do FGTS disponível e da análise de crédito —
-          e é justamente por isso que dá para começar com pouco.
-        </p>
-
-        <ul class="mcmv__cols">
-          <li>
-            <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-fgts"></use></svg></span>
-            <h3>Use seu FGTS</h3>
-            <p>O saldo disponível pode compor parte da compra, conforme análise.</p>
-          </li>
-          <li>
-            <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-doc-check"></use></svg></span>
-            <h3>Entrada a partir de R$ 800</h3>
-            <p>O restante da entrada é parcelado até a entrega, no formato que couber no seu orçamento.</p>
-          </li>
-          <li>
-            <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-user-check"></use></svg></span>
-            <h3>Análise do seu perfil</h3>
-            <p>Nossa equipe verifica quais opções fazem sentido para a sua renda.</p>
-          </li>
-        </ul>
-
-        <p class="buy__highlight">Um de nossos consultores faz essa análise inicial com você.</p>
-
-        <a class="btn btn--green btn--lg btn--block whatsapp-link" data-source="profile"
-           data-message="Olá! Gostaria de verificar quais unidades do Urban Vila Guilherme são compatíveis com a minha renda e o meu perfil.">
-          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-          Ver quais unidades posso comprar
-        </a>
-
-        <p class="mcmv__note">
-          *Sujeito ao enquadramento do comprador, categoria da unidade, análise de
-          crédito e condições vigentes.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= APRESENTAÇÃO DO PROJETO =================
-       Em lançamento na planta o comprador não pode visitar nada — o vídeo é
-       o que substitui a visita. Vem antes das plantas de propósito: planta é
-       desenho técnico e só faz sentido depois de a pessoa ter visto o espaço.
-
-       O vídeo é a apresentação oficial do empreendimento, não um tour de
-       decorado: o decorado ficou para a visita presencial, que é o que o
-       CTA desta seção agenda.
-
-       O iframe NÃO entra no carregamento — só no clique do play. Um embed
-       de YouTube carregado de saída custa perto de 1 MB e derrubaria a
-       primeira dobra no celular; em tráfego pago isso é dinheiro fora.
-
-       A capa é o frame oficial do próprio vídeo, servido daqui: puxar a
-       thumbnail do i.ytimg.com entregaria o IP de quem só passou pela
-       página ao Google, sem play nenhum.
-       ============================================================ -->
-  <section class="section section--light tour" id="video" aria-labelledby="tour-title">
-    <div class="container">
-      <p class="eyebrow eyebrow--lines">Apresentação</p>
-      <h2 class="title title--center" id="tour-title">Conheça o Urban Vila Guilherme</h2>
-      <p class="section__text tour__lead">
-        Dois minutos com a apresentação oficial do empreendimento: a fachada, a
-        localização, as áreas comuns e o padrão de entrega. O decorado fica para
-        a visita presencial.
-      </p>
-
-      <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
-      <div class="tour__video" data-video-id="6axzV4gheEU">
-        <button type="button" class="tour__play" data-tour-play>
-          <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" src="assets/images/video-poster.webp"
-               width="1280" height="720" alt="" loading="lazy" decoding="async"></picture>
-          <span class="tour__play-ico" aria-hidden="true">
-            <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
-          </span>
-          <span class="tour__play-label">Assistir à apresentação</span>
-        </button>
-      </div>
-
-      <p class="section__cta">
-        <a class="btn btn--green btn--arrow whatsapp-link" data-source="tour"
-           data-message="Olá! Vi a apresentação do Urban Vila Guilherme e gostaria de agendar uma visita ao decorado.">
-          Quero visitar o decorado
-          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-        </a>
-      </p>
-    </div>
-  </section>
 
   <!-- ================= PLANTAS ================= -->
   <section class="section section--light" id="plantas" aria-labelledby="plantas-title">
@@ -587,6 +353,207 @@
            data-message="Olá! Estou vendo as plantas do Urban Vila Guilherme e gostaria de consultar preços e disponibilidade.">
           <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
           Ver preços de todas as plantas
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= LANÇAMENTO / NA PLANTA =================
+       Explica o estágio do empreendimento e as vantagens reais de comprar
+       na planta. Sem promessa de valorização (que seria promessa de
+       investimento) e sem prazo de entrega inventado — o prazo oficial é o
+       que estiver em contrato. Reaproveita a grade de colunas da seção
+       Minha Casa Minha Vida, sem CSS novo de layout. -->
+  <section class="section launch" id="lancamento" aria-labelledby="launch-title">
+    <div class="container">
+      <p class="eyebrow eyebrow--lines">Lançamento</p>
+      <h2 class="title title--center" id="launch-title">Comprar na planta custa menos</h2>
+      <p class="section__text launch__lead">
+        O Urban Vila Guilherme é um lançamento: as unidades são vendidas na planta
+        e o condomínio ainda está em construção. Você não recebe as chaves agora —
+        e é justamente por isso que as condições de entrada são mais acessíveis do
+        que as de um apartamento pronto.
+      </p>
+
+      <ul class="mcmv__cols launch__cols">
+        <li>
+          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-fgts"></use></svg></span>
+          <h3>Valor de entrada menor</h3>
+          <p>Imóvel na planta costuma partir de um valor abaixo do de uma unidade pronta equivalente.</p>
+        </li>
+        <li>
+          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-doc-check"></use></svg></span>
+          <h3>Entrada a partir de R$ 800</h3>
+          <p>Você começa com um valor baixo e divide o restante da entrada ao longo da obra, no formato que couber no seu orçamento.</p>
+        </li>
+        <li>
+          <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-floor"></use></svg></span>
+          <h3>Mais opções de escolha</h3>
+          <p>Enquanto o empreendimento está em lançamento, há mais alternativas de planta, andar e posição.</p>
+        </li>
+      </ul>
+
+      <!-- Urgência real, não inventada: a tabela é corrigida todo mês, em
+           todos os empreendimentos. Não é promessa de valorização — é o preço
+           de compra subindo enquanto a obra anda. -->
+      <!-- O texto precisa vir dentro de um <span>: o contêiner é flex, e sem
+           ele cada trecho solto e o <strong> viram itens flex separados,
+           quebrando a frase em colunas. -->
+      <p class="launch__urgency">
+        <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        <span>A tabela é <strong>corrigida todo mês</strong>. Quem fecha agora
+        entra pelo valor de hoje; quem deixa para depois entra pelo de
+        depois.</span>
+      </p>
+
+      <p class="section__cta">
+        <a class="btn btn--green whatsapp-link" data-source="launch"
+           data-message="Olá! Vi que o Urban Vila Guilherme é um lançamento e gostaria de entender as condições de compra na planta.">
+          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
+          Entender as condições na planta
+        </a>
+      </p>
+
+      <p class="launch__note">
+        Empreendimento em construção. O prazo de entrega é o previsto no contrato.
+        Imagens ilustrativas.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= LOCALIZAÇÃO ================= -->
+  <section class="section section--texture" id="localizacao" aria-labelledby="loc-title">
+    <div class="container loc__grid">
+      <div class="loc__content">
+        <h2 class="title" id="loc-title">O melhor da região <br>no centro da sua <span class="dash-end">vida</span></h2>
+        <p class="section__text">
+          Viver na Vila Guilherme é estar conectado a alguns dos principais pontos da Zona <span class="dash-end">Norte.</span>
+        </p>
+
+        <ul class="poi" aria-label="Pontos próximos ao empreendimento">
+          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Shopping Center Norte</span></li>
+          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Parque do Trote</span></li>
+          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>5 min</strong>Carrefour Hipermercado</span></li>
+          <li class="poi__item"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg><span><strong>7 min</strong>Expo Center Norte</span></li>
+        </ul>
+
+        <p class="loc__mobility">
+          Fácil acesso a shopping, parque, mercado e vias principais da Zona Norte —
+          o dia a dia perto de casa, sem abrir mão da praticidade para se locomover pela cidade.
+        </p>
+
+        <a class="btn btn--outline btn--arrow whatsapp-link" data-source="location"
+           data-message="Olá! Vi a localização do Urban Vila Guilherme e gostaria de conhecer melhor o empreendimento.">
+          Quero conhecer o Urban
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </a>
+      </div>
+
+      <figure class="loc__media">
+        <!-- SUBSTITUIR: assets/images/localizacao.webp (mapa/aérea da região, ~800x620) -->
+        <picture><source type="image/avif" srcset="assets/images/localizacao.avif"><img src="assets/images/localizacao.webp" width="800" height="620"
+             alt="Mapa aéreo da Vila Guilherme com a localização do Urban Vila Guilherme"
+             loading="lazy" decoding="async"></picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= COMO COMPRAR / SEU PERFIL =================
+       Fusão do que antes eram duas seções: "Minha Casa Minha Vida" e "Não é
+       só escolher a planta". As duas diziam a mesma coisa — as unidades têm
+       categorias diferentes, o que você pode comprar depende de renda,
+       enquadramento e crédito, e a análise é feita com o consultor — e as
+       duas terminavam no mesmo CTA. Uma seção forte converte mais que duas
+       repetidas.
+
+       Fica alta na página de propósito: para este público o bloqueio é
+       "eu consigo comprar?", não "eu quero?". A dúvida de dinheiro vem antes
+       do desejo. -->
+  <section class="section mcmv" id="como-comprar" aria-labelledby="buy-title">
+    <div class="container mcmv__grid">
+      <figure class="mcmv__media">
+        <picture><source type="image/avif" srcset="assets/images/mcmv-photo.avif"><img src="assets/images/mcmv-photo.webp" width="1100" height="733"
+             alt="Living decorado de um apartamento do Urban Vila Guilherme"
+             loading="lazy" decoding="async"></picture>
+      </figure>
+
+      <div class="mcmv__content">
+        <p class="eyebrow eyebrow--lines">Minha Casa Minha Vida</p>
+        <h2 class="title" id="buy-title">Pode comprar pelo Minha Casa Minha Vida?</h2>
+        <p class="section__text mcmv__lead">
+          O Urban tem unidades em categorias diferentes do programa. O que você
+          pode comprar depende da sua renda, do FGTS disponível e da análise de
+          crédito — nossa equipe faz essa leitura com você.
+        </p>
+
+        <!-- Checklist curto em vez dos três blocos com título e parágrafo de
+             antes: a pergunta "cabe no meu bolso?" se responde rápido, sem
+             virar aula de MCMV. Reaproveita .badge-line, o mesmo padrão de
+             lista com ícone já usado na seção de plantas (piso/área molhada). -->
+        <ul class="badge-line">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Diferentes faixas de renda</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>FGTS conforme regras</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Entrada a partir de R$ 800<sup>*</sup></li>
+        </ul>
+
+        <a class="btn btn--green btn--lg btn--block whatsapp-link" data-source="profile"
+           data-message="Olá! Gostaria de verificar quais unidades do Urban Vila Guilherme são compatíveis com a minha renda.">
+          <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
+          Ver condições para minha renda
+        </a>
+
+        <p class="mcmv__note">
+          *Sujeito ao enquadramento do comprador, categoria da unidade, análise de
+          crédito e condições vigentes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APRESENTAÇÃO DO PROJETO =================
+       Em lançamento na planta o comprador não pode visitar nada — o vídeo é
+       o que substitui a visita. Vem antes das plantas de propósito: planta é
+       desenho técnico e só faz sentido depois de a pessoa ter visto o espaço.
+
+       O vídeo é a apresentação oficial do empreendimento, não um tour de
+       decorado: o decorado ficou para a visita presencial, que é o que o
+       CTA desta seção agenda.
+
+       O iframe NÃO entra no carregamento — só no clique do play. Um embed
+       de YouTube carregado de saída custa perto de 1 MB e derrubaria a
+       primeira dobra no celular; em tráfego pago isso é dinheiro fora.
+
+       A capa é o frame oficial do próprio vídeo, servido daqui: puxar a
+       thumbnail do i.ytimg.com entregaria o IP de quem só passou pela
+       página ao Google, sem play nenhum.
+       ============================================================ -->
+  <section class="section section--light tour" id="video" aria-labelledby="tour-title">
+    <div class="container">
+      <p class="eyebrow eyebrow--lines">Apresentação</p>
+      <h2 class="title title--center" id="tour-title">Conheça o Urban Vila Guilherme</h2>
+      <p class="section__text tour__lead">
+        Dois minutos com a apresentação oficial do empreendimento: a fachada, a
+        localização, as áreas comuns e o padrão de entrega. O decorado fica para
+        a visita presencial.
+      </p>
+
+      <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
+      <div class="tour__video" data-video-id="6axzV4gheEU">
+        <button type="button" class="tour__play" data-tour-play>
+          <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" src="assets/images/video-poster.webp"
+               width="1280" height="720" alt="" loading="lazy" decoding="async"></picture>
+          <span class="tour__play-ico" aria-hidden="true">
+            <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
+          </span>
+          <span class="tour__play-label">Assistir à apresentação</span>
+        </button>
+      </div>
+
+      <p class="section__cta">
+        <a class="btn btn--green btn--arrow whatsapp-link" data-source="tour"
+           data-message="Olá! Vi a apresentação do Urban Vila Guilherme e gostaria de agendar uma visita ao decorado.">
+          Quero visitar o decorado
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
         </a>
       </p>
     </div>
@@ -714,12 +681,12 @@
 
         <details class="faq__item">
           <summary>O Urban Vila Guilherme já está pronto?</summary>
-          <p>Não. É um lançamento: as unidades são vendidas na planta e o empreendimento ainda está em construção. Por isso as condições de entrada são mais acessíveis do que as de um apartamento pronto. O prazo de entrega é o previsto em contrato — fale comigo no WhatsApp para receber as informações atualizadas.</p>
+          <p>Não. É um lançamento: as unidades são vendidas na planta e o empreendimento ainda está em construção. Por isso as condições de entrada são mais acessíveis do que as de um apartamento pronto. O prazo de entrega é o previsto em contrato — fale com a nossa equipe no WhatsApp para receber as informações atualizadas.</p>
         </details>
 
         <details class="faq__item">
           <summary>Onde fica o Urban Vila Guilherme?</summary>
-          <p>O empreendimento fica na Vila Guilherme, Zona Norte de São Paulo, próximo ao Shopping Center Norte, ao Parque do Trote e ao Expo Center Norte. Fale comigo no WhatsApp para receber o endereço completo e agendar uma visita.</p>
+          <p>O empreendimento fica na Vila Guilherme, Zona Norte de São Paulo, próximo ao Shopping Center Norte, ao Parque do Trote e ao Expo Center Norte. Fale com a nossa equipe no WhatsApp para receber o endereço completo e agendar uma visita.</p>
         </details>
 
         <details class="faq__item">
@@ -753,8 +720,18 @@
         </details>
 
         <details class="faq__item">
+          <summary>O Urban Vila Guilherme entra no Minha Casa Minha Vida?</summary>
+          <p>O empreendimento tem unidades em diferentes categorias do programa. Se a sua entra ou não depende da sua renda, do enquadramento e da análise de crédito — nossa equipe verifica isso com você, sem custo.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>O Grupo Saitama cobra pelo atendimento?</summary>
+          <p>Não. O atendimento é gratuito. O Grupo Saitama faz a intermediação comercial deste lançamento — a incorporadora responsável pela obra é a Cury.</p>
+        </details>
+
+        <details class="faq__item">
           <summary>Como consultar valores e disponibilidade?</summary>
-          <p>Os valores e a disponibilidade variam de acordo com a unidade e as condições comerciais vigentes. Fale comigo no WhatsApp para consultar as opções atuais.</p>
+          <p>Os valores e a disponibilidade variam de acordo com a unidade e as condições comerciais vigentes. Fale com a nossa equipe no WhatsApp para consultar as opções atuais.</p>
         </details>
       </div>
     </div>
@@ -838,7 +815,7 @@
   </div>
 
   <div class="container site-footer__legal">
-    <p>Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação.</p>
+    <p>Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação. O Grupo Saitama realiza atendimento comercial e intermediação deste lançamento; a incorporadora responsável é a Cury.</p>
     <!-- ESPAÇO RESERVADO: texto jurídico completo, incorporadora, registro de incorporação, CRECI. -->
     <p class="site-footer__law" data-legal hidden></p>
   </div>

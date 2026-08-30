@@ -595,6 +595,14 @@ ul {
   color: var(--green-ink);
 }
 
+/* Aviso de tabela mantida à mão, todo mês — deliberadamente discreto: é
+   reforço de transparência, não uma nova promessa visual como o preço. */
+.hero__updated {
+  margin: 12px 0 0;
+  font-size: .8125rem;
+  color: var(--ink-soft);
+}
+
 /* Texto legal fica no fim do bloco, fora do caminho da leitura principal. */
 .hero__note {
   max-width: 46ch;
@@ -1546,27 +1554,6 @@ html.qz-open body { overflow: hidden; }
 }
 
 
-/* ===================== Aluguel × parcela =====================
-   Seção própria. Antes era um bloco dentro de "como comprar", que passava
-   de 1.400px — o argumento é forte o bastante para ter espaço só dele. */
-.rent__inner { text-align: center; }
-
-.rent__lead {
-  max-width: 54ch;
-  margin: 22px auto 0;
-  font-size: clamp(1.0625rem, 2.4vw, 1.25rem);
-  line-height: 1.55;
-  color: var(--ink);
-}
-
-.rent__note {
-  max-width: 60ch;
-  margin: 14px auto 0;
-  font-size: .8125rem;
-  line-height: 1.45;
-  color: var(--ink-soft);
-}
-
 /* ===================== Urgência do lançamento =====================
    A tabela sobe todo mês. É factual e verificável — nada de cronômetro. */
 .launch__urgency {
@@ -1731,15 +1718,6 @@ html.qz-open body { overflow: hidden; }
 .buy__media img {
   width: 100%;
   height: auto;
-}
-
-.buy__highlight {
-  margin: 18px 0 22px;
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: clamp(1.2rem, 4.5vw, 1.5rem);
-  letter-spacing: .02em;
-  color: var(--urban-green-dark);
 }
 
 /* =========================== Credibility =========================== */
