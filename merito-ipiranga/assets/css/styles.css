@@ -21,11 +21,24 @@ img{display:block;max-width:100%;height:auto}button,a{font:inherit}button{cursor
    selo desce além dele, senão fica escondido atrás do menu. */
 .hero-flag-mcmv{position:absolute;top:112px;right:32px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 20px 18px;background:#fff;border-radius:16px;box-shadow:0 14px 32px rgba(0,0,0,.22)}
 .hero-flag-mcmv__label{font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a8f8c}
-.hero-flag-mcmv img{display:block;width:84px;height:auto}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:60px}.hero-copy{padding-top:20px;max-width:560px}.hero h1{font-size:clamp(52px,6.5vw,88px);line-height:.93;letter-spacing:-.055em;margin:18px 0 28px;color:var(--navy);font-weight:450}.hero h1 em{display:inline-block}.hero-lead{font-size:20px;max-width:650px;color:#555964}.hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}.microcopy{font-size:12px;color:#747680;margin-top:16px}.hero-facts-band{position:relative;background:var(--paper);border-top:1px solid rgba(41,49,91,.08);overflow:hidden}.hero-facts-band:before{content:"";position:absolute;inset:0;background:url('../images/stone-texture-3.webp') center/cover;opacity:.15}.hero-facts{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);padding:28px 0}.hero-facts div{padding:0 24px;border-left:1px solid rgba(41,49,91,.15)}.hero-facts div:first-child{border-left:0;padding-left:0}.hero-facts strong{display:block;color:var(--navy);font-size:21px}.hero-facts span{font-size:13px;color:#777a83}
+/* Seletor mais específico que ".hero-art img" de propósito: aquela regra
+   define object-fit:cover para a foto do hero e, no breakpoint mobile,
+   ainda força aspect-ratio:1208/1086. Com a mesma especificidade a regra
+   do breakpoint vencia por ordem de cascata e recortava o selo nessa
+   proporção — era o que cortava o "Minha Casa Minha Vida" no celular. */
+.hero-art .hero-flag-mcmv img{display:block;width:84px;height:auto;aspect-ratio:auto;object-fit:contain}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:60px}.hero-copy{padding-top:20px;max-width:560px}.hero h1{font-size:clamp(52px,6.5vw,88px);line-height:.93;letter-spacing:-.055em;margin:18px 0 28px;color:var(--navy);font-weight:450}.hero h1 em{display:inline-block}.hero-lead{font-size:20px;max-width:650px;color:#555964}.hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}.microcopy{font-size:12px;color:#747680;margin-top:16px}.hero-facts-band{position:relative;background:var(--paper);border-top:1px solid rgba(41,49,91,.08);overflow:hidden}.hero-facts-band:before{content:"";position:absolute;inset:0;background:url('../images/stone-texture-3.webp') center/cover;opacity:.15}.hero-facts{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);padding:28px 0}.hero-facts div{padding:0 24px;border-left:1px solid rgba(41,49,91,.15)}.hero-facts div:first-child{border-left:0;padding-left:0}.hero-facts strong{display:block;color:var(--navy);font-size:21px}.hero-facts span{font-size:13px;color:#777a83}
 .hero-offer{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}.hero-price{flex:1 1 195px;display:flex;flex-direction:column;gap:1px;margin:0;padding:10px 16px;border-left:4px solid var(--gold);border-radius:2px 12px 12px 2px;background:rgba(255,255,255,.7)}/* A ressalva precisa viajar junto com a promessa: em 12px apagado ela
    sumia ao lado do número, e é ela que impede "entrada de R$ 800" de
    soar como pegadinha. */
 .hero-price__hint{margin-top:4px;font-size:13px;font-weight:500;line-height:1.35;color:var(--ink)}.hero-price__label{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.hero-price__value{font-size:clamp(26px,4.4vw,34px);line-height:1.05;letter-spacing:-.03em;color:var(--navy);font-weight:800}.hero-price__value sup{font-size:.42em;vertical-align:super;color:var(--muted)}.price-inline{color:var(--gold);font-weight:800;white-space:nowrap}.final-price{font-size:clamp(22px,4vw,30px);color:#d8dbe5;margin:0 0 18px}.final-price strong{color:var(--gold2);font-weight:800}.final-price sup{font-size:.5em;vertical-align:super}.final-note{max-width:52ch;margin-inline:auto}
+/* Faixa de confiança logo abaixo da hero, no mesmo papel da do Urban:
+   uma linha curta dizendo de quem é a obra. A seção completa da
+   construtora continua mais abaixo (#construtora). */
+.trust-strip{background:var(--paper);border-top:1px solid rgba(41,49,91,.08);border-bottom:1px solid rgba(41,49,91,.08)}
+.trust-strip__inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;padding:14px 0;text-align:center}
+.trust-strip__item{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.02em;color:#5b5f6b}
+.trust-strip__item svg{width:18px;height:18px;fill:none;stroke:var(--gold);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.trust-strip__item strong{color:var(--navy);font-weight:700}
 .story-strip{background:var(--navy);color:white;padding:34px 0}.story-grid{display:grid;grid-template-columns:100px 1fr auto;gap:30px;align-items:center}.story-line{height:2px;background:var(--gold)}.story-grid p{margin:0;font-size:21px;letter-spacing:.01em}.story-grid span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#ddd8cf}
 .location{background:#fff}.location-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:75px;align-items:center}.location-media{position:relative}.location-media:before{content:"";position:absolute;left:-24px;bottom:-24px;width:52%;height:55%;background:var(--navy);z-index:0}.location-media img{position:relative;z-index:1;width:100%;height:620px;object-fit:cover;clip-path:polygon(0 0,100% 0,92% 100%,7% 100%)}.media-caption{position:absolute;z-index:2;bottom:18px;right:28px;background:var(--gold);color:white;padding:8px 12px;font-size:10px;letter-spacing:.16em}.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin:30px 0 34px}.time-grid div{display:flex;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.time-grid b{color:var(--gold);min-width:48px}.time-grid span{font-size:14px;color:#51545e}
 .condo-stats{background:var(--paper);position:relative;overflow:hidden}.condo-stats:before{content:"";position:absolute;inset:0;background:url('../images/stone-texture-3.webp') center/cover;opacity:.2}.condo-stats .container{position:relative}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.stats-grid article,.launch-grid article{background:rgba(255,255,255,.82);border:1px solid rgba(41,49,91,.08);padding:30px;border-radius:18px}.stats-grid strong{font-size:36px;color:var(--navy);display:block;letter-spacing:-.04em}.stats-grid span{color:#6d7078;font-size:14px}
@@ -154,10 +167,9 @@ html.qz-open,html.qz-open body{overflow:hidden}
 
 /* ===================== Aluguel × parcela =====================
    Seção própria: antes era um bloco dentro de "como comprar". */
-.rent .container{text-align:center}
-.rent__lead{max-width:54ch;margin:22px auto 0;font-size:clamp(1.0625rem,2.4vw,1.25rem);line-height:1.55;color:var(--ink)}
-.rent__fgts{max-width:54ch;margin:14px auto 0;font-size:.9375rem;color:var(--ink)}
-.rent__note{max-width:60ch;margin:14px auto 22px;font-size:.8125rem;line-height:1.45;color:var(--muted)}
+
+
+
 /* ===================== Urgência do lançamento ===================== */
 /* A tabela sobe todo mês: factual e verificável, sem cronômetro. */
 .launch-urgency{max-width:62ch;margin:26px auto 28px;padding:15px 18px;border:2px dashed var(--gold);border-radius:16px;font-size:.9375rem;line-height:1.5;text-align:center;color:var(--ink)}

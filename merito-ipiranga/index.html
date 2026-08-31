@@ -64,12 +64,13 @@
         <img src="assets/images/logo-merito.png" alt="Mérito Ipiranga" />
       </a>
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <!-- A ordem acompanha a da página: plantas primeiro, como no Urban. -->
       <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#plantas">Plantas</a>
         <a href="#lancamento">Lançamento</a>
         <a href="#localizacao">Localização</a>
         <a href="#como-comprar">Como comprar</a>
         <a href="#video">O projeto</a>
-        <a href="#plantas">Plantas</a>
         <a href="#lazer">Lazer</a>
       </nav>
       <a class="btn btn-small btn-navy js-open-lead" data-source="header" data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de consultar as unidades disponíveis.">Consultar unidades</a>
@@ -152,6 +153,18 @@
       </div>
     </section>
 
+    <!-- ================= FAIXA DE CONFIANÇA (discreta, logo após a hero) =================
+         Só reforça marca/atendimento com uma linha curta — a seção completa
+         de credibilidade da construtora continua mais abaixo. -->
+    <div class="trust-strip">
+      <div class="container trust-strip__inner">
+        <span class="trust-strip__item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.7"/><path d="m8.6 12.2-1.9 8.4L12 17.7l5.3 2.9-1.9-8.4"/></svg>
+          Empreendimento <strong>Cury</strong>
+        </span>
+      </div>
+    </div>
+
     <!-- Faixa sem título próprio: <div>, não <section>. Uma <section> sem
          nome acessível não ajuda leitor de tela. -->
     <div class="story-strip">
@@ -161,6 +174,42 @@
         <span>Viva um novo capítulo da sua história.</span>
       </div>
     </div>
+
+    <!-- ================= PLANTAS =================
+         Sobe para logo depois da hero: quem chega por anuncio de busca quer
+         ver metragem e preco antes de qualquer outra coisa. Mesma ordem
+         adotada no Urban Vila Guilherme. -->
+    <section class="section plans" id="plantas">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow gold">PLANTAS</span>
+          <h2>Escolha o espaço ideal para <em>o seu próximo capítulo.</em></h2>
+          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento. Apartamentos <strong class="price-inline">a partir de R$ 230 mil*</strong>.</p>
+          <p class="legal-note">*Valor de referência. O preço final depende da planta, da unidade e das condições vigentes.</p>
+        </div>
+        <div class="plan-benefit reveal">
+          <span>Piso laminado nos dormitórios</span>
+          <span>Piso nas áreas molhadas</span>
+          <span>Terraço</span>
+          <span>Opção de suíte</span>
+          <span>Opção de vaga</span>
+        </div>
+        <div class="plans-grid">
+          <article class="plan-card reveal"><img src="assets/images/planta-45-59.webp" alt="Planta de 45,59 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,59 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,59 m²" data-message="Olá! Vi a planta de 45,59 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-45-66.webp" alt="Planta de 45,66 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,66 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,66 m²" data-message="Olá! Vi a planta de 45,66 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-41-84.webp" alt="Planta de 41,84 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>41,84 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="41,84 m²" data-message="Olá! Vi a planta de 41,84 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-40-94.webp" alt="Planta de 40,94 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>40,94 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="40,94 m²" data-message="Olá! Vi a planta de 40,94 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-36-80.avif"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,80 m²" data-message="Olá! Vi a planta de 36,80 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><img src="assets/images/planta-36-83.webp" alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,83 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,83 m²" data-message="Olá! Vi a planta de 36,83 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-26-39.avif"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="26,39 m²" data-message="Olá! Vi a planta de 26,39 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
+        </div>
+        <div class="special-benefits reveal">
+          <strong>Em plantas selecionadas, o material oficial também destaca:</strong>
+          <span>Persianas de enrolar</span><span>Infraestrutura para ar-condicionado</span><span>Bancadas em granito</span>
+        </div>
+        <div class="center"><a class="btn btn-navy js-open-lead" data-source="floorplans" data-message="Olá! Estou vendo as plantas do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta</a></div>
+      </div>
+    </section>
 
     <!-- ================= LANÇAMENTO / NA PLANTA =================
          Explica o estágio do empreendimento e as vantagens reais de comprar
@@ -240,31 +289,6 @@
       </div>
     </section>
 
-    <!-- ALUGUEL × PARCELA
-
-         A conta que quem paga aluguel faz de cabeça. Era um bloco dentro de
-         "como comprar", mas empurrava aquela seção para perto de 1.500px — e o
-         argumento é forte o bastante para ocupar espaço próprio.
-
-         Vem antes de "como comprar" de propósito: primeiro a pessoa vê quanto
-         está queimando, depois vê como parar.
-    -->
-    <section class="section rent" id="aluguel">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow gold">SE VOCÊ PAGA ALUGUEL</span>
-          <h2>O aluguel é despesa. <em>A parcela constrói patrimônio.</em></h2>
-        </div>
-
-        <p class="rent__lead reveal">Um aluguel de <strong>R$ 1.800</strong> por mês, ao longo de <strong>8 anos</strong>, soma <strong>R$ 172.800</strong> — uma despesa mensal que não deixa nada no seu nome. Comprar um imóvel pode transformar esse mesmo valor em patrimônio seu.</p>
-
-        <p class="rent__fgts reveal">E o saldo do seu <strong>FGTS</strong> pode compor parte da compra, conforme análise.</p>
-
-        <p class="rent__note reveal">Números ilustrativos, só para dar a ordem de grandeza. Faça a conta com o seu aluguel e o seu tempo — a parcela real depende do seu perfil, da unidade e da análise de crédito.</p>
-
-        <div class="center"><a class="btn btn-gold js-open-lead" data-source="aluguel" data-message="Olá! Pago aluguel hoje e gostaria de comparar com a parcela de um apartamento no Mérito Ipiranga.">Comparar com a minha parcela</a></div>
-      </div>
-    </section>
 
     <section class="section profile" id="como-comprar">
       <div class="container profile-grid">
@@ -328,38 +352,6 @@
         </div>
 
         <div class="center"><a class="btn btn-gold js-open-lead" data-source="tour" data-message="Olá! Vi a apresentação do Mérito Ipiranga e gostaria de agendar uma visita ao decorado.">Quero visitar o decorado</a></div>
-      </div>
-    </section>
-
-    <section class="section plans" id="plantas">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow gold">PLANTAS</span>
-          <h2>Escolha o espaço ideal para <em>o seu próximo capítulo.</em></h2>
-          <p>Opções de 1 e 2 dormitórios, todas apresentadas no material oficial do empreendimento. Apartamentos <strong class="price-inline">a partir de R$ 230 mil*</strong>.</p>
-          <p class="legal-note">*Valor de referência. O preço final depende da planta, da unidade e das condições vigentes.</p>
-        </div>
-        <div class="plan-benefit reveal">
-          <span>Piso laminado nos dormitórios</span>
-          <span>Piso nas áreas molhadas</span>
-          <span>Terraço</span>
-          <span>Opção de suíte</span>
-          <span>Opção de vaga</span>
-        </div>
-        <div class="plans-grid">
-          <article class="plan-card reveal"><img src="assets/images/planta-45-59.webp" alt="Planta de 45,59 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,59 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,59 m²" data-message="Olá! Vi a planta de 45,59 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-45-66.webp" alt="Planta de 45,66 m² com 2 dormitórios, suíte e terraço" loading="lazy"><div class="plan-info"><div><strong>45,66 m²</strong><span>2 dorms. • suíte • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="45,66 m²" data-message="Olá! Vi a planta de 45,66 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-41-84.webp" alt="Planta de 41,84 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>41,84 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="41,84 m²" data-message="Olá! Vi a planta de 41,84 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-40-94.webp" alt="Planta de 40,94 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>40,94 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="40,94 m²" data-message="Olá! Vi a planta de 40,94 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-36-80.avif"><img src="assets/images/planta-36-80.webp" alt="Planta de 36,80 m² com 2 dormitórios e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>36,80 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,80 m²" data-message="Olá! Vi a planta de 36,80 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><img src="assets/images/planta-36-83.webp" alt="Planta de 36,83 m² com 2 dormitórios e terraço" loading="lazy"><div class="plan-info"><div><strong>36,83 m²</strong><span>2 dorms. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="36,83 m²" data-message="Olá! Vi a planta de 36,83 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-          <article class="plan-card reveal"><picture><source type="image/avif" srcset="assets/images/planta-26-39.avif"><img src="assets/images/planta-26-39.webp" alt="Planta de 26,39 m² com 1 dormitório e terraço" loading="lazy"></picture><div class="plan-info"><div><strong>26,39 m²</strong><span>1 dorm. • terraço</span></div><a class="btn-link js-open-lead" data-source="floorplans" data-planta="26,39 m²" data-message="Olá! Vi a planta de 26,39 m² do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta →</a></div></article>
-        </div>
-        <div class="special-benefits reveal">
-          <strong>Em plantas selecionadas, o material oficial também destaca:</strong>
-          <span>Persianas de enrolar</span><span>Infraestrutura para ar-condicionado</span><span>Bancadas em granito</span>
-        </div>
-        <div class="center"><a class="btn btn-navy js-open-lead" data-source="floorplans" data-message="Olá! Estou vendo as plantas do Mérito Ipiranga e gostaria de consultar valores e disponibilidade.">Receber proposta</a></div>
       </div>
     </section>
 
