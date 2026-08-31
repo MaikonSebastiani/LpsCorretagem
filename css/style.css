@@ -301,6 +301,10 @@
   text-transform: uppercase;
 }
 
+/* Vermelho só neste selo: "últimas unidades" é informação de estoque,
+   não mais um rótulo de categoria como "Lançamento". */
+.card__selo--urgente { background: #b03a2e; }
+
 .card__corpo {
   display: flex;
   flex-direction: column;

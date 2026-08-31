@@ -85,7 +85,11 @@ export const PREFERENCIAS = [
 /* Empreendimentos com landing page própria. Lead da /simulacao entra com
    `empreendimento` nulo — ainda não escolheu, e é esse justamente o
    público que a /simulacao existe para captar. */
-export const EMPREENDIMENTOS = ['urban-vila-guilherme', 'merito-ipiranga'];
+export const EMPREENDIMENTOS = [
+  'urban-vila-guilherme',
+  'merito-ipiranga',
+  'novo-mundo-carrao'
+];
 
 /* ------------------------------------------------------------------
    Funil
