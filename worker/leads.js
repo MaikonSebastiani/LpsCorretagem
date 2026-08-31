@@ -107,9 +107,9 @@ async function procurarExistente(db, fone, mail) {
  *
  * O que NÃO é sobrescrito, de propósito:
  *
- *   - `criado_em` e `origem` — a PRIMEIRA origem é o dado que diz qual
- *     canal realmente trouxe a pessoa. Sobrescrever com a origem da segunda
- *     visita daria todo o crédito ao último clique e apagaria o
+ *   - `criado_em`, `origem` e `cta` — a PRIMEIRA origem é o dado que diz
+ *     qual canal realmente trouxe a pessoa. Sobrescrever com a origem da
+ *     segunda visita daria todo o crédito ao último clique e apagaria o
  *     investimento que funcionou de verdade;
  *
  *   - `corretor_id` — quem já atendia continua atendendo. É a regra que
@@ -153,6 +153,7 @@ async function registrarReentrada(db, lead, perfil, origem, extra, score, classi
     evento(db, lead.id, agora, 'lead_reentrada', {
       origem_primeira: lead.origem,
       origem_agora: origem.origem,
+      cta_agora: origem.cta,
       empreendimento_agora: extra.empreendimento || null,
       utm_source: origem.utm_source,
       utm_campaign: origem.utm_campaign,
@@ -171,10 +172,10 @@ async function criarLead(db, perfil, origem, extra, score, classificacao, agora)
          renda, entrada, fgts, regiao, momento, preferencia,
          empreendimento, planta,
          score, classificacao,
-         origem, pagina, referrer, gclid, fbclid,
+         origem, cta, pagina, referrer, gclid, fbclid,
          utm_source, utm_medium, utm_campaign, utm_term, utm_content,
          consentimento
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
        RETURNING id`
     )
     .bind(
@@ -183,7 +184,7 @@ async function criarLead(db, perfil, origem, extra, score, classificacao, agora)
       perfil.momento, perfil.preferencia,
       extra.empreendimento || null, extra.planta || null,
       score, classificacao,
-      origem.origem, origem.pagina, origem.referrer, origem.gclid, origem.fbclid,
+      origem.origem, origem.cta, origem.pagina, origem.referrer, origem.gclid, origem.fbclid,
       origem.utm_source, origem.utm_medium, origem.utm_campaign,
       origem.utm_term, origem.utm_content,
       extra.consentimento ? 1 : 0

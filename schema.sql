@@ -34,6 +34,12 @@ CREATE TABLE IF NOT EXISTS leads (
   -- data-source do CTA que abriu o formulário (hero, final, mobile_fixed…)
   origem         TEXT,
 
+  -- Texto do botão em que a pessoa clicou, exatamente como estava escrito
+  -- ("Receber proposta", "Falar com um corretor"…). O `origem` diz de que
+  -- SEÇÃO veio; este diz qual PROMESSA converteu — é o que permite trocar
+  -- a copy de um CTA e medir se a troca funcionou.
+  cta            TEXT,
+
   -- Atribuição do Google Ads. As LPs são exclusivas de Ads, então o gclid
   -- é o que liga o lead de volta à campanha que o trouxe.
   gclid          TEXT,

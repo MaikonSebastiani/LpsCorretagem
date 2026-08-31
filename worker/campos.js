@@ -14,16 +14,53 @@ export function texto(valor, limite) {
 }
 
 /**
- * Telefone brasileiro, guardado só com dígitos.
+ * DDDs que existem de verdade no Brasil (lista da Anatel).
  *
- * Validação deliberadamente frouxa: 10 dígitos (fixo com DDD) ou 11
- * (celular). Rejeitar número válido custa um lead; aceitar um com erro de
- * digitação custa uma ligação perdida — o segundo é muito mais barato.
+ * A lista tem buracos que não são óbvios — 20, 23, 25, 26, 29, 30, 36, 39,
+ * 40, 50, 52, 56 a 60, 70, 72, 76, 78, 80 e 90 nunca foram atribuídos.
+ * Conferir só "dois dígitos" deixava passar todos eles.
+ */
+const DDDS = new Set([
+  '11', '12', '13', '14', '15', '16', '17', '18', '19',
+  '21', '22', '24', '27', '28',
+  '31', '32', '33', '34', '35', '37', '38',
+  '41', '42', '43', '44', '45', '46', '47', '48', '49',
+  '51', '53', '54', '55',
+  '61', '62', '63', '64', '65', '66', '67', '68', '69',
+  '71', '73', '74', '75', '77', '79',
+  '81', '82', '83', '84', '85', '86', '87', '88', '89',
+  '91', '92', '93', '94', '95', '96', '97', '98', '99'
+]);
+
+/**
+ * Celular brasileiro, guardado só com dígitos.
+ *
+ * Antes a regra era só o comprimento (10 ou 11 dígitos) e entrou lead com
+ * "55119727727": o país colado na frente, o número truncado, e ninguém
+ * para atender do outro lado. Um telefone que não completa a chamada não é
+ * um lead — é um custo de mídia sem retorno.
+ *
+ * Por isso agora exige as três coisas que tornam o número discável:
+ * 11 dígitos, DDD que existe, e o 9 na frente do assinante.
+ *
+ * Fixo é recusado de propósito: o campo é o WhatsApp, que no Brasil só
+ * funciona em celular.
  */
 export function telefone(valor) {
   if (typeof valor !== 'string') return null;
-  const digitos = valor.replace(/\D/g, '');
-  return digitos.length === 10 || digitos.length === 11 ? digitos : null;
+
+  let d = valor.replace(/\D/g, '');
+
+  /* Código do país que a pessoa colou junto (5511987654321). Só sai quando
+     o que sobra tem tamanho de celular — "55" também é o DDD de Santa
+     Maria/RS, e remover cedo demais destruiria um número legítimo. */
+  if (d.length === 13 && d.startsWith('55')) d = d.slice(2);
+
+  if (d.length !== 11) return null;
+  if (!DDDS.has(d.slice(0, 2))) return null;
+  if (d[2] !== '9') return null;
+
+  return d;
 }
 
 /**
@@ -63,6 +100,10 @@ export function origemDo(dados) {
 
   return {
     origem: texto(dados.origem, 40),
+    /* Rótulo do botão clicado. Vem do textContent do CTA, então é texto
+       que NÓS escrevemos na página — mas chega pelo cliente como todo o
+       resto, e por isso passa pelo mesmo corte. */
+    cta: texto(dados.cta, 80),
     pagina: texto(dados.pagina, 300),
     referrer: texto(dados.referrer, 300),
     gclid: texto(c.gclid, 200),

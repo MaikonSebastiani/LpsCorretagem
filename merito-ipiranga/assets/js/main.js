@@ -233,11 +233,21 @@ function formatarTelefone(valor) {
   return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
 }
 
-/* Frouxa de propósito: 10 dígitos (fixo) ou 11 (celular). Rejeitar número
-   válido custa um lead; aceitar um com typo custa uma ligação. */
+/* DDDs reais da Anatel — a lista tem buracos (20, 23, 30, 36, 40, 50…)
+   que "dois dígitos quaisquer" deixava passar. Espelha worker/campos.js:
+   se um mudar, o outro precisa mudar junto. */
+const DDDS = ('11,12,13,14,15,16,17,18,19,21,22,24,27,28,31,32,33,34,35,' +
+  '37,38,41,42,43,44,45,46,47,48,49,51,53,54,55,61,62,63,64,65,66,67,68,' +
+  '69,71,73,74,75,77,79,81,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,' +
+  '98,99').split(',');
+
+/* Celular discável: 11 dígitos, DDD que existe e o 9 do assinante. O campo
+   é o WhatsApp — fixo não recebe mensagem, e número truncado (chegou
+   "55119727727") é lead que ninguém consegue atender. */
 function telefoneValido(valor) {
-  const d = valor.replace(/\D/g, '');
-  return d.length === 10 || d.length === 11;
+  let d = valor.replace(/\D/g, '');
+  if (d.length === 13 && d.slice(0, 2) === '55') d = d.slice(2);
+  return d.length === 11 && DDDS.indexOf(d.slice(0, 2)) !== -1 && d[2] === '9';
 }
 
 /* Grava o lead e ESPERA a resposta.
@@ -301,6 +311,15 @@ function setupQualifier() {
 
   function sourceDo() {
     return (trigger && trigger.getAttribute('data-source')) || 'unknown';
+  }
+
+  /* Rótulo do botão clicado, como estava escrito na tela. O data-source
+     diz de que seção veio; isto diz qual PROMESSA converteu — dá para
+     trocar a copy de um CTA e medir se a troca funcionou. */
+  function ctaDo() {
+    if (!trigger) return null;
+    var rotulo = (trigger.textContent || '').replace(/\s+/g, ' ').trim();
+    return rotulo ? rotulo.slice(0, 80) : null;
   }
 
   /* Momento de compra: string vazia (= "prefiro não dizer") vira null,
@@ -412,6 +431,7 @@ function setupQualifier() {
       planta: plantaDo(),
       referrer: referrerExterno(),
       origem: source,
+      cta: ctaDo(),
       campanha: campaign,
       pagina: location.pathname,
       consentimento: true,
@@ -419,7 +439,7 @@ function setupQualifier() {
     }).then(function (ok) {
       enviando = false;
       botao.disabled = false;
-      botao.textContent = 'Quero receber os valores';
+      botao.textContent = 'Falar com um corretor';
 
       if (!ok) {
         /* Não marca concluiu: se a pessoa fechar agora, conta como

@@ -200,6 +200,23 @@
     });
   }
 
+  /* DDDs reais da Anatel — a lista tem buracos (20, 23, 30, 36, 40, 50…)
+     que "dois dígitos quaisquer" deixava passar. Espelha worker/campos.js:
+     se um mudar, o outro precisa mudar junto. */
+  var DDDS = ('11,12,13,14,15,16,17,18,19,21,22,24,27,28,31,32,33,34,35,' +
+    '37,38,41,42,43,44,45,46,47,48,49,51,53,54,55,61,62,63,64,65,66,67,68,' +
+    '69,71,73,74,75,77,79,81,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,' +
+    '98,99').split(',');
+
+  /* Celular discável: 11 dígitos, DDD que existe e o 9 do assinante. O
+     campo é o WhatsApp — fixo não recebe mensagem, e número truncado
+     (chegou "55119727727") é lead que ninguém consegue atender. */
+  function telefoneValido(digitos) {
+    var d = digitos;
+    if (d.length === 13 && d.slice(0, 2) === '55') d = d.slice(2);
+    return d.length === 11 && DDDS.indexOf(d.slice(0, 2)) !== -1 && d[2] === '9';
+  }
+
   /** (11) 99999-9999 — só formatação; quem valida de verdade é o servidor. */
   function mascara(valor) {
     var d = valor.replace(/\D/g, '').slice(0, 11);
@@ -241,8 +258,8 @@
         erro('nome', 'Como podemos te chamar?');
         falhou = true;
       }
-      if (telefone.length !== 10 && telefone.length !== 11) {
-        erro('telefone', 'Confira o número com DDD.');
+      if (!telefoneValido(telefone)) {
+        erro('telefone', 'Informe um celular com DDD, como (11) 98765-4321.');
         falhou = true;
       }
       if (!aceite) {
