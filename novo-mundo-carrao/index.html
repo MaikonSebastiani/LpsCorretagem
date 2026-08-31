@@ -49,42 +49,37 @@
 </head>
 <body>
   <!-- ===================================================================
-       COMO ATUALIZAR OS NÚMEROS QUANDO A TABELA VIRAR
+       COMO ATUALIZAR QUANDO A TABELA VIRAR
 
-       Os dados abaixo saem das duas tabelas de venda (Torres A/B e C/D),
-       somando a coluna "Quantidade de Unidades" por metragem. A tabela
-       atual é a de agosto/2026, válida até 01/09/2026.
+       De propósito SEM contagem exata de unidades (nem total "79", nem
+       por planta) — a pedido do cliente: contagem exata dá manutenção a
+       cada venda, e ninguém vai ficar atualizando o site toda vez que uma
+       unidade sai. Os badges das plantas disponíveis dizem só "Ainda
+       disponível"; a hero e o rodapé falam em "últimas unidades", sem
+       número. Não reintroduza contagem aqui sem confirmar com o cliente.
 
-       Esta página vende CREDIBILIDADE de estoque: se a hero disser 79 e o
-       FAQ disser outro número, ela perde exatamente o que a sustenta. Por
-       isso os números aparecem em 16 lugares e TODOS precisam mudar juntos.
-       A lista abaixo é por texto a procurar, não por linha — linha muda.
+       O que continua precisando de manutenção manual quando a tabela
+       virar (a atual é a de agosto/2026, válida até 01/09/2026):
 
-       1) TOTAL RESTANTE — hoje "79", em 4 lugares:
-          contagem da hero, CTA final, barra fixa do celular e o FAQ
-          "Ainda dá tempo de comprar?" (que também cita o total de 1.248).
-
-       2) UNIDADES POR PLANTA — hoje "12 unidades", "45 unidades" e
-          "22 unidades": cada card de planta + a linha de apoio do preço
-          na hero (que repete o contador da planta de entrada).
-
-       3) PREÇOS — hoje R$ 299.000 / R$ 372.873 / R$ 577.115:
+       1) PREÇOS — hoje R$ 299.000 / R$ 372.873 / R$ 577.115:
           cards de planta, bloco de preço da hero, barra fixa do celular,
           <meta name="description"> e <meta property="og:description">.
 
-       4) PLANTAS ESGOTADAS — hoje "3 de 6": contagem da hero, o resumo
+       2) PLANTAS ESGOTADAS — hoje "3 de 6": contagem da hero, o resumo
           ("Três das seis plantas já esgotaram"), o FAQ e a meta description.
-          Se uma planta esgotar, mova o <li> dela para o fim da lista e
-          troque .planta__restam por .planta__esgotado (ver as três que já
-          estão assim). Se uma voltar a ter estoque, o caminho é o inverso.
+          Isso É status (esgotou ou não), não contagem — muda raramente,
+          por isso continua na página. Se uma planta esgotar, mova o <li>
+          dela para o fim da lista e troque .planta__restam por
+          .planta__esgotado (ver as três que já estão assim). Se uma
+          voltar a ter estoque, o caminho é o inverso.
 
-       5) O "A PARTIR DE" é o MENOR PREÇO COM UNIDADE DISPONÍVEL, não o
+       3) O "A PARTIR DE" é o MENOR PREÇO COM UNIDADE DISPONÍVEL, não o
           menor preço da tabela. Hoje é R$ 299.000 (38,95 m²) e não
           R$ 256.612 (27,89 m²), porque a de 27,89 está zerada. Anunciar
           preço de unidade que não existe mais é isca — e é o tipo de coisa
           que a pessoa descobre justamente na conversa com o corretor.
 
-       6) A data da tabela aparece na nota da hero e no rodapé
+       4) A data da tabela aparece na nota da hero e no rodapé
           ("campanha de agosto de 2026").
        =================================================================== -->
   <header class="topo" id="inicio">
@@ -106,14 +101,17 @@
 
   <main>
     <!-- ===================== HERO =====================
-         A urgência é o argumento central desta LP e por isso aparece três
-         vezes na primeira dobra, cada vez de um jeito: o selo (rótulo), a
-         contagem real de unidades (número) e a linha de plantas esgotadas
-         (prova). Todos os três saem da tabela de vendas — nenhum é retórica.
+         A urgência é o argumento central desta LP. De propósito SEM
+         contagem exata de unidades (nem total, nem por planta) — a pedido
+         do cliente, que não quer atualizar o site a cada venda. O que
+         sustenta a urgência é o "3 das 6 plantas esgotaram": é status
+         (vendeu tudo ou não), muda raramente, e ainda é fato verificável,
+         não retórica solta como "últimas unidades!" sem nada atrás.
 
-         Os números vêm da tabela "Agosto Campanha 2026", válida de
-         04/08/2026 a 01/09/2026. Quando a tabela virar, é AQUI que precisa
-         ser atualizado (e nos cards de planta, mais abaixo). -->
+         O número vem da tabela "Agosto Campanha 2026", válida de
+         04/08/2026 a 01/09/2026. Quando uma planta esgotar ou voltar a ter
+         estoque, é AQUI que precisa mudar (e nos cards de planta, mais
+         abaixo — ver o comentário grande no topo do <body>). -->
     <section class="hero">
       <div class="hero__fundo" aria-hidden="true"></div>
       <div class="container hero__grade">
@@ -127,14 +125,12 @@
           <h1 class="hero__titulo">O Novo Mundo Carrão II está<br><em>na reta final de vendas.</em></h1>
 
           <p class="hero__resumo">
-            De 1.248 apartamentos, restam <strong>79 unidades</strong>.
+            De 1.248 apartamentos, restam as <strong>últimas unidades</strong>.
             Três das seis plantas já esgotaram — inclusive as duas mais baratas.
           </p>
 
-          <!-- Contagem literal da tabela. Sem arredondar para baixo para
-               "criar" escassez: o número real já é pequeno o bastante. -->
           <ul class="hero__contagem">
-            <li><strong>79</strong><span>unidades restantes</span></li>
+            <li><strong>Poucas</strong><span>unidades restantes</span></li>
             <li><strong>3 de 6</strong><span>plantas esgotadas</span></li>
             <li><strong>4</strong><span>torres</span></li>
           </ul>
@@ -143,7 +139,7 @@
             <p class="preco">
               <span class="preco__rotulo">Disponíveis a partir de</span>
               <strong class="preco__valor">R$ 299.000<sup>*</sup></strong>
-              <span class="preco__apoio">2 dormitórios com varanda, 38,95 m² &mdash; 12 unidades</span>
+              <span class="preco__apoio">2 dormitórios com varanda, 38,95 m²</span>
             </p>
           </div>
 
@@ -207,7 +203,7 @@
                 <source type="image/avif" srcset="assets/images/plantas/planta-38-600.avif 600w, assets/images/plantas/planta-38.avif 900w" sizes="(max-width: 720px) 100vw, 360px">
                 <img src="assets/images/plantas/planta-38.webp" srcset="assets/images/plantas/planta-38-600.webp 600w, assets/images/plantas/planta-38.webp 900w" sizes="(max-width: 720px) 100vw, 360px" width="1203" height="1026" alt="Planta de 38,95 m² com 2 dormitórios e varanda" loading="lazy" decoding="async">
               </picture>
-              <span class="planta__restam">12 unidades</span>
+              <span class="planta__restam">Ainda disponível</span>
             </div>
             <div class="planta__corpo">
               <h3 class="planta__area">38,95 m²</h3>
@@ -224,7 +220,7 @@
                 <source type="image/avif" srcset="assets/images/plantas/planta-42-600.avif 600w, assets/images/plantas/planta-42.avif 900w" sizes="(max-width: 720px) 100vw, 360px">
                 <img src="assets/images/plantas/planta-42.webp" srcset="assets/images/plantas/planta-42-600.webp 600w, assets/images/plantas/planta-42.webp 900w" sizes="(max-width: 720px) 100vw, 360px" width="1124" height="1000" alt="Planta de 42,22 m² com 2 dormitórios e varanda" loading="lazy" decoding="async">
               </picture>
-              <span class="planta__restam">45 unidades</span>
+              <span class="planta__restam">Ainda disponível</span>
             </div>
             <div class="planta__corpo">
               <h3 class="planta__area">42,22 m²</h3>
@@ -241,7 +237,7 @@
                 <source type="image/avif" srcset="assets/images/plantas/planta-51-600.avif 600w, assets/images/plantas/planta-51.avif 900w" sizes="(max-width: 720px) 100vw, 360px">
                 <img src="assets/images/plantas/planta-51.webp" srcset="assets/images/plantas/planta-51-600.webp 600w, assets/images/plantas/planta-51.webp 900w" sizes="(max-width: 720px) 100vw, 360px" width="1330" height="1030" alt="Planta de 51,60 m² com 2 dormitórios, suíte e varanda" loading="lazy" decoding="async">
               </picture>
-              <span class="planta__restam">22 unidades</span>
+              <span class="planta__restam">Ainda disponível</span>
             </div>
             <div class="planta__corpo">
               <h3 class="planta__area">51,60 m²</h3>
@@ -394,7 +390,7 @@
         <div class="dupla__foto">
           <picture>
             <source type="image/avif" srcset="assets/images/mapa-1000.avif 1000w, assets/images/mapa.avif 1600w" sizes="(max-width: 900px) 100vw, 52vw">
-            <img src="assets/images/mapa.webp" srcset="assets/images/mapa-1000.webp 1000w, assets/images/mapa.webp 1600w" sizes="(max-width: 900px) 100vw, 52vw" width="4318" height="2344" alt="Mapa ilustrativo do entorno do Novo Mundo Carrão II" loading="lazy" decoding="async">
+            <img src="assets/images/mapa.webp" srcset="assets/images/mapa-1000.webp 1000w, assets/images/mapa.webp 1600w" sizes="(max-width: 900px) 100vw, 52vw" width="1920" height="1080" alt="Vista aérea de São Paulo com a localização do Novo Mundo Carrão II e a distância até pontos de referência como Metrô Carrão, Shopping Aricanduva e Assaí Atacadista" loading="lazy" decoding="async">
           </picture>
         </div>
 
@@ -434,7 +430,7 @@
 
         <details class="faq">
           <summary>Ainda dá tempo de comprar?</summary>
-          <p>Sim, mas o estoque é pequeno: são 79 unidades de um total de 1.248, distribuídas em três plantas. As outras três já esgotaram. A disponibilidade muda todos os dias — por isso confirmamos unidade por unidade antes de qualquer reserva.</p>
+          <p>Sim, mas o estoque é curto: restam as últimas unidades de um total de 1.248, distribuídas em três plantas. As outras três já esgotaram. A disponibilidade muda todos os dias — por isso confirmamos unidade por unidade antes de qualquer reserva.</p>
         </details>
 
         <details class="faq">
@@ -464,7 +460,7 @@
       <div class="container">
         <p class="hero__selo hero__selo--centro">
           <span class="pulso" aria-hidden="true"></span>
-          79 unidades restantes
+          Últimas unidades
         </p>
         <h2 class="titulo titulo--claro" id="fim-titulo">A tabela de hoje pode não ser a de amanhã</h2>
         <p class="apoio apoio--claro">
@@ -500,7 +496,7 @@
        única forma de manter a urgência e o CTA sempre à mão. -->
   <div class="barra-mobile">
     <div class="barra-mobile__texto">
-      <strong>79 unidades restantes</strong>
+      <strong>Últimas unidades</strong>
       <span>a partir de R$ 299.000*</span>
     </div>
     <a class="btn btn--dourado btn--pequeno js-lead" data-source="mobile_fixed"
