@@ -39,6 +39,45 @@
   </script>
 </head>
 <body>
+  <!-- ===================================================================
+       COMO ATUALIZAR OS NÚMEROS QUANDO A TABELA VIRAR
+
+       Os dados abaixo saem das duas tabelas de venda (Torres A/B e C/D),
+       somando a coluna "Quantidade de Unidades" por metragem. A tabela
+       atual é a de agosto/2026, válida até 01/09/2026.
+
+       Esta página vende CREDIBILIDADE de estoque: se a hero disser 79 e o
+       FAQ disser outro número, ela perde exatamente o que a sustenta. Por
+       isso os números aparecem em 16 lugares e TODOS precisam mudar juntos.
+       A lista abaixo é por texto a procurar, não por linha — linha muda.
+
+       1) TOTAL RESTANTE — hoje "79", em 4 lugares:
+          contagem da hero, CTA final, barra fixa do celular e o FAQ
+          "Ainda dá tempo de comprar?" (que também cita o total de 1.248).
+
+       2) UNIDADES POR PLANTA — hoje "12 unidades", "45 unidades" e
+          "22 unidades": cada card de planta + a linha de apoio do preço
+          na hero (que repete o contador da planta de entrada).
+
+       3) PREÇOS — hoje R$ 299.000 / R$ 372.873 / R$ 577.115:
+          cards de planta, bloco de preço da hero, barra fixa do celular,
+          <meta name="description"> e <meta property="og:description">.
+
+       4) PLANTAS ESGOTADAS — hoje "3 de 6": contagem da hero, o resumo
+          ("Três das seis plantas já esgotaram"), o FAQ e a meta description.
+          Se uma planta esgotar, mova o <li> dela para o fim da lista e
+          troque .planta__restam por .planta__esgotado (ver as três que já
+          estão assim). Se uma voltar a ter estoque, o caminho é o inverso.
+
+       5) O "A PARTIR DE" é o MENOR PREÇO COM UNIDADE DISPONÍVEL, não o
+          menor preço da tabela. Hoje é R$ 299.000 (38,95 m²) e não
+          R$ 256.612 (27,89 m²), porque a de 27,89 está zerada. Anunciar
+          preço de unidade que não existe mais é isca — e é o tipo de coisa
+          que a pessoa descobre justamente na conversa com o corretor.
+
+       6) A data da tabela aparece na nota da hero e no rodapé
+          ("campanha de agosto de 2026").
+       =================================================================== -->
   <header class="topo" id="inicio">
     <div class="container topo__inner">
       <a class="marca" href="#inicio" aria-label="Novo Mundo Carrão II">
