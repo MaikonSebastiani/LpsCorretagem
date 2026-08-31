@@ -1,5 +1,5 @@
 /**
- * Análise de perfil — formulário de 7 etapas.
+ * Análise de perfil — formulário de 6 etapas.
  *
  * Uma pergunta por tela. O ganho não é estético: cada tela pede uma decisão
  * só, o que reduz o abandono no celular em relação a um formulário longo
@@ -16,7 +16,7 @@
      faria o formulário parecer mais longo do que é. */
   var TELAS = [
     'abertura', 'renda', 'entrada', 'fgts', 'regiao',
-    'momento', 'preferencia', 'dados'
+    'momento', 'dados'
   ];
 
   var PRIMEIRA_PERGUNTA = 1;
@@ -122,16 +122,10 @@
 
   document.querySelectorAll('.tela[data-campo]').forEach(function (tela) {
     var campo = tela.getAttribute('data-campo');
-    var multiplo = tela.hasAttribute('data-multiplo');
 
     tela.querySelectorAll('.opcao').forEach(function (botao) {
       botao.addEventListener('click', function () {
         registrarInicio();
-
-        if (multiplo) {
-          alternar(tela, botao, campo);
-          return;
-        }
 
         tela.querySelectorAll('.opcao').forEach(function (outro) {
           outro.setAttribute('aria-checked', String(outro === botao));
@@ -148,43 +142,10 @@
     });
   });
 
-  /** Múltipla escolha, com "sem preferência" excluindo as outras. */
-  function alternar(tela, botao, campo) {
-    var valor = botao.getAttribute('data-valor');
-    var lista = respostas[campo] || [];
-    var marcado = botao.getAttribute('aria-pressed') === 'true';
-
-    if (valor === 'sem-preferencia' && !marcado) {
-      lista = ['sem-preferencia'];
-    } else if (marcado) {
-      lista = lista.filter(function (v) { return v !== valor; });
-    } else {
-      /* Marcar qualquer coisa específica desmarca "sem preferência":
-         as duas juntas se contradizem. */
-      lista = lista.filter(function (v) { return v !== 'sem-preferencia'; });
-      lista.push(valor);
-    }
-
-    respostas[campo] = lista;
-
-    tela.querySelectorAll('.opcao').forEach(function (outro) {
-      var v = outro.getAttribute('data-valor');
-      outro.setAttribute('aria-pressed', String(lista.indexOf(v) !== -1));
-    });
-  }
-
   var botaoComecar = document.querySelector('[data-comecar]');
   if (botaoComecar) {
     botaoComecar.addEventListener('click', function () {
       registrarInicio();
-      proxima();
-    });
-  }
-
-  var botaoAvancar = document.querySelector('[data-avancar]');
-  if (botaoAvancar) {
-    botaoAvancar.addEventListener('click', function () {
-      rastrear('simulation_step_completed', { step: 'preferencia' });
       proxima();
     });
   }
@@ -283,8 +244,7 @@
         entrada: respostas.entrada || null,
         fgts: respostas.fgts || null,
         regiao: respostas.regiao || null,
-        momento: respostas.momento || null,
-        preferencia: respostas.preferencia || []
+        momento: respostas.momento || null
       });
     });
   }

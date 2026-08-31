@@ -50,14 +50,17 @@ export const FGTS = ['sim', 'nao', 'nao-sei'];
 
 /* Regiões. Cada uma vira rota própria (/imoveis/zona-norte) quando as
    páginas por região entrarem — por isso a chave já é o slug da URL.
-   HTML: simulacao/index.html (etapa 4) e a seção de regiões da home. */
+   HTML: simulacao/index.html (etapa 4) e a seção de regiões da home.
+
+   Sem "grande-sp": a Cury (a única incorporadora que o grupo representa
+   hoje) constrói só na capital e no ABC — Grande São Paulo é mais amplo
+   que isso e prometeria atendimento em cidade onde não há o que oferecer. */
 export const REGIOES = [
   'zona-norte',
   'zona-sul',
   'zona-leste',
   'zona-oeste',
   'centro',
-  'grande-sp',
   'nao-sei'
 ];
 
