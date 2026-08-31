@@ -257,6 +257,28 @@ h1, h2 {
   font-weight: 700;
 }
 
+.elegibilidade {
+  margin: 20px 0;
+  padding: 16px 18px;
+  border: 1px solid var(--acento);
+  border-radius: var(--raio);
+  background: var(--acento-suave);
+  text-align: left;
+}
+
+.elegibilidade__titulo {
+  margin: 0 0 6px;
+  color: var(--acento-escuro);
+  font-weight: 700;
+}
+
+.elegibilidade__nota {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 /* ---------------- Rodapé ---------------- */
 
 
@@ -269,7 +291,6 @@ h1, h2 {
   /* Opções curtas em duas colunas: numa tela larga, uma coluna só de
      botões de 56px vira uma escada muito comprida. */
   [data-tela="fgts"] .opcoes,
-  [data-tela="preferencia"] .opcoes,
   [data-tela="regiao"] .opcoes {
     grid-template-columns: 1fr 1fr;
   }

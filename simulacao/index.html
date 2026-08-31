@@ -231,6 +231,20 @@
     <div class="quadro">
       <div class="selo" aria-hidden="true">✓</div>
       <h2>Recebemos seu perfil</h2>
+
+      <!-- Só aparece quando a renda informada está dentro das 4 faixas
+           oficiais do programa (worker/config.js). Acima do teto ou sem
+           resposta, o elemento fica oculto e a tela segue com o texto
+           genérico abaixo — nada de inventar elegibilidade sem dado. -->
+      <div class="elegibilidade" data-elegibilidade hidden>
+        <p class="elegibilidade__titulo">Boa notícia: você é elegível ao Minha Casa Minha Vida</p>
+        <p class="elegibilidade__nota">
+          Isso significa acesso às condições facilitadas do programa. A
+          aprovação final depende da análise de crédito e da documentação —
+          mas a renda que você informou já está dentro das faixas oficiais.
+        </p>
+      </div>
+
       <p class="apoio">
         Agora nossa equipe irá analisar quais oportunidades podem fazer
         sentido para você. Um consultor do Grupo Saitama poderá entrar em

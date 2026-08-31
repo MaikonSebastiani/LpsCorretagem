@@ -249,6 +249,12 @@
     });
   }
 
+  /* As 4 faixas oficiais do Minha Casa Minha Vida — mesmas chaves de
+     worker/config.js (RENDAS). 'acima-13000' está fora do teto do
+     programa e 'nao-informado'/null não permite afirmar nada: nesses
+     casos o bloco de elegibilidade fica oculto, sem inventar resposta. */
+  var FAIXAS_MCMV = ['ate-3200', '3200-5000', '5000-9600', '9600-13000'];
+
   function enviar(dados) {
     enviando = true;
     var botao = formulario.querySelector('[data-enviar]');
@@ -275,6 +281,11 @@
 
         rastrear('simulation_completed', { score_enviado: true });
         rastrear('lead_generated', { tipo: 'simulacao' });
+
+        var elegibilidade = telas.pronto.querySelector('[data-elegibilidade]');
+        if (elegibilidade) {
+          elegibilidade.hidden = FAIXAS_MCMV.indexOf(dados.renda) === -1;
+        }
 
         /* replaceState, não pushState: depois de enviar, o botão voltar
            deve sair da página — não recarregar um formulário já enviado. */
