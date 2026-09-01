@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag.
-     Um loader só atende os dois IDs; carregar o gtag.js duas vezes seria
-     um download a mais sem ganho nenhum. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VF9K820XDQ');
-  gtag('config', 'AW-18388777321');
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Urban Vila Guilherme | Apartamentos 2 Dormitórios</title>
@@ -55,8 +43,28 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap"></noscript>
 
-<link rel="preload" as="image" href="assets/images/hero.webp" fetchpriority="high">
+<!-- imagesrcset/imagesizes: sem eles o preload buscava sempre o hero.webp de
+     1672px de largura mesmo no celular — a mesma foto que o desktop baixa.
+     Isso sozinho respondia por boa parte do LCP de 7,5s medido no PageSpeed. -->
+<link rel="preload" as="image" href="assets/images/hero.webp"
+      imagesrcset="assets/images/hero-mobile.webp 900w, assets/images/hero.webp 1672w"
+      imagesizes="(max-width: 900px) 100vw, 52vw" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Tag do Google (gtag.js) — GA4 + Google Ads na mesma tag.
+     Fica no fim do <head> de propósito: é async (não bloqueia o parser),
+     mas por ser o primeiro recurso externo do documento competia com a
+     foto do hero pelas primeiras conexões da rede — que no 4G lento do
+     PageSpeed são o gargalo real. Adiada pra depois do que decide o LCP. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VF9K820XDQ');
+  gtag('config', 'AW-18388777321');
+</script>
 
 <!--
   Dados estruturados: habilite somente quando as informações forem confirmadas
@@ -147,9 +155,15 @@
          com o painel de concreto à esquerda, o chevron verde e a fachada.
          Os chevrons verdes NÃO são mais desenhados em CSS: já vêm na imagem. -->
     <div class="hero__bg">
-      <picture><source type="image/avif" srcset="assets/images/hero.avif"><img src="assets/images/hero.webp" width="1672" height="941"
-           alt="Perspectiva ilustrada da fachada do Urban Vila Guilherme"
-           fetchpriority="high" decoding="async"></picture>
+      <picture>
+        <source type="image/avif" srcset="assets/images/hero-mobile.avif 900w, assets/images/hero.avif 1672w" sizes="(max-width: 900px) 100vw, 52vw">
+        <img src="assets/images/hero.webp"
+             srcset="assets/images/hero-mobile.webp 900w, assets/images/hero.webp 1672w"
+             sizes="(max-width: 900px) 100vw, 52vw"
+             width="1672" height="941"
+             alt="Perspectiva ilustrada da fachada do Urban Vila Guilherme"
+             fetchpriority="high" decoding="async">
+      </picture>
       <div class="hero__flag">
         <span class="hero__flag-label">Elegível ao</span>
         <picture><source type="image/avif" srcset="assets/images/mcmv-selo.avif"><img src="assets/images/mcmv-selo.webp" width="200" height="199" alt="Minha Casa Minha Vida" loading="eager" decoding="async"></picture>
