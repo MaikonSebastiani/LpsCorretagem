@@ -39,6 +39,10 @@
 <!-- Fontes: 1 requisição, 2 famílias, 4 pesos. Para máxima performance, veja README (self-host). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- O tag manager é o maior recurso da página (337 KB) e é de terceiro —
+     não dá para reduzir o peso dele, mas dá para adiantar a conexão
+     (DNS+TLS) enquanto o resto da página ainda está carregando. -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600&display=swap"></noscript>
