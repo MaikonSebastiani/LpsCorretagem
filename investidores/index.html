@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sebastiani Imóveis | Investir em imóvel: lançamento ou leilão</title>
+  <meta name="description" content="Duas formas de comprar imóvel abaixo do preço de vitrine: unidades R2V na tabela de lançamento da Cury, em São Paulo, ou arrematação em leilão, em todo o Brasil. A análise é por nossa conta.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0e2c52">
+
+  <link rel="canonical" href="https://sebastianiimoveis.com.br/investidores/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Sebastiani Imóveis">
+  <meta property="og:title" content="Duas formas de comprar imóvel abaixo do preço de vitrine">
+  <meta property="og:description" content="Lançamento na tabela de abertura, em São Paulo. Ou leilão abaixo da avaliação, em todo o Brasil. A análise é por nossa conta.">
+  <meta property="og:url" content="https://sebastianiimoveis.com.br/investidores/">
+
+  <!-- FALTA: og:image — JPEG 1200x630 em assets/images/og-image.jpg (a
+       prévia do WhatsApp é instável com WebP). Quando existir, basta
+       descomentar:
+       <meta property="og:image" content="https://sebastianiimoveis.com.br/investidores/assets/images/og-image.jpg">
+       <meta property="og:image:width" content="1200">
+       <meta property="og:image:height" content="630">
+       <meta property="og:image:alt" content="Sebastiani Imóveis, investimento imobiliário">
+       Sem elas o WhatsApp mostra só título, descrição e domínio: prévia
+       mais pobre, mas correta. -->
+
+  <link rel="icon" href="/investidores/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/investidores/assets/css/styles.css">
+
+  <!-- A foto do hero é o maior elemento da primeira dobra, ou seja, o
+       LCP. O preload aponta para o AVIF, que é o que praticamente todo
+       navegador atual vai escolher no srcset. Sem ele, o download só
+       começaria depois de o CSS ser lido. -->
+  <link rel="preload" as="image" type="image/avif"
+        href="/investidores/assets/images/hero-1400.avif"
+        imagesrcset="/investidores/assets/images/hero-900.avif 900w, /investidores/assets/images/hero-1400.avif 1400w, /investidores/assets/images/hero-1672.avif 1672w"
+        imagesizes="100vw" fetchpriority="high">
+
+  <!-- Caminhos ABSOLUTOS em todo o arquivo, de propósito. Até 23/09/2026
+       esta página era servida na RAIZ de sebastianiimoveis.com.br; desde
+       então a raiz é a /estrategia/ e esta página vive em
+       sebastianiimoveis.com.br/investidores/ (e também em /investidores/
+       no domínio do grupo). Caminho absoluto funciona em todos. -->
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual ao
+       resto do site. Nos relatórios, esta página se separa pelo caminho. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VF9K820XDQ');
+    gtag('config', 'AW-18388777321');
+  </script>
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+<!-- =================== Sprite de ícones (SVG inline) =================== -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-predio" viewBox="0 0 24 24"><path d="M3.5 20.5V8.8l6-3.3v15M9.5 20.5h11V11l-11-2.2M20.5 20.5h-17"/><path d="M12.4 12.2h.01M15.6 12.2h.01M12.4 15.6h.01M15.6 15.6h.01"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.2S18.8 15 18.8 10a6.8 6.8 0 1 0-13.6 0c0 5 6.8 11.2 6.8 11.2Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.6c0 4.3-2.9 7.6-7 9.2-4.1-1.6-7-4.9-7-9.2V6z"/><path d="m9.2 12 2 2 3.6-3.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.4 12.2 2.4 2.4 4.8-4.8"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="6.4"/><path d="m15.4 15.4 4.4 4.4"/><path d="m8.2 10.7 1.8 1.8 3.2-3.4"/></symbol>
+  <symbol id="i-etiqueta" viewBox="0 0 24 24"><path d="M11.4 3.6H19a1.4 1.4 0 0 1 1.4 1.4v7.6L11 22 3 14l8.4-10.4Z"/><circle cx="16.2" cy="7.8" r="1.3"/></symbol>
+</svg>
+
+<!-- Ícone do WhatsApp, sólido: vive fora do sprite acima porque usa
+     fill em vez de stroke. Dentro do sprite herdaria o traço dos outros
+     e sairia como contorno vazado. -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .6-.3 1.2Z"/></symbol>
+</svg>
+
+<header class="topo">
+  <div class="container topo__inner">
+    <a class="marca" href="/" aria-label="Sebastiani Imóveis, página inicial">
+      <strong>Sebastiani</strong>
+      <span>Imóveis</span>
+    </a>
+
+    <!-- O botão vem ANTES do <nav> no HTML para a ordem de tabulação
+         fazer sentido: quem navega por teclado abre o menu e cai direto
+         no primeiro link dele. -->
+    <button class="menu-toggle" type="button" aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="menu-principal">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="topo__nav" id="menu-principal" aria-label="Navegação principal">
+      <a href="#caminhos">Os dois caminhos</a>
+      <a href="#comparar">Comparar</a>
+      <a href="#remuneracao">Quanto custa</a>
+      <a href="#faq">Dúvidas</a>
+
+      <!-- CTA dentro do painel, só no celular: lá o botão do cabeçalho
+           some para não brigar com a marca, e um menu aberto sem
+           caminho de conversão é um beco sem saída. -->
+      <a class="btn btn--principal js-whatsapp topo__nav-cta" data-source="mobile_menu"
+         data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+        Fale com um especialista
+      </a>
+    </nav>
+
+    <a class="btn btn--principal btn--pequeno js-whatsapp" data-source="header"
+       data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+       href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+      <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+      Fale com um especialista
+    </a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ======================= 1. HERO =======================
+       O título nomeia a VANTAGEM (comprar abaixo do preço de vitrine),
+       não o produto. Quem investe não procura "apartamento": procura
+       margem. Os quatro selos entregam, em uma linha, as respostas que
+       antes ocupavam três seções — onde, quem faz o trabalho, e quanto
+       custa. -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <!-- ============ Fundo da seção ============
+         A foto cobre a hero inteira, com o texto por cima. É o LCP, por
+         isso entra como <img> de verdade dentro de um <picture>, e não
+         como background-image: background só começa a baixar depois de
+         o CSS ser lido e não aceita fetchpriority. O <head> tem o
+         preload correspondente.
+
+         O original tinha 2,2 MB em PNG. As variantes AVIF vão de 40 KB
+         (celular) a 102 KB (tela grande). Se a arte for trocada, gere as
+         seis variantes de novo, senão o LCP volta a ser o gargalo.
+
+         alt vazio de propósito: a imagem é ambientação, não conteúdo.
+         Descrevê-la faria o leitor de tela anunciar um prédio que a
+         página não está vendendo. -->
+    <picture class="hero__bg">
+      <source type="image/avif"
+              srcset="/investidores/assets/images/hero-900.avif 900w, /investidores/assets/images/hero-1400.avif 1400w, /investidores/assets/images/hero-1672.avif 1672w"
+              sizes="100vw">
+      <img src="/investidores/assets/images/hero-1400.webp"
+           srcset="/investidores/assets/images/hero-900.webp 900w, /investidores/assets/images/hero-1400.webp 1400w, /investidores/assets/images/hero-1672.webp 1672w"
+           sizes="100vw" width="1672" height="941" alt=""
+           fetchpriority="high" decoding="async">
+    </picture>
+    <span class="hero__veu" aria-hidden="true"></span>
+
+    <div class="container hero__grade">
+      <div class="hero__texto">
+        <!-- Curto para caber numa linha da pílula no celular: com "para
+             quem compra imóvel para investir" ele quebrava em duas. -->
+        <p class="hero__selo">
+          <svg class="ico" aria-hidden="true"><use href="#i-predio"></use></svg>
+          Para quem investe em imóvel
+        </p>
+
+        <h1 class="hero__titulo" id="hero-titulo">
+          Duas formas de comprar <em class="ouro">abaixo do mercado</em>
+        </h1>
+
+        <p class="hero__promessa">
+          No lançamento ou no leilão. A análise é por nossa conta.
+        </p>
+
+        <p class="hero__sub">
+          Você compra na tabela de abertura de um lançamento da Cury, em
+          São Paulo, ou arremata em leilão, em qualquer lugar do Brasil.
+          Nos dois casos, o que separa uma oportunidade de uma armadilha
+          é a análise. E a análise é por nossa conta.
+        </p>
+
+        <ul class="selos">
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-predio"></use></svg>
+            <span><strong>São Paulo</strong>Lançamentos da Cury</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
+            <span><strong>Todo o Brasil</strong>Assessoria em leilão</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+            <span><strong>Por nossa conta</strong>Análise e viabilidade</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-etiqueta"></use></svg>
+            <span><strong>Sem custo</strong>Na planta, sempre</span>
+          </li>
+        </ul>
+
+        <div class="hero__acoes">
+          <a class="btn btn--principal js-whatsapp" data-source="hero"
+             data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+             href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+            <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+            Ver as oportunidades
+          </a>
+          <!-- Rótulo curto de propósito: com "Conheça os dois caminhos"
+               o par botão + link estourava a largura da coluna e o link
+               caía para a linha de baixo, longe do CTA. -->
+          <a class="hero__link" href="#caminhos">
+            Como funciona <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Ressalva legal na primeira dobra, e não só no rodapé: a
+             página fala de investimento, e a promessa e a ressalva
+             precisam viajar juntas. Enxuta de propósito — o texto longo
+             vive no rodapé. -->
+      </div>
+    </div>
+
+    <!-- Ficam FORA do .container, posicionados em absolute sobre a foto,
+         no lado onde ela é limpa. A assinatura some abaixo de 1100px e o
+         cartão vira bloco normal no celular. -->
+    <p class="hero__assinatura">Seu capital no metro quadrado certo.</p>
+
+    <p class="hero__cartao">
+      <svg class="ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+      <span><strong>Análise antes do lance</strong>Você decide com o custo total na mão</span>
+    </p>
+  </section>
+
+  <!-- ======================= 2. FAIXA DE CONFIANÇA =======================
+       <div> e não <section>: não tem título próprio, e seção sem nome
+       acessível atrapalha quem usa leitor de tela.
+
+       Três fatos, não três adjetivos: com quem trabalhamos, onde atuamos
+       e quem atende. "Tradição e experiência" qualquer concorrente
+       escreve.
+
+       O texto de cada item vai dentro de um <span>: .confianca__item é
+       flex, então um <strong> solto viraria item de flex por conta
+       própria e o gap abriria espaço antes da vírgula. -->
+  <div class="confianca">
+    <div class="container confianca__inner">
+      <p class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-predio"></use></svg>
+        <span>Lançamentos da <strong>Cury</strong>, a maior construtora de São Paulo</span>
+      </p>
+      <p class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
+        <span>Assessoria em leilão em <strong>todo o Brasil</strong></span>
+      </p>
+      <p class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+        <!-- PREENCHER: CRECI da pessoa jurídica. Até lá, texto genérico —
+             não invente número de registro. -->
+        <span>Atendimento com especialista</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================= 3. OS DOIS CAMINHOS =======================
+       O coração da página. Substituiu quatro seções da versão anterior
+       (por que estas duas, como funciona a planta, como funciona o
+       leilão, o que pode dar errado).
+
+       Cada cartão diz só: onde vale, de onde vem o ganho, três provas e
+       um CTA. O "como funciona por dentro" saiu de propósito — é
+       conversa de consultor, e explicar tudo aqui elimina o motivo de a
+       pessoa chamar no WhatsApp. -->
+  <section class="secao secao--clara" id="caminhos" aria-labelledby="caminhos-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Duas portas de entrada</p>
+        <h2 class="titulo" id="caminhos-titulo">
+          Escolha pela que <em class="ouro">couber no seu caso</em>
+        </h2>
+        <p class="apoio">
+          Uma pede tempo. A outra pede capital disponível. Nas duas, o
+          trabalho técnico é nosso.
+        </p>
+      </div>
+
+      <div class="caminhos">
+        <article class="via via--planta">
+          <p class="via__selo">Caminho 1</p>
+          <h3 class="via__titulo">Lançamento na planta</h3>
+          <p class="via__onde">SÓ EM SÃO PAULO &middot; UNIDADES R2V DA CURY</p>
+
+          <p class="via__texto">
+            Comprar no lançamento é entrar no empreendimento ainda nas
+            condições iniciais de tabela, antes dos reajustes que
+            normalmente acontecem ao longo da obra.
+          </p>
+
+          <p class="via__texto">
+            Você compra hoje um imóvel que será entregue pronto no futuro,
+            com a possibilidade de acompanhar a valorização do projeto
+            durante esse período.
+          </p>
+
+          <ul class="via__lista">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>R2V para quem não se enquadra nas regras das unidades HIS.</strong> É uma alternativa para compradores que já possuem imóvel ou que não atendem aos critérios habitacionais das unidades subsidiadas.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Mais poder de escolha no lançamento.</strong> Entrando nas primeiras fases, você tem acesso a um estoque maior e pode priorizar unidades com características mais procuradas, como andar, posição, planta e vista, pensando desde o início em liquidez e potencial de revenda.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Produto mais fácil de posicionar na revenda ou locação.</strong> Um empreendimento novo, com lazer atual, áreas comuns modernas e localização bem escolhida pode ter mais apelo comercial do que imóveis antigos concorrentes.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Assessoria sem custo adicional para você.</strong> Nossa remuneração vem da incorporadora. Você recebe acompanhamento na escolha da unidade, análise das condições e condução da compra sem pagar honorários de corretagem à parte.</span>
+            </li>
+          </ul>
+
+          <a class="btn btn--principal js-whatsapp" data-source="launches"
+             data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+             href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+            <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+            Ver o que está em tabela hoje
+          </a>
+        </article>
+
+        <article class="via via--leilao">
+          <p class="via__selo">Caminho 2</p>
+          <h3 class="via__titulo">Leilão de imóveis</h3>
+          <p class="via__onde">EM TODO O BRASIL &middot; JUDICIAL E EXTRAJUDICIAL</p>
+
+          <p class="via__texto">
+            No leilão, o imóvel pode ser adquirido abaixo do valor de
+            mercado. Mas o desconto, sozinho, não define uma boa
+            oportunidade. O que realmente importa é entender documentação,
+            ocupação, débitos, riscos e custo total da operação antes de
+            dar qualquer lance.
+          </p>
+
+          <ul class="via__lista">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Você não precisa interpretar o edital sozinho.</strong> Analisamos matrícula, edital, ocupação, débitos e viabilidade da compra. Você recebe as informações organizadas para decidir com segurança.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Buscamos oportunidades de acordo com o seu perfil.</strong> Acompanhamos leilões judiciais e extrajudiciais e filtramos imóveis com base nos critérios definidos com você: região, valor, desconto e objetivo da compra.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Dá para alavancar com financiamento.</strong> Quando o edital permite, o valor não sai todo de uma vez: um crédito de R$ 500 mil pode virar duas oportunidades de R$ 250 mil em vez de uma. Depende da modalidade do leilão e da análise do banco, e é das primeiras coisas que verificamos.</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+              <span><strong>Acompanhamento do lance à regularização.</strong> Orientamos você nos prazos de pagamento, carta de arrematação, registro, posse e demais etapas necessárias até a conclusão da operação.</span>
+            </li>
+          </ul>
+
+          <a class="btn btn--marinho js-whatsapp" data-source="auction"
+             data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+             href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+            <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+            Quero analisar oportunidades em leilão
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 4. COMPARATIVO =======================
+       Cinco linhas, não sete: saíram "como você sai" e "faz mais sentido
+       para", que descreviam mecânica sem mover ninguém. O que sobrou
+       responde às cinco perguntas que decidem — onde, de onde vem o
+       ganho, o que preciso ter, quem trabalha, e o que pode dar errado. -->
+  <section class="secao" id="comparar" aria-labelledby="comparar-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Lado a lado</p>
+        <h2 class="titulo" id="comparar-titulo">O que muda entre <em class="ouro">um e outro</em></h2>
+      </div>
+
+      <table class="comparativo">
+        <thead>
+          <tr>
+            <th scope="col"><span class="comparativo__topo">Critério</span></th>
+            <th scope="col" class="col-planta">
+              <span class="comparativo__topo">Caminho 1</span>Lançamento na planta
+            </th>
+            <th scope="col" class="col-leilao">
+              <span class="comparativo__topo">Caminho 2</span>Leilão de imóvel
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Onde atuamos</th>
+            <td class="col-planta" data-rotulo="Na planta">Só em São Paulo, onde a Cury constrói.</td>
+            <td class="col-leilao" data-rotulo="Leilão">Brasil inteiro. Os leilões são eletrônicos e a análise é toda documental.</td>
+          </tr>
+          <tr>
+            <th scope="row">De onde vem o ganho</th>
+            <td class="col-planta" data-rotulo="Na planta">Da distância entre a tabela de lançamento e o preço do imóvel pronto.</td>
+            <td class="col-leilao" data-rotulo="Leilão">Da distância entre o lance e o valor de avaliação do imóvel.</td>
+          </tr>
+          <tr>
+            <th scope="row">O que você precisa ter</th>
+            <td class="col-planta" data-rotulo="Na planta">Tempo. O ganho se realiza ao longo da obra.</td>
+            <td class="col-leilao" data-rotulo="Leilão">Capital disponível para os prazos do edital. Quando o edital aceita financiamento, parte pode ser alavancada.</td>
+          </tr>
+          <tr>
+            <th scope="row">Quem faz o trabalho</th>
+            <td class="col-planta" data-rotulo="Na planta">Nós. Você escolhe a unidade e acompanha até a hora de sair.</td>
+            <td class="col-leilao" data-rotulo="Leilão">Nós. Análise, viabilidade e todo o pós-arremate ficam do nosso lado.</td>
+          </tr>
+          <tr>
+            <th scope="row">Principal risco</th>
+            <td class="col-planta" data-rotulo="Na planta">
+              Atraso na obra. Enquanto a entrega não sai, o seu capital fica parado.
+              <span class="destaque">
+                <strong>É por isso que trabalhamos com a Cury:</strong> a maior
+                construtora de São Paulo, que constrói e entrega em escala. Na
+                planta, quem constrói importa mais do que o desconto.
+              </span>
+            </td>
+            <td class="col-leilao" data-rotulo="Leilão">
+              Ocupação, débitos e vícios no processo.
+              <span class="destaque">
+                <strong>É exatamente o que a nossa análise procura</strong>, sempre
+                antes do lance, quando ainda dá para desistir sem custo nenhum.
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= 5. REMUNERAÇÃO =======================
+       Fica na página, e cedo, porque "quanto vocês cobram" é a primeira
+       pergunta de quem investe — e a resposta aqui é boa. Esconder até a
+       ligação custa mais lead do que o número assusta.
+
+       CONFERIR: o texto do leilão diz que o percentual é combinado por
+       escrito antes do primeiro lance e só é devido se houver
+       arrematação. Se a sua regra for outra, corrija AQUI e no FAQ. -->
+  <section class="secao secao--creme" id="remuneracao" aria-labelledby="remuneracao-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Sem letra miúda</p>
+        <h2 class="titulo" id="remuneracao-titulo">Quanto custa <em class="ouro">trabalhar com a gente</em></h2>
+      </div>
+
+      <div class="duas">
+        <div class="cartao">
+          <span class="cartao__marca" aria-hidden="true"></span>
+          <h3>Lançamento na planta</h3>
+          <p>
+            <strong>Zero.</strong> A corretagem é paga pela incorporadora
+            quando a venda acontece. O preço da unidade é exatamente o mesmo
+            com ou sem a nossa assessoria.
+          </p>
+        </div>
+
+        <div class="cartao">
+          <span class="cartao__marca" aria-hidden="true"></span>
+          <h3>Assessoria em leilão</h3>
+          <p>
+            <strong>Percentual sobre o valor arrematado</strong>, combinado
+            por escrito antes do primeiro lance. Se você não arremata, não
+            existe remuneração. O nosso interesse é o mesmo que o seu.
+          </p>
+        </div>
+      </div>
+
+      <p class="microcopia" style="text-align:center">
+        Os custos do próprio processo, como comissão do leiloeiro, ITBI,
+        registro, débitos e reforma, não são nossa remuneração. Todos eles
+        entram na conta que apresentamos antes do lance.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= 6. FAQ =======================
+       Quatro perguntas, não oito. Ficaram só as que DESTRAVAM: as que
+       explicavam o funcionamento do mercado saíram — quem quer aula não
+       vira cliente, e quem quer comprar já sabe o suficiente.
+
+       <details> nativo: abre e fecha sem uma linha de JavaScript. Sem CTA
+       próprio de propósito — a faixa de fechamento vem logo abaixo. -->
+  <section class="secao" id="faq" aria-labelledby="faq-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Antes de você decidir</p>
+        <h2 class="titulo" id="faq-titulo">Dúvidas <em class="ouro">frequentes</em></h2>
+      </div>
+
+      <div class="faqs">
+        <details class="faq">
+          <summary>Qual dos dois caminhos faz mais sentido para mim?</summary>
+          <p>
+            Depende principalmente de três coisas: quanto você tem
+            disponível, qual é o seu objetivo com o imóvel e quanto risco
+            está disposto a assumir.
+          </p>
+          <p>
+            No lançamento, a estratégia está em entrar mais cedo no ciclo
+            do empreendimento, escolher uma boa unidade e buscar ganho com
+            valorização, revenda ou locação futura. Mas é importante ter
+            capital para acompanhar as condições de pagamento, que podem
+            envolver correções e encargos durante a obra.
+          </p>
+          <p>
+            No leilão, o atrativo principal é a possibilidade de comprar
+            abaixo do valor de mercado, mas a operação exige análise mais
+            cuidadosa de edital, documentação, ocupação, débitos e prazos.
+          </p>
+          <p>
+            Antes de apresentar qualquer imóvel, entendemos o seu perfil e
+            mostramos qual dos dois caminhos faz mais sentido ou se nenhum
+            deles é adequado naquele momento.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Quanto preciso ter para começar?</summary>
+          <p><strong>Não existe um valor único.</strong></p>
+          <p>
+            Em um lançamento, parte do pagamento pode ser distribuída até
+            a entrega das chaves. No leilão, além do valor da arrematação,
+            precisam ser considerados comissão, impostos, registro,
+            eventuais débitos e outros custos da operação.
+          </p>
+          <p>
+            A primeira coisa que fazemos é calcular quanto você realmente
+            pode investir sem comprometer a sua segurança financeira.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Já tenho um imóvel. Posso comprar um lançamento?</summary>
+          <p><strong>Sim.</strong> O ponto é escolher a categoria correta da unidade.</p>
+          <p>
+            Unidades habitacionais como HIS seguem critérios específicos de
+            enquadramento e destinação. Para quem já possui imóvel ou não
+            se enquadra nessas regras, buscamos unidades de mercado, como
+            R2V, quando disponíveis.
+          </p>
+          <p>
+            Antes da proposta, verificamos qual categoria é adequada ao seu
+            caso.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Comprar na planta significa que o imóvel vai valorizar?</summary>
+          <p><strong>Pode haver valorização, mas não existe garantia.</strong></p>
+          <p>
+            A vantagem de entrar no lançamento é comprar em uma fase
+            inicial do empreendimento, antes de possíveis reajustes de
+            tabela durante a obra.
+          </p>
+          <p>
+            Nós analisamos preço, região, produto, concorrência e condições
+            de pagamento para entender se aquela oportunidade faz sentido,
+            sem prometer um resultado futuro que ninguém pode garantir.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Comprar imóvel em leilão é seguro?</summary>
+          <p><strong>Pode ser uma excelente operação, desde que o imóvel seja analisado antes do lance.</strong></p>
+          <p>
+            Edital, matrícula, ocupação, débitos, processo, prazos e custo
+            total precisam ser avaliados individualmente.
+          </p>
+          <p>
+            O nosso trabalho é justamente identificar esses pontos antes de
+            você colocar dinheiro na operação.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Dá para financiar um imóvel arrematado em leilão?</summary>
+          <p><strong>Em boa parte dos casos, sim. Depende do edital e da modalidade.</strong></p>
+          <p>
+            Muitos leilões, principalmente os de imóveis retomados por
+            bancos, aceitam financiamento ou parcelamento. Outros exigem
+            pagamento à vista em prazo curto, e nesses o valor precisa
+            estar disponível.
+          </p>
+          <p>
+            Quando o financiamento é possível, ele muda a conta. Com um
+            crédito aprovado de R$ 500 mil, em vez de comprar um imóvel de
+            R$ 500 mil você pode avaliar duas oportunidades de R$ 250 mil,
+            sem imobilizar o valor inteiro de uma vez. É por isso que
+            verificamos essa possibilidade antes de indicar qualquer
+            imóvel.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>O imóvel de leilão pode estar ocupado?</summary>
+          <p><strong>Sim.</strong></p>
+          <p>
+            Existem imóveis desocupados e imóveis ocupados, e essa
+            informação muda completamente a análise da oportunidade.
+          </p>
+          <p>
+            Por isso, verificamos a situação de posse e os possíveis
+            caminhos para regularização antes de considerar o imóvel uma
+            boa compra.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Vocês garantem rentabilidade?</summary>
+          <p><strong>Não.</strong> E desconfie de quem promete retorno garantido em imóvel.</p>
+          <p>
+            Preço futuro de venda, aluguel, prazo de revenda e valorização
+            dependem do mercado.
+          </p>
+          <p>
+            O que conseguimos fazer é analisar o preço de entrada, estimar
+            custos, comparar com imóveis semelhantes e mostrar os riscos
+            para que você tome uma decisão com informação.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Quanto custa a assessoria?</summary>
+          <p><strong>Depende do caminho escolhido.</strong></p>
+          <p>
+            Em lançamentos, a nossa remuneração normalmente vem da
+            incorporadora, sem cobrança adicional de honorários de
+            corretagem ao comprador.
+          </p>
+          <p>
+            Em leilões, a assessoria possui remuneração própria, definida
+            antes de qualquer operação. Você sabe como funciona e quanto
+            custa antes de assumir qualquer compromisso.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Por que vocês não colocam uma lista de imóveis disponíveis no site?</summary>
+          <p><strong>Porque as boas oportunidades mudam rápido.</strong></p>
+          <p>
+            Um lançamento pode ter unidades vendidas ou reajustadas; um
+            imóvel em leilão pode receber lance, ser suspenso ou sair da
+            agenda.
+          </p>
+          <p>
+            Em vez de mostrar uma vitrine desatualizada, buscamos
+            oportunidades de acordo com a sua região, orçamento e objetivo
+            no momento da consulta.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= 7. FECHAMENTO =======================
+     Fecha com o mesmo peso visual do hero: a última tela precisa ser tão
+     forte quanto a primeira. -->
+<section class="fechamento" id="contato" aria-labelledby="contato-titulo">
+  <div class="container fechamento__grade">
+    <div>
+      <p class="sobrescrito">Fale com um especialista</p>
+      <h2 class="fechamento__titulo" id="contato-titulo">
+        Primeiro entendemos o seu perfil.
+        <em class="ouro">Depois mostramos as oportunidades.</em>
+      </h2>
+      <p>
+        Diga quanto pretende investir, qual região procura e em quanto
+        tempo deseja realizar a compra. A partir disso, analisamos se faz
+        mais sentido buscar um lançamento, uma oportunidade em leilão ou
+        simplesmente esperar por uma condição melhor.
+      </p>
+      <p class="fechamento__micro">
+        Sem pressão para comprar. A ideia é descobrir se existe uma
+        oportunidade que realmente faça sentido para você.
+      </p>
+    </div>
+
+    <div>
+      <a class="btn btn--principal js-whatsapp" data-source="final"
+         data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+        Quero analisar meu perfil
+      </a>
+      <p class="fechamento__micro">Resposta rápida &bull; Sem custo &bull; Sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__linha">
+      <p class="rodape__marca">Sebastiani Imóveis</p>
+      <nav aria-label="Rodapé">
+        <a href="#caminhos">Os dois caminhos</a>
+        <a href="#comparar">Comparar</a>
+        <a href="#remuneracao">Quanto custa</a>
+        <a href="/privacidade/">Política de privacidade</a>
+      </nav>
+    </div>
+
+    <!-- O texto legal do rodapé foi REMOVIDO em 14/09/2026, por decisão
+         do cliente. Primeiro encurtado de onze para quatro linhas, e
+         depois retirado por inteiro.
+
+         Duas consequências, para quem mexer aqui depois:
+
+         1. A única ressalva que sobrou na página é a nota da primeira
+            dobra, dentro do hero, e ela fala só de retorno, prazo e
+            liquidez. Não cobre contrato, edital nem disponibilidade de
+            unidade.
+         2. O CRECI da pessoa jurídica ia nesta linha. Com ela fora, ele
+            perdeu o lugar e precisa de outro — o rodapé continua sendo
+            o ponto natural. -->
+
+  </div>
+</footer>
+
+<!-- Barra fixa do celular: a primeira dobra some com o scroll, e esta é a
+     única forma de manter o CTA sempre à mão. -->
+<div class="barra-mobile">
+  <div class="barra-mobile__texto">
+    <strong>Investir em imóvel</strong>
+    <span>Na planta ou em leilão</span>
+  </div>
+  <a class="btn btn--principal btn--pequeno js-whatsapp" data-source="mobile_fixed"
+     data-message="Olá! Quero analisar o meu perfil de investidor com a Sebastiani e entender quais oportunidades fazem sentido para mim."
+     href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+    <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+    Falar agora
+  </a>
+</div>
+
+<script src="/shared/origem.js"></script>
+<script src="/investidores/assets/js/main.js"></script>
+</body>
+</html>

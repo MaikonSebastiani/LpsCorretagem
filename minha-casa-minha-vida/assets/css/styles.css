@@ -1,0 +1,849 @@
+/* =====================================================================
+   GRUPO SAITAMA — home / busca por perfil (Minha Casa Minha Vida)
+
+   Mesma pele da LP de investidores (marinho + dourado sobre creme), mas
+   arquivo PRÓPRIO, não um import. As duas páginas falam com públicos
+   opostos — quem investe e quem vai morar — e vão divergir; um arquivo
+   compartilhado faria um ajuste de conversão aqui mexer na página que já
+   está no ar com campanha ativa.
+
+   O que é igual e precisa continuar igual: as variáveis de cor, o
+   .titulo bicolor e a família tipográfica. Se a marca mudar de tom, os
+   dois arquivos mudam juntos.
+
+   --ground é #fcf8f2 e não o #faf7f2 da outra página DE PROPÓSITO: é a
+   cor exata do creme dentro das artes (hero e família). Com o tom da
+   outra página aparecia uma emenda visível na borda esquerda das
+   imagens, justamente onde a arte deveria se dissolver no fundo.
+   ===================================================================== */
+
+:root {
+  --ground: #fcf8f2;
+  --surface: #ffffff;
+  --surface-2: #f5efe4;
+  --ink: #16233a;
+  --ink-2: #4a5568;
+  --muted: #7c8699;
+  --line: #e9e0d0;
+
+  --marca: #0e2c52;
+  --marca-2: #16406f;
+
+  /* Marinho da faixa do rodapé: amostrado da própria arte, para o bloco
+     de fechamento continuar a imagem em vez de encostar nela. */
+  --marca-fundo: #02264a;
+
+  /* Dois douradinhos com papéis distintos, como na LP de investidores:
+     --acento é o de BOTÃO (escurecido até passar 4.5:1 com texto branco)
+     e --acento-claro é o de TEXTO SOBRE MARINHO, onde a relação de
+     contraste se inverte. O dourado do layout, mais claro, não atinge AA
+     com branco — em botão o rótulo sumiria no celular ao sol. */
+  --acento: #96682a;
+  --acento-escuro: #7d5620;
+  --acento-claro: #c9a15c;
+  --acento-suave: #f7f0e3;
+
+  --ok: #2f7d54;
+  --raio: 14px;
+  --sombra: 0 1px 2px rgba(14, 44, 82, .04), 0 12px 32px rgba(14, 44, 82, .07);
+  --sombra-alta: 0 2px 6px rgba(14, 44, 82, .06), 0 24px 56px rgba(14, 44, 82, .12);
+
+  --serifada: Georgia, "Times New Roman", "Songti SC", serif;
+  --largura: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* height:auto é obrigatório: sem ele os atributos width/height do HTML
+   travam a altura e a imagem distorce (aconteceu no Mérito). */
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button { font: inherit; }
+
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 4px; }
+
+.pular { position: absolute; left: -9999px; }
+.pular:focus {
+  left: 12px; top: 12px; z-index: 60;
+  background: var(--surface); padding: 10px 16px; border-radius: var(--raio);
+}
+
+/* 40px (20 de cada lado) em vez de 32px: garante o mínimo de 20px de
+   margem lateral no celular. Só muda algo abaixo de ~1160px de largura —
+   acima disso o container já trava nos 1120px de --largura de qualquer
+   forma, então o desktop comum não sente a diferença. */
+.container { width: min(100% - 40px, var(--largura)); margin-inline: auto; }
+
+/* O sprite de ícones não pode ser display:none — em vários navegadores
+   isso impede o <use> de resolver. Sai do fluxo sem sumir. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.ico, .btn__ico {
+  width: 20px; height: 20px; flex: none;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.btn__ico { width: 18px; height: 18px; }
+
+/* O icone do WhatsApp e desenhado com fill, nao com stroke: sem isto ele
+   herdaria o traco dos outros e sairia como contorno vazado. */
+.ico--solido { fill: currentColor; stroke: none; }
+
+/* ------------------------- Tipografia ------------------------- */
+
+.sobrescrito {
+  margin: 0 0 14px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--acento);
+}
+
+.titulo {
+  margin: 0 0 16px;
+  font-family: var(--serifada);
+  font-size: clamp(28px, 4.4vw, 42px);
+  font-weight: 400;
+  line-height: 1.16; letter-spacing: -.01em;
+  color: var(--marca);
+  text-wrap: balance;
+}
+
+/* O recurso de destaque do layout: metade do título em dourado. Sempre
+   dentro de um .titulo ou .hero__titulo, nunca solto. */
+.ouro { color: var(--acento); font-style: normal; }
+
+.apoio { margin: 0; max-width: 56ch; color: var(--ink-2); font-size: clamp(16px, 2.1vw, 18px); }
+.microcopia { margin: 16px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+.secao { padding: 72px 0; }
+.secao--clara { background: var(--surface); }
+
+/* Mais respiro entre os blocos no desktop — no celular 72px já é
+   suficiente, e esticar mais lá deixaria seções altas demais para o
+   scroll de quem está com pressa. */
+@media (min-width: 941px) {
+  .secao { padding: 92px 0; }
+}
+
+/* Cabeçalho de seção em duas colunas: título à esquerda, parágrafo de
+   apoio à direita. É o desenho do layout e evita o bloco de texto largo
+   embaixo do título, que empurra o conteúdo para fora da tela. */
+.cabeca {
+  display: grid; gap: 10px 56px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .84fr);
+  align-items: end;
+  margin-bottom: 40px;
+}
+.cabeca > :first-child { min-width: 0; }
+.cabeca .apoio { padding-bottom: 6px; }
+
+@media (max-width: 860px) {
+  .cabeca { grid-template-columns: 1fr; gap: 14px; margin-bottom: 30px; }
+  .cabeca .apoio { padding-bottom: 0; }
+}
+
+/* ------------------------- Botões ------------------------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid transparent; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600; text-decoration: none;
+  cursor: pointer;
+  transition: background-color .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.btn--principal {
+  background: var(--acento); color: #fff;
+  box-shadow: 0 8px 20px rgba(150, 104, 42, .24);
+}
+.btn--principal:hover { background: var(--acento-escuro); transform: translateY(-1px); }
+.btn--fantasma {
+  background: transparent; color: var(--marca); border-color: rgba(14, 44, 82, .22);
+}
+.btn--fantasma:hover { border-color: var(--marca); background: rgba(14, 44, 82, .04); }
+.btn--pequeno { padding: 11px 18px; font-size: 14.5px; }
+.btn--largo { width: 100%; }
+.btn[disabled] { opacity: .6; cursor: progress; transform: none; }
+
+/* A seta anda um fio no hover. Some para quem pediu menos movimento. */
+.btn__seta { transition: transform .16s ease; }
+.btn:hover .btn__seta { transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ------------------------- Cabeçalho ------------------------- */
+
+/* Transparente e ABSOLUTO, não fixed: barra fixa no topo rouba altura de
+   primeira dobra no celular, e a página já tem a barra de CTA fixa
+   embaixo. Como o hero é claro, o texto do menu é escuro. */
+.topo { position: absolute; inset: 0 0 auto; z-index: 40; }
+.topo__inner { display: flex; align-items: center; gap: 20px; padding: 20px 0; }
+
+/* As duas linhas são centradas entre si, não alinhadas à esquerda:
+   "SAITAMA" tem espaçamento de letra muito maior que "GRUPO" e acaba
+   mais larga, então à esquerda o bloco ficava visivelmente torto. */
+.marca {
+  display: flex; flex-direction: column; align-items: center;
+  line-height: 1.05; text-align: center;
+  text-decoration: none; color: var(--marca);
+}
+
+/* O margin-right negativo cancela o espaço que o letter-spacing acrescenta
+   DEPOIS da última letra. Sem ele esse espaço fantasma entra na conta da
+   centralização e joga a palavra para a esquerda — quanto maior o
+   espaçamento, pior: em "SAITAMA" seriam .34em de desvio. */
+.marca strong {
+  font-family: var(--serifada); font-size: 20px; font-weight: 400;
+  letter-spacing: .04em; margin-right: -.04em;
+  text-transform: uppercase;
+}
+.marca span {
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: .34em; margin-right: -.34em;
+  text-transform: uppercase; color: var(--acento);
+}
+
+.topo__nav { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+.topo__nav a {
+  font-size: 14.5px; font-weight: 500; text-decoration: none; color: var(--ink-2);
+}
+.topo__nav a:hover { color: var(--marca); }
+.topo__nav-cta { display: none; }
+
+.menu-toggle { display: none; }
+
+@media (max-width: 940px) {
+  .topo__inner > .btn { display: none; }
+
+  .menu-toggle {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 42px; height: 42px; margin-left: auto; padding: 0 9px;
+    background: rgba(255, 255, 255, .72); border: 1px solid var(--line);
+    border-radius: 12px; cursor: pointer;
+  }
+  .menu-toggle span { display: block; height: 2px; background: var(--marca); border-radius: 2px; }
+
+  .topo__nav {
+    position: absolute; inset: 100% 16px auto;
+    display: none; flex-direction: column; align-items: stretch; gap: 4px;
+    margin: 0; padding: 12px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--raio); box-shadow: var(--sombra-alta);
+  }
+  .topo__nav[data-aberto="sim"] { display: flex; }
+  .topo__nav a { padding: 11px 12px; border-radius: 10px; font-size: 15.5px; }
+  .topo__nav a:hover { background: var(--surface-2); }
+  .topo__nav-cta { display: inline-flex; margin-top: 6px; }
+
+  /* .topo__nav a (mais específica que .btn--principal sozinha) pintava o
+     rótulo do CTA com o cinza dos links do menu, em vez do branco do
+     botão — texto escuro sobre o dourado, difícil de ler. */
+  .topo__nav a.topo__nav-cta,
+  .topo__nav a.topo__nav-cta:hover { color: #fff; background: var(--acento); }
+  .topo__nav a.topo__nav-cta:hover { background: var(--acento-escuro); }
+}
+
+/* ------------------------- 1. Hero ------------------------- */
+
+/* A arte já vem com o creme e a curva desenhados à esquerda: o texto não
+   fica "sobre uma foto", fica sobre a parte creme da própria imagem. Por
+   isso não existe véu aqui, ao contrário da LP de investidores — e por
+   isso --ground precisa ser exatamente o creme da arte. */
+.hero { position: relative; background: var(--ground); overflow: hidden; }
+
+.hero__arte { position: absolute; inset: 0; }
+
+/* A arte já traz o creme desenhado à esquerda, mas o recorte do
+   object-fit muda conforme a altura da seção — e a altura aqui depende do
+   formulário, que cresce e encolhe entre etapas. O véu garante o campo
+   claro embaixo do texto em QUALQUER recorte, em vez de depender de a
+   arte cair no lugar exato. Existe por legibilidade, não por estética. */
+.hero__veu {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg,
+    var(--ground) 0%,
+    var(--ground) 18%,
+    rgba(252, 248, 242, .92) 30%,
+    rgba(252, 248, 242, .55) 40%,
+    rgba(252, 248, 242, 0) 50%);
+}
+.hero__arte img {
+  width: 100%; height: 100%;
+  /* CENTRADA, e isso depende da arte: ela foi montada com uma faixa de
+     creme à esquerda calculada para a família cair em ~51,4% da largura
+     da imagem. O vão entre o texto e o formulário fica sempre em ~52% da
+     janela — porque o container é centrado e as duas colunas têm largura
+     fixa —, então centrar a arte faz a família cair no vão em QUALQUER
+     largura de tela, de 1200px a 2560px. Ancorar na borda (0% ou 100%)
+     jogava a família para trás do texto ou do formulário conforme a
+     janela crescia. */
+  object-fit: cover; object-position: 50% 50%;
+}
+
+/* Duas colunas: texto à esquerda, formulário à direita, e a família
+   aparecendo no vão entre os dois — é para isso que a arte é um banner
+   largo. O formulário ocupa as duas linhas da grade, então os selos
+   (.hero__pe) descem para baixo do texto sem empurrá-lo.
+
+   Sem min-height: quem define a altura do hero é o formulário, que muda
+   de tamanho entre as etapas. */
+.hero__grade {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  grid-template-areas:
+    "texto formulario"
+    "pe    formulario";
+  gap: 22px 52px;
+  padding: 104px 0 64px;
+  align-content: center;
+}
+.hero__texto { grid-area: texto; align-self: end; max-width: 480px; }
+.hero__pe { grid-area: pe; align-self: start; }
+.hero__grade .modal-perfil { grid-area: formulario; align-self: center; }
+
+.hero__selo {
+  display: inline-flex; align-items: center; gap: 9px;
+  margin: 0 0 16px; padding: 6px 15px 6px 7px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid var(--line); border-radius: 999px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--marca);
+  width: fit-content;
+}
+.hero__selo .ico {
+  width: 30px; height: 30px; padding: 6px;
+  background: var(--acento-suave); border-radius: 999px; color: var(--acento);
+}
+
+.hero__titulo {
+  margin: 0 0 14px;
+  font-family: var(--serifada);
+  font-size: clamp(32px, 4.4vw, 46px);
+  font-weight: 400; line-height: 1.08; letter-spacing: -.015em;
+  color: var(--marca);
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin: 0 0 20px; max-width: 44ch;
+  font-size: clamp(16.5px, 2.2vw, 18.5px); color: var(--ink-2);
+}
+
+/* Os três selos do hero. NÃO são os .selos do fechamento: lá cada um é um
+   bloco com ícone em caixa, aqui precisam caber numa linha discreta
+   depois do formulário, sem empurrar nada para fora da dobra. */
+.hero__selos {
+  display: flex; flex-wrap: wrap; gap: 9px 20px;
+  margin: 16px 0 0; padding: 0; list-style: none;
+}
+.hero__selos li {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13.5px; font-weight: 600; color: var(--marca);
+}
+.hero__selos .ico { width: 17px; height: 17px; color: var(--acento); }
+
+.selos {
+  display: flex; flex-wrap: wrap; gap: 14px 34px;
+  margin: 0 0 32px; padding: 0; list-style: none;
+}
+.selos li { display: flex; flex-direction: column; gap: 8px; max-width: 150px; }
+.selos .ico {
+  width: 34px; height: 34px; padding: 6px;
+  color: var(--acento); background: var(--acento-suave); border-radius: 10px;
+}
+.selos strong {
+  display: block; font-size: 13.5px; font-weight: 700; line-height: 1.32; color: var(--marca);
+}
+
+.hero__nota { margin: 14px 0 0; max-width: 46ch; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+
+/* Entre 861px e 1000px não cabem duas colunas com o formulário legível:
+   volta a empilhar, ainda sobre a foto de fundo. */
+@media (max-width: 1000px) {
+  .hero__grade {
+    grid-template-columns: minmax(0, 560px);
+    grid-template-areas: "texto" "formulario" "pe";
+    gap: 20px;
+  }
+}
+
+/* Celular: a foto de fundo viraria área morta atrás do texto e do
+   formulário. Os dois sobem para o topo, sobre o creme da PÁGINA, e a
+   arte vira uma faixa com só a família (recorte hero-fam-mob) DEPOIS do
+   formulário — a foto é o que menos custa empurrar para baixo da dobra. */
+@media (max-width: 860px) {
+  .hero { display: flex; flex-direction: column; }
+  .hero__grade { order: 1; padding: 96px 0 26px; }
+  .hero__veu { display: none; }
+  .hero__arte { position: relative; order: 2; width: 100%; aspect-ratio: 880 / 941; max-height: 44vh; }
+  .hero__arte img { object-position: 50% 22%; }
+}
+
+/* ------------------------- Faixa de confiança ------------------------- */
+
+.confianca { background: var(--surface); border-block: 1px solid var(--line); }
+.confianca__grade {
+  display: grid; gap: 20px 40px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 26px 0;
+}
+.confianca__item { display: flex; align-items: flex-start; gap: 12px; }
+.confianca__item .ico {
+  width: 34px; height: 34px; padding: 7px; margin-top: 1px;
+  color: var(--acento); background: var(--acento-suave); border-radius: 10px;
+}
+.confianca__item p { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+.confianca__item strong { display: block; font-size: 14.5px; color: var(--marca); }
+
+@media (max-width: 860px) {
+  .confianca__grade { grid-template-columns: 1fr; gap: 16px; padding: 22px 0; }
+}
+
+/* ------------------------- 2. O formulário (no hero) -------------------------
+
+   A seção #perfil que existia aqui foi embora: o formulário subiu para
+   dentro do hero, na primeira dobra, e com ela saíram .perfil,
+   .perfil__grade, .perfil__rabisco e .perfil__cta-mobile. */
+
+/* O <dialog> que envolve o quiz. No desktop ele nunca vira modal — só
+   carrega o atributo `open` de fábrica — e por isso perde todo o chrome
+   nativo (borda, padding, fundo, largura em fit-content): sem isso ele
+   abriria um quadro branco por trás do cartão do quiz. O que sobra é
+   um bloco comum dentro da grade, do tamanho do próprio filho. */
+.modal-perfil {
+  /* position:absolute é o padrão do navegador para <dialog> — sem
+     reescrever para static, ele saía do fluxo da grade e ocupava o
+     container inteiro por cima de tudo, mesmo sem showModal(). */
+  position: static;
+  margin: 0; padding: 0; border: 0; background: transparent; color: inherit;
+  max-width: none; max-height: none; width: auto; height: auto;
+}
+.modal-perfil__fechar { display: none; }
+
+.quiz {
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: 20px;
+  box-shadow: var(--sombra-alta);
+}
+
+.quiz__trilha {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+/* "Etapa 1 de 3" escrito por extenso: a barra sozinha mostra que existe
+   progresso, mas não diz quanto falta — e é o quanto falta que decide se
+   a pessoa começa. */
+.quiz__conta { font-size: 12.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.quiz__barras { display: flex; align-items: center; gap: 5px; flex: 1; }
+.quiz__passo {
+  flex: 1; height: 4px;
+  background: var(--line); border-radius: 999px;
+  transition: background-color .2s ease;
+}
+.quiz__passo[data-estado="feito"], .quiz__passo[data-estado="atual"] { background: var(--acento); }
+
+.quiz__numero {
+  display: grid; place-items: center;
+  width: 26px; height: 26px; flex: none;
+  background: var(--acento); color: #fff;
+  border-radius: 999px; font-size: 12.5px; font-weight: 700;
+}
+
+.quiz__tela[hidden] { display: none; }
+
+/* Duas perguntas por etapa: cada uma é um .quiz__grupo, e é no grupo que
+   vive o data-campo lido pelo main.js. */
+.quiz__grupo { margin-bottom: 15px; }
+
+.quiz__rotulo {
+  margin: 0 0 8px;
+  font-size: 15.5px; font-weight: 600; line-height: 1.3; color: var(--marca);
+}
+.quiz__ajuda { margin: -4px 0 8px; font-size: 13px; color: var(--muted); }
+.quiz__tela--dados .quiz__ajuda { margin: 0 0 16px; }
+.quiz__tela--dados .quiz__rotulo { font-size: 18px; margin-bottom: 4px; }
+
+/* Fichas que quebram em linha, não botões de largura inteira: com 11
+   opções empilhadas (renda + entrada) a etapa 1 não caberia na primeira
+   dobra, que é justamente onde o formulário precisa estar. A altura
+   mínima de 42px mantém o alvo de toque confortável no celular. */
+.quiz__chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.opcao {
+  display: inline-flex; align-items: center; min-height: 42px;
+  padding: 9px 15px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px;
+  font-size: 14.5px; text-align: left; cursor: pointer;
+  transition: border-color .14s ease, background-color .14s ease, color .14s ease;
+}
+.opcao:hover { border-color: var(--acento-claro); background: var(--acento-suave); }
+.opcao[aria-checked="true"] {
+  border-color: var(--acento); background: var(--acento); color: #fff; font-weight: 600;
+}
+
+.quiz__rodape {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: 18px;
+}
+.quiz__voltar {
+  padding: 6px 2px; background: none; border: 0;
+  font-size: 14px; color: var(--muted); cursor: pointer; text-decoration: underline;
+}
+.quiz__voltar:hover { color: var(--ink-2); }
+.quiz__voltar[hidden] { display: none; }
+
+/* .quiz__rodape e display:flex do autor, que vence o [hidden] do
+   navegador. Sem esta regra o rodape do quiz nunca some nas telas de
+   saida. */
+.quiz__rodape[hidden] { display: none; }
+
+.quiz__seguro {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  margin: 16px 0 0; font-size: 12.5px; color: var(--muted);
+}
+.quiz__seguro .ico { width: 15px; height: 15px; }
+.quiz__seguro--inline { margin: 0; }
+
+/* --- Campos da última tela --- */
+
+.campo { display: block; margin-bottom: 14px; }
+.campo > span { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--marca); }
+.campo input {
+  width: 100%; padding: 13px 15px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 10px;
+  font-size: 16px; /* 16px evita o zoom automático do iOS ao focar. */
+}
+.campo input:focus-visible { border-color: var(--acento); }
+.campo input[aria-invalid="true"] { border-color: #b4342c; }
+.campo__opcional { font-weight: 500; color: var(--muted); }
+
+.erro { margin: 6px 0 0; font-size: 13px; color: #b4342c; }
+.erro[hidden] { display: none; }
+
+.aceite { display: flex; gap: 10px; margin: 4px 0 18px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+.aceite input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--acento); }
+.aceite a { color: var(--acento); }
+
+/* Armadilha para robô: precisa ser invisível para gente e preenchível
+   para script. display:none faria alguns robôs pularem o campo. */
+.armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* --- Telas de saída --- */
+
+.quiz__saida { text-align: center; padding: 8px 0; }
+.quiz__saida .ico { width: 46px; height: 46px; margin: 0 auto 14px; stroke-width: 1.3; color: var(--ok); }
+.quiz__saida--erro .ico { color: #b4342c; }
+.quiz__saida h2 { margin: 0 0 8px; font-family: var(--serifada); font-size: 24px; font-weight: 400; color: var(--marca); }
+.quiz__saida p { margin: 0 auto 16px; max-width: 38ch; font-size: 15px; color: var(--ink-2); }
+
+/* ------------------------- 3. Como funciona ------------------------- */
+
+.passos { display: grid; gap: 26px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+
+.passo {
+  position: relative;
+  padding: 24px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--raio);
+}
+/* .passo .passo__n (não .passo__n sozinho): a regra .passo p, mais
+   abaixo, também bate no número — ele é um <p> — e como ".passo p" tem
+   mais especificidade que ".passo__n" isolado, o cinza dela vencia o
+   branco daqui. Precisa ficar mais específica que ela. */
+.passo .passo__n {
+  display: grid; place-items: center;
+  width: 26px; height: 26px; margin: 0 0 6px;
+  background: var(--acento); color: #fff; border-radius: 999px;
+  font-size: 12.5px; font-weight: 700;
+}
+.passo h3 { margin: 0 0 6px; font-size: 17px; font-weight: 600; color: var(--marca); }
+.passo p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+
+/* A seta entre os cartões. Como é decoração pura, sai do fluxo e some no
+   celular, onde os cartões empilham e a seta apontaria para o lado
+   errado. */
+.passo:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: -19px;
+  width: 12px; height: 12px; margin-top: -6px;
+  border-top: 2px solid var(--acento-claro); border-right: 2px solid var(--acento-claro);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 860px) {
+  .passos { grid-template-columns: 1fr; }
+  .passo:not(:last-child)::after { display: none; }
+}
+
+/* ------------------------- 4. Vantagens ------------------------- */
+
+.vantagens { display: grid; gap: 30px 26px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.vantagem .ico {
+  width: 40px; height: 40px; margin-bottom: 14px; padding: 8px;
+  color: var(--acento); background: var(--acento-suave); border-radius: 12px;
+}
+.vantagem h3 { margin: 0 0 5px; font-size: 15.5px; font-weight: 700; color: var(--marca); }
+.vantagem p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+
+@media (max-width: 900px) { .vantagens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .vantagens { grid-template-columns: 1fr; } }
+
+/* ------------------------- 5. Minha Casa Minha Vida ------------------------- */
+
+.mcmv { position: relative; background: var(--ground); overflow: hidden; }
+.mcmv__grade {
+  display: grid; gap: 40px 50px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .46fr);
+  align-items: center;
+}
+
+.lista-check { margin: 22px 0 26px; padding: 0; list-style: none; display: grid; gap: 11px; }
+.lista-check li { display: flex; align-items: flex-start; gap: 11px; font-size: 15.5px; color: var(--ink-2); }
+.lista-check .ico { width: 21px; height: 21px; margin-top: 2px; color: var(--acento); }
+.lista-check strong { color: var(--marca); font-weight: 600; }
+
+.mcmv__selo {
+  padding: 22px 20px; text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+.mcmv__selo img { width: 132px; margin: 0 auto 14px; }
+.mcmv__selo p { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+.mcmv__selo strong { display: block; color: var(--marca); }
+
+@media (max-width: 640px) {
+  .mcmv__grade { grid-template-columns: 1fr; }
+}
+
+/* ------------------------- 6. O apartamento ------------------------- */
+
+.criterios { display: grid; gap: 14px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.criterio {
+  padding: 22px 20px;
+  background: linear-gradient(160deg, var(--acento-suave), var(--surface) 70%);
+  border: 1px solid var(--line); border-radius: var(--raio);
+}
+.criterio .ico { width: 34px; height: 34px; margin-bottom: 26px; color: var(--acento); }
+.criterio h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: var(--marca); }
+.criterio p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+
+@media (max-width: 900px) { .criterios { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .criterios { grid-template-columns: 1fr; } .criterio .ico { margin-bottom: 14px; } }
+
+/* ------------------------- 7. Depoimentos ------------------------- */
+
+.depoimentos { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.depoimento {
+  display: flex; flex-direction: column;
+  padding: 24px 22px; margin: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--raio);
+}
+.depoimento blockquote { margin: 0 0 auto; font-size: 15.5px; line-height: 1.55; color: var(--ink); }
+.depoimento__estrelas { margin: 18px 0 10px; color: var(--acento-claro); font-size: 14px; letter-spacing: .12em; }
+.depoimento figcaption { font-size: 13.5px; color: var(--muted); }
+.depoimento figcaption strong { display: block; font-size: 14.5px; color: var(--marca); }
+
+@media (max-width: 860px) { .depoimentos { grid-template-columns: 1fr; } }
+
+/* ------------------------- 8. FAQ ------------------------- */
+
+.faq-grade {
+  display: grid; gap: 30px 56px;
+  grid-template-columns: minmax(0, .78fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.faq {
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--line);
+}
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 2px;
+  font-size: 15.5px; font-weight: 500; color: var(--marca);
+  cursor: pointer; list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; flex: none;
+  font-size: 20px; font-weight: 400; line-height: 1; color: var(--acento);
+}
+.faq[open] summary { font-weight: 600; }
+.faq[open] summary::after { content: "\2013"; }
+.faq p { margin: 0 0 14px; padding-right: 34px; font-size: 15px; color: var(--ink-2); }
+.faq p:last-child { padding-bottom: 6px; }
+
+@media (max-width: 860px) { .faq-grade { grid-template-columns: 1fr; gap: 18px; } }
+
+/* ------------------------- 9. Fechamento ------------------------- */
+
+/* A faixa marinho com o skyline em linha dourada. A arte é decoração e
+   fica ATRÁS do texto; o fundo sólido garante contraste mesmo enquanto a
+   imagem (lazy) ainda não chegou. */
+.fechamento {
+  position: relative; isolation: isolate;
+  padding: 66px 0;
+  background: var(--marca-fundo); color: #fff; overflow: hidden;
+}
+.fechamento__arte { position: absolute; inset: 0; z-index: -1; }
+.fechamento__arte img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Véu da MESMA cor do fundo por cima do grafismo. O skyline dourado da
+   arte passa bem perto do título e do botão, e o dourado sobre marinho
+   tem contraste alto demais para ficar atrás de texto — competia com a
+   leitura em vez de ambientar.
+
+   É gradiente, não cor chapada: nas bordas o véu afrouxa e o desenho
+   continua aparecendo, que é onde ele não atrapalha ninguém. Como é
+   exatamente --marca-fundo, o efeito é só abaixar a intensidade do
+   grafismo, sem sujar a cor da faixa.
+
+   ::after do <picture>, e não um elemento novo: ele pinta depois do
+   <img> e continua dentro do mesmo z-index: -1, ou seja, atrás do
+   conteúdo e na frente da arte. */
+.fechamento__arte::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(2, 38, 74, .52) 0%,
+    rgba(2, 38, 74, .88) 20%,
+    rgba(2, 38, 74, .88) 80%,
+    rgba(2, 38, 74, .52) 100%);
+}
+
+.fechamento__grade {
+  display: grid; gap: 34px 56px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .48fr);
+  align-items: center;
+}
+.fechamento .sobrescrito { color: var(--acento-claro); }
+.fechamento__titulo {
+  margin: 0 0 14px;
+  font-family: var(--serifada); font-size: clamp(28px, 4.2vw, 40px);
+  font-weight: 400; line-height: 1.14; color: #fff; text-wrap: balance;
+}
+.fechamento__titulo .ouro { color: var(--acento-claro); }
+.fechamento p { margin: 0; max-width: 48ch; color: rgba(255, 255, 255, .84); }
+
+.fechamento .selos { margin: 26px 0 0; }
+.fechamento .selos .ico { color: var(--acento-claro); background: rgba(201, 161, 92, .16); }
+.fechamento .selos strong { color: #fff; }
+
+.fechamento__micro {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  margin: 14px 0 0; font-size: 12.5px; color: rgba(255, 255, 255, .68);
+}
+.fechamento__micro .ico { width: 15px; height: 15px; }
+
+@media (max-width: 860px) { .fechamento__grade { grid-template-columns: 1fr; } }
+
+/* ------------------------- Rodapé ------------------------- */
+
+.rodape { padding: 30px 0 96px; background: var(--surface); border-top: 1px solid var(--line); }
+.rodape__linha {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 30px;
+  margin-bottom: 20px;
+}
+.rodape__linha nav { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.rodape__linha a { font-size: 14px; text-decoration: none; color: var(--ink-2); }
+.rodape__linha a:hover { color: var(--marca); }
+/* .rodape__legal saiu em 14/09/2026: o parágrafo que a usava (o texto
+   legal sobre valores, imagens ilustrativas e as condições do MCMV) foi
+   removido do rodapé a pedido. */
+
+/* CRECI, de volta em 18/09/2026 — não é o mesmo bloco de antes, é só o
+   registro que a Lei 6.530/78 exige em qualquer publicidade imobiliária.
+   Pequeno de propósito: é rodapé, não a informação principal da página. */
+.rodape__creci { margin: 0; font-size: 12px; color: var(--muted); }
+
+@media (min-width: 941px) { .rodape { padding-bottom: 30px; } }
+
+/* ------------------------- Barra fixa do celular ------------------------- */
+
+.barra-mobile {
+  position: fixed; inset: auto 0 0; z-index: 50;
+  display: none; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .96);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 24px rgba(14, 44, 82, .1);
+}
+.barra-mobile__texto { display: flex; flex-direction: column; line-height: 1.25; }
+.barra-mobile__texto strong { font-size: 14px; color: var(--marca); }
+.barra-mobile__texto span { font-size: 12px; color: var(--muted); }
+
+@media (max-width: 940px) {
+  .barra-mobile { display: flex; }
+}
+
+/* --- O formulário como modal, só no celular ---
+
+   O <dialog> vive dentro do hero e fica aberto ali por padrão, em qualquer
+   largura. Os CTAs mais abaixo na página (cabeçalho, MCMV, fechamento,
+   barra fixa) reabrem ESTE mesmo formulário como modal de verdade, para
+   quem já rolou não precisar voltar ao topo — e o que já foi respondido
+   continua lá, porque é o mesmo DOM.
+
+   A régua aqui é a classe .modal-perfil--modal, posta pelo main.js, e NÃO
+   o atributo [open]: o CSS não consegue distinguir um <dialog open> comum
+   de um aberto por showModal(), e sem a classe o formulário do hero também
+   viraria tela cheia. */
+@media (max-width: 860px) {
+  .modal-perfil--modal {
+    position: fixed; inset: 0; z-index: 70;
+    display: flex; align-items: stretch; justify-content: center;
+    width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+  }
+
+  .modal-perfil--modal::backdrop { background: rgba(14, 44, 82, .55); }
+
+  /* O quiz cobre a tela inteira, sem sobrar tira de fundo entre ele e a
+     borda de cima — é ali que o X ganha espaço, no canto do próprio
+     cartão, em vez de flutuar sobre um vão vazio. O padding-top maior que
+     o padrão abre essa folga: o X é posicionado relativo ao <dialog>, não
+     ao quiz, e sem ela ficava por cima da trilha de progresso. */
+  .modal-perfil--modal .quiz {
+    width: 100%; height: 100%; max-height: 100%; overflow-y: auto;
+    border-radius: 0; padding-top: 60px;
+  }
+
+  .modal-perfil--modal .modal-perfil__fechar {
+    display: grid; place-items: center;
+    position: absolute; top: 16px; right: 16px; z-index: 1;
+    width: 34px; height: 34px;
+    background: var(--surface); color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px;
+    cursor: pointer;
+  }
+  .modal-perfil--modal .modal-perfil__fechar svg {
+    width: 16px; height: 16px; fill: none; stroke: currentColor;
+    stroke-width: 1.8; stroke-linecap: round;
+  }
+
+  /* Trava o scroll de fundo enquanto o modal está aberto de verdade —
+     mesma convenção das outras LPs (lá é .qz-open). */
+  html.modal-aberto,
+  html.modal-aberto body { overflow: hidden; }
+}
+
+/* Sem JavaScript não existe quiz, e mandar a pessoa para uma âncora que
+   não responde é pior do que não ter botão. A régua .js é marcada pelo
+   script inline no <head>, antes da primeira pintura. */
+html:not(.js) .quiz__tela--dados { display: block; }
+html:not(.js) .quiz__trilha, html:not(.js) .quiz__voltar { display: none; }

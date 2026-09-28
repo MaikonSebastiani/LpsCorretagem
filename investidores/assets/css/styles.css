@@ -1,0 +1,750 @@
+/* =====================================================================
+   SEBASTIANI IMÓVEIS — investidores
+
+   Pele PRÓPRIA, sem /shared/base.css: esta página assina outra marca
+   (Sebastiani Imóveis, em sebastianiimoveis.com.br) e fala com outro
+   público. Puxar a base do Grupo Saitama traria a cor e o cabeçalho de
+   uma marca que não é a desta página.
+
+   SISTEMA DE CORES — alinhado ao layout aprovado da Sebastiani:
+   azul-marinho profundo + dourado, sobre creme. Duas cores e um fundo,
+   mais nada. Verde e terracota (que existiam na versão anterior) saíram:
+   eram um terceiro e um quarto sistema competindo com a marca.
+
+   Os dois caminhos de investimento continuam distinguíveis, mas DENTRO
+   da paleta: planta = dourado, leilão = marinho. Isso se repete em selo,
+   borda e coluna da tabela, para a pessoa seguir um caminho pela cor sem
+   reler os títulos.
+
+   Tipografia: serifada de sistema nos títulos (o layout pede o ar de
+   serifa alta) e sem serifa no texto. Nenhuma fonte externa — a página é
+   destino de tráfego pago e cada requisição de fonte atrasa o primeiro
+   texto visível, que aqui é o próprio LCP.
+   ===================================================================== */
+
+:root {
+  --ground: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f2ece1;
+  --ink: #16233a;
+  --ink-2: #4a5568;
+  --muted: #7c8699;
+  --line: #e6ddcd;
+
+  /* Marinho da marca. */
+  --marca: #0e2c52;
+  --marca-2: #16406f;
+  --marca-fundo: #0b2440;
+
+  /* Dourado. Dois tons com papéis distintos:
+     --acento é o de BOTÃO, escurecido até passar 4.5:1 com texto branco;
+     --acento-claro é o de TEXTO SOBRE MARINHO, onde a relação se inverte.
+     O dourado do layout, mais claro, não atinge contraste AA com branco —
+     usá-lo em botão deixaria o rótulo ilegível no celular ao sol. */
+  --acento: #96682a;
+  --acento-escuro: #7d5620;
+  --acento-claro: #c9a15c;
+  --acento-suave: #f6efe2;
+
+  /* Os dois caminhos, dentro da paleta. */
+  --planta: #8a6220;
+  --planta-suave: #f6efe2;
+  --leilao: #16406f;
+  --leilao-suave: #e9eff6;
+
+  --raio: 14px;
+  --sombra: 0 1px 2px rgba(14, 44, 82, .04), 0 12px 32px rgba(14, 44, 82, .07);
+
+  --serifada: Georgia, "Times New Roman", "Songti SC", serif;
+  --largura: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 4px; }
+
+.pular { position: absolute; left: -9999px; }
+.pular:focus {
+  left: 12px; top: 12px; z-index: 60;
+  background: var(--surface); padding: 10px 16px; border-radius: var(--raio);
+}
+
+.container { width: min(100% - 32px, var(--largura)); margin-inline: auto; }
+
+/* ------------------------- Tipografia ------------------------- */
+
+.sobrescrito {
+  margin: 0 0 14px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--acento);
+}
+
+.titulo {
+  margin: 0 0 16px;
+  font-family: var(--serifada);
+  font-size: clamp(29px, 4.6vw, 44px);
+  font-weight: 400;
+  line-height: 1.16; letter-spacing: -.01em;
+  color: var(--marca);
+  text-wrap: balance;
+}
+
+/* Segunda metade do título, em dourado — o recurso de destaque do
+   layout. Sempre dentro de um .titulo, nunca solto. */
+.ouro { color: var(--acento); font-style: normal; }
+
+.apoio {
+  margin: 0; max-width: 58ch;
+  color: var(--ink-2);
+  font-size: clamp(16px, 2.1vw, 18px);
+}
+
+.microcopia { margin: 16px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+.secao { padding: 74px 0; }
+.secao--clara { background: var(--surface); }
+.secao--creme { background: var(--surface-2); }
+
+/* Cabeça centralizada, como no layout: o olho cai no meio da coluna e
+   desce direto para os cartões. */
+.cabeca {
+  max-width: 60ch; margin: 0 auto 44px;
+  text-align: center;
+}
+.cabeca .apoio { margin-inline: auto; }
+
+/* ------------------------- Botões ------------------------- */
+
+/* line-height próprio, e não o 1.62 herdado do corpo: quando o rótulo
+   quebra em duas linhas — o que acontece nos CTAs longos no celular —
+   o entrelinhamento de texto corrido transformava a pílula num bloco de
+   83px de altura. Com 1.25 ela continua parecendo um botão. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 54px; padding: 14px 28px;
+  border: 1.5px solid transparent; border-radius: 999px;
+  font: inherit; font-size: 16.5px; font-weight: 600; line-height: 1.25;
+  text-align: center; text-decoration: none; cursor: pointer;
+  text-wrap: balance;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.btn__ico { width: 19px; height: 19px; flex: none; fill: currentColor; }
+
+.btn--principal { background: var(--acento); color: #fff; }
+.btn--principal:hover { background: var(--acento-escuro); }
+
+.btn--marinho { background: var(--marca); color: #fff; }
+.btn--marinho:hover { background: var(--marca-2); }
+
+.btn--fantasma { background: transparent; border-color: rgba(201, 161, 92, .55); color: var(--acento-claro); }
+.btn--fantasma:hover { border-color: var(--acento-claro); color: #fff; }
+
+.btn--pequeno { min-height: 44px; padding: 10px 20px; font-size: 15px; }
+
+@media (max-width: 560px) {
+  .btn { display: flex; width: 100%; }
+
+  /* Menos folga lateral no celular: com 28px de cada lado, um rótulo
+     como "Quero analisar oportunidades em leilão" perdia 56px de
+     largura útil e quebrava em uma linha a mais sem precisar. */
+  .btn { padding: 14px 18px; font-size: 15.5px; }
+
+  .btn--pequeno { width: auto; display: inline-flex; padding: 10px 18px; }
+}
+
+/* ------------------------- Cabeçalho ------------------------- */
+
+/* Transparente, sobreposto ao hero. Fica em position:absolute e não
+   fixed de propósito: barra fixa no topo rouba altura de primeira dobra
+   no celular, e a página já tem a barra de CTA fixa embaixo. Aqui ele
+   flutua sobre o creme do hero e sai de cena na rolagem.
+
+   O texto é claro porque o menu flutua sobre a foto do hero, e o véu
+   dela tem uma camada extra de escuro justamente nessa faixa do topo. */
+.topo {
+  position: absolute; inset: 0 0 auto 0; z-index: 30;
+  background: transparent; color: #fff;
+}
+
+.topo__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding: 22px 0;
+}
+
+.marca { display: flex; flex-direction: column; text-decoration: none; line-height: 1.05; }
+.marca strong {
+  font-family: var(--serifada);
+  font-size: 21px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
+}
+.marca span { font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--acento-claro); }
+
+/* Centralizado entre a marca e o botão, como na referência: o flex:1
+   faz o menu ocupar a sobra e o justify-content o centraliza dentro
+   dela. Com o menu como item de conteúdo, ele encostava na marca. */
+.topo__nav { display: flex; flex: 1; justify-content: center; gap: 30px; font-size: 14.5px; }
+.topo__nav a { text-decoration: none; color: rgba(255, 255, 255, .88); }
+.topo__nav a:hover { color: #fff; }
+
+/* O CTA que vive dentro do painel só existe no celular. */
+.topo__nav-cta { display: none; }
+
+/* ---- Botão sanduíche ---- */
+
+.menu-toggle {
+  display: none;
+  width: 44px; height: 44px;
+  padding: 0; border: 0; background: transparent;
+  cursor: pointer;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+
+.menu-toggle span {
+  display: block; width: 22px; height: 2px; border-radius: 2px;
+  background: #fff;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* As três barras viram X quando o menu abre. Os 7px do translate são a
+   distância entre as barras (2px de altura + 5px de gap). */
+.topo.aberto .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.topo.aberto .menu-toggle span:nth-child(2) { opacity: 0; }
+.topo.aberto .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- Painel do celular ---- */
+
+@media (max-width: 940px) {
+  .menu-toggle { display: flex; }
+
+  /* O painel se posiciona em relação ao .topo, que é absolute, e por
+     isso cobre a largura toda do cabeçalho. Fundo sólido porque ele
+     abre por cima da foto do hero. */
+  .topo__nav {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    padding: 6px 16px 20px;
+    background: var(--marca-fundo);
+    box-shadow: 0 18px 44px rgba(6, 22, 40, .45);
+  }
+
+  .topo.aberto .topo__nav { display: flex; }
+
+  .topo__nav a {
+    padding: 15px 2px;
+    font-size: 16.5px; color: #eaf0f7;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+  }
+
+  .topo__nav-cta {
+    display: flex;
+    margin-top: 18px; border-bottom: 0;
+    color: #fff;
+  }
+  .topo__nav-cta:hover { color: #fff; }
+}
+
+/* No celular estreito o CTA do cabeçalho sai: ao lado da marca ele
+   quebrava em duas linhas e ocupava metade da barra. Quem precisa dele
+   encontra no painel do menu, na barra fixa do rodapé e no hero. */
+@media (max-width: 620px) { .topo__inner > .btn { display: none; } }
+
+/* ------------------------- Hero ------------------------- */
+
+/* A foto ocupa a SEÇÃO INTEIRA, com o texto por cima e o cabeçalho
+   transparente flutuando no topo dela.
+
+   A FOTO É O LCP. Por isso entra como <img> dentro de um <picture>, com
+   AVIF e WebP, e não como background-image: background só começa a
+   baixar depois de o CSS ser lido e não aceita fetchpriority. O <head>
+   traz o preload correspondente.
+
+   O véu escuro por cima não é estética, é legibilidade: o pôr do sol da
+   foto é claro demais para texto branco. Ele é denso à esquerda, onde
+   fica a copy, e abre à direita para a torre continuar aparecendo. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: 128px 0 88px;
+  color: #fff;
+  background: var(--marca-fundo);
+  overflow: hidden;
+}
+
+.hero__bg { position: absolute; inset: 0; z-index: -2; display: block; }
+.hero__bg img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 68% 50%;
+}
+
+/* Duas camadas: a de cima escurece a faixa do cabeçalho, para o menu
+   transparente ter contraste contra o céu claro; a de baixo é o
+   gradiente lateral que protege a copy. */
+.hero__veu {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    /* Faixa do topo, para o menu transparente ter contraste. */
+    linear-gradient(180deg, rgba(9, 30, 54, .6) 0%, rgba(9, 30, 54, 0) 28%),
+    /* Lateral: denso onde fica a copy, some antes da torre. 90deg exato
+       (e não 96) porque com o ângulo inclinado a linha do gradiente fica
+       mais longa que a caixa e as paradas chegam comprimidas do lado
+       direito, deixando escuro o que deveria estar limpo. */
+    linear-gradient(90deg,
+      rgba(9, 30, 54, .94) 0%,
+      rgba(9, 30, 54, .89) 30%,
+      rgba(9, 30, 54, .74) 48%,
+      rgba(9, 30, 54, .3) 62%,
+      rgba(9, 30, 54, .08) 78%,
+      rgba(9, 30, 54, .2) 100%);
+}
+
+.hero__grade { display: grid; grid-template-columns: minmax(0, 620px); }
+
+.hero__selo {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 0 0 22px; padding: 8px 18px 8px 12px;
+  border: 1px solid rgba(201, 161, 92, .5); border-radius: 999px;
+  background: rgba(9, 30, 54, .32);
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--acento-claro);
+  white-space: nowrap;
+}
+.hero__selo .ico { width: 19px; height: 19px; color: var(--acento-claro); }
+
+.hero__titulo {
+  margin: 0 0 16px;
+  font-family: var(--serifada);
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.03; letter-spacing: -.005em;
+  text-transform: uppercase;
+  color: #fff;
+  max-width: 13ch;
+  text-shadow: 0 2px 22px rgba(6, 22, 40, .45);
+}
+.hero__titulo .ouro { color: var(--acento-claro); }
+
+/* A linha em negrito entre o título e o texto corrido. É o "Viva perto
+   de tudo" da referência. */
+.hero__promessa {
+  margin: 0 0 12px;
+  font-size: clamp(16.5px, 2vw, 19.5px); font-weight: 700; color: #fff;
+}
+
+.hero__sub { margin: 0 0 28px; max-width: 46ch; color: #cbd8e6; font-size: 16.5px; }
+
+/* Fila de provas da referência: ícone em cima, rótulo em negrito e uma
+   linha de apoio, separados por filete vertical. */
+.selos {
+  display: flex; gap: 0;
+  margin: 0 0 30px; padding: 0; list-style: none;
+}
+
+.selos li {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 0 16px;
+  font-size: 12px; line-height: 1.3; color: #a8bcd2;
+  border-left: 1px solid rgba(255, 255, 255, .2);
+}
+.selos li:first-child { padding-left: 0; border-left: 0; }
+.selos .ico { width: 24px; height: 24px; color: var(--acento-claro); }
+.selos strong { display: block; font-size: 13.5px; color: #fff; font-weight: 600; }
+
+@media (max-width: 620px) {
+  .selos { flex-wrap: wrap; row-gap: 20px; }
+  .selos li { flex: 0 0 50%; }
+  .selos li:nth-child(odd) { padding-left: 0; border-left: 0; }
+}
+
+.hero__acoes { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; }
+
+/* O link-texto ao lado do botão, com a seta. Não compete com o CTA
+   porque não é um botão. */
+.hero__link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 15.5px; font-weight: 600; color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.hero__link:hover { border-bottom-color: var(--acento-claro); }
+.hero__link span { font-size: 19px; line-height: 1; color: var(--acento-claro); }
+
+.hero__nota {
+  margin: 28px 0 0; max-width: 58ch;
+  font-size: 12.5px; line-height: 1.5; color: #90a6bf;
+}
+
+/* ---- Elementos sobre a foto ---- */
+
+/* A frase manuscrita da referência. Serifada em itálico em vez de fonte
+   script: script de sistema não existe de forma confiável, e baixar uma
+   custaria a requisição que esta página não faz.
+
+   Fica no céu, à direita, onde a foto é limpa. Some abaixo de 1100px
+   porque aí a copy já ocupa a largura toda e ela cairia em cima. */
+.hero__assinatura {
+  position: absolute; top: 138px; right: 6%; z-index: 2;
+  margin: 0; max-width: 9ch;
+  font-family: var(--serifada); font-style: italic;
+  font-size: clamp(19px, 1.9vw, 27px); line-height: 1.25;
+  color: #f3e2bf;
+  text-align: right;
+  text-shadow: 0 2px 18px rgba(6, 22, 40, .6);
+}
+
+/* Cartão flutuante do canto inferior direito, como na referência. */
+.hero__cartao {
+  position: absolute; z-index: 2;
+  right: max(20px, calc((100% - var(--largura)) / 2)); bottom: 64px;
+  display: flex; align-items: center; gap: 12px;
+  max-width: 252px; padding: 15px 19px;
+  background: rgba(255, 255, 255, .96);
+  border-radius: var(--raio); box-shadow: 0 16px 44px rgba(6, 22, 40, .4);
+  font-size: 12px; line-height: 1.35; color: var(--ink-2);
+}
+.hero__cartao strong { display: block; color: var(--marca); font-size: 13px; }
+.hero__cartao .ico { width: 26px; height: 26px; color: var(--acento); }
+
+@media (max-width: 1100px) {
+  .hero__assinatura { display: none; }
+}
+
+/* No celular a foto fica atrás do texto empilhado, então o véu deixa de
+   ser lateral e cobre a tela inteira. Sem isso, a fila de selos cai
+   justamente sobre o céu claro e some. */
+@media (max-width: 980px) {
+  .hero { padding: 112px 0 72px; }
+  .hero__veu {
+    background: linear-gradient(180deg, rgba(9, 30, 54, .93) 0%,
+                rgba(9, 30, 54, .84) 50%, rgba(9, 30, 54, .95) 100%);
+  }
+  .hero__bg img { object-position: 62% 46%; }
+
+  /* Fora do absolute, o cartão vira bloco normal. Como ele mora FORA do
+     .container (para poder flutuar sobre a foto no desktop), aqui
+     precisa repetir a largura do container na mão, senão encosta nas
+     duas bordas da tela. */
+  .hero__cartao {
+    position: static;
+    width: min(100% - 32px, var(--largura));
+    max-width: none;
+    margin: 26px auto 0;
+    align-items: flex-start;
+  }
+  .hero__cartao .ico { margin-top: 2px; }
+}
+
+/* ------------------------- Faixa de confiança ------------------------- */
+
+.confianca { background: var(--surface); border-bottom: 1px solid var(--line); }
+
+.confianca__inner {
+  display: flex; flex-wrap: wrap; gap: 16px 40px;
+  align-items: center; justify-content: center;
+  padding: 20px 0;
+  font-size: 14.5px; color: var(--ink-2);
+}
+
+.confianca__item { display: flex; align-items: center; gap: 10px; margin: 0; }
+.confianca__item strong { color: var(--ink); }
+
+/* No celular os três viram uma coluna alinhada à esquerda. Centralizados
+   e quebrando por conta própria, cada item terminava numa indentação
+   diferente e a faixa lia como escada. O ícone sobe para o topo porque
+   o primeiro item ocupa duas linhas. */
+@media (max-width: 760px) {
+  .confianca__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 18px 0;
+  }
+  .confianca__item { align-items: flex-start; }
+  .confianca__item .ico { margin-top: 2px; }
+}
+
+.ico {
+  width: 21px; height: 21px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+  color: var(--acento);
+}
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ------------------------- Os dois caminhos ------------------------- */
+
+.caminhos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+@media (max-width: 900px) { .caminhos { grid-template-columns: 1fr; } }
+
+.via {
+  display: flex; flex-direction: column;
+  padding: 34px 32px 32px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--cor);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.via--planta { --cor: var(--planta); --suave: var(--planta-suave); }
+.via--leilao { --cor: var(--leilao); --suave: var(--leilao-suave); }
+
+.via__selo {
+  display: inline-flex; align-self: flex-start; align-items: center; gap: 8px;
+  margin: 0 0 16px; padding: 6px 14px;
+  border-radius: 999px; background: var(--suave); color: var(--cor);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+}
+
+.via__titulo {
+  margin: 0 0 6px;
+  font-family: var(--serifada);
+  font-size: clamp(23px, 2.8vw, 29px); font-weight: 400; line-height: 1.2;
+  color: var(--marca);
+}
+
+.via__onde { margin: 0 0 18px; font-size: 13.5px; font-weight: 600; letter-spacing: .04em; color: var(--cor); }
+
+/* O cartão aceita mais de um parágrafo: os do meio ficam com respiro
+   curto entre si e só o último abre espaço antes dos bullets. */
+.via__texto { margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
+.via__texto:last-of-type { margin-bottom: 22px; }
+
+.via__lista { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 13px; }
+.via__lista li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; font-size: 15.5px; }
+.via__lista .ico { width: 22px; height: 22px; color: var(--cor); margin-top: 1px; }
+.via__lista strong { color: var(--ink); }
+
+/* O CTA cola no rodapé do cartão para os dois ficarem alinhados mesmo
+   quando um texto é mais curto que o outro. */
+.via .btn { margin-top: auto; }
+
+/* No celular o cartão afrouxa o padding. Com os 32px do desktop sobrava
+   279px de conteúdo numa tela de 375px, e era isso que espremia o CTA
+   e fazia o rótulo quebrar em uma linha a mais do que precisava.
+
+   Este bloco tem que ficar DEPOIS de `.via`: mesma especificidade, e a
+   última regra vence. Colocado antes, a media query era simplesmente
+   ignorada. */
+@media (max-width: 560px) {
+  .via { padding: 26px 20px 24px; }
+  .via__titulo { font-size: 25px; }
+  .via__texto, .via__lista li { font-size: 15.5px; }
+}
+
+/* ------------------------- Comparativo ------------------------- */
+
+/* Tabela de verdade, com <th> nas duas direções: quem usa leitor de tela
+   precisa ouvir o critério junto da resposta.
+
+   Abaixo de 820px vira cartões empilhados e o rótulo da coluna volta
+   pelo data-rotulo de cada <td>. ACRESCENTOU LINHA? O data-rotulo é
+   obrigatório — sem ele, no celular a resposta aparece sem dizer de qual
+   caminho é. */
+.comparativo {
+  width: 100%; border-collapse: collapse;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--raio); overflow: hidden;
+}
+
+.comparativo th, .comparativo td {
+  padding: 17px 20px;
+  text-align: left; vertical-align: top;
+  border-top: 1px solid var(--line);
+  font-size: 15.5px;
+}
+
+.comparativo thead th {
+  border-top: 0;
+  font-family: var(--serifada); font-size: 18px; font-weight: 400;
+}
+.comparativo tbody th { font-weight: 600; color: var(--muted); width: 24%; font-size: 14px; }
+
+.comparativo thead .col-planta { background: var(--planta-suave); color: var(--planta); }
+.comparativo thead .col-leilao { background: var(--leilao-suave); color: var(--leilao); }
+
+.comparativo__topo {
+  display: block; font-family: inherit;
+  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  margin-bottom: 4px; opacity: .75;
+}
+
+@media (max-width: 820px) {
+  .comparativo, .comparativo tbody, .comparativo tr, .comparativo td, .comparativo th { display: block; }
+  .comparativo thead { display: none; }
+  .comparativo { border: 0; background: transparent; }
+
+  .comparativo tbody tr {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--raio);
+    margin-bottom: 14px;
+    padding: 8px 6px 12px;
+  }
+
+  .comparativo tbody th {
+    width: auto; border: 0; padding-bottom: 4px;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .comparativo tbody td { border: 0; padding-top: 4px; padding-bottom: 8px; }
+
+  .comparativo tbody td::before {
+    content: attr(data-rotulo);
+    display: block;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .comparativo tbody td.col-planta::before { color: var(--planta); }
+  .comparativo tbody td.col-leilao::before { color: var(--leilao); }
+}
+
+/* Destaque dentro de uma célula do comparativo: a virada de argumento
+   logo abaixo do risco. Fica na cor do caminho a que pertence, então
+   continua claro de quem é depois que a tabela vira cartão no celular. */
+.destaque {
+  display: block;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.comparativo td.col-planta .destaque {
+  background: var(--planta-suave);
+  border-left: 3px solid var(--planta);
+}
+.comparativo td.col-planta .destaque strong { color: var(--planta); }
+
+.comparativo td.col-leilao .destaque {
+  background: var(--leilao-suave);
+  border-left: 3px solid var(--leilao);
+}
+.comparativo td.col-leilao .destaque strong { color: var(--leilao); }
+
+/* ------------------------- Cartões de apoio ------------------------- */
+
+.duas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+@media (max-width: 800px) { .duas { grid-template-columns: 1fr; } }
+
+.cartao {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  padding: 28px 26px;
+}
+
+.cartao h3 {
+  margin: 0 0 10px;
+  font-family: var(--serifada); font-size: 21px; font-weight: 400; color: var(--marca);
+}
+.cartao p { margin: 0; color: var(--ink-2); font-size: 16px; }
+.cartao__marca { display: block; width: 34px; height: 3px; margin-bottom: 18px; border-radius: 2px; background: var(--acento); }
+
+/* ------------------------- FAQ ------------------------- */
+
+.faqs { display: grid; gap: 10px; max-width: 76ch; margin-inline: auto; }
+
+.faq {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--raio); padding: 2px 22px;
+}
+
+.faq summary {
+  padding: 16px 0; cursor: pointer;
+  font-size: 16.5px; font-weight: 600; color: var(--marca);
+  list-style: none;
+  display: flex; justify-content: space-between; gap: 16px; align-items: center;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 22px; font-weight: 400; color: var(--acento); line-height: 1; }
+.faq[open] summary::after { content: "\2212"; }
+/* Respostas com mais de um parágrafo: respiro curto entre eles e só o
+   último abre espaço antes de a resposta fechar. */
+.faq p { margin: 0 0 12px; color: var(--ink-2); font-size: 15.5px; }
+.faq p:last-child { margin-bottom: 18px; }
+
+/* A primeira linha da resposta é a resposta. O resto explica. */
+.faq p:first-of-type strong { color: var(--marca); }
+
+/* ------------------------- Faixa de fechamento ------------------------- */
+
+/* O bloco marinho do layout: fecha a página com o mesmo peso visual do
+   hero, para a última tela ser tão forte quanto a primeira. */
+.fechamento {
+  background:
+    radial-gradient(110% 120% at 15% 10%, rgba(201, 161, 92, .16), transparent 62%),
+    linear-gradient(160deg, var(--marca-fundo) 0%, var(--marca-2) 100%);
+  color: #eaf0f7;
+  padding: 70px 0;
+}
+
+.fechamento__grade {
+  display: grid; grid-template-columns: 1.1fr auto; gap: 40px; align-items: center;
+}
+
+@media (max-width: 860px) { .fechamento__grade { grid-template-columns: 1fr; gap: 28px; } }
+
+.fechamento .sobrescrito { color: var(--acento-claro); }
+.fechamento__titulo {
+  margin: 0 0 14px;
+  font-family: var(--serifada);
+  font-size: clamp(28px, 4vw, 42px); font-weight: 400; line-height: 1.14; color: #fff;
+}
+.fechamento p { margin: 0; color: #c3d0e0; max-width: 46ch; }
+.fechamento__micro { margin-top: 14px; font-size: 13px; color: #8ba0ba; max-width: 42ch; }
+
+/* A segunda frase do título vai em bloco: as duas orações são o miolo
+   do argumento ("primeiro entendemos, depois mostramos") e perdem a
+   cadência se emendarem na mesma linha. */
+.fechamento__titulo .ouro { display: block; }
+
+/* ------------------------- Rodapé ------------------------- */
+
+.rodape { background: var(--marca-fundo); color: #8ba0ba; padding: 32px 0 110px; font-size: 14px; }
+.rodape__linha { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; }
+.rodape a { text-decoration: none; }
+.rodape a:hover { color: #fff; }
+.rodape nav { display: flex; flex-wrap: wrap; gap: 18px; }
+.rodape__marca { margin: 0; font-family: var(--serifada); font-size: 18px; color: #eaf0f7; }
+
+/* Reserva a altura da barra fixa: sem isto o fim do rodapé fica atrás
+   dela no celular. */
+@media (min-width: 821px) { .rodape { padding-bottom: 44px; } }
+
+/* ------------------------- Barra fixa do celular ------------------------- */
+
+.barra-mobile {
+  position: fixed; inset: auto 0 0 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--marca); color: #fff;
+  box-shadow: 0 -6px 24px rgba(11, 36, 64, .3);
+}
+.barra-mobile__texto { font-size: 12.5px; line-height: 1.3; }
+.barra-mobile__texto strong { display: block; font-size: 14.5px; }
+.barra-mobile__texto span { color: #c3d0e0; }
+
+@media (min-width: 821px) { .barra-mobile { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

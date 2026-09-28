@@ -17,10 +17,14 @@
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Entrada do site: apresenta o grupo e lista os empreendimentos. -->
+  <!-- Entrada do site. Desde 10/09/2026 a raiz SERVE a LP de Minha Casa
+       Minha Vida: o worker reescreve "/" para /minha-casa-minha-vida/ e a
+       URL que o visitante vê continua sendo a raiz. O caminho interno NÃO
+       entra no sitemap — é a mesma página, e o canonical dela já aponta
+       para cá. -->
   <url>
     <loc>https://gruposaitama.com.br/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -32,6 +36,15 @@
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- A lista de empreendimentos, que era a home até 10/09/2026. Saiu da
+       raiz para a LP entrar no lugar dela. -->
+  <url>
+    <loc>https://gruposaitama.com.br/empreendimentos/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- /equipe/ NÃO entra aqui ainda: está `noindex` enquanto não houver
@@ -52,6 +65,12 @@
   <url>
     <loc>https://gruposaitama.com.br/merito-ipiranga/</loc>
     <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gruposaitama.com.br/wl-boa-vista/</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

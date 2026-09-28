@@ -36,13 +36,50 @@ export const RENDAS = [
   'nao-informado'
 ];
 
-/* HTML: simulacao/index.html (etapa 2) */
+/* Entrada disponível.
+ *
+ * As quatro primeiras faixas atendem quem compra para morar, que é o
+ * público da /simulacao e das LPs de empreendimento. As duas últimas
+ * existem para a LP de estratégia: lá o valor disponível é o que separa
+ * quem pode olhar leilão de quem precisa de financiamento, e "acima de
+ * R$ 30 mil" não distingue R$ 40 mil de R$ 400 mil.
+ *
+ * 'acima-30k' CONTINUA VÁLIDO e continua sendo o que a /simulacao usa.
+ * As duas faixas novas são um recorte dentro dele, não uma redefinição:
+ * lead antigo não muda de significado, e um relatório que queira o
+ * agregado soma 30k-100k + acima-100k.
+ *
+ * HTML: simulacao/index.html (etapa 2) e o modal de /estrategia/ (etapa 2) */
 export const ENTRADAS = [
   'sem-entrada',
   'ate-5k',
   '5k-15k',
   '15k-30k',
-  'acima-30k'
+  'acima-30k',
+  '30k-100k',
+  'acima-100k',
+  /* "Tem entrada, valor ainda não informado". Existe para o modal das LPs
+     de empreendimento, que pergunta entrada como sim/não — lá o objetivo é
+     separar quem tem de quem não tem em um toque, não levantar o valor.
+     O quanto vem na conversa com o corretor. */
+  'tem-entrada'
+];
+
+/* O que a pessoa quer com o imóvel.
+ *
+ * Perguntado só em /estrategia/, e é a PRIMEIRA pergunta de lá: a página
+ * inteira parte do princípio de que a estratégia de compra vem antes do
+ * imóvel, e sem o objetivo não existe estratégia para recomendar.
+ *
+ * Não pontua no score de propósito — ver scoring.js. Objetivo não diz se
+ * o lead está perto de comprar, diz que conversa ter com ele.
+ *
+ * HTML: estrategia/index.html (etapa 1 do modal) */
+export const OBJETIVOS = [
+  'morar',
+  'investir',
+  'sair-do-aluguel',
+  'avaliando'
 ];
 
 /* HTML: simulacao/index.html (etapa 3) */
@@ -88,7 +125,8 @@ export const PREFERENCIAS = [
 export const EMPREENDIMENTOS = [
   'urban-vila-guilherme',
   'merito-ipiranga',
-  'novo-mundo-carrao'
+  'novo-mundo-carrao',
+  'wl-boa-vista'
 ];
 
 /* ------------------------------------------------------------------
@@ -159,12 +197,23 @@ export const PESOS = {
     'nao-informado': 4
   },
 
+  /* As duas faixas de /estrategia/ pesam o MESMO que 'acima-30k', e não
+     mais, de propósito: `tetoDaConfiguracao()` em scoring.js soma o maior
+     peso de cada grupo, então um peso maior aqui levantaria o teto e
+     rebaixaria em silêncio o score de todo mundo que já está no banco —
+     inclusive quem nunca passou por esta LP. Enquanto o teto de entrada
+     continuar 22, a escala 0–100 significa hoje o que significava ontem. */
   entrada: {
     'sem-entrada': 4,
     'ate-5k': 10,
     '5k-15k': 16,
     '15k-30k': 20,
-    'acima-30k': 22
+    'acima-30k': 22,
+    '30k-100k': 22,
+    'acima-100k': 22,
+    /* Entre "não tem" e as faixas com valor: saber que existe entrada já
+       vale ponto, mas não tanto quanto saber quanto é. */
+    'tem-entrada': 14
   },
 
   /* "Não sei quanto tenho" ainda pontua: quem tem dúvida costuma ter saldo,

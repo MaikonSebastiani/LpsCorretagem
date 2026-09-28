@@ -16,6 +16,23 @@ compatibility_date = "2026-08-23"
 directory = "."
 binding = "ASSETS"
 
+# O worker roda ANTES de os assets serem servidos.
+#
+# Sem isto, o comportamento padrão é o contrário: se a URL casa com um
+# arquivo, a Cloudflare devolve o arquivo e NEM CHAMA o worker. Como
+# existe um index.html na raiz do repositório, a raiz de
+# sebastianiimoveis.com.br servia a home do Grupo Saitama e o
+# roteamento por domínio de worker/index.js nunca era alcançado —
+# nem a reescrita de "/" para /investidores/, nem os 301 dos caminhos
+# antigos, que passavam a servir uma cópia inteira do site do grupo no
+# domínio errado.
+#
+# O custo é uma invocação de worker por requisição, inclusive de CSS e
+# imagem. Para um site deste tamanho é irrelevante: o worker só decide a
+# rota e devolve para env.ASSETS.fetch(), que continua servindo do cache
+# de borda e continua aplicando _headers e _redirects.
+run_worker_first = true
+
 # Banco dos leads, o mesmo que o CRM lê.
 #
 # A partir do momento em que este arquivo existe no repositório, ele é a fonte

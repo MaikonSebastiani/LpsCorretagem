@@ -59,7 +59,8 @@ export async function salvarLead(db, perfil, origem, extra = {}) {
  */
 function mesclar(existente, perfil, extra) {
   const campos = [
-    'renda', 'entrada', 'fgts', 'regiao', 'momento', 'preferencia', 'email'
+    'renda', 'entrada', 'fgts', 'regiao', 'momento', 'preferencia', 'email',
+    'objetivo'
   ];
 
   const completo = { empreendimento: extra.empreendimento || null };
@@ -86,7 +87,8 @@ async function procurarExistente(db, fone, mail) {
   /* Traz também os campos de qualificação: eles alimentam o mesclar() que
      recalcula o score sobre o perfil inteiro, não só sobre o envio novo. */
   const COLUNAS = `id, corretor_id, origem, empreendimento, criado_em,
-                   email, renda, entrada, fgts, regiao, momento, preferencia`;
+                   email, renda, entrada, fgts, regiao, momento, preferencia,
+                   objetivo`;
 
   const porTelefone = await db
     .prepare(`SELECT ${COLUNAS} FROM leads WHERE telefone = ? LIMIT 1`)
@@ -136,6 +138,7 @@ async function registrarReentrada(db, lead, perfil, origem, extra, score, classi
            regiao         = COALESCE(?, regiao),
            momento        = COALESCE(?, momento),
            preferencia    = COALESCE(?, preferencia),
+           objetivo       = COALESCE(?, objetivo),
            empreendimento = COALESCE(?, empreendimento),
            planta         = COALESCE(?, planta),
            score          = ?,
@@ -145,7 +148,7 @@ async function registrarReentrada(db, lead, perfil, origem, extra, score, classi
       )
       .bind(
         perfil.nome, perfil.email, perfil.renda, perfil.entrada, perfil.fgts,
-        perfil.regiao, perfil.momento, perfil.preferencia,
+        perfil.regiao, perfil.momento, perfil.preferencia, perfil.objetivo,
         extra.empreendimento || null, extra.planta || null,
         score, classificacao, lead.id
       ),
@@ -169,19 +172,19 @@ async function criarLead(db, perfil, origem, extra, score, classificacao, agora)
     .prepare(
       `INSERT INTO leads (
          criado_em, nome, telefone, email,
-         renda, entrada, fgts, regiao, momento, preferencia,
+         renda, entrada, fgts, regiao, momento, preferencia, objetivo,
          empreendimento, planta,
          score, classificacao,
          origem, cta, pagina, referrer, gclid, fbclid,
          utm_source, utm_medium, utm_campaign, utm_term, utm_content,
          consentimento
-       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
        RETURNING id`
     )
     .bind(
       agora, perfil.nome, perfil.telefone, perfil.email,
       perfil.renda, perfil.entrada, perfil.fgts, perfil.regiao,
-      perfil.momento, perfil.preferencia,
+      perfil.momento, perfil.preferencia, perfil.objetivo,
       extra.empreendimento || null, extra.planta || null,
       score, classificacao,
       origem.origem, origem.cta, origem.pagina, origem.referrer, origem.gclid, origem.fbclid,

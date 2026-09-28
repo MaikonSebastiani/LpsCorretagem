@@ -1,0 +1,981 @@
+/* =====================================================================
+   SEBASTIANI | ESTRATÉGIA IMOBILIÁRIA
+
+   Preto e dourado, sem terceira cor. O dourado é DESTAQUE, nunca
+   superfície: aparece em CTA, ícone, linha, número e palavra grifada.
+   Grande área dourada faz a página parecer anúncio de ostentação, que é
+   o oposto do que a marca quer transmitir.
+
+   Sem fonte externa, de propósito. O LCP desta página é o próprio <h1>
+   (não há imagem na primeira dobra) — uma requisição de fonte na frente
+   dele atrasaria justamente o elemento medido. Georgia cobre o papel da
+   serifada; se um dia entrar uma Cormorant ou DM Serif, ela precisa vir
+   com `font-display: swap` e preload, senão o título pisca.
+   ===================================================================== */
+
+:root {
+  --preto: #080808;
+  --carvao: #111111;
+  --superficie: #171717;
+  --linha: #262626;
+
+  --ouro: #c9a54b;
+  --ouro-claro: #e4c675;
+  /* Dourado rebaixado para uso em fundo: 8% de opacidade sobre o preto.
+     Serve de preenchimento de ícone e de borda acesa sem virar mancha. */
+  --ouro-veu: rgba(201, 165, 75, .10);
+
+  --texto: #f5f3ee;
+  --texto-2: #a9a7a1;
+
+  --largura: 1180px;
+  --raio: 4px;
+
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--preto);
+  color: var(--texto);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  /* Guarda contra scroll horizontal no celular: um brilho ou uma margem
+     negativa que vaze passa a ser cortado em vez de criar barra. */
+  overflow-x: hidden;
+}
+
+/* `height: auto` é obrigatório: sem ela os atributos width/height do HTML
+   travam a altura e a imagem distorce. */
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--ouro-claro); }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.container {
+  width: 100%;
+  max-width: var(--largura);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pular {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ouro);
+  color: var(--preto);
+  padding: 12px 18px;
+  font-weight: 700;
+}
+.pular:focus { left: 8px; top: 8px; }
+
+:focus-visible {
+  outline: 2px solid var(--ouro-claro);
+  outline-offset: 3px;
+}
+
+.ico { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------------------------------------------------------------------
+   Tipografia comum
+--------------------------------------------------------------------- */
+
+.sobrescrito {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ouro);
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+
+.ouro { color: var(--ouro-claro); font-style: normal; }
+
+.apoio {
+  margin: 18px 0 0;
+  max-width: 62ch;
+  color: var(--texto-2);
+  font-size: 1.0625rem;
+}
+
+.microcopia {
+  margin: 16px 0 0;
+  font-size: .8125rem;
+  color: var(--texto-2);
+  letter-spacing: .02em;
+}
+
+.cabeca { margin-bottom: 48px; }
+
+/* ---------------------------------------------------------------------
+   Botões
+
+   O dourado sólido leva texto PRETO, não branco: #c9a54b com branco não
+   chega a 4.5:1 e o rótulo some no celular sob sol. Com preto a relação
+   passa de 8:1.
+--------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  font-family: var(--sans);
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .18s, border-color .18s, color .18s, transform .18s;
+}
+
+.btn--ouro {
+  background: var(--ouro);
+  border-color: var(--ouro);
+  color: var(--preto);
+}
+.btn--ouro:hover { background: var(--ouro-claro); border-color: var(--ouro-claro); }
+
+.btn--vazado {
+  background: transparent;
+  border-color: var(--linha);
+  color: var(--texto);
+}
+.btn--vazado:hover { border-color: var(--ouro); color: var(--ouro-claro); }
+
+.btn--pequeno { padding: 11px 18px; font-size: .875rem; }
+.btn--bloco { width: 100%; }
+
+.btn:disabled { opacity: .6; cursor: default; }
+
+.btn__ico { width: 18px; height: 18px; flex: none; fill: currentColor; }
+.btn__seta { transition: transform .18s; }
+.btn:hover .btn__seta { transform: translateX(3px); }
+
+/* ---------------------------------------------------------------------
+   Cabeçalho
+
+   Fixo e transparente sobre o hero; ganha fundo sólido ao rolar (a classe
+   vem do JS). Fixo, e não absolute, porque a página é longa e o CTA
+   principal precisa continuar alcançável no desktop — no celular quem
+   faz esse papel é a barra de baixo.
+--------------------------------------------------------------------- */
+
+.topo {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  transition: background-color .25s, border-color .25s, backdrop-filter .25s;
+  border-bottom: 1px solid transparent;
+}
+
+.topo[data-rolado] {
+  background: rgba(8, 8, 8, .92);
+  border-bottom-color: var(--linha);
+  backdrop-filter: blur(10px);
+}
+
+.topo__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 74px;
+}
+
+.marca {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-decoration: none;
+  color: var(--texto);
+}
+.marca strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: .01em;
+}
+.marca span {
+  font-size: .625rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+
+.topo__nav { display: flex; align-items: center; gap: 30px; }
+.topo__nav a {
+  color: var(--texto-2);
+  text-decoration: none;
+  font-size: .875rem;
+  transition: color .18s;
+}
+.topo__nav a:hover { color: var(--ouro-claro); }
+.topo__nav-cta { display: none; }
+
+.menu-toggle { display: none; }
+
+/* ---------------------------------------------------------------------
+   Hero
+
+   Sem imagem: o peso vem do título e do brilho radial. O LCP é o <h1>,
+   então não há requisição nenhuma na frente dele.
+--------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding: 150px 0 90px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--linha);
+}
+
+/* Brilho dourado atrás do conteúdo. `pointer-events: none` porque ele
+   cobre a coluna de texto e engoliria o clique dos CTAs. */
+.hero__brilho {
+  position: absolute;
+  inset: -40% -10% auto;
+  height: 120%;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 78% 30%, rgba(201, 165, 75, .16), transparent 70%),
+    radial-gradient(45% 40% at 12% 70%, rgba(201, 165, 75, .07), transparent 70%);
+}
+
+.hero__grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr);
+  gap: 60px;
+  align-items: center;
+}
+
+.hero__titulo {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.1rem);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+}
+
+.hero__promessa {
+  margin: 26px 0 0;
+  font-size: 1.125rem;
+  color: var(--texto);
+}
+
+.hero__sub {
+  margin: 12px 0 0;
+  max-width: 54ch;
+  color: var(--texto-2);
+  font-size: 1.0625rem;
+}
+
+.hero__caminhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .8125rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+/* O marcador vai em TODOS os itens, inclusive o primeiro. Só entre eles
+   (`li + li`) a lista quebra feio no celular: quando a quarta palavra
+   passa para a linha de baixo, ela começa com um separador solto, como
+   se faltasse texto antes. Com o marcador em todos, a linha nova começa
+   igual à primeira e a quebra parece intencional.
+
+   Conteúdo gerado, e não um bullet de lista real, para o leitor de tela
+   não anunciar pontuação a cada item. */
+.hero__caminhos li::before { content: '·'; margin-right: 10px; color: var(--ouro); }
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+/* --- Painel da direita --- */
+
+.hero__painel {
+  padding: 32px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: linear-gradient(160deg, rgba(23, 23, 23, .9), rgba(8, 8, 8, .75));
+}
+
+.hero__painel-eyebrow {
+  margin: 0 0 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ouro);
+}
+
+.hero__painel-titulo {
+  margin: 0 0 24px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.hero__painel-lista { margin: 0; padding: 0; list-style: none; }
+.hero__painel-lista li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 13px 0;
+  border-top: 1px solid var(--linha);
+}
+.hero__painel-lista li:first-child { border-top: 0; padding-top: 0; }
+.hero__painel-lista span {
+  font-size: .75rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ouro);
+}
+.hero__painel-lista em { font-style: normal; color: var(--texto-2); font-size: .9375rem; }
+
+.hero__painel-nota {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--linha);
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--texto);
+}
+
+/* ---------------------------------------------------------------------
+   Seções
+--------------------------------------------------------------------- */
+
+.secao { padding: 96px 0; border-bottom: 1px solid var(--linha); }
+.secao--carvao { background: var(--carvao); }
+.secao__acao { margin-top: 48px; }
+
+/* --- Escada do método --- */
+
+.escada {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: escada;
+}
+
+.escada__passo {
+  position: relative;
+  padding: 0 28px;
+  border-left: 1px solid var(--linha);
+}
+.escada__passo:first-child { padding-left: 0; border-left: 0; }
+
+/* A seta entre os passos: conteúdo gerado, para não virar texto no leitor
+   de tela nem exigir um elemento vazio por passo. */
+.escada__passo:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  top: 6px;
+  right: -8px;
+  color: var(--ouro);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.escada__ico { width: 30px; height: 30px; fill: none; stroke: var(--ouro); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.escada__passo h3 { margin: 18px 0 6px; font-size: 1.0625rem; font-weight: 600; }
+.escada__passo p { margin: 0; color: var(--texto-2); font-size: .9375rem; }
+
+/* --- Cartões de estratégia --- */
+
+.vias {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.via {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--carvao);
+  transition: border-color .2s, background-color .2s;
+}
+.via:hover { border-color: rgba(201, 165, 75, .45); background: var(--superficie); }
+
+.via__ico { width: 32px; height: 32px; fill: none; stroke: var(--ouro); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.via__titulo { margin: 22px 0 10px; font-size: 1.1875rem; font-weight: 600; }
+.via__texto { margin: 0 0 24px; color: var(--texto-2); font-size: .9375rem; }
+
+.via__link {
+  margin-top: auto;
+  align-self: flex-start;
+  /* Padding vertical em vez de altura de linha: o rótulo tem 19px e
+     sozinho fica abaixo do alvo de toque confortável no celular. Como o
+     botão é `align-self: flex-start`, o padding cresce só ele. */
+  padding: 9px 0;
+  border: 0;
+  background: none;
+  color: var(--ouro-claro);
+  font-family: inherit;
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.via__link:hover { color: var(--ouro); }
+
+/* --- Etapas do processo --- */
+
+.etapas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etapa {
+  padding: 28px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--preto);
+}
+
+.etapa__n {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  color: var(--ouro);
+  line-height: 1;
+}
+.etapa__ico { width: 22px; height: 22px; margin-top: 16px; fill: none; stroke: var(--texto-2); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.etapa h3 { margin: 14px 0 6px; font-size: 1rem; font-weight: 600; }
+.etapa p { margin: 0; color: var(--texto-2); font-size: .9375rem; }
+
+/* --- Pilares --- */
+
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.pilar__ico { width: 26px; height: 26px; fill: none; stroke: var(--ouro); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.pilar h3 { margin: 18px 0 8px; font-size: 1rem; font-weight: 600; }
+.pilar p { margin: 0; color: var(--texto-2); font-size: .9375rem; }
+
+.assinatura {
+  margin: 64px 0 0;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--linha);
+  text-align: center;
+}
+.assinatura p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, .9rem + 1.1vw, 1.65rem);
+  line-height: 1.35;
+  color: var(--texto);
+}
+.assinatura p::before { content: '“'; color: var(--ouro); }
+.assinatura p::after { content: '”'; color: var(--ouro); }
+
+/* --- Casos (desligada até existir caso real; ver HTML) --- */
+
+.casos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.caso {
+  padding: 28px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--preto);
+}
+.caso__titulo { margin: 0 0 18px; font-size: 1.0625rem; font-weight: 600; }
+.caso__lista { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; }
+.caso__lista dt {
+  font-size: .6875rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  padding-top: 3px;
+}
+.caso__lista dd { margin: 0; color: var(--texto-2); font-size: .9375rem; }
+
+/* --- FAQ --- */
+
+.faqs { border-top: 1px solid var(--linha); }
+
+.faq { border-bottom: 1px solid var(--linha); }
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 4px;
+  cursor: pointer;
+  font-size: 1.0625rem;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+
+/* O "+" que vira "−": conteúdo gerado, para não depender de um <span> que
+   o leitor de tela anunciaria. */
+.faq summary::after {
+  content: '+';
+  flex: none;
+  color: var(--ouro);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform .2s;
+}
+.faq[open] summary::after { content: '−'; }
+.faq summary:hover { color: var(--ouro-claro); }
+
+.faq__corpo { padding: 0 4px 24px; max-width: 70ch; }
+.faq__corpo p { margin: 0 0 12px; color: var(--texto-2); }
+.faq__corpo p:last-child { margin-bottom: 0; }
+.faq__corpo strong { color: var(--texto); }
+
+/* ---------------------------------------------------------------------
+   Fechamento
+--------------------------------------------------------------------- */
+
+.fechamento {
+  position: relative;
+  overflow: hidden;
+  padding: 96px 0;
+  background: var(--carvao);
+}
+
+.fechamento__grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.fechamento__titulo {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+
+.fechamento__texto { margin: 20px 0 0; max-width: 56ch; color: var(--texto-2); font-size: 1.0625rem; }
+
+.fechamento__acoes { display: flex; flex-direction: column; gap: 12px; }
+.fechamento__acoes .microcopia { text-align: center; }
+
+/* ---------------------------------------------------------------------
+   Rodapé
+--------------------------------------------------------------------- */
+
+.rodape { padding: 48px 0 110px; border-top: 1px solid var(--linha); }
+
+.rodape__linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.rodape__linha nav { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.rodape__linha nav a {
+  /* Mesmo motivo do .via__link: sem o padding o alvo de toque fica em
+     23px, pequeno demais para o polegar. */
+  padding: 7px 0;
+  color: var(--texto-2);
+  text-decoration: none;
+  font-size: .875rem;
+}
+.rodape__linha nav a:hover { color: var(--ouro-claro); }
+
+.rodape__frase {
+  margin: 32px 0 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--ouro-claro);
+}
+
+.rodape__legal {
+  margin: 16px 0 0;
+  max-width: 78ch;
+  font-size: .75rem;
+  line-height: 1.6;
+  color: var(--texto-2);
+}
+
+/* ---------------------------------------------------------------------
+   Barra fixa do celular
+--------------------------------------------------------------------- */
+
+.barra-mobile {
+  display: none;
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 35;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(8, 8, 8, .96);
+  border-top: 1px solid var(--linha);
+  backdrop-filter: blur(10px);
+}
+
+.barra-mobile__texto { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.barra-mobile__texto strong { font-size: .875rem; }
+.barra-mobile__texto span { font-size: .6875rem; color: var(--texto-2); }
+
+/* ---------------------------------------------------------------------
+   Modais
+
+   O <dialog> nativo já entrega Esc, prisão de foco e inércia do fundo. O
+   ::backdrop é do navegador — estilizá-lo evita ter que montar um overlay
+   próprio, que é onde normalmente nasce o bug de foco.
+--------------------------------------------------------------------- */
+
+.modal {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--carvao);
+  color: var(--texto);
+  overflow: auto;
+  /* overscroll-behavior contém o scroll: sem ele, chegar ao fim do modal
+     passa a rolar a página atrás, e no celular a pessoa perde o lugar. */
+  overscroll-behavior: contain;
+}
+
+.modal::backdrop { background: rgba(0, 0, 0, .78); backdrop-filter: blur(3px); }
+
+/* showModal() torna o fundo inerte ao clique, mas não impede a RODAGEM da
+   página atrás em todo navegador. Sem isto, rolar dentro do modal no
+   celular arrasta a página junto e a pessoa fecha o modal sem querer. */
+html.modal-aberto { overflow: hidden; }
+
+.modal__caixa { padding: 36px; }
+
+.modal__fechar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: transparent;
+  color: var(--texto-2);
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.modal__fechar:hover { color: var(--texto); border-color: var(--ouro); }
+
+.modal__titulo {
+  margin: 0 0 22px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  /* Espaço para o X não encostar no título em uma linha longa. */
+  padding-right: 36px;
+}
+
+.modal__lista { margin: 0 0 26px; padding: 0; list-style: none; display: grid; gap: 14px; }
+.modal__lista li { display: flex; gap: 12px; align-items: flex-start; color: var(--texto-2); font-size: .9375rem; }
+.modal__lista .ico { color: var(--ouro); margin-top: 3px; }
+
+.modal__aviso {
+  margin: 0 0 26px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--ouro);
+  background: var(--ouro-veu);
+  font-size: .875rem;
+  color: var(--texto);
+}
+
+/* ---------------------------------------------------------------------
+   Formulário de cenário
+--------------------------------------------------------------------- */
+
+.modal--cenario { width: min(620px, calc(100vw - 32px)); }
+
+.quiz { position: relative; padding: 32px; }
+
+.quiz__topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.quiz__topo .sobrescrito { margin-bottom: 6px; }
+
+.quiz__titulo {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.quiz__trilha { display: flex; gap: 6px; margin: 24px 0 28px; }
+.quiz__trilha span {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--linha);
+  transition: background-color .25s;
+}
+.quiz__trilha span[data-estado='atual'],
+.quiz__trilha span[data-estado='feito'] { background: var(--ouro); }
+
+.quiz__rotulo { margin: 0 0 14px; font-size: 1.0625rem; font-weight: 600; }
+.quiz__apoio { margin: -6px 0 20px; color: var(--texto-2); font-size: .9375rem; }
+.quiz__grupo { margin-top: 28px; }
+
+.opcoes { display: grid; gap: 8px; }
+
+.opcao {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--preto);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: .9375rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+.opcao:hover { border-color: rgba(201, 165, 75, .5); }
+.opcao[aria-checked='true'] {
+  border-color: var(--ouro);
+  background: var(--ouro-veu);
+  color: var(--texto);
+  font-weight: 600;
+}
+
+.campo { margin-bottom: 18px; }
+.campo label { display: block; margin-bottom: 7px; font-size: .875rem; font-weight: 600; }
+.campo .opcional { font-weight: 400; color: var(--texto-2); text-transform: none; letter-spacing: 0; }
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--preto);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 1rem;
+}
+.campo input::placeholder { color: #6c6a66; }
+.campo input:focus, .campo select:focus { border-color: var(--ouro); }
+.campo input[aria-invalid='true'] { border-color: #d98080; }
+
+.erro { margin: 8px 0 0; font-size: .8125rem; color: #e39a9a; }
+
+.consentimento {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  margin: 6px 0 20px;
+  font-size: .8125rem;
+  color: var(--texto-2);
+  line-height: 1.55;
+}
+.consentimento input { margin-top: 3px; flex: none; accent-color: var(--ouro); width: 16px; height: 16px; }
+
+/* Armadilha para robô. `left: -9999px` em vez de display:none: campo
+   escondido com display não é preenchido por parte dos robôs, e a
+   armadilha deixa de funcionar justamente com os mais espertos. */
+.favo { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.quiz__rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linha);
+}
+/* Sem o botão Voltar (etapa 1) o Continuar precisa ir para a direita
+   sozinho — senão ele encosta na borda esquerda e a barra fica torta. */
+.quiz__voltar[hidden] + .btn { margin-left: auto; }
+
+.quiz__voltar {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--texto-2);
+  font-family: inherit;
+  font-size: .875rem;
+  cursor: pointer;
+}
+.quiz__voltar:hover { color: var(--texto); }
+
+.quiz__tela--fim { text-align: center; padding: 12px 0 8px; }
+.quiz__tela--fim .quiz__apoio { margin: 10px 0 26px; }
+.quiz__tela--fim .btn { margin-bottom: 10px; }
+
+.quiz__selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 0 18px;
+  border: 1px solid var(--ouro);
+  border-radius: 50%;
+  background: var(--ouro-veu);
+  color: var(--ouro);
+}
+.quiz__selo .ico { width: 24px; height: 24px; stroke-width: 1.6; }
+
+/* ---------------------------------------------------------------------
+   Responsivo
+--------------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .pilares { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 980px) {
+  .hero { padding: 120px 0 72px; }
+  .hero__grade { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  /* O painel sai da primeira dobra no celular: lá ela pertence ao título
+     e ao CTA. Continua na página, abaixo do texto. */
+  .hero__painel { order: 2; }
+
+  .vias { grid-template-columns: minmax(0, 1fr); }
+
+  .escada { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 0; }
+  .escada__passo:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .escada__passo:nth-child(2)::after { content: none; }
+
+  .fechamento__grade { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+
+@media (max-width: 860px) {
+  .secao { padding: 72px 0; }
+  .fechamento { padding: 72px 0; }
+  .cabeca { margin-bottom: 36px; }
+
+  .barra-mobile { display: flex; }
+
+  /* O CTA do cabeçalho some: com a barra fixa embaixo, dois CTAs
+     permanentes na mesma tela competem entre si, e o de cima ainda briga
+     por espaço com a marca. */
+  .topo__cta { display: none; }
+  .topo__nav-cta { display: inline-flex; width: 100%; justify-content: center; }
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: transparent;
+    cursor: pointer;
+  }
+  .menu-toggle span { display: block; height: 1.5px; background: var(--texto); }
+
+  .topo__nav {
+    position: absolute;
+    inset: 100% 0 auto;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 20px 22px;
+    /* Cor SÓLIDA, e sem backdrop-filter próprio. O painel é filho de
+       .topo, que já tem `backdrop-filter` quando rolado — e um
+       backdrop-filter aninhado dentro de outro faz o filho amostrar o
+       backdrop do PAI em vez da página, de modo que o hero aparecia
+       legível atrás dos itens do menu mesmo com 98% de opacidade. */
+    background: var(--preto);
+    border-bottom: 1px solid var(--linha);
+  }
+  .topo__nav[data-aberto='sim'] { display: flex; }
+  .topo__nav a { padding: 14px 0; border-bottom: 1px solid var(--linha); font-size: 1rem; }
+  .topo__nav-cta { margin-top: 18px; }
+}
+
+@media (max-width: 560px) {
+  .escada { grid-template-columns: minmax(0, 1fr); }
+  .escada__passo::after { content: none !important; }
+  .etapas { grid-template-columns: minmax(0, 1fr); }
+  .pilares { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+
+  .hero__acoes .btn { width: 100%; }
+
+  .modal__caixa { padding: 28px 22px; }
+  .quiz { padding: 24px 20px; }
+  .hero__painel { padding: 26px 22px; }
+
+  /* O rótulo longo da barra fixa quebra em duas linhas e empurra o botão
+     para fora; abaixo deste corte fica só o essencial. */
+  .barra-mobile__texto span { display: none; }
+}

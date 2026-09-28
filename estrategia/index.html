@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sebastiani | Estratégia Imobiliária</title>
+  <meta name="description" content="Antes de escolher o imóvel, escolha a estratégia. Analiso crédito, entrada, objetivo e momento de compra para identificar quais caminhos imobiliários fazem sentido para você: lançamento, Minha Casa Minha Vida, leilão ou mercado tradicional.">
+  <!-- Raiz de sebastianiimoveis.com.br desde 23/09/2026 (o worker reescreve
+       "/" para /estrategia/; /estrategia/ faz 301 para "/"). Indexável a
+       partir daqui: a /investidores/, que competia pelo mesmo assunto,
+       virou página interna com canonical próprio. -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080808">
+
+  <link rel="canonical" href="https://sebastianiimoveis.com.br/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Sebastiani | Estratégia Imobiliária">
+  <meta property="og:title" content="Antes de escolher o imóvel, escolha a estratégia.">
+  <meta property="og:description" content="Primeiro entendemos seu cenário: crédito, entrada, FGTS, objetivo e momento. Depois buscamos o imóvel.">
+  <meta property="og:url" content="https://sebastianiimoveis.com.br/">
+
+  <!-- FALTA: og:image — JPEG 1200x630 em assets/images/og-image.jpg (a
+       prévia do WhatsApp é instável com WebP). Quando existir, descomente:
+       <meta property="og:image" content="https://sebastianiimoveis.com.br/estrategia/assets/images/og-image.jpg">
+       <meta property="og:image:width" content="1200">
+       <meta property="og:image:height" content="630">
+       <meta property="og:image:alt" content="Sebastiani, estratégia imobiliária">
+       Sem elas o WhatsApp mostra só título, descrição e domínio. -->
+
+  <link rel="icon" href="/estrategia/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/estrategia/assets/css/styles.css">
+
+  <!-- Caminhos ABSOLUTOS em todo o arquivo, de propósito: a página pode
+       passar a ser servida também na raiz de um domínio (o worker
+       reescreve "/" para um caminho do repositório). Com caminho
+       relativo, o que funciona num endereço quebra no outro, em silêncio
+       e só em produção. -->
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual ao
+       resto do site. Nos relatórios, esta página se separa pelo caminho. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VF9K820XDQ');
+    gtag('config', 'AW-18388777321');
+  </script>
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+<!-- =================== Sprite de ícones (SVG inline) ===================
+     Traço, não preenchimento: o sistema visual desta página é de linha
+     fina dourada. O ícone do WhatsApp é a exceção e vive no sprite de
+     baixo, porque é sólido e herdaria o traço destes. -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M13.5 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M13.5 3v5h5M8.8 12.6h6.4M8.8 16h4.4"/></symbol>
+  <symbol id="i-alvo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-predio" viewBox="0 0 24 24"><path d="M3.5 20.5V8.8l6-3.3v15M9.5 20.5h11V11l-11-2.2M20.5 20.5h-17"/><path d="M12.4 12.2h.01M15.6 12.2h.01M12.4 15.6h.01M15.6 15.6h.01"/></symbol>
+  <symbol id="i-chave" viewBox="0 0 24 24"><circle cx="8.2" cy="15.8" r="4"/><path d="m11 13 8.5-8.5M16.6 7.4l2.1 2.1M14.4 9.6l2.1 2.1"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="6.4"/><path d="m15.4 15.4 4.4 4.4"/></symbol>
+  <symbol id="i-martelo" viewBox="0 0 24 24"><path d="m3.6 20.4 7-7M12.9 5.3 18.7 11M9.4 8.8l5.8 5.8M13.6 3l7.4 7.4M6 17h8"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9.6 21v-6.2h4.8V21"/></symbol>
+  <symbol id="i-grafico" viewBox="0 0 24 24"><path d="M4 20h16M7 20v-6M12 20V8M17 20v-9"/></symbol>
+  <symbol id="i-rede" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="5.2" cy="18" r="2.2"/><circle cx="18.8" cy="18" r="2.2"/><path d="M12 7.2v4.4M12 11.6 6.6 16.2M12 11.6l5.4 4.6"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.6c0 4.3-2.9 7.6-7 9.2-4.1-1.6-7-4.9-7-9.2V6z"/><path d="m9.2 12 2 2 3.6-3.8"/></symbol>
+  <symbol id="i-pessoa" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+</svg>
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .6-.3 1.2Z"/></symbol>
+</svg>
+
+<header class="topo" data-topo>
+  <div class="container topo__inner">
+    <a class="marca" href="/" aria-label="Sebastiani, Estratégia Imobiliária, início">
+      <strong>Sebastiani</strong>
+      <span>Estratégia Imobiliária</span>
+    </a>
+
+    <!-- O botão vem ANTES do <nav> no HTML para a ordem de tabulação
+         fazer sentido: quem navega por teclado abre o menu e cai direto
+         no primeiro link dele. -->
+    <button class="menu-toggle" type="button" aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="menu-principal">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="topo__nav" id="menu-principal" aria-label="Navegação principal">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#estrategias">Estratégias</a>
+      <a href="#diferencial">Diferencial</a>
+      <a href="#duvidas">Dúvidas</a>
+
+      <!-- CTA dentro do painel, só no celular: lá o botão do cabeçalho
+           some para não brigar com a marca, e um menu aberto sem caminho
+           de conversão é um beco sem saída. -->
+      <button class="btn btn--ouro topo__nav-cta js-cenario" type="button" data-source="mobile_menu">
+        Analisar meu cenário
+      </button>
+    </nav>
+
+    <button class="btn btn--ouro btn--pequeno topo__cta js-cenario" type="button" data-source="header">
+      Analisar meu cenário
+      <span class="btn__seta" aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ======================= 1. HERO =======================
+       O título nomeia o SERVIÇO (a estratégia), não o produto. Quem chega
+       aqui não está procurando um apartamento específico — está tentando
+       descobrir o que consegue comprar e como.
+
+       Sem foto de empreendimento, de propósito: render de prédio diz
+       "esta página vende aquele prédio", que é exatamente o contrário do
+       posicionamento. O peso visual vem da tipografia e do painel à
+       direita. Ver README, "A primeira dobra não tem imagem". -->
+  <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+    <span class="hero__brilho" aria-hidden="true"></span>
+
+    <div class="container hero__grade">
+      <div class="hero__texto">
+        <p class="sobrescrito">Estratégia antes do imóvel</p>
+
+        <h1 class="hero__titulo" id="hero-titulo">
+          Antes de escolher o imóvel, escolha <em class="ouro">a estratégia.</em>
+        </h1>
+
+        <p class="hero__promessa">Comprar bem começa antes da visita.</p>
+
+        <p class="hero__sub">
+          Eu analiso seu crédito, entrada, objetivo e momento de compra
+          para identificar quais caminhos imobiliários realmente fazem
+          sentido para você.
+        </p>
+
+        <ul class="hero__caminhos">
+          <li>Lançamentos</li>
+          <li>Minha Casa Minha Vida</li>
+          <li>Leilões</li>
+          <li>Mercado tradicional</li>
+        </ul>
+
+        <div class="hero__acoes">
+          <button class="btn btn--ouro js-cenario" type="button" data-source="hero">
+            Analisar meu cenário
+            <span class="btn__seta" aria-hidden="true">&rarr;</span>
+          </button>
+
+          <!-- O WhatsApp é alternativa para quem prefere contato direto,
+               e por isso é botão vazado: não pode competir visualmente
+               com o CTA principal. -->
+          <a class="btn btn--vazado js-whatsapp" data-source="hero_whatsapp"
+             href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+            <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+            Falar no WhatsApp
+          </a>
+        </div>
+
+        <p class="microcopia">
+          Análise inicial &bull; Sem compromisso &bull; Atendimento direto
+        </p>
+      </div>
+
+      <!-- Painel da direita: mostra, em vez de prometer, o que "analisar
+           o cenário" quer dizer. Some abaixo de 980px — no celular a
+           primeira dobra pertence ao título e ao CTA. -->
+      <aside class="hero__painel" aria-labelledby="painel-titulo">
+        <p class="hero__painel-eyebrow">O que entra na análise</p>
+        <h2 class="hero__painel-titulo" id="painel-titulo">Seu cenário, item por item</h2>
+
+        <ul class="hero__painel-lista">
+          <li><span>Renda</span><em>Capacidade real de financiamento</em></li>
+          <li><span>Crédito</span><em>O que o banco aprova hoje</em></li>
+          <li><span>Entrada</span><em>Recursos disponíveis e FGTS</em></li>
+          <li><span>Objetivo</span><em>Moradia ou investimento</em></li>
+          <li><span>Momento</span><em>Prazo até a compra</em></li>
+        </ul>
+
+        <p class="hero__painel-nota">
+          Só depois disso faz sentido falar de imóvel.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ======================= 2. POSICIONAMENTO =======================
+       Responde "por que isso é diferente?" antes de qualquer produto.
+       A escada visual (cenário → estratégia → oportunidades → compra) é
+       o argumento inteiro da marca em quatro palavras. -->
+  <section class="secao secao--carvao" id="metodo" aria-labelledby="metodo-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Comprar bem exige contexto</p>
+        <h2 class="titulo" id="metodo-titulo">
+          O imóvel é a <em class="ouro">última parte</em> da decisão.
+        </h2>
+        <p class="apoio">
+          Muita gente começa procurando apartamento antes de entender
+          crédito, entrada, custos e objetivo. Aqui o caminho é o inverso:
+          primeiro o seu cenário, depois a estratégia e, então, as
+          melhores oportunidades.
+        </p>
+      </div>
+
+      <ol class="escada">
+        <li class="escada__passo">
+          <svg class="escada__ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+          <h3>Seu cenário</h3>
+          <p>Entendemos sua realidade financeira.</p>
+        </li>
+        <li class="escada__passo">
+          <svg class="escada__ico" aria-hidden="true"><use href="#i-alvo"></use></svg>
+          <h3>Estratégia</h3>
+          <p>Definimos o melhor caminho de compra.</p>
+        </li>
+        <li class="escada__passo">
+          <svg class="escada__ico" aria-hidden="true"><use href="#i-predio"></use></svg>
+          <h3>Oportunidades</h3>
+          <p>Selecionamos as opções alinhadas a ele.</p>
+        </li>
+        <li class="escada__passo">
+          <svg class="escada__ico" aria-hidden="true"><use href="#i-chave"></use></svg>
+          <h3>Compra</h3>
+          <p>Você decide com contexto, não no impulso.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================= 3. ESTRATÉGIAS =======================
+       Três caminhos, e o cartão é curto de propósito: o detalhe vive no
+       modal. Página institucional que explica tudo de uma vez elimina o
+       motivo de a pessoa pedir a análise. -->
+  <section class="secao" id="estrategias" aria-labelledby="estrategias-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Estratégias de compra</p>
+        <h2 class="titulo" id="estrategias-titulo">
+          Nem todo comprador precisa <em class="ouro">do mesmo caminho.</em>
+        </h2>
+        <p class="apoio">
+          O que muda entre eles não é o imóvel: é de onde vem a vantagem e
+          o que o seu cenário precisa ter para acessá-la.
+        </p>
+      </div>
+
+      <div class="vias">
+        <article class="via">
+          <svg class="via__ico" aria-hidden="true"><use href="#i-predio"></use></svg>
+          <h3 class="via__titulo">Lançamentos e MCMV</h3>
+          <p class="via__texto">
+            Financiamento, FGTS, entrada parcelada e condições de abertura
+            de tabela em imóveis novos ou na planta.
+          </p>
+          <button class="via__link" type="button" data-modal="modal-lancamentos">
+            Entender esse caminho <span aria-hidden="true">&rarr;</span>
+          </button>
+        </article>
+
+        <article class="via">
+          <svg class="via__ico" aria-hidden="true"><use href="#i-martelo"></use></svg>
+          <h3 class="via__titulo">Leilões imobiliários</h3>
+          <p class="via__texto">
+            Análise de oportunidades com desconto em relação ao mercado,
+            sempre com avaliação cuidadosa antes do lance.
+          </p>
+          <button class="via__link" type="button" data-modal="modal-leiloes">
+            Entender esse caminho <span aria-hidden="true">&rarr;</span>
+          </button>
+        </article>
+
+        <article class="via">
+          <svg class="via__ico" aria-hidden="true"><use href="#i-casa"></use></svg>
+          <h3 class="via__titulo">Mercado tradicional</h3>
+          <p class="via__texto">
+            Imóveis prontos, novos ou usados, quando esse é o caminho mais
+            adequado ao seu objetivo e ao seu prazo.
+          </p>
+          <button class="via__link" type="button" data-modal="modal-tradicional">
+            Entender esse caminho <span aria-hidden="true">&rarr;</span>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 4. COMO FUNCIONA ======================= -->
+  <section class="secao secao--carvao" id="como-funciona" aria-labelledby="processo-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Processo</p>
+        <h2 class="titulo" id="processo-titulo">
+          Simples, direto e baseado <em class="ouro">no seu cenário.</em>
+        </h2>
+      </div>
+
+      <ol class="etapas">
+        <li class="etapa">
+          <span class="etapa__n" aria-hidden="true">01</span>
+          <svg class="etapa__ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+          <h3>Diagnóstico</h3>
+          <p>Entendo seu objetivo, seu momento e sua capacidade de compra.</p>
+        </li>
+        <li class="etapa">
+          <span class="etapa__n" aria-hidden="true">02</span>
+          <svg class="etapa__ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+          <h3>Validação financeira</h3>
+          <p>Analisamos crédito, entrada, FGTS e recursos disponíveis.</p>
+        </li>
+        <li class="etapa">
+          <span class="etapa__n" aria-hidden="true">03</span>
+          <svg class="etapa__ico" aria-hidden="true"><use href="#i-alvo"></use></svg>
+          <h3>Estratégia</h3>
+          <p>Definimos quais modalidades de compra fazem sentido para você.</p>
+        </li>
+        <li class="etapa">
+          <span class="etapa__n" aria-hidden="true">04</span>
+          <svg class="etapa__ico" aria-hidden="true"><use href="#i-grafico"></use></svg>
+          <h3>Oportunidades</h3>
+          <p>Só então selecionamos imóveis e avançamos para visita ou negociação.</p>
+        </li>
+      </ol>
+
+      <div class="secao__acao">
+        <button class="btn btn--ouro js-cenario" type="button" data-source="process">
+          Começar minha análise
+          <span class="btn__seta" aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 5. DIFERENCIAL ======================= -->
+  <section class="secao" id="diferencial" aria-labelledby="diferencial-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Outra forma de comprar imóvel</p>
+        <h2 class="titulo" id="diferencial-titulo">
+          Você não precisa começar por <em class="ouro">uma lista de apartamentos.</em>
+        </h2>
+        <p class="apoio">
+          Você precisa entender o que pode comprar, como pode comprar e
+          quais oportunidades realmente merecem a sua atenção.
+        </p>
+      </div>
+
+      <div class="pilares">
+        <div class="pilar">
+          <svg class="pilar__ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+          <h3>Análise antes da oferta</h3>
+          <p>O atendimento começa pelo seu cenário, não por um empreendimento.</p>
+        </div>
+        <div class="pilar">
+          <svg class="pilar__ico" aria-hidden="true"><use href="#i-rede"></use></svg>
+          <h3>Visão de diferentes mercados</h3>
+          <p>Lançamentos, MCMV, leilões e imóveis tradicionais entram na mesma análise.</p>
+        </div>
+        <div class="pilar">
+          <svg class="pilar__ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+          <h3>Decisão com contexto</h3>
+          <p>Preço importa, mas crédito, entrada, custos, risco e objetivo também.</p>
+        </div>
+        <div class="pilar">
+          <svg class="pilar__ico" aria-hidden="true"><use href="#i-pessoa"></use></svg>
+          <h3>Atendimento consultivo</h3>
+          <p>Sem pressão de venda e sem empurrar o imóvel da vez.</p>
+        </div>
+      </div>
+
+      <blockquote class="assinatura">
+        <p>Eu não começo pelo imóvel. Eu começo pela estratégia da compra.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ======================= 6. CASOS =======================
+       DESLIGADA ATÉ EXISTIR CASO REAL. A seção está pronta e escondida
+       com `hidden` — a regra da marca é não inventar depoimento, número,
+       economia nem nome de cliente, e um carrossel com caso fictício é
+       exatamente o tipo de prova que destrói a confiança que esta página
+       inteira tenta construir.
+
+       PARA ATIVAR:
+       1. levante 2 ou 3 casos REAIS (com um só, a página lê como "ele tem
+          exatamente um cliente");
+       2. preencha um <article class="caso"> por caso, seguindo o modelo
+          comentado abaixo — objetivo, cenário, estratégia e resultado;
+       3. remova o atributo `hidden` desta <section>;
+       4. acrescente 'casos' ao objeto SECOES em assets/js/main.js, para o
+          section_view passar a ser medido.
+
+       Não é preciso autorização de imagem enquanto não houver foto nem
+       nome; se um dia entrarem, ela passa a ser obrigatória e por
+       escrito. -->
+  <section class="secao secao--carvao" id="casos" aria-labelledby="casos-titulo" hidden>
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Na prática</p>
+        <h2 class="titulo" id="casos-titulo">
+          Estratégia muda a forma <em class="ouro">de olhar uma oportunidade.</em>
+        </h2>
+      </div>
+
+      <div class="casos">
+        <!-- MODELO — duplicar por caso real e preencher:
+        <article class="caso">
+          <h3 class="caso__titulo">Primeiro imóvel</h3>
+          <dl class="caso__lista">
+            <dt>Objetivo</dt><dd>[o que a pessoa buscava]</dd>
+            <dt>Cenário</dt><dd>[renda, entrada, prazo — o que for real]</dd>
+            <dt>Estratégia</dt><dd>[lançamento, leilão ou tradicional, e por quê]</dd>
+            <dt>Resultado</dt><dd>[o que foi encontrado ou conquistado]</dd>
+          </dl>
+        </article>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 7. FAQ =======================
+       <details> nativo: abre e fecha sem uma linha de JavaScript. Sem CTA
+       próprio de propósito — o fechamento vem logo abaixo. -->
+  <section class="secao" id="duvidas" aria-labelledby="duvidas-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="sobrescrito">Dúvidas frequentes</p>
+        <h2 class="titulo" id="duvidas-titulo">
+          O que normalmente preciso entender <em class="ouro">antes de comprar?</em>
+        </h2>
+      </div>
+
+      <div class="faqs">
+        <details class="faq">
+          <summary>Você trabalha apenas com Minha Casa Minha Vida?</summary>
+          <div class="faq__corpo">
+            <p>
+              Não. O MCMV é uma das possibilidades. A estratégia pode
+              envolver lançamento, leilão ou mercado tradicional,
+              dependendo do seu cenário.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>Preciso já ter entrada para falar com você?</summary>
+          <div class="faq__corpo">
+            <p>
+              Não necessariamente. A análise inicial serve justamente para
+              entender sua situação e verificar quais possibilidades
+              existem hoje.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>Você faz análise de crédito?</summary>
+          <div class="faq__corpo">
+            <p>
+              Faço uma avaliação inicial do cenário e, quando necessário,
+              encaminho a análise para os canais e instituições
+              responsáveis pela aprovação do financiamento.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>Leilão sempre é mais barato?</summary>
+          <div class="faq__corpo">
+            <p><strong>Não.</strong></p>
+            <p>
+              Um imóvel em leilão pode apresentar desconto, mas é preciso
+              avaliar documentação, ocupação, custos, condições de
+              pagamento e valor de mercado antes de considerar a operação
+              interessante.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq">
+          <summary>Já sei qual imóvel quero. Você também pode me ajudar?</summary>
+          <div class="faq__corpo">
+            <p>
+              Sim. Mesmo quando o imóvel já foi escolhido, vale analisar se
+              a compra e as condições fazem sentido antes de avançar.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= 8. FECHAMENTO =======================
+     Fecha com o mesmo peso da primeira dobra: a última tela precisa ser
+     tão forte quanto a primeira. -->
+<section class="fechamento" id="contato" aria-labelledby="contato-titulo">
+  <span class="hero__brilho" aria-hidden="true"></span>
+
+  <div class="container fechamento__grade">
+    <div>
+      <p class="sobrescrito">Seu próximo passo</p>
+      <h2 class="fechamento__titulo" id="contato-titulo">
+        Antes de procurar mais imóveis, descubra
+        <em class="ouro">qual caminho faz sentido para você.</em>
+      </h2>
+      <p class="fechamento__texto">
+        Faça uma análise inicial do seu cenário e entenda quais
+        possibilidades merecem a sua atenção agora.
+      </p>
+    </div>
+
+    <div class="fechamento__acoes">
+      <button class="btn btn--ouro js-cenario" type="button" data-source="final">
+        Analisar meu cenário
+        <span class="btn__seta" aria-hidden="true">&rarr;</span>
+      </button>
+      <a class="btn btn--vazado js-whatsapp" data-source="final_whatsapp"
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+        Falar no WhatsApp
+      </a>
+      <p class="microcopia">Atendimento direto &bull; Sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__linha">
+      <a class="marca" href="/" aria-label="Sebastiani, Estratégia Imobiliária, início">
+        <strong>Sebastiani</strong>
+        <span>Estratégia Imobiliária</span>
+      </a>
+
+      <nav aria-label="Rodapé">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#estrategias">Estratégias</a>
+        <a href="#duvidas">Dúvidas</a>
+        <a href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="/privacidade/">Política de privacidade</a>
+      </nav>
+    </div>
+
+    <p class="rodape__frase">Estratégia antes do imóvel.</p>
+
+    <!-- PREENCHER: razão social e CNPJ, se o atendimento for por pessoa
+         jurídica. O CRECI já está na linha abaixo. -->
+    <p class="rodape__legal">
+      Corretor de imóveis inscrito no <strong>CRECI-SP 334069</strong>.
+      Análise inicial de perfil, sem custo e sem compromisso. Não é proposta
+      de crédito nem garantia de aprovação: condições dependem de análise de
+      crédito, da documentação, da unidade escolhida, da disponibilidade e
+      das regras vigentes. Em leilões, o desconto anunciado não significa,
+      por si só, bom negócio — cada imóvel precisa ser analisado
+      individualmente.
+    </p>
+  </div>
+</footer>
+
+<!-- Barra fixa do celular: a primeira dobra some com o scroll, e esta é a
+     única forma de manter o CTA sempre à mão. -->
+<div class="barra-mobile">
+  <div class="barra-mobile__texto">
+    <strong>Qual é a sua estratégia?</strong>
+    <span>Análise inicial, sem compromisso</span>
+  </div>
+  <button class="btn btn--ouro btn--pequeno js-cenario" type="button" data-source="mobile_fixed">
+    Analisar
+  </button>
+</div>
+
+<!-- ======================= MODAIS DAS ESTRATÉGIAS =======================
+     Um <dialog> por caminho. Esc e a prisão de foco vêm de fábrica do
+     navegador; o clique no backdrop é tratado em main.js, com a guarda
+     `event.target !== dialog` — sem ela, Enter num botão focado chega com
+     clientX/clientY = 0 e fecharia o diálogo por engano. -->
+
+<dialog class="modal" id="modal-lancamentos" aria-labelledby="modal-lancamentos-titulo">
+  <div class="modal__caixa">
+    <button class="modal__fechar" type="button" data-fechar aria-label="Fechar">&times;</button>
+    <p class="sobrescrito">Lançamentos e MCMV</p>
+    <h2 class="modal__titulo" id="modal-lancamentos-titulo">Quando um lançamento pode fazer sentido?</h2>
+
+    <ul class="modal__lista">
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando o financiamento é parte importante da compra.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando existe possibilidade de uso de FGTS.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando as condições de entrada são compatíveis com o seu cenário.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando comprar durante a obra ajuda o seu planejamento.</span></li>
+    </ul>
+
+    <button class="btn btn--ouro js-cenario" type="button" data-source="modal_lancamentos">
+      Analisar meu cenário
+      <span class="btn__seta" aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+</dialog>
+
+<dialog class="modal" id="modal-leiloes" aria-labelledby="modal-leiloes-titulo">
+  <div class="modal__caixa">
+    <button class="modal__fechar" type="button" data-fechar aria-label="Fechar">&times;</button>
+    <p class="sobrescrito">Leilões imobiliários</p>
+    <h2 class="modal__titulo" id="modal-leiloes-titulo">Quando vale analisar um leilão?</h2>
+
+    <ul class="modal__lista">
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando existe capital compatível com a operação.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando o imóvel apresenta uma diferença de preço relevante.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando documentação, ocupação e riscos podem ser avaliados corretamente.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando o desconto continua fazendo sentido depois de todos os custos.</span></li>
+    </ul>
+
+    <!-- A ressalva viaja junto da promessa, e não só no rodapé: esta é a
+         única estratégia da página que fala de desconto. -->
+    <p class="modal__aviso">
+      Desconto anunciado não significa automaticamente bom negócio. Cada
+      imóvel precisa ser analisado individualmente.
+    </p>
+
+    <button class="btn btn--ouro js-cenario" type="button" data-source="modal_leiloes">
+      Quero avaliar oportunidades
+      <span class="btn__seta" aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+</dialog>
+
+<dialog class="modal" id="modal-tradicional" aria-labelledby="modal-tradicional-titulo">
+  <div class="modal__caixa">
+    <button class="modal__fechar" type="button" data-fechar aria-label="Fechar">&times;</button>
+    <p class="sobrescrito">Mercado tradicional</p>
+    <h2 class="modal__titulo" id="modal-tradicional-titulo">Quando o mercado tradicional pode ser o melhor caminho?</h2>
+
+    <ul class="modal__lista">
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando existe necessidade de mudança rápida.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando determinada localização é prioridade.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando o imóvel ideal já está pronto.</span></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Quando as condições de negociação são compatíveis com o objetivo.</span></li>
+    </ul>
+
+    <button class="btn btn--ouro js-cenario" type="button" data-source="modal_tradicional">
+      Analisar meu cenário
+      <span class="btn__seta" aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+</dialog>
+
+<!-- ======================= MODAL — ANÁLISE DO CENÁRIO =======================
+     O único caminho de conversão da página. Quatro etapas, uma decisão de
+     cada vez: o que trava o preenchimento no celular é o TAMANHO APARENTE
+     do formulário, não o número de cliques.
+
+     Ele NÃO abre o WhatsApp ao final — se a gravação falhar em silêncio, o
+     lead se perde de vez. Por isso o cliente espera a resposta do servidor
+     e mostra a tela de erro quando ela não vem.
+
+     As listas de valores espelham worker/config.js (OBJETIVOS, RENDAS,
+     ENTRADAS, MOMENTOS, FGTS, REGIOES). A autoridade é o servidor: ele
+     recusa qualquer valor que não esteja lá. -->
+<dialog class="modal modal--cenario" id="modal-cenario" aria-labelledby="cenario-titulo">
+  <form class="quiz" novalidate data-quiz>
+    <div class="quiz__topo">
+      <div>
+        <p class="sobrescrito">Análise de cenário</p>
+        <h2 class="quiz__titulo" id="cenario-titulo">Vamos entender o seu caso</h2>
+      </div>
+      <button class="modal__fechar" type="button" data-fechar aria-label="Fechar">&times;</button>
+    </div>
+
+    <div class="quiz__trilha" aria-hidden="true">
+      <span data-trilha data-estado="atual"></span>
+      <span data-trilha data-estado="vazio"></span>
+      <span data-trilha data-estado="vazio"></span>
+      <span data-trilha data-estado="vazio"></span>
+    </div>
+
+    <!-- Anúncio em aria-live em vez de mover o foco a cada troca: roubar o
+         foco faria o leitor de tela recomeçar a leitura do zero. -->
+    <p class="visualmente-oculto" role="status" aria-live="polite" data-anuncio></p>
+
+    <!-- ---------------- ETAPA 1 — OBJETIVO ---------------- -->
+    <section class="quiz__tela" data-tela="objetivo">
+      <div data-campo="objetivo">
+        <p class="quiz__rotulo" id="rot-objetivo">O que você pretende fazer?</p>
+        <div class="opcoes" role="radiogroup" aria-labelledby="rot-objetivo">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="morar">Comprar para morar</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="investir">Comprar para investir</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="sair-do-aluguel">Sair do aluguel</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="avaliando">Ainda estou avaliando</button>
+        </div>
+        <p class="erro" data-erro-de="objetivo" hidden></p>
+      </div>
+    </section>
+
+    <!-- ---------------- ETAPA 2 — SITUAÇÃO FINANCEIRA ---------------- -->
+    <section class="quiz__tela" data-tela="financeiro" hidden>
+      <div data-campo="renda">
+        <p class="quiz__rotulo" id="rot-renda">Qual é sua renda familiar aproximada?</p>
+        <div class="opcoes" role="radiogroup" aria-labelledby="rot-renda">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-3200">Até R$ 3.200</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="3200-5000">R$ 3.201 a R$ 5.000</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="5000-9600">R$ 5.001 a R$ 9.600</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="9600-13000">R$ 9.601 a R$ 13.000</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="acima-13000">Acima de R$ 13.000</button>
+        </div>
+        <p class="erro" data-erro-de="renda" hidden></p>
+      </div>
+
+      <div class="quiz__grupo" data-campo="entrada">
+        <p class="quiz__rotulo" id="rot-entrada">Você possui algum valor disponível para entrada?</p>
+        <div class="opcoes" role="radiogroup" aria-labelledby="rot-entrada">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="sem-entrada">Ainda não</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-5k">Até R$ 5 mil</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="5k-15k">R$ 5 mil a R$ 15 mil</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="15k-30k">R$ 15 mil a R$ 30 mil</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="30k-100k">R$ 30 mil a R$ 100 mil</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="acima-100k">Acima de R$ 100 mil</button>
+        </div>
+        <p class="erro" data-erro-de="entrada" hidden></p>
+      </div>
+    </section>
+
+    <!-- ---------------- ETAPA 3 — MOMENTO ---------------- -->
+    <section class="quiz__tela" data-tela="momento" hidden>
+      <div data-campo="momento">
+        <p class="quiz__rotulo" id="rot-momento">Quando pretende comprar?</p>
+        <div class="opcoes" role="radiogroup" aria-labelledby="rot-momento">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="agora">Agora</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="ate-3-meses">Nos próximos 3 meses</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="3-a-6-meses">De 3 a 6 meses</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="mais-para-frente">De 6 a 12 meses</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="pesquisando">Ainda estou planejando</button>
+        </div>
+        <p class="erro" data-erro-de="momento" hidden></p>
+      </div>
+
+      <div class="quiz__grupo" data-campo="fgts">
+        <p class="quiz__rotulo" id="rot-fgts">Possui FGTS?</p>
+        <div class="opcoes" role="radiogroup" aria-labelledby="rot-fgts">
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="sim">Sim</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="nao">Não</button>
+          <button type="button" class="opcao" role="radio" aria-checked="false" data-valor="nao-sei">Não sei</button>
+        </div>
+        <p class="erro" data-erro-de="fgts" hidden></p>
+      </div>
+    </section>
+
+    <!-- ---------------- ETAPA 4 — CONTATO ---------------- -->
+    <section class="quiz__tela" data-tela="contato" hidden>
+      <p class="quiz__rotulo">Falta pouco.</p>
+      <p class="quiz__apoio">
+        Vou usar essas informações para entender melhor o seu cenário antes
+        da conversa.
+      </p>
+
+      <div class="campo">
+        <label for="q-nome">Nome</label>
+        <input type="text" id="q-nome" name="nome" autocomplete="name"
+               required maxlength="120" placeholder="Como posso te chamar?">
+        <p class="erro" data-erro-de="nome" hidden></p>
+      </div>
+
+      <div class="campo">
+        <label for="q-telefone">WhatsApp</label>
+        <input type="tel" id="q-telefone" name="telefone" autocomplete="tel"
+               inputmode="numeric" required placeholder="(11) 99999-9999">
+        <p class="erro" data-erro-de="telefone" hidden></p>
+      </div>
+
+      <!-- Lista fechada em vez de campo livre: `regiao` é validada contra
+           REGIOES em worker/config.js, e texto livre seria simplesmente
+           descartado pelo servidor — o lead entraria sem região nenhuma
+           e ninguém perceberia. -->
+      <div class="campo">
+        <label for="q-regiao">Região de interesse <span class="opcional">opcional</span></label>
+        <select id="q-regiao" name="regiao">
+          <option value="">Prefiro falar sobre isso na conversa</option>
+          <option value="zona-norte">Zona Norte</option>
+          <option value="zona-sul">Zona Sul</option>
+          <option value="zona-leste">Zona Leste</option>
+          <option value="zona-oeste">Zona Oeste</option>
+          <option value="centro">Centro</option>
+          <option value="nao-sei">Ainda não sei</option>
+        </select>
+      </div>
+
+      <!-- Armadilha para robô: invisível, e nenhum humano preenche. É o
+           anti-spam da página — CAPTCHA custaria conversão real para
+           resolver um problema que este campo já resolve. -->
+      <div class="favo" aria-hidden="true">
+        <label for="q-site">Não preencha este campo</label>
+        <input type="text" id="q-site" name="site" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="consentimento">
+        <input type="checkbox" name="consentimento" required>
+        <span>
+          Concordo em ser contatado sobre oportunidades imobiliárias e com o
+          tratamento dos meus dados conforme a
+          <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.
+        </span>
+      </label>
+      <p class="erro" data-erro-de="consentimento" hidden></p>
+
+      <button type="submit" class="btn btn--ouro btn--bloco" data-enviar>
+        Quero receber minha análise inicial
+      </button>
+
+      <p class="microcopia">
+        Não pedimos CPF, dados bancários nem documentos nesta página.
+      </p>
+    </section>
+
+    <!-- ---------------- SUCESSO ---------------- -->
+    <section class="quiz__tela quiz__tela--fim" data-tela="pronto" hidden>
+      <p class="quiz__selo" aria-hidden="true">
+        <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+      </p>
+      <p class="quiz__rotulo">Recebi suas informações.</p>
+      <p class="quiz__apoio">
+        Vou analisar o seu cenário e entrar em contato para entender os
+        próximos passos.
+      </p>
+
+      <a class="btn btn--ouro btn--bloco js-whatsapp" data-source="form_success"
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+        Falar comigo agora pelo WhatsApp
+      </a>
+    </section>
+
+    <!-- ---------------- ERRO ---------------- -->
+    <section class="quiz__tela quiz__tela--fim" data-tela="erro" hidden>
+      <p class="quiz__rotulo">Não consegui enviar agora</p>
+      <p class="quiz__apoio">
+        Pode ter sido a conexão. Tente de novo — ou fale direto comigo pelo
+        WhatsApp, que resolvemos por lá.
+      </p>
+
+      <button type="button" class="btn btn--ouro btn--bloco" data-tentar>
+        Tentar de novo
+      </button>
+
+      <a class="btn btn--vazado btn--bloco js-whatsapp" data-source="form_error"
+         href="https://wa.me/5511953713310" target="_blank" rel="noopener noreferrer">
+        <svg class="btn__ico" aria-hidden="true"><use href="#i-zap"></use></svg>
+        Falar no WhatsApp
+      </a>
+    </section>
+
+    <div class="quiz__rodape">
+      <button type="button" class="quiz__voltar" data-voltar hidden>
+        <span aria-hidden="true">&larr;</span> Voltar
+      </button>
+      <button type="button" class="btn btn--ouro btn--pequeno" data-continuar>
+        Continuar
+        <span class="btn__seta" aria-hidden="true">&rarr;</span>
+      </button>
+    </div>
+
+    <noscript>
+      <p class="quiz__apoio">
+        Este formulário precisa de JavaScript. Você também pode falar
+        direto comigo pelo
+        <a href="https://wa.me/5511953713310">WhatsApp</a>.
+      </p>
+    </noscript>
+  </form>
+</dialog>
+
+<script src="/shared/origem.js"></script>
+<script src="/estrategia/assets/js/main.js"></script>
+</body>
+</html>

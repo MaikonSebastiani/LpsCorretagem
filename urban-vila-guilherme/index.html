@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Urban Vila Guilherme | Apartamentos 2 Dormitórios</title>
-<meta name="description" content="Lançamento na Vila Guilherme: apartamentos de 2 dormitórios na planta a partir de R$ 255 mil, com entrada a partir de R$ 800 parcelada durante a obra. Plantas de 32 a 44 m², terraço e suíte, na Zona Norte de São Paulo.">
+<meta name="description" content="Lançamento na Vila Guilherme: apartamentos de 2 dormitórios na planta, elegíveis ao Minha Casa Minha Vida, com entrada parcelada durante a obra. Plantas de 32 a 44 m², terraço e suíte, na Zona Norte de São Paulo.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#252927">
 
@@ -49,9 +49,15 @@
 
 <!-- imagesrcset/imagesizes: sem eles o preload buscava sempre o hero.webp de
      1672px de largura mesmo no celular — a mesma foto que o desktop baixa.
-     Isso sozinho respondia por boa parte do LCP de 7,5s medido no PageSpeed. -->
-<link rel="preload" as="image" href="assets/images/hero.webp"
-      imagesrcset="assets/images/hero-mobile.webp 900w, assets/images/hero.webp 1672w"
+     Isso sozinho respondia por boa parte do LCP de 7,5s medido no PageSpeed.
+
+     O preload é do AVIF, com type: é o formato que o <picture> do hero
+     escolhe em todo navegador atual. Até 28/09/2026 ele pré-carregava o
+     WebP, e o navegador baixava a foto duas vezes (a WebP do preload, que
+     ninguém usava, e a AVIF do <picture>) — o console avisava "preloaded
+     but not used". Navegador sem AVIF ignora o preload pelo type. -->
+<link rel="preload" as="image" type="image/avif"
+      imagesrcset="assets/images/hero-mobile.avif 900w, assets/images/hero.avif 1672w"
       imagesizes="(max-width: 900px) 100vw, 52vw" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
 
@@ -198,36 +204,41 @@
           na Zona Norte de São <span class="dash-end">Paulo.</span>
         </p>
 
-        <!-- Preço e entrada lado a lado: o valor do imóvel dá a referência e a
-             entrada facilitada é o que torna a compra viável para o público do
-             programa habitacional. A linha de apoio da entrada é obrigatória —
-             sem ela, "entrada de R$ 800" soa como se o apartamento saísse por
-             esse valor. -->
-        <div class="hero__offer">
-          <p class="hero__price">
-            <span class="hero__price-label">Apartamentos a partir de</span>
-            <strong class="hero__price-value">R$ 255 mil<sup>*</sup></strong>
+        <!-- Aqui ficavam o preço do apartamento e o valor de entrada
+             (removidos em 20/09/2026 — ver README, "Por que a página não
+             mostra preço"). Os números não voltam nem como comentário:
+             comentário de HTML é servido junto da página e qualquer pessoa
+             lê no código-fonte.
+
+             O que ocupa o lugar não é enfeite: é o mesmo trabalho que o preço
+             fazia, sem o passivo. O preço servia para QUALIFICAR — dizer em que
+             faixa o produto está, para quem não tem perfil sair cedo. Quem
+             chega por "Minha Casa Minha Vida" já conhece a faixa do programa,
+             então o selo do MCMV qualifica igual e não vence todo mês. -->
+        <div class="hero__cond">
+          <p class="hero__cond-item">
+            <span class="hero__cond-label">Entrada</span>
+            <strong class="hero__cond-value">Parcelada durante a obra</strong>
+            <span class="hero__cond-hint">Você dá início à compra e divide o restante da entrada até a entrega.</span>
           </p>
-          <p class="hero__price hero__price--entry">
-            <span class="hero__price-label">Entrada a partir de</span>
-            <strong class="hero__price-value">R$ 800<sup>*</sup></strong>
-            <span class="hero__price-hint">e o restante parcelado durante a obra</span>
+          <p class="hero__cond-item">
+            <span class="hero__cond-label">Financiamento</span>
+            <strong class="hero__cond-value">Com FGTS e subsídio</strong>
+            <span class="hero__cond-hint">Conforme a sua renda, o enquadramento no programa e a análise de crédito.</span>
           </p>
         </div>
 
-        <!-- MANUTENÇÃO MENSAL: atualizar junto da correção da tabela
-             (mesmo ciclo mencionado na seção de lançamento e no FAQ). Mês
-             parado aqui é pior que não ter data -- avisa "isso está velho"
-             para quem acabou de clicar num anúncio pago. -->
-        <p class="hero__updated">Tabela vigente — agosto de 2026</p>
-
         <div class="hero__actions">
+          <!-- O rótulo fala de RENDA, não de preço. Para este público a
+               pergunta não é "consigo juntar o valor do apartamento?", é
+               "isso cabe no que eu ganho?" — e é essa a pergunta que o
+               formulário responde. -->
           <a class="btn btn--green btn--lg whatsapp-link" data-source="hero"
-             data-message="Olá! Gostaria de falar com um corretor sobre o Urban Vila Guilherme e ver quais unidades cabem no meu perfil.">
+             data-message="Olá! Gostaria de saber quais unidades do Urban Vila Guilherme cabem na minha renda.">
             <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Falar com um corretor
+            Ver o que cabe na minha renda
           </a>
-          <p class="hero__micro">Resposta pelo WhatsApp, sem compromisso</p>
+          <p class="hero__micro">Consulta sem compromisso &bull; Resposta no WhatsApp</p>
         </div>
 
         <ul class="specs" aria-label="Destaques do empreendimento">
@@ -238,7 +249,7 @@
           <li class="spec spec--green"><svg class="ico" aria-hidden="true"><use href="#i-leisure"></use></svg><span>Lazer completo</span></li>
         </ul>
 
-        <p class="hero__note">*Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a renda, o enquadramento habitacional e a análise de crédito.</p>
+        <p class="hero__note">Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a renda, o enquadramento habitacional e a análise de crédito.</p>
       </div>
 
     </div>
@@ -253,6 +264,13 @@
         <svg class="ico" aria-hidden="true"><use href="#i-medal"></use></svg>
         Empreendimento <strong>Cury</strong>
       </span>
+      <!-- O registro profissional entra aqui, e não só no rodapé: é o que
+           responde "com quem eu estou falando" na altura em que a pergunta
+           aparece — logo depois da primeira dobra. -->
+      <span class="trust-strip__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-shield"></use></svg>
+        Atendimento com corretor <strong>CRECI-SP 334069</strong>
+      </span>
     </div>
   </div>
 
@@ -260,8 +278,10 @@
   <section class="section section--light" id="plantas" aria-labelledby="plantas-title">
     <div class="container">
       <h2 class="title title--center title--chevrons" id="plantas-title">Uma planta para cada momento da sua vida</h2>
-      <p class="plans__price">Apartamentos a partir de <strong>R$ 255 mil<sup>*</sup></strong></p>
-      <p class="plans__price-note">*Valor de referência. Preço final depende da planta, unidade e condições vigentes.</p>
+      <!-- Aqui ficava a linha de "apartamentos a partir de". A que substitui
+           empurra para a pergunta certa: a planta boa é a que cabe no seu
+           enquadramento, não a mais barata da tabela. -->
+      <p class="plans__lead">Seis plantas, de 32 a 44 m². Qual delas você pode comprar depende da sua renda, do FGTS e do enquadramento no programa.</p>
       <!-- Padrão de entrega da Cury. Vale destacar: em lançamento na planta o
            acabamento entregue é uma dúvida real de quem compra. -->
       <ul class="badge-line" aria-label="Padrão de entrega">
@@ -423,8 +443,8 @@
         </li>
         <li>
           <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-doc-check"></use></svg></span>
-          <h3>Entrada a partir de R$ 800</h3>
-          <p>Você começa com um valor baixo e divide o restante da entrada ao longo da obra, no formato que couber no seu orçamento.</p>
+          <h3>Entrada parcelada</h3>
+          <p>Você dá início à compra e divide o restante da entrada ao longo da obra, no formato que couber no seu orçamento.</p>
         </li>
         <li>
           <span class="mcmv__ico"><svg class="ico" aria-hidden="true"><use href="#i-floor"></use></svg></span>
@@ -533,7 +553,7 @@
         <ul class="badge-line">
           <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Diferentes faixas de renda</li>
           <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>FGTS conforme regras</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Entrada a partir de R$ 800<sup>*</sup></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>Entrada parcelada durante a obra</li>
         </ul>
 
         <a class="btn btn--green btn--lg btn--block whatsapp-link" data-source="profile"
@@ -543,7 +563,7 @@
         </a>
 
         <p class="mcmv__note">
-          *Sujeito ao enquadramento do comprador, categoria da unidade, análise de
+          Sujeito ao enquadramento do comprador, categoria da unidade, análise de
           crédito e condições vigentes.
         </p>
       </div>
@@ -716,7 +736,7 @@
       <div class="faq__grid">
         <details class="faq__item">
           <summary>Quanto preciso ter para começar?</summary>
-          <p>A entrada começa a partir de R$ 800, e o restante do valor de entrada é parcelado ao longo da obra — você define a divisão que couber no seu orçamento. Esse valor inicial não é o preço do apartamento: ele apenas dá início à compra. As condições finais dependem da unidade escolhida, da sua renda, do enquadramento habitacional e da análise de crédito.</p>
+          <p>Menos do que a maioria das pessoas imagina. Em lançamento na planta a entrada não sai de uma vez: você dá início à compra e divide o restante ao longo da obra, no formato que couber no seu orçamento. O valor exato depende da unidade escolhida, da sua renda, do FGTS disponível, do enquadramento habitacional e da análise de crédito — é justamente o que a nossa equipe levanta com você, sem custo, antes de qualquer proposta.</p>
         </details>
 
         <details class="faq__item">
@@ -798,14 +818,13 @@
         <p class="section__text">
           Consulte valores, condições e disponibilidade do Urban Vila Guilherme.
         </p>
-        <p class="final-cta__price">A partir de <strong>R$ 255 mil<sup>*</sup></strong> com entrada a partir de <strong>R$ 800<sup>*</sup></strong></p>
         <a class="btn btn--green btn--lg whatsapp-link" data-source="final"
            data-message="Olá! Gostaria de saber quais opções do Urban Vila Guilherme fazem sentido para o meu perfil.">
           <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
           Falar com um consultor no WhatsApp
         </a>
         <p class="final-cta__micro">Atendimento sem compromisso.</p>
-        <p class="final-cta__note">*Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a renda, o enquadramento habitacional e a análise de crédito.</p>
+        <p class="final-cta__note">Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a renda, o enquadramento habitacional e a análise de crédito.</p>
       </div>
     </div>
   </section>
@@ -855,8 +874,10 @@
   </div>
 
   <div class="container site-footer__legal">
-    <p>Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação. O Grupo Saitama realiza atendimento comercial e intermediação deste lançamento; a incorporadora responsável é a Cury.</p>
-    <!-- ESPAÇO RESERVADO: texto jurídico completo, incorporadora, registro de incorporação, CRECI. -->
+    <p>Imagens meramente ilustrativas. Valores, disponibilidade, enquadramento e condições comerciais estão sujeitos a análise e atualização. Consulte o material oficial e as condições vigentes no momento da contratação. O Grupo Saitama realiza atendimento comercial e intermediação deste lançamento; a incorporadora responsável é a Cury. Intermediação por corretor inscrito no <strong>CRECI-SP 334069</strong>.</p>
+    <!-- ESPAÇO RESERVADO: registro de incorporação (memorial no cartório) e
+         razão social/CNPJ. O CRECI já está na linha acima e na faixa de
+         confiança — se um deles mudar, os dois mudam juntos. -->
     <p class="site-footer__law" data-legal hidden></p>
   </div>
 </footer>
@@ -864,10 +885,11 @@
 <!-- ================= CTA FIXO MOBILE ================= -->
 <div class="mobile-cta" role="complementary" aria-label="Atalho para WhatsApp">
   <div class="mobile-cta__inner">
-    <!-- Carrega os dois números: sozinha, a entrada vira a mensagem
-         permanente da página e é justamente a que mais tensiona a
-         credibilidade. -->
-    <p class="mobile-cta__text">A partir de R$ 255 mil<span>entrada R$ 800</span></p>
+    <!-- Aqui ficavam o preço e a entrada. Esta barra é a MENSAGEM PERMANENTE
+         da página no celular — fica na tela o tempo todo —, então o que ela
+         carrega agora é a pergunta que o visitante tem, não um valor que
+         envelhece. -->
+    <p class="mobile-cta__text">2 dormitórios &middot; MCMV<span>Cabe na sua renda?</span></p>
     <a class="btn btn--green btn--sm whatsapp-link" data-source="mobile_fixed"
        data-message="Olá! Vi o Urban Vila Guilherme pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">
       <svg class="ico ico--wa" aria-hidden="true"><use href="#i-wa"></use></svg>
@@ -903,59 +925,108 @@
     <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
   </button>
 
+  <!-- DUAS FASES (20/09/2026). Antes era um formulário só, com nome e
+       telefone no topo e a qualificação embaixo, opcional.
+
+       A ordem inverteu de propósito: a qualificação vem ANTES do contato.
+       Três toques em opções custam menos que digitar, então a pessoa já
+       investiu alguma coisa quando chega no campo de telefone — e quem não
+       tem perfil sai na fase 1, antes de virar lead.
+
+       Isso ficou obrigatório quando o preço saiu da página: o formulário é
+       agora o ÚNICO lugar que qualifica. Ver README, seção 5. -->
   <div class="qz__panel" data-qz-panel="form">
     <p class="qz__eyebrow">Consulta sem compromisso</p>
-    <h2 class="qz__title" id="qz-title">Deixe seu contato</h2>
-    <p class="qz__helper">Um consultor da equipe retorna com os valores e as unidades que cabem no seu perfil.</p>
+    <h2 class="qz__title" id="qz-title">Veja o que cabe na sua renda</h2>
+    <p class="qz__helper" data-qz-helper>Três perguntas rápidas. Um consultor retorna com as unidades compatíveis com o seu perfil.</p>
+
+    <div class="qz__steps" aria-hidden="true">
+      <span data-qz-step data-estado="atual"></span>
+      <span data-qz-step data-estado="vazio"></span>
+    </div>
+
+    <!-- Anúncio em aria-live em vez de mover o foco na troca de fase:
+         roubar o foco faria o leitor de tela recomeçar do zero. -->
+    <p class="qz__sr" role="status" aria-live="polite" data-qz-anuncio></p>
 
     <form class="qz__form" id="qz-form" novalidate>
-      <div class="qz__field">
-        <label class="qz__label" for="qz-nome">Nome</label>
-        <input class="qz__input" id="qz-nome" name="nome" type="text"
-               autocomplete="name" maxlength="120" required placeholder="Como podemos te chamar">
-        <p class="qz__erro" id="qz-erro-nome" hidden>Escreva seu nome para continuar.</p>
+
+      <!-- ---------------- FASE 1 — PERFIL ---------------- -->
+      <div class="qz__fase" data-qz-fase="perfil">
+        <fieldset class="qz__field qz__fieldset">
+          <legend class="qz__label">Renda familiar aproximada</legend>
+          <p class="qz__hint">Some a renda de quem vai financiar.</p>
+          <div class="qz__options">
+            <label class="qz__option"><input type="radio" name="renda" value="ate-3200"><span>Até R$ 3.200</span></label>
+            <label class="qz__option"><input type="radio" name="renda" value="3200-5000"><span>R$ 3.200 a R$ 5.000</span></label>
+            <label class="qz__option"><input type="radio" name="renda" value="5000-9600"><span>R$ 5.000 a R$ 9.600</span></label>
+            <label class="qz__option"><input type="radio" name="renda" value="9600-13000"><span>R$ 9.600 a R$ 13.000</span></label>
+            <label class="qz__option"><input type="radio" name="renda" value="acima-13000"><span>Acima de R$ 13.000</span></label>
+          </div>
+          <p class="qz__erro" data-qz-erro="renda" hidden>Escolha uma faixa de renda para continuar.</p>
+        </fieldset>
+
+        <!-- Sim/não em vez de faixas de valor: aqui o que interessa é
+             separar quem tem de quem não tem, em um toque. O quanto vem na
+             conversa. "Sim" chega no servidor como 'tem-entrada'. -->
+        <fieldset class="qz__field qz__fieldset">
+          <legend class="qz__label">Tem valor para entrada?</legend>
+          <p class="qz__hint">Vale dinheiro guardado, FGTS ou os dois juntos.</p>
+          <div class="qz__options qz__options--duo">
+            <label class="qz__option"><input type="radio" name="entrada" value="tem-entrada"><span>Sim</span></label>
+            <label class="qz__option"><input type="radio" name="entrada" value="sem-entrada"><span>Não</span></label>
+          </div>
+          <p class="qz__erro" data-qz-erro="entrada" hidden>Responda sim ou não para continuar.</p>
+        </fieldset>
+
+        <fieldset class="qz__field qz__fieldset">
+          <legend class="qz__label">Tem FGTS disponível?</legend>
+          <div class="qz__options qz__options--duo">
+            <label class="qz__option"><input type="radio" name="fgts" value="sim"><span>Sim</span></label>
+            <label class="qz__option"><input type="radio" name="fgts" value="nao"><span>Não</span></label>
+          </div>
+          <p class="qz__erro" data-qz-erro="fgts" hidden>Responda sim ou não para continuar.</p>
+        </fieldset>
       </div>
 
-      <div class="qz__field">
-        <label class="qz__label" for="qz-fone">WhatsApp</label>
-        <input class="qz__input" id="qz-fone" name="telefone" type="tel"
-               inputmode="tel" autocomplete="tel" maxlength="16" required
-               placeholder="(11) 90000-0000">
-        <p class="qz__erro" id="qz-erro-fone" hidden>Informe um celular com DDD, como (11) 98765-4321.</p>
+      <!-- ---------------- FASE 2 — CONTATO ---------------- -->
+      <div class="qz__fase" data-qz-fase="contato" hidden>
+        <div class="qz__field">
+          <label class="qz__label" for="qz-nome">Nome</label>
+          <input class="qz__input" id="qz-nome" name="nome" type="text"
+                 autocomplete="name" maxlength="120" required placeholder="Como podemos te chamar">
+          <p class="qz__erro" id="qz-erro-nome" hidden>Escreva seu nome para continuar.</p>
+        </div>
+
+        <div class="qz__field">
+          <label class="qz__label" for="qz-fone">WhatsApp</label>
+          <input class="qz__input" id="qz-fone" name="telefone" type="tel"
+                 inputmode="tel" autocomplete="tel" maxlength="16" required
+                 placeholder="(11) 90000-0000">
+          <p class="qz__erro" id="qz-erro-fone" hidden>Informe um celular com DDD, como (11) 98765-4321.</p>
+        </div>
+
+        <!-- Armadilha para robô: invisível e fora da ordem de tabulação.
+             Nenhum humano preenche; se vier preenchido, o servidor descarta. -->
+        <div class="qz__hp" aria-hidden="true">
+          <label for="qz-site">Não preencha este campo</label>
+          <input id="qz-site" name="site" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="qz__consent">
+          <input type="checkbox" id="qz-consent" name="consentimento" required>
+          <span>Autorizo o contato e o registro dos meus dados, conforme a <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</span>
+        </label>
+        <p class="qz__erro" id="qz-erro-consent" hidden>Precisamos do seu aceite para registrar o contato.</p>
       </div>
 
-      <fieldset class="qz__field qz__fieldset">
-        <legend class="qz__label">Renda familiar aproximada <span class="qz__opcional">(opcional)</span></legend>
-        <p class="qz__hint">Some a renda de quem vai financiar.</p>
-        <div class="qz__options" id="qz-options"></div>
-      </fieldset>
-
-      <div class="qz__field">
-        <label class="qz__label" for="qz-momento">Quando pretende comprar <span class="qz__opcional">(opcional)</span></label>
-        <select class="qz__input" id="qz-momento" name="momento">
-          <option value="">Prefiro não dizer</option>
-          <option value="agora">Quero comprar agora</option>
-          <option value="ate-3-meses">Nos próximos 3 meses</option>
-          <option value="3-a-6-meses">Entre 3 e 6 meses</option>
-          <option value="mais-para-frente">Mais para frente</option>
-          <option value="pesquisando">Ainda estou pesquisando</option>
-        </select>
+      <div class="qz__acoes">
+        <button type="button" class="qz__voltar" data-qz-voltar hidden>
+          <span aria-hidden="true">&larr;</span> Voltar
+        </button>
+        <button type="button" class="qz__submit" data-qz-continuar>Continuar</button>
+        <button type="submit" class="qz__submit" id="qz-submit" hidden>Falar com um corretor</button>
       </div>
-
-      <!-- Armadilha para robô: invisível e fora da ordem de tabulação.
-           Nenhum humano preenche; se vier preenchido, o servidor descarta. -->
-      <div class="qz__hp" aria-hidden="true">
-        <label for="qz-site">Não preencha este campo</label>
-        <input id="qz-site" name="site" type="text" tabindex="-1" autocomplete="off">
-      </div>
-
-      <label class="qz__consent">
-        <input type="checkbox" id="qz-consent" name="consentimento" required>
-        <span>Autorizo o contato e o registro dos meus dados, conforme a <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</span>
-      </label>
-      <p class="qz__erro" id="qz-erro-consent" hidden>Precisamos do seu aceite para registrar o contato.</p>
-
-      <button type="submit" class="qz__submit" id="qz-submit">Falar com um corretor</button>
     </form>
   </div>
 

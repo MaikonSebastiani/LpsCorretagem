@@ -556,18 +556,24 @@ ul {
   margin-bottom: 20px;
 }
 
-/* Preço e entrada dividem a mesma linha e quebram juntos quando não cabem. */
-.hero__offer {
+/* Condições de compra (antes: preço e entrada). As duas dividem a mesma
+   linha e quebram juntas quando não cabem.
+
+   Renomeado de .hero__offer/.hero__price em 20/09/2026, quando os valores
+   saíram da página. O nome antigo descrevia o conteúdo, não a forma —
+   manter "price" num bloco que não mostra preço é a classe de rastro que
+   faz a próxima pessoa procurar um número que não existe mais. */
+.hero__cond {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin: 0 0 22px;
 }
 
-/* Etiqueta de preço: bloco com filete verde à esquerda, para o valor ser
-   lido de relance mantendo a sobriedade do restante da página (usa o
-   --green-ink já existente, sem cor nova). */
-.hero__price {
+/* Bloco com filete verde à esquerda, para ser lido de relance mantendo a
+   sobriedade do restante da página (usa o --green-ink já existente, sem
+   cor nova). */
+.hero__cond-item {
   flex: 1 1 195px;
   display: flex;
   flex-direction: column;
@@ -579,10 +585,7 @@ ul {
   background: rgba(255, 255, 255, .68);
 }
 
-/* A ressalva precisa viajar junto com a promessa. Em 12px cinza-claro
-   ela sumia ao lado de um número de 25,6px em verde e negrito — e é ela
-   que impede "entrada de R$ 800" de soar como pegadinha. */
-.hero__price-hint {
+.hero__cond-hint {
   margin-top: 4px;
   font-size: .8125rem;
   font-weight: 500;
@@ -590,7 +593,7 @@ ul {
   color: var(--ink);
 }
 
-.hero__price-label {
+.hero__cond-label {
   font-family: var(--font-title);
   font-weight: 600;
   font-size: .8125rem;
@@ -599,20 +602,17 @@ ul {
   color: var(--ink-soft);
 }
 
-.hero__price-value {
+/* Bem menor que o preço que ocupava este lugar (era clamp(1.6rem, …,
+   2.15rem)): ali o conteúdo era um número curto, aqui são três ou quatro
+   palavras. No tamanho antigo "Parcelada durante a obra" tomava três
+   linhas e empurrava o CTA para fora da primeira dobra no celular. */
+.hero__cond-value {
   font-family: var(--font-title);
   font-weight: 700;
-  font-size: clamp(1.6rem, 5.6vw, 2.15rem);
-  line-height: 1.05;
+  font-size: clamp(1.05rem, 3.4vw, 1.3rem);
+  line-height: 1.15;
   letter-spacing: .01em;
   color: var(--green-ink);
-}
-
-.hero__price-value sup {
-  font-size: .42em;
-  margin-left: 2px;
-  vertical-align: super;
-  color: var(--ink-soft);
 }
 
 /* CTA + microcopy andam juntos, como um bloco só de ação. */
@@ -631,14 +631,6 @@ ul {
   letter-spacing: .05em;
   text-transform: uppercase;
   color: var(--green-ink);
-}
-
-/* Aviso de tabela mantida à mão, todo mês — deliberadamente discreto: é
-   reforço de transparência, não uma nova promessa visual como o preço. */
-.hero__updated {
-  margin: 12px 0 0;
-  font-size: .8125rem;
-  color: var(--ink-soft);
 }
 
 /* Texto legal fica no fim do bloco, fora do caminho da leitura principal. */
@@ -944,30 +936,16 @@ ul {
 }
 
 /* =========================== Floor plans =========================== */
-.plans__price {
-  margin: 4px 0 10px;
+/* Substituiu .plans__price ("a partir de R$ 255 mil") em 20/09/2026. Texto
+   corrido em vez de valor em destaque: a linha agora explica o critério de
+   escolha, e não é mais o elemento que o olho procura primeiro. */
+.plans__lead {
+  max-width: 62ch;
+  margin: 4px auto 22px;
   text-align: center;
-  font-family: var(--font-title);
-  font-size: 1.0625rem;
-  letter-spacing: .02em;
+  font-size: .9375rem;
+  line-height: 1.55;
   color: var(--ink-soft);
-}
-
-.plans__price strong {
-  font-weight: 700;
-  color: var(--green-ink);
-}
-
-.plans__price sup {
-  font-size: .6em;
-  color: var(--ink-soft);
-}
-
-.plans__price-note {
-  margin: 0 0 18px;
-  text-align: center;
-  font-size: .75rem;
-  color: #8B928C;
 }
 
 .badge-line {
@@ -1296,8 +1274,79 @@ ul {
   color: #B3261E;
 }
 
+/* O atributo `hidden` só esconde porque o navegador aplica display:none —
+   e QUALQUER display declarado na folha vence essa regra. Como .qz__fase é
+   grid e .qz__submit é flex, sem esta linha o atributo não surtia efeito: a
+   fase 2 aparecia embaixo da fase 1, e "Continuar" e "Falar com um corretor"
+   apareciam juntos no rodapé. Escopo em .qz para não vazar para a página. */
+.qz [hidden] { display: none !important; }
+
+/* Fases do formulário. Cada uma herda o mesmo empilhamento do .qz__form,
+   senão os campos dentro dela colariam uns nos outros. */
+.qz__fase { display: grid; gap: 15px; }
+
+/* Trilha de progresso: duas barras. Some da leitura (aria-hidden no HTML)
+   porque quem usa leitor de tela recebe a mesma informação pelo
+   .qz__sr, em texto. */
+.qz__steps {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+
+.qz__steps span {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background-color .25s ease;
+}
+
+.qz__steps span[data-estado='atual'],
+.qz__steps span[data-estado='feito'] { background: var(--urban-green); }
+
+/* Anúncio de troca de fase, só para leitor de tela. */
+.qz__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Voltar à esquerda, avançar à direita. Sem o botão Voltar (fase 1) o
+   `margin-left: auto` do irmão joga o avanço para a direita sozinho. */
+.qz__acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.qz__acoes .qz__submit { flex: 1 1 auto; margin-left: auto; }
+
+.qz__voltar {
+  flex: none;
+  padding: 10px 4px;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-family: var(--font-text);
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.qz__voltar:hover { color: var(--ink); }
+
 /* Renda: radios que parecem os selos de antes. */
 .qz__options { display: grid; gap: 8px; }
+
+/* Sim/não lado a lado: duas opções empilhadas ocupam altura à toa e fazem
+   uma pergunta binária parecer uma lista. */
+.qz__options--duo { grid-template-columns: 1fr 1fr; }
 
 .qz__option {
   display: flex;
@@ -1898,24 +1947,9 @@ html.qz-open body { overflow: hidden; }
 
 .final-cta .title { margin-bottom: 16px; }
 
-.final-cta__price {
-  margin: 0 0 22px;
-  font-family: var(--font-title);
-  font-size: clamp(1.4rem, 5vw, 1.9rem);
-  color: #C9CFCA;
-}
-
-.final-cta__price strong {
-  font-weight: 700;
-  color: var(--urban-green);
-}
-
-.final-cta__price sup {
-  font-size: .6em;
-  color: #C9CFCA;
-}
-
-.final-cta .btn { margin-top: 10px; }
+/* .final-cta__price saiu em 20/09/2026, junto dos valores. A margem que
+   ele dava entre o texto e o botão passou para o próprio botão. */
+.final-cta .btn { margin-top: 22px; }
 
 .final-cta__micro {
   margin: 14px 0 0;

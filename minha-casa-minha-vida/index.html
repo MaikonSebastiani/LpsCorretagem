@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grupo Saitama | Apartamento pelo Minha Casa Minha Vida em São Paulo</title>
+  <meta name="description" content="Descubra quais apartamentos cabem na sua renda. Comparamos os principais lançamentos Minha Casa Minha Vida em São Paulo de acordo com sua renda, entrada e região. Análise sem custo e sem compromisso.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#fcf8f2">
+
+  <!-- A página é servida em DOIS endereços: a raiz do domínio (o worker
+       reescreve "/" para /minha-casa-minha-vida/, e a URL que o visitante
+       vê continua sendo "/") e o caminho do repositório. O canonical
+       aponta sempre para a raiz, então o Google trata o segundo como
+       cópia do primeiro. -->
+  <link rel="canonical" href="https://gruposaitama.com.br/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Grupo Saitama">
+  <meta property="og:title" content="Descubra quais apartamentos cabem na sua renda">
+  <meta property="og:description" content="Comparamos os principais lançamentos Minha Casa Minha Vida em São Paulo de acordo com sua renda, entrada e região.">
+  <meta property="og:url" content="https://gruposaitama.com.br/">
+
+  <!-- FALTA: og:image — JPEG 1200x630 em assets/images/og-image.jpg (a
+       prévia do WhatsApp é instável com WebP, por isso JPEG). Quando o
+       arquivo existir, basta descomentar:
+       <meta property="og:image" content="https://gruposaitama.com.br/minha-casa-minha-vida/assets/images/og-image.jpg">
+       <meta property="og:image:width" content="1200">
+       <meta property="og:image:height" content="630">
+       <meta property="og:image:alt" content="Apartamentos em São Paulo pelo Minha Casa Minha Vida">
+       Sem elas o WhatsApp mostra só título, descrição e domínio: prévia
+       mais pobre, mas correta. -->
+
+  <link rel="icon" href="/minha-casa-minha-vida/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/minha-casa-minha-vida/assets/css/styles.css">
+
+  <!-- A arte do hero é o maior elemento da primeira dobra: o LCP. O
+       preload aponta para o AVIF, que é o que praticamente todo navegador
+       atual escolhe no srcset — sem ele o download só começaria depois de
+       o CSS ser lido.
+
+       São DOIS preloads com `media` porque a arte tem recorte próprio de
+       celular: no desktop a metade esquerda é o creme onde o texto e o
+       formulário se apoiam; no celular esse creme seria área morta e a
+       versão exibida é só a família. Sem o `media`, o celular baixaria as
+       duas. O corte é 860px, o mesmo do CSS. -->
+  <link rel="preload" as="image" type="image/avif" media="(min-width: 861px)"
+        href="/minha-casa-minha-vida/assets/images/hero-fam-1900.avif"
+        imagesrcset="/minha-casa-minha-vida/assets/images/hero-fam-1400.avif 1400w, /minha-casa-minha-vida/assets/images/hero-fam-1900.avif 1900w, /minha-casa-minha-vida/assets/images/hero-fam-2562.avif 2562w"
+        imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="(max-width: 860px)"
+        href="/minha-casa-minha-vida/assets/images/hero-fam-mob-560.avif"
+        imagesrcset="/minha-casa-minha-vida/assets/images/hero-fam-mob-560.avif 560w, /minha-casa-minha-vida/assets/images/hero-fam-mob-840.avif 840w"
+        imagesizes="100vw" fetchpriority="high">
+
+  <!-- Caminhos ABSOLUTOS em todo o arquivo, e isto NÃO é preferência de
+       estilo: a mesma página responde em "/" e em
+       "/minha-casa-minha-vida/". Um caminho relativo funcionaria em um dos
+       dois endereços e quebraria no outro, em silêncio — a home ficaria
+       sem CSS e sem formulário. -->
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual ao resto
+       do site. Nos relatórios, esta página se separa pelo caminho.
+
+       AQUI, E SÓ AQUI, o <script src> não entra direto no HTML — ele é
+       injetado por JS, atrasado. Motivo (achado no PageSpeed em
+       13/09/2026, mobile): esta home é a única página que virou home do
+       domínio inteiro, e é a mais cobrada por velocidade de abertura. As
+       DUAS tags (GA4 + Ads, cada id busca a própria config) somavam
+       341 KB, 134 KB dos quais nunca usados na carga — no Moto G / 4G
+       lento do teste, essa rede e essa CPU disputavam com a própria
+       pintura do título (LCP: 5,6s, 3 tarefas longas na thread principal).
+
+       O shim de gtag() abaixo continua rodando de cara, IGUAL às outras
+       páginas: toda chamada só enfileira em dataLayer. Nenhum evento se
+       perde — o gtag.js de verdade, quando chega, esvazia essa fila do
+       jeito que sempre esvaziou. O que muda é SÓ o instante em que a
+       rede busca os 341 KB: depois que a página já pintou, não antes. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VF9K820XDQ');
+    gtag('config', 'AW-18388777321');
+
+    (function () {
+      var carregado = false;
+      function carregarGtag() {
+        if (carregado) return;
+        carregado = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ';
+        document.head.appendChild(s);
+      }
+      /* "load" é o sinal de que a primeira dobra já está resolvida — é
+         o momento certo para começar a brigar por rede e CPU. Mas
+         analytics não pode ficar hostage de um "load" que demora (imagem
+         grande, 3G real de verdade): 3s de rede de segurança, o que for
+         mais rápido dispara primeiro. */
+      if (document.readyState === 'complete') carregarGtag();
+      else window.addEventListener('load', carregarGtag);
+      window.setTimeout(carregarGtag, 3000);
+    })();
+  </script>
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+<!-- =================== Sprite de ícones (SVG inline) ===================
+     Inline em vez de arquivo: são poucos ícones e um sprite externo
+     custaria uma requisição na frente do LCP. Todos usam stroke e herdam
+     a cor do texto — ver a regra .ico no CSS. -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.2S18.8 15 18.8 10a6.8 6.8 0 1 0-13.6 0c0 5 6.8 11.2 6.8 11.2Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-predio" viewBox="0 0 24 24"><path d="M3.5 20.5V8.8l6-3.3v15M9.5 20.5h11V11l-11-2.2M20.5 20.5h-17"/><path d="M12.4 12.2h.01M15.6 12.2h.01M12.4 15.6h.01M15.6 15.6h.01"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="6.4"/><path d="m15.4 15.4 4.4 4.4"/><path d="m8.2 10.7 1.8 1.8 3.2-3.4"/></symbol>
+  <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.2 2"/></symbol>
+  <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.6"/><path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.4 12.2 2.4 2.4 4.8-4.8"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.6c0 4.3-2.9 7.6-7 9.2-4.1-1.6-7-4.9-7-9.2V6z"/><path d="m9.2 12 2 2 3.6-3.8"/></symbol>
+  <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3.6" y="5.4" width="16.8" height="15" rx="2.4"/><path d="M3.6 10h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/><path d="m9.4 14.6 1.8 1.8 3.4-3.6"/></symbol>
+  <symbol id="i-balanca" viewBox="0 0 24 24"><path d="M12 4.4v15.2M6.6 19.6h10.8"/><path d="M4 9.4h7M13 9.4h7"/><path d="M7.5 9.4 5 14.6h5zM16.5 9.4 14 14.6h5z"/></symbol>
+  <symbol id="i-aperto" viewBox="0 0 24 24"><path d="M3.4 12.4 8 7.8l3.3 2.6a2 2 0 0 0 2.5 0l1.3-1"/><path d="m20.6 12.4-4.3-4.6-2.4 1.4"/><path d="m11 14.4 2 2M8.8 16.2l1.6 1.6M13.4 12.6l2.2 2.2"/></symbol>
+  <symbol id="i-planta" viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="2"/><path d="M3.6 13.8h7.6V3.6M11.2 13.8h9.2M15.6 13.8v6.6"/></symbol>
+  <symbol id="i-varanda" viewBox="0 0 24 24"><path d="M4 20.4V11l8-6.4 8 6.4v9.4"/><path d="M4 15.6h16M9 15.6v4.8M15 15.6v4.8"/></symbol>
+  <symbol id="i-lazer" viewBox="0 0 24 24"><path d="M3.4 17.4c1.6 0 1.6 1.4 3.2 1.4s1.6-1.4 3.2-1.4 1.6 1.4 3.2 1.4 1.6-1.4 3.2-1.4 1.6 1.4 3.2 1.4"/><path d="M8.6 15.2V6.4a2.2 2.2 0 0 1 4.4 0M15 15.2V6.4a2.2 2.2 0 0 1 4.4 0"/><path d="M8.6 9.6H15M8.6 12.6H15"/></symbol>
+  <symbol id="i-mapa" viewBox="0 0 24 24"><path d="m3.6 6.6 5.4-2.2 6 2.2 5.4-2.2v12.8l-5.4 2.2-6-2.2-5.4 2.2z"/><path d="M9 4.4v14.8M15 6.6v12.8"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4.6 12h14.4M13.8 6.6 19.4 12l-5.6 5.4"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v5M12 16.2h.01"/></symbol>
+  <symbol id="i-cadeado" viewBox="0 0 24 24"><rect x="5" y="10.4" width="14" height="9.6" rx="2.2"/><path d="M8.2 10.4V7.8a3.8 3.8 0 0 1 7.6 0v2.6"/></symbol>
+</svg>
+
+<!-- Ícone do WhatsApp, sólido: fica FORA do sprite acima porque usa fill
+     em vez de stroke. Dentro dele herdaria o traço dos outros e sairia
+     como contorno vazado — ver .ico--solido no CSS. -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.2.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .6-.3 1.2Z"/></symbol>
+</svg>
+
+<header class="topo">
+  <div class="container topo__inner">
+    <a class="marca" href="/" aria-label="Grupo Saitama, início da página">
+      <strong>Grupo</strong>
+      <span>Saitama</span>
+    </a>
+
+    <!-- O botão do menu vem ANTES do <nav> no HTML para a ordem de
+         tabulação fazer sentido: quem navega por teclado abre o menu e
+         cai direto no primeiro link dele. -->
+    <button class="menu-toggle" type="button" aria-label="Abrir menu"
+            aria-expanded="false" aria-controls="menu-principal">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="topo__nav" id="menu-principal" aria-label="Navegação principal">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#mcmv">Minha Casa Minha Vida</a>
+      <a href="#apartamento">O apartamento</a>
+      <a href="#faq">Dúvidas</a>
+      <!-- Quando a seção de depoimentos for ativada (ver o comentário
+           acima dela), acrescentar aqui: <a href="#depoimentos">Depoimentos</a> -->
+
+      <!-- CTA dentro do painel, só no celular: lá o botão do cabeçalho
+           some para não brigar com a marca, e menu aberto sem caminho de
+           conversão é beco sem saída. -->
+      <a class="btn btn--principal topo__nav-cta js-ir-perfil" data-source="mobile_menu" href="#inicio">
+        Ver o que cabe na minha renda
+        <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+      </a>
+    </nav>
+
+    <a class="btn btn--principal btn--pequeno js-ir-perfil" data-source="header" href="#inicio">
+      Ver o que cabe na minha renda
+      <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+    </a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ======================= 1. HERO =======================
+       O título fala de RENDA, não de empreendimento. Quem chega por este
+       anúncio não sabe o nome de nenhum lançamento — sabe quanto ganha, e
+       a dúvida é se isso é suficiente. Nomear um prédio aqui definiria o
+       tamanho da oferta antes da hora.
+
+       Sem preço e sem "a partir de" de propósito: esta página não vende
+       uma unidade, ela qualifica um perfil. Valor é conversa da tabela
+       vigente, que muda; publicar aqui criaria mais um lugar para
+       envelhecer. Ver o README. -->
+  <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+    <!-- A foto cobre o hero inteiro. O texto fica à esquerda, sobre o véu
+         creme (.hero__veu) que garante a legibilidade, e o formulário à
+         direita: a família aparece no vão entre os dois, que é o motivo
+         de a arte ser um banner largo em vez de quadrada.
+
+         A foto é uma família real na frente de um empreendimento de
+         aparência ACESSÍVEL, não uma torre de alto padrão: quem chega
+         por este anúncio precisa se reconhecer na imagem. A torre
+         anterior dizia o contrário e saiu por isso.
+
+         É o LCP, então entra como <img> dentro de <picture>, nunca como
+         background-image: background só começa a baixar depois do CSS e
+         não aceita fetchpriority.
+
+         alt vazio de propósito: a foto é ambientação, não conteúdo.
+         Descrevê-la faria o leitor de tela anunciar um empreendimento que
+         esta página não está vendendo. -->
+    <picture class="hero__arte">
+      <source type="image/avif" media="(max-width: 860px)"
+              srcset="/minha-casa-minha-vida/assets/images/hero-fam-mob-560.avif 560w, /minha-casa-minha-vida/assets/images/hero-fam-mob-840.avif 840w"
+              sizes="100vw">
+      <source type="image/webp" media="(max-width: 860px)"
+              srcset="/minha-casa-minha-vida/assets/images/hero-fam-mob-560.webp 560w, /minha-casa-minha-vida/assets/images/hero-fam-mob-840.webp 840w"
+              sizes="100vw">
+      <source type="image/avif"
+              srcset="/minha-casa-minha-vida/assets/images/hero-fam-1400.avif 1400w, /minha-casa-minha-vida/assets/images/hero-fam-1900.avif 1900w, /minha-casa-minha-vida/assets/images/hero-fam-2562.avif 2562w"
+              sizes="100vw">
+      <img src="/minha-casa-minha-vida/assets/images/hero-fam-1900.webp"
+           srcset="/minha-casa-minha-vida/assets/images/hero-fam-1400.webp 1400w, /minha-casa-minha-vida/assets/images/hero-fam-1900.webp 1900w, /minha-casa-minha-vida/assets/images/hero-fam-2562.webp 2562w"
+           sizes="100vw" width="2562" height="756" alt=""
+           fetchpriority="high" decoding="async">
+    </picture>
+    <span class="hero__veu" aria-hidden="true"></span>
+
+    <div class="container hero__grade">
+      <div class="hero__texto">
+        <p class="hero__selo">
+          <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
+          São Paulo
+        </p>
+
+        <h1 class="hero__titulo" id="hero-titulo">
+          Descubra quais apartamentos <em class="ouro">cabem na sua renda.</em>
+        </h1>
+
+        <p class="hero__sub">
+          Comparamos os principais lançamentos Minha Casa Minha Vida em São
+          Paulo de acordo com sua renda, entrada e região.
+        </p>
+
+      </div>
+
+      <!-- Selos e ressalva ficam num bloco à parte, e não dentro do
+           .hero__texto, por causa do celular: lá a ordem tem de ser
+           headline → formulário → selos, e com eles presos ao texto o
+           formulário só poderia vir depois deles. Na grade do desktop
+           este bloco volta para baixo do texto, na mesma coluna. -->
+      <div class="hero__pe">
+        <ul class="hero__selos">
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+            Análise sem custo
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+            Sem compromisso
+          </li>
+          <li>
+            <svg class="ico ico--solido" aria-hidden="true"><use href="#i-zap"></use></svg>
+            Atendimento no WhatsApp
+          </li>
+        </ul>
+
+        <p class="hero__nota">
+          Disponibilidade, valores e condições comerciais mudam conforme a
+          tabela vigente e dependem de análise de crédito.
+        </p>
+      </div>
+
+      <!-- ============ O FORMULÁRIO, DENTRO DA PRIMEIRA DOBRA ============
+           Ele fica AQUI, e não numa seção mais abaixo, porque cada
+           clique entre a pessoa e a primeira pergunta é abandono. No
+           desktop ele ocupa a coluna do texto, ao lado da foto; no
+           celular vem logo depois da headline (ver .hero__texto no
+           CSS). Não existe CTA de hero separado: o próprio formulário
+           é a ação.
+
+           O <dialog> é o único DOM do formulário — não existem dois
+           quiz. Aqui ele fica com o atributo `open` de fábrica e se
+           comporta como um bloco comum. Os CTAs mais abaixo na página
+           (cabeçalho, MCMV, fechamento, barra fixa) reabrem ESTE mesmo
+           formulário como modal no celular, preservando o que já foi
+           respondido — ver "Modal do formulário" no main.js.
+
+           Sem JavaScript o atributo nunca é removido: o formulário
+           continua visível aqui, dentro da página. -->
+      <dialog class="modal-perfil" id="modal-perfil" aria-labelledby="hero-titulo" open>
+        <button class="modal-perfil__fechar" type="button" data-fechar-perfil aria-label="Fechar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"/></svg>
+        </button>
+
+        <!-- novalidate: a validação nativa do navegador mostra balões
+             com texto do sistema, em idioma que não é necessariamente o
+             da página. Quem valida é o main.js, com mensagem escrita
+             aqui — e o servidor de novo, porque o corpo pode vir de
+             qualquer lugar.
+
+             TRÊS etapas, não cinco. Agrupar duas perguntas por etapa faz
+             o formulário PARECER menor, que é o que trava o
+             preenchimento — e por isso as opções viram fichas que
+             quebram em linha, em vez de botões de largura inteira: com
+             11 botões empilhados a etapa 1 não caberia na dobra.
+
+             Os valores espelham as listas fechadas de worker/config.js
+             (RENDAS, ENTRADAS, REGIOES, MOMENTOS). O servidor só aceita
+             valor que esteja lá: se mexer numa lista aqui, confira o
+             arquivo. -->
+        <form class="quiz" data-quiz novalidate>
+          <div class="quiz__trilha">
+            <span class="quiz__numero" data-passo-numero>1</span>
+            <span class="quiz__conta">Etapa <strong data-passo-atual>1</strong> de 3</span>
+            <span class="quiz__barras" aria-hidden="true">
+              <span class="quiz__passo" data-trilha></span>
+              <span class="quiz__passo" data-trilha></span>
+              <span class="quiz__passo" data-trilha></span>
+            </span>
+          </div>
+
+          <!-- Anúncio para leitor de tela. aria-live="polite" em vez de
+               mover o foco: roubar o foco a cada resposta faria a
+               leitura recomeçar do zero. -->
+          <p class="armadilha" role="status" aria-live="polite" data-anuncio></p>
+
+          <!-- ---------- Etapa 1: perfil ---------- -->
+          <div class="quiz__tela" data-tela="perfil">
+            <div class="quiz__grupo" data-campo="renda">
+              <p class="quiz__rotulo" id="q-renda">Qual é a renda familiar mensal?</p>
+              <div class="quiz__chips" role="radiogroup" aria-labelledby="q-renda" aria-describedby="erro-renda">
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="ate-3200">Até R$ 3.200</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="3200-5000">R$ 3.201 a 5.000</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="5000-9600">R$ 5.001 a 9.600</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="9600-13000">R$ 9.601 a 13.000</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="acima-13000">Acima de R$ 13.000</button>
+                <!-- Continua existindo por honestidade — tem gente que não
+                     quer dizer — mas agora É PRECISO escolher esta opção
+                     explicitamente para avançar; não dá mais para pular a
+                     pergunta sem tocar em nada (ver [data-continuar] no
+                     main.js). Todo campo do formulário passou a ser
+                     obrigatório em 14/09/2026, a pedido. -->
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="nao-informado">Prefiro não dizer</button>
+              </div>
+              <p class="erro" id="erro-renda" data-erro-de="renda" hidden></p>
+            </div>
+
+            <div class="quiz__grupo" data-campo="entrada">
+              <p class="quiz__rotulo" id="q-entrada">Quanto tem para a entrada?</p>
+              <p class="quiz__ajuda">Vale dinheiro guardado e FGTS.</p>
+              <div class="quiz__chips" role="radiogroup" aria-labelledby="q-entrada" aria-describedby="erro-entrada">
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="sem-entrada">Ainda não tenho</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="ate-5k">Até R$ 5 mil</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="5k-15k">R$ 5 a 15 mil</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="15k-30k">R$ 15 a 30 mil</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="acima-30k">Acima de R$ 30 mil</button>
+              </div>
+              <p class="erro" id="erro-entrada" data-erro-de="entrada" hidden></p>
+            </div>
+
+            <button class="btn btn--principal btn--largo" type="button" data-continuar>
+              Continuar
+              <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+            </button>
+          </div>
+
+          <!-- ---------- Etapa 2: preferências ---------- -->
+          <div class="quiz__tela" data-tela="preferencias" hidden>
+            <div class="quiz__grupo" data-campo="regiao">
+              <p class="quiz__rotulo" id="q-regiao">Em qual região de São Paulo?</p>
+              <div class="quiz__chips" role="radiogroup" aria-labelledby="q-regiao" aria-describedby="erro-regiao">
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="zona-norte">Zona Norte</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="zona-sul">Zona Sul</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="zona-leste">Zona Leste</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="zona-oeste">Zona Oeste</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="centro">Centro</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="nao-sei">Ainda não sei</button>
+              </div>
+              <p class="erro" id="erro-regiao" data-erro-de="regiao" hidden></p>
+            </div>
+
+            <div class="quiz__grupo" data-campo="momento">
+              <p class="quiz__rotulo" id="q-momento">Quando pretende comprar?</p>
+              <div class="quiz__chips" role="radiogroup" aria-labelledby="q-momento" aria-describedby="erro-momento">
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="agora">O quanto antes</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="ate-3-meses">Até 3 meses</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="3-a-6-meses">3 a 6 meses</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="mais-para-frente">Mais para frente</button>
+                <button class="opcao" type="button" role="radio" aria-checked="false" data-valor="pesquisando">Só pesquisando</button>
+              </div>
+              <p class="erro" id="erro-momento" data-erro-de="momento" hidden></p>
+            </div>
+
+            <button class="btn btn--principal btn--largo" type="button" data-continuar>
+              Continuar
+              <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+            </button>
+          </div>
+
+          <!-- ---------- Etapa 3: contato ---------- -->
+          <div class="quiz__tela quiz__tela--dados" data-tela="contato" role="group" aria-labelledby="q-contato" hidden>
+            <p class="quiz__rotulo" id="q-contato">Para onde mandamos as opções?</p>
+            <p class="quiz__ajuda">Sem consulta ao seu CPF e sem documento agora.</p>
+
+            <label class="campo">
+              <span>Seu nome</span>
+              <input type="text" name="nome" autocomplete="given-name" enterkeyhint="next"
+                     aria-describedby="erro-nome" required>
+            </label>
+            <p class="erro" id="erro-nome" data-erro-de="nome" hidden></p>
+
+            <label class="campo">
+              <span>Seu WhatsApp</span>
+              <input type="tel" name="telefone" inputmode="numeric" autocomplete="tel-national"
+                     placeholder="(11) 98765-4321" enterkeyhint="done"
+                     aria-describedby="erro-telefone" required>
+            </label>
+            <p class="erro" id="erro-telefone" data-erro-de="telefone" hidden></p>
+
+            <!-- Armadilha para robô: invisível para gente, preenchível
+                 para script. O servidor responde 204 quando vem
+                 preenchida, como se tivesse gravado, para não ensinar o
+                 robô. -->
+            <div class="armadilha" aria-hidden="true">
+              <label>Não preencha este campo
+                <input type="text" name="site" tabindex="-1" autocomplete="off">
+              </label>
+            </div>
+
+            <label class="aceite">
+              <input type="checkbox" name="consentimento" value="sim" aria-describedby="erro-consentimento">
+              <span>Autorizo o contato por WhatsApp sobre imóveis que se
+                encaixem no meu perfil.
+                <a href="/privacidade/">Política de privacidade</a>.</span>
+            </label>
+            <p class="erro" id="erro-consentimento" data-erro-de="consentimento" hidden></p>
+
+            <button class="btn btn--principal btn--largo" type="submit" data-enviar>
+              Ver minhas opções agora
+              <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+            </button>
+          </div>
+
+          <!-- ---------- Saídas ---------- -->
+          <div class="quiz__tela quiz__saida" data-tela="pronto" hidden>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <h2>Recebemos as suas informações</h2>
+            <p data-mensagem-pronto>
+              Vamos comparar os lançamentos disponíveis para o seu perfil,
+              verificar quais condições do Minha Casa Minha Vida se aplicam
+              ao seu caso e chamamos você no WhatsApp.
+            </p>
+            <p class="quiz__seguro">
+              <svg class="ico" aria-hidden="true"><use href="#i-relogio"></use></svg>
+              Costumamos responder no mesmo dia, em horário comercial.
+            </p>
+          </div>
+
+          <!-- Este formulário é o fim do caminho: não existe WhatsApp
+               abrindo atrás para salvar o contato. Se a gravação falhar,
+               a pessoa PRECISA saber — e ter como tentar de novo. -->
+          <div class="quiz__tela quiz__saida quiz__saida--erro" data-tela="erro" hidden>
+            <svg class="ico" aria-hidden="true"><use href="#i-alerta"></use></svg>
+            <h2>Não conseguimos enviar</h2>
+            <p>Pode ter sido a conexão. Tente de novo — os seus dados continuam preenchidos.</p>
+            <button class="btn btn--fantasma" type="button" data-tentar>Tentar novamente</button>
+          </div>
+
+          <div class="quiz__rodape">
+            <button class="quiz__voltar" type="button" data-voltar hidden>Voltar</button>
+            <p class="quiz__seguro quiz__seguro--inline">
+              <svg class="ico" aria-hidden="true"><use href="#i-cadeado"></use></svg>
+              Seus dados estão seguros
+            </p>
+          </div>
+        </form>
+      </dialog>
+    </div>
+  </section>
+
+  <!-- ======================= 2. FAIXA DE CONFIANÇA =======================
+       Logo abaixo da dobra, respondendo as três objeções que aparecem na
+       cabeça de quem acabou de ver um formulário pedindo renda: "isso vai
+       sujar meu nome?", "para onde vão meus dados?" e "vou cair num robô?".
+       Vem DEPOIS do formulário de propósito: quem já começou a preencher
+       não precisa da resposta; quem hesitou, sim. -->
+  <section class="confianca" aria-label="Como tratamos os seus dados">
+    <div class="container confianca__grade">
+      <div class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-cadeado"></use></svg>
+        <p>
+          <strong>Sem consulta ao CPF agora</strong>
+          Você informa seus dados sem nenhum impacto no seu score.
+        </p>
+      </div>
+      <div class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+        <p>
+          <strong>Seus dados ficam protegidos</strong>
+          Uso exclusivo da nossa equipe, nunca repassados a terceiros.
+        </p>
+      </div>
+      <div class="confianca__item">
+        <svg class="ico" aria-hidden="true"><use href="#i-usuario"></use></svg>
+        <p>
+          <strong>Atendimento direto com consultor</strong>
+          Você fala com uma pessoa, não com uma central.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 3. COMO FUNCIONA ======================= -->
+  <section class="secao secao--clara" id="como-funciona" aria-labelledby="como-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <div>
+          <p class="sobrescrito">Como funciona</p>
+          <h2 class="titulo" id="como-titulo">Um processo simples <em class="ouro">e sem complicação</em></h2>
+        </div>
+        <p class="apoio">
+          Do primeiro contato até a visita, acompanhamos você em todas as
+          etapas para que encontre o apartamento certo, sem perder tempo.
+        </p>
+      </div>
+
+      <div class="passos">
+        <div class="passo">
+          <p class="passo__n">1</p>
+          <h3>Você nos conta seu perfil</h3>
+          <p>Renda, entrada, região e o que procura.</p>
+        </div>
+        <div class="passo">
+          <p class="passo__n">2</p>
+          <h3>Comparamos as opções</h3>
+          <p>Analisamos os lançamentos que realmente se encaixam na sua realidade.</p>
+        </div>
+        <div class="passo">
+          <p class="passo__n">3</p>
+          <h3>Você visita o que faz sentido</h3>
+          <p>Agendamos somente os empreendimentos compatíveis com o seu perfil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 4. POR QUE CONOSCO ======================= -->
+  <section class="secao" id="seguranca" aria-labelledby="seguranca-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <div>
+          <p class="sobrescrito">Por que fazer essa busca conosco</p>
+          <h2 class="titulo" id="seguranca-titulo">Mais segurança, <em class="ouro">menos dor de cabeça</em></h2>
+        </div>
+        <p class="apoio">
+          Você não precisa procurar sozinho nem perder tempo em dezenas de
+          sites. Nós fazemos essa análise para você.
+        </p>
+      </div>
+
+      <div class="vantagens">
+        <div class="vantagem">
+          <svg class="ico" aria-hidden="true"><use href="#i-relogio"></use></svg>
+          <h3>Economia de tempo</h3>
+          <p>Você recebe apenas opções que fazem sentido.</p>
+        </div>
+        <div class="vantagem">
+          <svg class="ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+          <h3>Análise de perfil</h3>
+          <p>Verificamos renda, entrada e condições antes de indicar um imóvel.</p>
+        </div>
+        <div class="vantagem">
+          <svg class="ico" aria-hidden="true"><use href="#i-balanca"></use></svg>
+          <h3>Comparação de lançamentos</h3>
+          <p>Comparamos diferentes lançamentos disponíveis para você.</p>
+        </div>
+        <div class="vantagem">
+          <svg class="ico" aria-hidden="true"><use href="#i-aperto"></use></svg>
+          <h3>Acompanhamento completo</h3>
+          <p>Do primeiro atendimento até a visita e a assinatura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 5. MINHA CASA MINHA VIDA =======================
+       O que a página pode e não pode afirmar aqui:
+
+       - "Subsídio de até dezenas de milhares de reais" é descrição do
+         programa, não promessa: o valor depende de renda, região e da
+         faixa vigente, e muda por portaria. NÃO trocar por um número
+         cravado — ele envelhece sozinho e vira promessa quebrada.
+       - Nada de "você tem direito a X". Enquadramento é decisão do agente
+         financeiro, e a página diz isso na última linha da lista e no FAQ.
+       - As condições do programa mudam. Se uma regra mudar, a lista aqui
+         e a resposta correspondente no FAQ mudam JUNTAS. -->
+  <section class="secao mcmv" id="mcmv" aria-labelledby="mcmv-titulo">
+    <div class="container mcmv__grade">
+      <div>
+        <p class="sobrescrito">Minha Casa Minha Vida</p>
+        <h2 class="titulo" id="mcmv-titulo">Sua renda pode abrir <em class="ouro">mais possibilidades</em></h2>
+        <p class="apoio">
+          O Minha Casa Minha Vida pode oferecer condições específicas de
+          financiamento, subsídio e uso do FGTS, dependendo do seu perfil.
+        </p>
+
+        <ul class="lista-check">
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span><strong>Subsídio</strong> que pode reduzir o valor financiado</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span><strong>Uso do FGTS</strong> na entrada ou para abater a parcela</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span><strong>Composição de renda</strong>, mesmo sem grau de parentesco</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span><strong>Taxas de juros</strong> mais baixas que as do mercado</span>
+          </li>
+          <li>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span>Cada condição depende da <strong>faixa de renda</strong> e da análise do banco</span>
+          </li>
+        </ul>
+
+        <a class="btn btn--principal js-ir-perfil" data-source="mcmv" href="#inicio">
+          Entenda se você se enquadra
+          <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+        </a>
+      </div>
+
+      <div class="mcmv__selo">
+        <img src="/minha-casa-minha-vida/assets/images/logo-mcmv.webp"
+             width="340" height="340" loading="lazy" decoding="async"
+             alt="Minha Casa Minha Vida, programa habitacional do Governo Federal">
+        <p><strong>Condições que aproximam</strong> você do seu novo lar.</p>
+      </div>
+
+      <!-- A foto de família que ficava aqui saiu quando o hero passou a
+           ter a sua própria: eram pessoas diferentes em fotos parecidas,
+           na mesma página, e a repetição chamava mais atenção do que
+           qualquer uma das duas. O selo do programa sozinho já dá o
+           reconhecimento visual que esta seção precisa. -->
+    </div>
+  </section>
+
+  <!-- ======================= 6. O APARTAMENTO =======================
+       Critérios, não vitrine. Card com nome e foto de empreendimento
+       definiria o tamanho da oferta na cabeça de quem lê — quem procura a
+       Zona Leste concluiria "não tem o que eu quero" e sairia — e lista
+       publicada envelhece a cada tabela. Mesma decisão da LP de
+       investidores; ver o README antes de reintroduzir cards. -->
+  <section class="secao secao--clara" id="apartamento" aria-labelledby="apartamento-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <div>
+          <p class="sobrescrito">O apartamento do seu jeito</p>
+          <h2 class="titulo" id="apartamento-titulo">
+            Não começamos pelo empreendimento. <em class="ouro">Começamos pelo que você precisa.</em>
+          </h2>
+        </div>
+        <p class="apoio">
+          Dois dormitórios, varanda, vaga, perto do metrô ou em uma região
+          específica? Encontramos as opções que se encaixam no seu
+          objetivo.
+        </p>
+      </div>
+
+      <div class="criterios">
+        <div class="criterio">
+          <svg class="ico" aria-hidden="true"><use href="#i-planta"></use></svg>
+          <h3>2 dormitórios</h3>
+          <p>Conforto para você e sua família.</p>
+        </div>
+        <div class="criterio">
+          <svg class="ico" aria-hidden="true"><use href="#i-varanda"></use></svg>
+          <h3>Com varanda</h3>
+          <p>Mais qualidade de vida no dia a dia.</p>
+        </div>
+        <div class="criterio">
+          <svg class="ico" aria-hidden="true"><use href="#i-lazer"></use></svg>
+          <h3>Lazer completo</h3>
+          <p>Para aproveitar sem sair de casa.</p>
+        </div>
+        <div class="criterio">
+          <svg class="ico" aria-hidden="true"><use href="#i-mapa"></use></svg>
+          <h3>Em várias regiões de SP</h3>
+          <p>Zona Norte, Sul, Leste, Oeste e Centro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 7. DEPOIMENTOS =======================
+       OCULTA ATÉ EXISTIR CONTEÚDO REAL. Os nomes abaixo são marcadores,
+       não clientes: publicar depoimento inventado é propaganda enganosa e
+       destrói exatamente a confiança que a seção existe para construir.
+
+       Para ativar, na ordem:
+       1. Colete de 2 a 3 casos reais (o PADRAO-LP.md pede o mínimo de 2 —
+          com um só, a página lê como "eles têm exatamente um cliente").
+       2. Cada caso precisa de AUTORIZAÇÃO DE USO DE IMAGEM POR ESCRITO,
+          assinada junto com o resto da papelada. Verbal não sustenta.
+       3. Troque as três frases, os nomes (primeiro nome + inicial) e a
+          região. Se houver menos de três casos, apague os cards que
+          sobrarem em vez de repetir.
+       4. Remova o atributo `hidden` desta <section>.
+       5. Acrescente <a href="#depoimentos">Depoimentos</a> ao menu do
+          cabeçalho e ao rodapé.
+
+       Nunca publicar caixa vazia: enquanto o passo 1 não estiver pronto,
+       a seção continua oculta. -->
+  <section class="secao" id="depoimentos" aria-labelledby="depoimentos-titulo" hidden>
+    <div class="container">
+      <div class="cabeca">
+        <div>
+          <p class="sobrescrito">Mais que imóveis, realizamos histórias</p>
+          <h2 class="titulo" id="depoimentos-titulo">O que nossos clientes <em class="ouro">dizem</em></h2>
+        </div>
+      </div>
+
+      <div class="depoimentos">
+        <figure class="depoimento">
+          <blockquote>PREENCHER: frase do cliente, nas palavras dele.</blockquote>
+          <p class="depoimento__estrelas" aria-label="PREENCHER: nota">★★★★★</p>
+          <figcaption><strong>PREENCHER: Nome S.</strong>PREENCHER: região</figcaption>
+        </figure>
+        <figure class="depoimento">
+          <blockquote>PREENCHER: frase do cliente, nas palavras dele.</blockquote>
+          <p class="depoimento__estrelas" aria-label="PREENCHER: nota">★★★★★</p>
+          <figcaption><strong>PREENCHER: Nome S.</strong>PREENCHER: região</figcaption>
+        </figure>
+        <figure class="depoimento">
+          <blockquote>PREENCHER: frase do cliente, nas palavras dele.</blockquote>
+          <p class="depoimento__estrelas" aria-label="PREENCHER: nota">★★★★★</p>
+          <figcaption><strong>PREENCHER: Nome S.</strong>PREENCHER: região</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 8. FAQ =======================
+       Sem CTA próprio de propósito: o fechamento vem logo abaixo. -->
+  <section class="secao secao--clara" id="faq" aria-labelledby="faq-titulo">
+    <div class="container faq-grade">
+      <div>
+        <p class="sobrescrito">Antes de você perguntar</p>
+        <h2 class="titulo" id="faq-titulo">Dúvidas <em class="ouro">frequentes</em></h2>
+        <p class="apoio">Respostas rápidas para você avançar com mais segurança.</p>
+      </div>
+
+      <div>
+        <details class="faq">
+          <summary>Quanto preciso ganhar para comprar um apartamento?</summary>
+          <p><strong>Não existe um número único.</strong></p>
+          <p>
+            O que define a parcela é a combinação de renda, entrada, uso do
+            FGTS, prazo e a faixa do programa em que você se enquadra — e o
+            valor do imóvel muda conforme a região e a tipologia.
+          </p>
+          <p>
+            É por isso que a primeira pergunta desta página é a sua renda:
+            com ela dá para dizer o que é realista antes de você perder
+            tempo visitando o que não cabe.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Preciso ter entrada?</summary>
+          <p><strong>Nem sempre, mas ela muda muita coisa.</strong></p>
+          <p>
+            Nos lançamentos costuma existir um parcelamento da entrada
+            durante a obra, o que dilui o valor em vez de exigir tudo de
+            uma vez. Quanto e como isso funciona depende da tabela vigente
+            de cada empreendimento.
+          </p>
+          <p>
+            Entrada maior reduz o que é financiado, e isso normalmente
+            derruba a parcela. Sem nada guardado ainda dá para começar a
+            conversa — só muda o caminho.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Preciso ter FGTS?</summary>
+          <p><strong>Não é obrigatório.</strong></p>
+          <p>
+            Quando existe saldo, ele pode ser usado na entrada ou para
+            abater parte do financiamento, respeitando as regras do fundo.
+          </p>
+          <p>
+            Quem nunca teve carteira assinada, ou já usou o saldo, continua
+            podendo comprar — apenas sem esse recurso na conta.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Posso compor renda com outra pessoa?</summary>
+          <p><strong>Sim, e isso costuma ser decisivo.</strong></p>
+          <p>
+            O Minha Casa Minha Vida permite somar a renda de mais de uma
+            pessoa, inclusive sem grau de parentesco, o que amplia bastante
+            o que é possível financiar.
+          </p>
+          <p>
+            Vale lembrar que todo mundo que compõe a renda entra na análise
+            de crédito e assume o financiamento junto.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Já tenho imóvel. Posso comprar pelo Minha Casa Minha Vida?</summary>
+          <p><strong>Depende do seu caso.</strong></p>
+          <p>
+            O programa tem regras próprias sobre imóvel já possuído,
+            financiamento anterior e localização, e elas mudam o que é
+            possível para cada situação.
+          </p>
+          <p>
+            Verificamos isso com você antes de indicar qualquer
+            lançamento — assim você não perde tempo com uma opção que não
+            passaria na análise.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>Por que os apartamentos não estão listados na página?</summary>
+          <p><strong>Porque a lista envelheceria mais rápido do que dá para atualizar.</strong></p>
+          <p>
+            Tabela de lançamento sobe conforme a obra avança, unidades são
+            vendidas e condições comerciais mudam. Uma vitrine publicada
+            aqui mostraria valor vencido — e valor vencido é a pior
+            surpresa possível na hora da conversa.
+          </p>
+          <p>
+            Em vez disso, comparamos o que está realmente disponível no
+            momento em que você preenche o formulário.
+          </p>
+        </details>
+
+        <details class="faq">
+          <summary>A análise tem algum custo?</summary>
+          <p><strong>Não.</strong></p>
+          <p>
+            A análise inicial de perfil e a comparação dos lançamentos não
+            têm custo para você, e preencher o formulário não gera
+            compromisso nenhum.
+          </p>
+          <p>
+            Em lançamento, a remuneração da corretagem vem da
+            incorporadora. Nenhuma consulta ao seu CPF é feita sem que você
+            saiba: isso só acontece na etapa de análise de crédito, com a
+            sua autorização.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= 9. FECHAMENTO =======================
+     Fecha com o mesmo peso visual do hero: a última tela precisa ser tão
+     forte quanto a primeira. -->
+<section class="fechamento" id="contato" aria-labelledby="contato-titulo">
+  <!-- Decoração, e por isso lazy e com alt vazio. O fundo sólido do CSS
+       garante o contraste do texto mesmo antes de a imagem chegar. -->
+  <picture class="fechamento__arte" aria-hidden="true">
+    <source type="image/avif"
+            srcset="/minha-casa-minha-vida/assets/images/faixa-1200.avif 1200w, /minha-casa-minha-vida/assets/images/faixa-2172.avif 2172w"
+            sizes="100vw">
+    <img src="/minha-casa-minha-vida/assets/images/faixa-1200.webp"
+         srcset="/minha-casa-minha-vida/assets/images/faixa-1200.webp 1200w, /minha-casa-minha-vida/assets/images/faixa-2172.webp 2172w"
+         sizes="100vw" width="2172" height="724" alt="" loading="lazy" decoding="async">
+  </picture>
+
+  <div class="container fechamento__grade">
+    <div>
+      <p class="sobrescrito">Dê o primeiro passo</p>
+      <h2 class="fechamento__titulo" id="contato-titulo">
+        Descubra quais apartamentos <em class="ouro">cabem na sua renda</em>
+      </h2>
+      <p>
+        Informe sua renda, entrada e região. Verificamos os lançamentos
+        disponíveis e mostramos somente o que realmente faz sentido para você.
+      </p>
+
+      <ul class="selos">
+        <li>
+          <svg class="ico" aria-hidden="true"><use href="#i-lupa"></use></svg>
+          <span><strong>Análise inicial sem custo</strong></span>
+        </li>
+        <li>
+          <svg class="ico" aria-hidden="true"><use href="#i-usuario"></use></svg>
+          <span><strong>Atendimento direto com consultor</strong></span>
+        </li>
+        <li>
+          <svg class="ico" aria-hidden="true"><use href="#i-escudo"></use></svg>
+          <span><strong>Sem compromisso</strong></span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <a class="btn btn--principal btn--largo js-ir-perfil" data-source="final" href="#inicio">
+        Ver o que cabe na minha renda
+        <svg class="btn__ico btn__seta" aria-hidden="true"><use href="#i-seta"></use></svg>
+      </a>
+      <p class="fechamento__micro">
+        <svg class="ico" aria-hidden="true"><use href="#i-cadeado"></use></svg>
+        Seus dados estão seguros
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__linha">
+      <a class="marca" href="/">
+        <strong>Grupo</strong>
+        <span>Saitama</span>
+      </a>
+      <!-- O link para /empreendimentos/ vive AQUI, no rodapé, e não no menu
+           do topo. Dois motivos: o menu de cima é só âncora de seção e um
+           link que sai da página competiria com o CTA; e como esta LP virou
+           a home do domínio, sem este link a lista de empreendimentos
+           ficaria órfã — a home é a página que mais empurra rastreamento
+           para dentro do site.
+
+           Não é contradição com a regra de "sem vitrine": a regra é sobre
+           não colocar cards de empreendimento DENTRO desta página, onde
+           eles encolheriam o tamanho da oferta na cabeça de quem lê. -->
+      <nav aria-label="Rodapé">
+        <a href="/empreendimentos/">Empreendimentos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#mcmv">Minha Casa Minha Vida</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="/privacidade/">Política de privacidade</a>
+      </nav>
+    </div>
+
+    <!-- Exigência da Lei 6.530/78: toda publicidade imobiliária precisa
+         trazer o CRECI. Conseguido em 18/09/2026 para esta LP. -->
+    <p class="rodape__creci">CRECI-SP 334069</p>
+  </div>
+</footer>
+
+<!-- Barra fixa do celular: a primeira dobra some com o scroll, e esta é a
+     única forma de manter o CTA sempre à mão. -->
+<div class="barra-mobile">
+  <div class="barra-mobile__texto">
+    <strong>Veja o que cabe no seu perfil</strong>
+    <span>Análise sem custo</span>
+  </div>
+  <a class="btn btn--principal btn--pequeno js-ir-perfil" data-source="mobile_fixed" href="#inicio">
+    Começar
+  </a>
+</div>
+
+<script src="/shared/origem.js"></script>
+<script src="/minha-casa-minha-vida/assets/js/main.js"></script>
+</body>
+</html>

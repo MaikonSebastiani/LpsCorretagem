@@ -100,6 +100,32 @@
 /merito-ipiranga/
   Cache-Control: public, max-age=0, must-revalidate
 
+/wl-boa-vista/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# LP de investidores. A raiz de sebastianiimoveis.com.br é REESCRITA para
+# este caminho no worker, então é esta regra que vale lá — a regra de "/"
+# acima só pega a home do grupo.
+/investidores/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# A LP de Minha Casa Minha Vida. A raiz de gruposaitama.com.br é
+# REESCRITA para este caminho no worker, então é esta regra que vale para
+# a home — a regra de "/" acima só pega quem chegar na raiz sem passar
+# pelo worker.
+/minha-casa-minha-vida/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# A lista de empreendimentos, que era a home até 10/09/2026.
+/empreendimentos/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# A LP de estratégia. Ainda não é raiz de domínio nenhum e está com
+# noindex — quando virar a raiz de sebastianiimoveis.com.br, esta regra
+# continua valendo pelo caminho e o noindex sai do HTML.
+/estrategia/
+  Cache-Control: public, max-age=0, must-revalidate
+
 /privacidade/
   Cache-Control: public, max-age=0, must-revalidate
 

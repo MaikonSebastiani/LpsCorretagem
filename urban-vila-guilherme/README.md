@@ -180,50 +180,53 @@ mude `appendCampaignToMessage` para `true`.
 
 ---
 
-## 5. Atualização mensal dos valores
+## 5. Por que a página não mostra preço
 
-A tabela sobe conforme a obra avança — é o argumento honesto de urgência da
-página, e a consequência é que **os valores envelhecem sozinhos**. Preço
-desatualizado em página de tráfego pago não é detalhe: é lead chegando com
-expectativa errada e tempo do time gasto à toa.
+**Removidos em 20/09/2026.** Antes a página trazia "a partir de R$ 255 mil"
+e "entrada a partir de R$ 800" em oito lugares, e este capítulo era o
+procedimento de trocá-los todo mês.
 
-Os valores estão cravados no HTML de propósito. Injetar por JavaScript faria
-o preço aparecer depois do carregamento — e ele é o maior elemento da
-primeira dobra (o LCP). A troca é manual, mas é segura, porque cada valor é
-uma string única.
+Três motivos para a saída:
 
-### Como trocar
+1. **O "a partir de" ancorava na menor unidade.** Quem chegava ancorado
+   naquele número ouvia outro na conversa — e perdia a confiança na pior
+   hora, que é logo no primeiro contato.
+2. **Envelheciam sozinhos.** A tabela é corrigida todo mês; a página não.
+   No dia da remoção o selo do hero ainda dizia *"Tabela vigente — agosto
+   de 2026"*, um mês atrás. Em tráfego pago, isso avisa "este site está
+   abandonado" para quem acabou de clicar num anúncio.
+3. **Contradiziam o posicionamento da marca**, que é estratégia antes do
+   imóvel: o preço da menor planta não diz nada sobre o que *aquela pessoa*
+   consegue comprar, que é a pergunta real.
 
-Substituir a string inteira, incluindo "R$" e "mil", em **todo o arquivo**:
+### O que ocupou o lugar, e por quê
 
-| Onde | O que trocar |
-|------|--------------|
-| `index.html` | `R$ 255 mil` → o valor novo |
-| `index.html` | `R$ 800` → o valor novo, se a entrada mudar |
+Preço não era enfeite — ele **qualificava**, dizendo em que faixa o produto
+está para quem não tem perfil sair cedo. Tirar sem repor esse trabalho
+troca leads qualificados por volume ruim.
 
-**`R$ 255 mil` — 5 lugares:** `meta name="description"`, hero, seção de
-plantas, CTA final e barra fixa mobile.
+O que repõe: **o próprio Minha Casa Minha Vida**. Quem chega por MCMV já
+conhece a faixa do programa, então o selo qualifica igual — e não vence
+todo mês. Onde havia número agora há condição de compra (entrada parcelada,
+FGTS e subsídio), e o CTA pergunta pela **renda**, não pelo preço.
 
-**`R$ 800` — 7 lugares:** `meta name="description"`, hero, barra fixa mobile,
-os títulos de "Entrada a partir de R$ 800" nas seções *Como comprar* e
-*Lançamento*, a resposta do FAQ e o CTA final.
+### Se um dia voltarem
 
-> O `grep` acusa uma ocorrência a mais de `R$ 800`: existe uma dentro de um
-> comentário HTML, explicando por que a linha de apoio é obrigatória. Essa
-> não precisa ser trocada.
+Não devolva o valor cru ao hero. O `PADRAO-LP.md` já registrava o risco:
+*"cuidado com o 'a partir de'"* e *"o preço e a entrada competem — com o
+mesmo tamanho e a mesma cor, quem vence é o número menor, e ele é o menos
+acreditável"*. Se voltar, que seja uma **faixa** ("de X a Y"), com data de
+vigência que alguém se comprometa a atualizar, e nunca a entrada sozinha.
 
-### Conferir depois de trocar
+### Conferir que não sobrou nenhum
 
 ```bash
-grep -c "R\$ 255 mil" index.html
+grep -n 'R\$' index.html
 ```
 
-Se voltar algo diferente de zero depois da troca, sobrou valor antigo em
-algum lugar.
-
-> A `meta name="description"` também carrega o preço. É ela que aparece no
-> Google — esquecer dela deixa o valor velho no resultado de busca mesmo com
-> a página certa.
+Precisa voltar vazio — inclusive nos comentários. Comentário de HTML é
+servido junto da página e qualquer pessoa lê no código-fonte, então valor
+comentado é valor publicado.
 
 ## 6. Ordem das seções
 

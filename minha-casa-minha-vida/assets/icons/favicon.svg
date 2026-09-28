@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Grupo Saitama">
+  <!-- Monograma "S" de Saitama, dourado sobre o marinho da página. É
+       desenhado como traçado, não escrito com <text>, porque favicon
+       renderiza a 16px e letra em <text> depende da fonte do sistema de
+       quem visita — o resultado mudaria em cada máquina.
+
+       Como esta LP é a home do domínio, este passou a ser o ícone
+       principal do gruposaitama.com.br: a home antiga não tinha nenhum.
+       Faltam os PNG (16, 32, 192, 512) e o apple-touch-icon — SVG cobre
+       os navegadores atuais, mas não o atalho de tela inicial no iOS.
+
+       O favicon de /investidores/ é outro arquivo, no verde-petróleo da
+       versão antiga daquela marca; não confundir os dois. -->
+  <rect width="64" height="64" rx="14" fill="#0e2c52"/>
+  <path d="M43 21c-3.4-3.1-8-4.3-12.4-3.4-4 .8-6.6 3.4-6.6 6.6 0 3.6 3 5.6 8.6 7.2 6.4 1.8 9.4 4 9.4 8.2 0 4-3.2 7-8 7.8-4.6.8-9.4-.6-12.8-3.8"
+        fill="none" stroke="#c9a15c" stroke-width="5.4" stroke-linecap="round"/>
+</svg>
