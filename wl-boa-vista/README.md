@@ -17,10 +17,14 @@ assets/icons/        monograma WL do logo oficial
 
 ## Pendências
 
-1. **Vídeo.** A área está pronta e escondida; os 4 passos para ativar estão
-   no comentário acima de `#video` no `index.html`.
-2. **Card na lista de empreendimentos** (`/empreendimentos/`) — não foi
+1. **Card na lista de empreendimentos** (`/empreendimentos/`) — não foi
    feito.
+
+## Vídeo
+
+Apresentação oficial no YouTube (`l7B7_aXSKEo`), na seção `#video`
+("O projeto"). Fachada: a capa é a portaria do book e o iframe
+(youtube-nocookie) só entra no clique — dispara `video_play`.
 
 ## Conversão
 

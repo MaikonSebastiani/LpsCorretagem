@@ -484,46 +484,39 @@
   </section>
 
   <!-- ================= APRESENTAÇÃO DO PROJETO =================
-       Ainda não há vídeo do WL Boa Vista. A área do vídeo fica pronta e
-       escondida (`hidden`) — nunca publicar caixa vazia — e a foto da
-       portaria (página 27 do book) segura a seção.
+       Vídeo oficial do WL Boa Vista (youtube.com/watch?v=l7B7_aXSKEo),
+       ativado em 28/09/2026. Em lançamento na planta o comprador não pode
+       visitar nada — o vídeo substitui a visita.
 
-       Para ativar o vídeo quando existir:
-       1. Suba o vídeo no YouTube e copie o ID (o trecho depois de "v=").
-       2. Troque COLE_O_ID_AQUI no data-video-id abaixo pelo ID.
-       3. Tire um frame do vídeo, salve como assets/images/video-poster.webp
-          (1280x720) e aponte o <img> da capa para ele.
-       4. Tire o `hidden` de .tour__video e ponha `hidden` na <figure> da foto.
-       ============================================================ -->
+       O iframe NÃO entra no carregamento, só no clique do play: um embed
+       carregado de saída custa perto de 1 MB e derrubaria a primeira dobra
+       no celular. Usa youtube-nocookie.com (ver js/main.js, setupTour).
+
+       A capa é a portaria do book, servida daqui: puxar a thumbnail do
+       i.ytimg.com entregaria ao Google o IP de quem só passou pela página. -->
   <section class="section section--light tour" id="video" aria-labelledby="tour-title">
     <div class="container">
       <p class="eyebrow eyebrow--lines">O projeto</p>
       <h2 class="title title--center" id="tour-title">Conheça o WL Boa Vista</h2>
       <p class="section__text tour__lead">
-        Três torres de 17 pavimentos, portaria voltada para a avenida e áreas
-        comuns entregues equipadas e decoradas. O decorado você conhece na
-        visita ao stand de vendas.
+        A apresentação oficial do empreendimento: a fachada, a localização e as
+        áreas comuns, entregues equipadas e decoradas. O decorado você conhece
+        na visita ao stand de vendas.
       </p>
 
-      <div class="tour__video" data-video-id="COLE_O_ID_AQUI" hidden>
+      <div class="tour__video" data-video-id="l7B7_aXSKEo">
         <button type="button" class="tour__play" data-tour-play>
-          <img class="tour__poster" src="assets/images/portaria-700.webp"
-               width="700" height="634" alt="" loading="lazy" decoding="async">
+          <picture>
+            <source type="image/avif" srcset="assets/images/portaria-700.avif 700w, assets/images/portaria.avif 1200w" sizes="(min-width: 900px) 900px, 100vw">
+            <img class="tour__poster" src="assets/images/portaria-700.webp" srcset="assets/images/portaria-700.webp 700w, assets/images/portaria.webp 1200w" sizes="(min-width: 900px) 900px, 100vw"
+                 width="700" height="634" alt="" loading="lazy" decoding="async">
+          </picture>
           <span class="tour__play-ico" aria-hidden="true">
             <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
           </span>
           <span class="tour__play-label">Assistir à apresentação</span>
         </button>
       </div>
-
-      <figure class="tour__still">
-        <picture>
-          <source type="image/avif" srcset="assets/images/portaria-700.avif 700w, assets/images/portaria.avif 1200w" sizes="(min-width: 900px) 900px, 100vw">
-          <img src="assets/images/portaria-700.webp" srcset="assets/images/portaria-700.webp 700w, assets/images/portaria.webp 1200w" sizes="(min-width: 900px) 900px, 100vw"
-               width="700" height="634" alt="Perspectiva ilustrada da portaria do WL Boa Vista, com a fachada e a calçada" loading="lazy" decoding="async">
-        </picture>
-        <figcaption>Portaria — perspectiva ilustrativa.</figcaption>
-      </figure>
 
       <p class="section__cta">
         <a class="btn btn--green btn--arrow whatsapp-link" data-source="tour"

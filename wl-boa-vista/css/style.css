@@ -2371,12 +2371,9 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
 
 .loc__content .title { margin-bottom: 16px; }
 
-/* A portaria vem quase quadrada do book; inteira, ocupava 800px de altura. */
-.tour__still img {
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: center 75%;
-}
+/* Capa do vídeo: a portaria vem quase quadrada do book; no quadro 16:9
+   o recorte desce para mostrar a entrada e o logo na parede. */
+.tour__poster { object-position: center 75%; }
 
 /* Celular: o botão do hero precisa terminar acima da barra fixa
    (72px) numa tela de 812px. Medido: sem isto ele terminava em 770px,
