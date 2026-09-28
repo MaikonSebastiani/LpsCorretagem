@@ -1,0 +1,2414 @@
+/* =====================================================================
+   WL BOA VISTA — Landing page
+   Esqueleto copiado do Urban Vila Guilherme (mesmas 12 áreas, mesmas
+   classes, mesmo JS). O que muda é a pele: a paleta e as fontes saíram do
+   book digital do empreendimento — terracota, marrom e creme, títulos em
+   serifa de alto contraste (ecoa o logo) e rótulos em caixa-alta espaçada,
+   como os textos do book.
+   Mobile-first. Sem frameworks, sem dependências.
+   ===================================================================== */
+
+/* ============================== Base ============================== */
+:root {
+  /* Amostradas das páginas do book (capa, lazer, fichas). */
+  --wl-brown: #8D5232;        /* cor de ação: botões, filetes, ícones */
+  --wl-brown-dark: #74402A;
+  --wl-terracota: #B76E45;    /* o tom claro do degradê da capa */
+  --wl-sand: #E7BF9E;         /* acento sobre fundo escuro (o marrom some ali) */
+  --wl-dark: #3B2418;
+  --wl-black: #2A160E;
+  --wl-gray: #BFA999;
+  --wl-light: #F6E3D5;
+  --wl-white: #FFFFFF;
+
+  --surface-night: #4B2317;   /* lazer, rodapé, prêmios — o bordô da página de delivery, clareado */
+  --surface-hero: #F6E3D5;
+  --surface-cream: #F6E3D5;   /* o creme das páginas do book */
+  --surface-paper: #FBF4EE;   /* plantas e FAQ, mais limpo */
+
+  /* Marrom para texto sobre creme: ~5,2:1 sobre #F6E3D5. */
+  --brown-ink: #8D5232;
+
+  --ink: #3B2418;
+  --ink-soft: #6E5546;
+  --line: #EAD8CA;
+
+  /* Títulos em serifa (o logo é uma didone); rótulos, botões e textos em
+     sans geométrica — o book usa caixa-alta com tracking largo. */
+  --font-title: "Cormorant Garamond", Garamond, Georgia, serif;
+  --font-label: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-text: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --container: 1240px;
+  --pad: 20px;
+  --radius: 6px;
+  --mobile-cta-h: 72px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  background: var(--wl-white);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* A Cormorant usa algarismos de texto por padrão (o 1 vira ı): em
+     metragem e categoria (HIS-1) isso atrapalha a leitura. */
+  font-variant-numeric: lining-nums;
+}
+
+img,
+svg { max-width: 100%; }
+
+img {
+  display: block;
+  height: auto;
+}
+
+a { color: inherit; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+p { margin: 0 0 1rem; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--wl-brown);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.ico {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Exceção: o glifo oficial do WhatsApp é um desenho sólido (preenchido),
+   não um traçado de contorno como o resto da sprite. Sem isso, `.ico`
+   força fill:none e o path complexo vira uma malha de linhas finas. */
+.ico--wa {
+  fill: currentColor;
+  stroke: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--wl-brown);
+  color: var(--wl-black);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* Blocos de seção */
+.section { padding: 56px 0; }
+
+.section--light { background: var(--surface-paper); }
+
+.section--dark {
+  background: var(--surface-night);
+  color: var(--wl-light);
+}
+
+/* Textura leve de concreto, feita 100% em CSS (sem download de imagem) */
+.section--texture {
+  background-color: var(--surface-cream);
+  background-size: 90px 90px, 130px 130px, 170px 170px, 100% 100%;
+}
+
+.title {
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--ink);
+}
+
+.section--dark .title,
+.final-cta .title { color: var(--wl-white); }
+
+.title--center {
+  text-align: center;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+/* Traço verde no fim do texto — assinatura visual da arte.
+   Fica preso à última palavra (nowrap) para nunca quebrar sozinho numa
+   linha só dele: se não couber, palavra e traço descem juntos. */
+.dash-end { white-space: nowrap; }
+
+.dash-end::after {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 2px;
+  margin-left: 9px;
+  vertical-align: .2em;
+  background: var(--wl-brown);
+}
+
+.title .dash-end::after {
+  width: 56px;
+  height: 2px;
+  margin-left: 12px;
+  vertical-align: .16em;
+}
+
+/* Variante com filetes dos dois lados */
+.eyebrow--lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.eyebrow--lines::before,
+.eyebrow--lines::after {
+  content: "";
+  flex: none;
+  width: 46px;
+  height: 2px;
+  background: var(--wl-brown);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--brown-ink);
+}
+
+.section__text {
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+.section--dark .section__text,
+.final-cta .section__text { color: #E4D2C4; }
+
+.section__cta {
+  margin: 32px 0 0;
+  text-align: center;
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 24px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .8125rem;
+  line-height: 1.2;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.btn .ico {
+  width: 21px;
+  height: 21px;
+}
+
+/* Texto branco sobre o verde, como na arte de referência. */
+.btn--green {
+  background: var(--wl-brown);
+  color: var(--wl-white);
+}
+
+.btn--green:hover,
+.btn--green:focus-visible { background: var(--wl-brown-dark); }
+
+/* Seta separada por divisória vertical (arte) */
+.btn--arrow .ico:last-child {
+  box-sizing: content-box;
+  margin-left: 6px;
+  padding: 11px 0 11px 16px;
+  border-left: 1px solid currentColor;
+  opacity: .9;
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--wl-dark);
+  color: var(--wl-dark);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background: var(--wl-dark);
+  color: var(--wl-white);
+}
+
+.btn--lg {
+  min-height: 56px;
+  padding: 15px 28px;
+  font-size: .875rem;
+}
+
+.btn--sm {
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: .75rem;
+  letter-spacing: .08em;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* ============================= Header =============================
+   Diferente do Urban: aqui o header é uma barra própria, creme, e não fica
+   sobreposto ao hero. No Urban o texto do banner caía sobre um painel de
+   concreto pintado NA arte; a fachada do WL é uma foto de céu e prédio, e
+   o menu por cima dela não teria contraste em lugar nenhum. */
+.site-header {
+  position: relative;
+  z-index: 20;
+  background: var(--surface-cream);
+  border-bottom: 1px solid rgba(141, 82, 50, .14);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+}
+
+/* O logo é o PNG oficial (recolorido, fundo transparente) — não um
+   texto imitando a fonte dele. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand img {
+  width: auto;
+  height: 44px;
+}
+
+.brand--footer img { height: 56px; }
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(59, 36, 24, .22);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.nav-toggle__close { display: none; }
+
+.site-header.is-open .nav-toggle__open { display: none; }
+.site-header.is-open .nav-toggle__close { display: block; }
+
+.main-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  display: none;
+  background: var(--surface-night);
+}
+
+.site-header.is-open .main-nav { display: block; }
+
+.main-nav__list {
+  display: flex;
+  flex-direction: column;
+  padding: 6px var(--pad) 16px;
+}
+
+.main-nav a {
+  display: block;
+  padding: 13px 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--wl-light);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.main-nav a:hover { color: var(--wl-sand); }
+
+/* ============================== Hero ==============================
+   Duas peças: o painel creme com o texto e a fachada do book (página 6,
+   recortada sem o selo "Fachada" e sem o arco decorativo da diagramação).
+   Celular: texto em cima, foto embaixo. Desktop: lado a lado, a foto
+   sangrando até a borda direita.
+
+   O arco fino no canto do painel é o único ornamento desenhado em CSS:
+   repete o círculo que abre o book, sem baixar imagem nenhuma. */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--surface-cream);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 560px;
+  height: 560px;
+  left: -360px;
+  bottom: -440px;
+  border: 1px solid rgba(141, 82, 50, .28);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero__bg { order: 2; position: relative; }
+
+.hero__bg img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+/* padding-block (nunca `padding`) para não anular o padding-inline do .container. */
+.hero__grid {
+  order: 1;
+  position: relative;
+  z-index: 1;
+  padding-block: 36px 36px;
+}
+
+/* Selo de lançamento + marca na mesma linha, acima do título */
+.hero__kicker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin: 0 0 16px;
+}
+
+.hero__kicker .eyebrow { margin: 0; }
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: var(--wl-brown);
+  color: var(--wl-white);
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .6875rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  font-size: clamp(2.2rem, 9vw, 3.5rem);
+  line-height: 1.02;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+
+/* Segunda linha do título: o mote do book, em itálico e terracota. */
+.hero__title-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: .56em;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brown-ink);
+}
+
+.hero__text {
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: .9375rem;
+  margin-bottom: 22px;
+}
+
+/* Condições de compra: entrada e categoria da unidade. Sem preço — ver
+   README, "Por que a página não mostra preço". */
+.hero__cond {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.hero__cond-item {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 11px 16px;
+  border-left: 3px solid var(--wl-brown);
+  border-radius: 2px var(--radius) var(--radius) 2px;
+  background: rgba(255, 255, 255, .62);
+}
+
+.hero__cond-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .6875rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.hero__cond-value {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 4vw, 1.45rem);
+  line-height: 1.15;
+  color: var(--brown-ink);
+}
+
+.hero__cond-hint {
+  margin-top: 4px;
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.hero__micro {
+  margin: 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--brown-ink);
+}
+
+.hero__note {
+  max-width: 50ch;
+  margin: 18px 0 0;
+  font-size: .75rem;
+  line-height: 1.45;
+  color: #7A6152;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .6);
+  font-size: .75rem;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.spec .ico {
+  width: 24px;
+  height: 24px;
+  color: var(--brown-ink);
+}
+
+.spec--green {
+  background: var(--wl-brown);
+  border-color: var(--wl-brown);
+  color: var(--wl-white);
+  font-weight: 600;
+}
+
+.spec--green .ico { color: var(--wl-white); }
+
+/* =========================== Trust strip ===========================
+   Faixa discreta, sem números inventados nem selos — só reforça quem
+   constrói e quem atende, logo na primeira dobra. */
+.trust-strip {
+  background: var(--surface-paper);
+  border-block: 1px solid var(--line);
+}
+
+.trust-strip__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 14px var(--pad);
+  text-align: center;
+}
+
+.trust-strip__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8125rem;
+  letter-spacing: .02em;
+  color: var(--ink-soft);
+}
+
+.trust-strip__item .ico {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5;
+  color: var(--brown-ink);
+}
+
+.trust-strip__item strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.trust-strip__sep {
+  display: none;
+  width: 1px;
+  height: 14px;
+  background: var(--line);
+}
+
+@media (min-width: 480px) {
+  .trust-strip__sep { display: block; }
+}
+
+/* ============================ Location ============================ */
+.loc__content .btn { margin-top: 26px; }
+
+.loc__media {
+  margin: 26px 0 0;
+}
+
+.loc__media img {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.poi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.poi__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--wl-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.poi__item .ico {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--wl-brown);
+}
+
+.poi__item span {
+  display: flex;
+  flex-direction: column;
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+.poi__item strong {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: .03em;
+  color: var(--ink);
+}
+
+.loc__mobility {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* ========================== Como comprar ==========================
+   No Urban este bloco era "Minha Casa Minha Vida", com foto do living à
+   esquerda. O WL não tem MCMV no book — tem as três categorias de unidade
+   da Prefeitura (HIS-1, HIS-2 e R2V) — e não tem foto de decorado. Então a
+   coluna da imagem virou o quadro das categorias, que é justamente o que
+   responde "eu consigo comprar?". Classes .mcmv mantidas para não
+   duplicar o layout. */
+.mcmv {
+  position: relative;
+  background: var(--surface-paper);
+  border-top: 1px solid rgba(59, 36, 24, .08);
+}
+
+.mcmv__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.mcmv__media {
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+}
+
+/* Quadro das categorias */
+.cats {
+  display: grid;
+  gap: 10px;
+  padding: 22px 20px;
+  border-radius: 14px;
+  background: var(--surface-night);
+  color: var(--wl-light);
+}
+
+.cats__title {
+  margin: 0 0 6px;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .6875rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--wl-sand);
+}
+
+.cat {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.cat strong {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--wl-sand);
+}
+
+.cat span {
+  font-size: .875rem;
+  line-height: 1.45;
+  color: #E4D2C4;
+}
+
+.cats__note {
+  margin: 4px 0 0;
+  font-size: .6875rem;
+  line-height: 1.5;
+  color: #BFA999;
+}
+
+.mcmv__content {
+  width: 100%;
+  text-align: center;
+}
+
+.mcmv__content .title { margin-bottom: 16px; }
+
+/* O parágrafo é alinhado à esquerda dentro do bloco centralizado (como na arte) */
+.mcmv__lead {
+  max-width: 54ch;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.mcmv__cols,
+.launch__cols {
+  display: grid;
+  gap: 22px;
+  margin: 30px 0;
+}
+
+.mcmv__cols li,
+.launch__cols li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mcmv__cols li:last-child,
+.launch__cols li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.mcmv__ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: rgba(141, 82, 50, .16);
+  color: var(--brown-ink);
+}
+
+.mcmv__ico .ico {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.5;
+}
+
+.mcmv__cols h3,
+.launch__cols h3 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+  letter-spacing: .03em;
+  color: var(--ink);
+}
+
+.mcmv__cols p,
+.launch__cols p {
+  max-width: 32ch;
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.mcmv__note {
+  max-width: 46ch;
+  margin: 16px auto 0;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: #7A6152;
+}
+
+
+/* ========================== Lançamento ==========================
+   Seção que explica que o empreendimento é vendido na planta. A grade de
+   colunas é a mesma da MCMV (seletores agrupados acima). */
+.launch { background: var(--surface-cream); }
+
+.launch .eyebrow { text-align: center; }
+
+.launch__lead {
+  max-width: 60ch;
+  margin: 14px auto 0;
+  text-align: center;
+}
+
+.launch__cols { margin-top: 34px; }
+
+.launch__note {
+  max-width: 52ch;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: #8A7262;
+}
+
+/* =========================== Floor plans =========================== */
+/* Substituiu .plans__price ("a partir de R$ 255 mil") em 20/09/2026. Texto
+   corrido em vez de valor em destaque: a linha agora explica o critério de
+   escolha, e não é mais o elemento que o olho procura primeiro. */
+.plans__lead {
+  max-width: 62ch;
+  margin: 4px auto 22px;
+  text-align: center;
+  font-size: .9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.badge-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 26px;
+  margin: 16px 0 28px;
+  font-size: .875rem;
+  color: var(--ink-soft);
+}
+
+/* Cada selo é uma linha própria de ícone + texto. Sem isso, o gap do
+   contêiner separaria ícone e texto na mesma medida que separa um selo do
+   outro, e os dois pares se misturariam quando a linha quebrasse. */
+.badge-line li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-line .ico {
+  width: 22px;
+  height: 22px;
+  color: var(--wl-brown);
+}
+
+.plans {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 14px;
+  margin-inline: calc(var(--pad) * -1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 74%;
+  max-width: 300px;
+  height: auto;
+  padding: 10px 10px 16px;
+  background: var(--wl-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  scroll-snap-align: start;
+}
+
+/* Clique na imagem: abre a planta ampliada no lightbox */
+.plan__img-btn {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+.plan__img-btn:hover,
+.plan__img-btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.plan__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: 6px;
+  border-radius: 4px;
+  background: var(--wl-white);
+}
+
+/* Selo de lupa: sinaliza que a imagem amplia ao clicar */
+.plan__zoom {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(42, 22, 14, .62);
+  color: var(--wl-white);
+}
+
+.plan__zoom .ico {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2;
+}
+
+.plan__area {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+
+.plan__area::after {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 3px;
+  margin-left: 8px;
+  vertical-align: .22em;
+  background: var(--wl-brown);
+}
+
+.plan__desc {
+  display: block;
+  margin-top: 6px;
+  font-size: .8125rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+/* CTA de WhatsApp próprio de cada planta */
+.plan__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 4px;
+  min-height: 32px;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--brown-ink);
+}
+
+.plan__cta:hover,
+.plan__cta:focus-visible { text-decoration: underline; }
+
+.plan__cta .ico {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================== Lightbox ==============================
+   <dialog> nativo: foco preso e fechamento por Esc já vêm de graça do
+   navegador, sem JavaScript próprio para isso. */
+/* Sem `position` aqui de propósito: o navegador já aplica `position: absolute`
+   (ou `fixed`, depende do motor) ao <dialog> quando ele está no "top layer"
+   via showModal(), e é isso que o centraliza na tela. Sobrescrever quebraria
+   essa centralização — mas o valor já dado pelo UA é suficiente para o botão
+   de fechar, `position: absolute`, se ancorar nesta caixa. */
+.lightbox {
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  max-width: min(94vw, 1100px);
+  max-height: 90vh;
+}
+
+.lightbox::backdrop {
+  background: rgba(42, 22, 14, .86);
+}
+
+.lightbox__img {
+  display: block;
+  max-width: min(94vw, 1100px);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  background: var(--wl-white);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(42, 22, 14, .7);
+  color: var(--wl-white);
+  cursor: pointer;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus-visible { background: var(--wl-black); }
+
+
+/* ================= Pergunta de qualificação =================
+   <dialog> nativo: Esc e foco preso vêm do navegador. Uma pergunta só,
+   sem etapas nem barra de progresso — a resposta já leva ao WhatsApp. */
+.qz {
+  padding: 26px 22px 20px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--surface-paper);
+  color: var(--ink);
+  width: min(calc(100% - 32px), 470px);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(42, 22, 14, .35);
+  animation: qz-pop .2s ease;
+}
+
+.qz::backdrop { background: rgba(42, 22, 14, .72); }
+
+@keyframes qz-pop {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.qz__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(42, 22, 14, .06);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.qz__close:hover,
+.qz__close:focus-visible { background: rgba(42, 22, 14, .12); color: var(--ink); }
+
+.qz__eyebrow {
+  margin: 0 40px 6px 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--brown-ink);
+}
+
+.qz__title {
+  font-size: clamp(1.6rem, 5.6vw, 1.9rem);
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.qz__helper {
+  margin: 0 0 18px;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.qz__form { display: grid; gap: 15px; }
+
+.qz__field { display: grid; gap: 6px; }
+
+.qz__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.qz__label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.qz__opcional {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.qz__hint {
+  margin: 0 0 4px;
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.qz__input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--wl-white);
+  color: var(--ink);
+  font-family: var(--font-text);
+  /* 16px evita o zoom automático do iOS ao focar o campo. */
+  font-size: 1rem;
+}
+
+.qz__input:focus-visible {
+  border-color: var(--wl-brown);
+  outline: none;
+}
+
+.qz__erro {
+  margin: 0;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: #B3261E;
+}
+
+/* O atributo `hidden` só esconde porque o navegador aplica display:none —
+   e QUALQUER display declarado na folha vence essa regra. Como .qz__fase é
+   grid e .qz__submit é flex, sem esta linha o atributo não surtia efeito: a
+   fase 2 aparecia embaixo da fase 1, e "Continuar" e "Falar com um corretor"
+   apareciam juntos no rodapé. Escopo em .qz para não vazar para a página. */
+.qz [hidden] { display: none !important; }
+
+/* Fases do formulário. Cada uma herda o mesmo empilhamento do .qz__form,
+   senão os campos dentro dela colariam uns nos outros. */
+.qz__fase { display: grid; gap: 15px; }
+
+/* Trilha de progresso: duas barras. Some da leitura (aria-hidden no HTML)
+   porque quem usa leitor de tela recebe a mesma informação pelo
+   .qz__sr, em texto. */
+.qz__steps {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+
+.qz__steps span {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background-color .25s ease;
+}
+
+.qz__steps span[data-estado='atual'],
+.qz__steps span[data-estado='feito'] { background: var(--wl-brown); }
+
+/* Anúncio de troca de fase, só para leitor de tela. */
+.qz__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Voltar à esquerda, avançar à direita. Sem o botão Voltar (fase 1) o
+   `margin-left: auto` do irmão joga o avanço para a direita sozinho. */
+.qz__acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.qz__acoes .qz__submit { flex: 1 1 auto; margin-left: auto; }
+
+.qz__voltar {
+  flex: none;
+  padding: 10px 4px;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-family: var(--font-text);
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.qz__voltar:hover { color: var(--ink); }
+
+/* Renda: radios que parecem os selos de antes. */
+.qz__options { display: grid; gap: 8px; }
+
+/* Sim/não lado a lado: duas opções empilhadas ocupam altura à toa e fazem
+   uma pergunta binária parecer uma lista. */
+.qz__options--duo { grid-template-columns: 1fr 1fr; }
+
+.qz__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--wl-white);
+  font-size: .9375rem;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+.qz__option:hover { border-color: var(--wl-brown); }
+
+.qz__option input { accent-color: var(--wl-brown); }
+
+.qz__option:has(input:checked) {
+  border-color: var(--wl-brown);
+  background: rgba(141, 82, 50, .1);
+  font-weight: 600;
+}
+
+/* Armadilha de robô: fora da tela, e não display:none — robô detecta. */
+.qz__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.qz__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.qz__consent input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  accent-color: var(--wl-brown);
+}
+
+.qz__consent a { color: var(--brown-ink); }
+
+.qz__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--wl-brown);
+  color: var(--wl-white);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.qz__submit:hover:not(:disabled) { background: var(--wl-brown-dark); }
+
+.qz__submit:disabled { opacity: .6; cursor: progress; }
+
+/* Confirmação e falha */
+.qz__done,
+.qz__fail { text-align: center; }
+
+.qz__done .qz__helper,
+.qz__fail .qz__helper { margin-inline: auto; }
+
+.qz__done-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 4px auto 14px;
+  border-radius: 50%;
+  background: rgba(141, 82, 50, .16);
+  color: var(--brown-ink);
+  font-size: 28px;
+  line-height: 1;
+}
+
+
+/* No celular o formulário inteiro não cabe em 88vh e o botão de envio nasce
+   fora da área visível do diálogo — quem abre não vê o que fazer. As faixas
+   de renda em duas colunas resolvem a maior parte, e o resto vem de folgas
+   um pouco menores. */
+@media (max-width: 560px) {
+  .qz { padding: 20px 18px 18px; }
+  .qz__form { gap: 10px; }
+  .qz__helper { margin-bottom: 12px; }
+  .qz__options { grid-template-columns: 1fr 1fr; gap: 6px; }
+
+  /* Seis faixas do MCMV em duas colunas dão três linhas. Cada pixel de
+     folga aqui é o que mantém o botão de envio dentro da área visível
+     do diálogo — sem isso quem abre não vê o que fazer. */
+  .qz__option {
+    min-height: 40px;
+    padding: 7px 9px;
+    font-size: .8125rem;
+    gap: 7px;
+  }
+
+  .qz__input { min-height: 46px; }
+  .qz__submit { min-height: 50px; }
+}
+/* Trava o scroll da página atrás do diálogo */
+html.qz-open,
+html.qz-open body { overflow: hidden; }
+
+
+/* ============================ Decorado ============================
+   Vídeo do decorado e fotos do apartamento modelo. A fachada do vídeo
+   (capa + play) tem proporção fixa 16:9 para não empurrar o conteúdo
+   quando a imagem carrega. */
+.tour__lead {
+  max-width: 58ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tour__video,
+.tour__still {
+  max-width: 900px;
+  margin: 28px auto 0;
+}
+
+.tour__still { margin-bottom: 0; }
+
+.tour__still img,
+.tour__poster {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.tour__still figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: .8125rem;
+  color: var(--ink-soft);
+}
+
+/* Botão de play: a capa inteira é clicável. */
+.tour__play {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--surface-night);
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.tour__poster {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  transition: transform .3s ease, opacity .2s ease;
+}
+
+.tour__play:hover .tour__poster,
+.tour__play:focus-visible .tour__poster {
+  transform: scale(1.03);
+  opacity: .82;
+}
+
+.tour__play-ico {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--wl-brown);
+  color: var(--wl-white);
+  box-shadow: 0 8px 28px rgba(42, 22, 14, .4);
+  transition: background-color .15s ease;
+}
+
+.tour__play-ico .ico {
+  width: 34px;
+  height: 34px;
+  margin-left: 3px;   /* o triângulo pesa à esquerda; compensa o centro óptico */
+}
+
+.tour__play:hover .tour__play-ico { background: var(--wl-brown-dark); }
+
+.tour__play-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 46px 18px 16px;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--wl-white);
+  text-align: center;
+  background: linear-gradient(to top, rgba(42, 22, 14, .78), transparent);
+}
+
+/* O iframe entra no lugar da fachada, mantendo a mesma caixa. */
+.tour__video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+@media (max-width: 560px) {
+  .tour__play-ico {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tour__play-ico .ico {
+    width: 27px;
+    height: 27px;
+  }
+
+  .tour__play-label {
+    font-size: .9375rem;
+    padding: 38px 14px 13px;
+  }
+}
+
+
+/* Prêmios da construtora. Número grande em verde sobre o fundo escuro —
+   mesma leitura dos prêmios do Mérito, na pele do Urban. */
+.awards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0 24px;
+}
+
+.awards li {
+  padding: 16px 14px;
+  border-radius: var(--radius);
+  background: var(--surface-night);
+  text-align: center;
+}
+
+.awards strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--wl-sand);
+}
+
+.awards span {
+  display: block;
+  margin-top: 5px;
+  font-size: .6875rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #E4D2C4;
+}
+
+@media (max-width: 420px) {
+  .awards { gap: 7px; }
+  .awards li { padding: 13px 8px; }
+  .awards strong { font-size: 1.375rem; }
+  .awards span { font-size: .625rem; }
+}
+
+
+/* ===================== Urgência do lançamento =====================
+   A tabela sobe todo mês. É factual e verificável — nada de cronômetro. */
+.launch__urgency {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  max-width: 62ch;
+  margin: 26px auto 0;
+  padding: 15px 18px;
+  border: 2px dashed var(--wl-brown);
+  border-radius: var(--radius);
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.launch__urgency .ico {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--brown-ink);
+}
+
+/* ===================== O empreendimento em números ===================== */
+.trust-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.trust-numbers li {
+  padding: 15px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--wl-white);
+  text-align: center;
+}
+
+.trust-numbers strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 1.75rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.trust-numbers span {
+  display: block;
+  margin-top: 4px;
+  font-size: .75rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 560px) {
+  .trust-numbers { grid-template-columns: repeat(2, 1fr); }
+  .trust-numbers strong { font-size: 1.25rem; }
+}
+
+/* ============================= Leisure =============================
+   Mobile: carrossel horizontal (mesmo padrão de scroll-snap já usado em
+   .plans) em vez de grade 2x4 — evita 4 telas de rolagem vertical antes do
+   próximo CTA, sem remover nenhum item do lazer. Desktop volta para grade. */
+.leisure {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 6px;
+  margin: 30px calc(var(--pad) * -1) 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.leisure__card {
+  position: relative;
+  flex: 0 0 42%;
+  min-width: 148px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--wl-black);
+  scroll-snap-align: start;
+}
+
+.leisure__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leisure__card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 78%;
+  background: linear-gradient(180deg, rgba(42, 22, 14, 0) 0%, rgba(42, 22, 14, .55) 42%, rgba(42, 22, 14, .92) 100%);
+}
+
+.leisure__label {
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--wl-white);
+}
+
+.leisure__label .ico {
+  width: 18px;
+  height: 18px;
+  color: var(--wl-sand);
+}
+
+.leisure-extra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+}
+
+.leisure-extra li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-inline: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .16);
+  font-size: .875rem;
+  color: #E9D8CA;
+}
+
+.leisure-extra li:first-child { border-left: 0; }
+
+.leisure-extra .ico {
+  width: 17px;
+  height: 17px;
+  color: var(--wl-sand);
+}
+
+/* ============================== Buying ==============================
+   living.png já vem com fundo transparente e o formato característico do
+   site (cantos arredondados + ponta do chevron) recortado na própria imagem
+   — mesmo tratamento do banner e da seção Minha Casa Minha Vida. Por isso
+   NÃO usa object-fit/aspect-ratio (que cortariam a transparência em um
+   retângulo e deixariam "buracos" no card): a imagem aparece inteira, no
+   tamanho natural, flutuando sobre a textura de concreto da seção. */
+.buy__media { margin: 0 0 26px; }
+
+.buy__media img {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================== Credibility =========================== */
+.trust__grid { display: grid; gap: 30px; }
+
+.trust__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 12px;
+  margin-top: 26px;
+}
+
+.trust__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-size: .8125rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+.trust__list .ico {
+  width: 34px;
+  height: 34px;
+  stroke-width: 1.4;
+  color: var(--wl-dark);
+}
+
+/* ================================ FAQ ================================ */
+.faq .title { margin-bottom: 28px; }
+
+.faq__grid {
+  display: grid;
+  gap: 10px;
+}
+
+.faq__item {
+  background: var(--wl-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 15px 16px;
+  font-weight: 600;
+  font-size: .9375rem;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+.faq__item summary::after {
+  content: "+";
+  flex: none;
+  width: 24px;
+  font-family: var(--font-label);
+  font-size: 1.6rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--wl-brown-dark);
+}
+
+.faq__item[open] summary::after { content: "\2013"; }
+
+.faq__item p {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: .9375rem;
+  color: var(--ink-soft);
+}
+
+/* ============================= Final CTA ============================= */
+/* Mesmo tratamento do CTA final do Mérito: bloco alto, conteúdo centralizado
+   e véu escuro uniforme sobre a foto inteira — antes o véu cobria só 62% à
+   esquerda e a metade direita ficava vazia. */
+.final-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-height: 460px;
+  background: var(--wl-black);
+  color: var(--wl-white);
+  text-align: center;
+}
+
+/* skyline.jpg já vem escura do lado esquerdo (onde o texto fica) e com o
+   chevron verde pronto na própria imagem — por isso mostramos ela quase
+   inteira (sem esmaecer) e ancorada à esquerda: o lado claro/skyline vira
+   um bônus visual em telas largas, e o chevron nunca some em telas estreitas. */
+.final-cta__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Véu leve: reforço de contraste, não a fonte principal dele — a própria
+   foto já é bem escura no lado esquerdo. Ficou bem mais fraco que antes
+   (era calibrado para um placeholder genérico, apagava a foto real). */
+.final-cta::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(rgba(42, 22, 14, .74), rgba(42, 22, 14, .86));
+}
+
+.final-cta__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: 56px;
+}
+
+/* Bloco centralizado; todo texto interno acompanha */
+.final-cta__content {
+  max-width: 47rem;
+  margin-inline: auto;
+}
+
+.final-cta__content .section__text { margin-inline: auto; }
+
+.final-cta__brand {
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.final-cta__eyebrow { color: var(--wl-sand); }
+
+.final-cta .title { margin-bottom: 16px; }
+
+/* .final-cta__price saiu em 20/09/2026, junto dos valores. A margem que
+   ele dava entre o texto e o botão passou para o próprio botão. */
+.final-cta .btn { margin-top: 22px; }
+
+.final-cta__micro {
+  margin: 14px 0 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .8125rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--wl-sand);
+}
+
+/* `margin` com atalho zeraria o auto das laterais e a caixa colaria à
+   esquerda — por isso o auto vem aqui dentro, não numa regra separada. */
+.final-cta__note {
+  max-width: 52ch;
+  margin: 10px auto 0;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: #CDB7A6;
+}
+
+/* ============================== Footer ============================== */
+.site-footer {
+  background: var(--surface-night);
+  color: var(--wl-light);
+  padding: 22px 0 18px;
+}
+
+/* Linha 1 do rodapé, no mesmo desenho do Mérito Ipiranga: no celular os
+   blocos empilham à esquerda; a partir de 700px ficam nas pontas. */
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+/* Marca e linha descritiva lado a lado */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Fica ao lado da marca (não abaixo), como no Mérito: o bloco todo tem a
+   altura da marca em vez de somar duas linhas. */
+.footer-brand__tag {
+  font-size: .75rem;
+  line-height: 1.4;
+  color: var(--wl-gray);
+}
+
+/* Navegação e redes andam juntas na ponta direita */
+.footer-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+.footer-nav a {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--wl-light);
+}
+
+.footer-nav a:hover { color: var(--wl-sand); }
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+  color: var(--wl-light);
+}
+
+.social a:hover {
+  color: var(--wl-sand);
+  border-color: var(--wl-sand);
+}
+
+.site-footer__legal {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.site-footer__legal p {
+  margin: 0;
+  font-size: .6875rem;
+  line-height: 1.5;
+  color: #BFA999;
+}
+
+.site-footer__legal p + p { margin-top: 5px; }
+
+/* ============================ Mobile CTA ============================ */
+.mobile-cta {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--surface-night);
+  border-top: 2px solid var(--wl-sand);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: 10px var(--pad);
+}
+
+.mobile-cta__text span {
+  display: block;
+  font-weight: 400;
+  font-size: .8125rem;
+  letter-spacing: .02em;
+  opacity: .85;
+}
+
+.mobile-cta__text {
+  margin: 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: .75rem;
+  line-height: 1.15;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--wl-white);
+}
+
+.mobile-cta .btn {
+  flex: none;
+  white-space: nowrap;
+  /* Alvo de toque confortável: .btn--sm sozinho fica em 44px. */
+  min-height: 48px;
+}
+
+/* Espaço para o CTA fixo não cobrir conteúdo */
+body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); }
+
+/* ============================= Responsive ============================= */
+@media (min-width: 480px) {
+  .poi { grid-template-columns: repeat(2, 1fr); }
+  .plan { flex-basis: 56%; }
+}
+
+@media (min-width: 480px) {
+  /* Daqui para cima a arte inteira já cabe na faixa sem ficar pequena demais
+     (e o recorte quadrado ficaria alto demais) */
+  .hero__bg img { aspect-ratio: 16 / 10; }
+}
+
+@media (min-width: 700px) {
+  :root { --pad: 28px; }
+
+  /* Rodapé: marca à esquerda, navegação à direita (igual ao Mérito) */
+  .site-footer__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .section { padding: 72px 0; }
+
+  .leisure {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    overflow: visible;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
+  .leisure__card {
+    flex: initial;
+    min-width: 0;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    overflow: visible;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
+  .plan {
+    flex: initial;
+    max-width: none;
+  }
+
+  .faq__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 18px;
+  }
+
+  /* MCMV: 3 colunas com divisórias verticais, como na arte */
+  .mcmv__cols,
+  .launch__cols {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .mcmv__cols li,
+  .launch__cols li {
+    padding: 0 14px;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .mcmv__cols li:first-child,
+  .launch__cols li:first-child { border-left: 0; }
+
+  .trust__list { grid-template-columns: repeat(5, 1fr); }
+
+  .final-cta__inner { padding-block: 76px; }
+
+  /* Em telas largas os títulos centrais cabem em 1 linha */
+  .title--center { max-width: none; }
+
+}
+
+@media (min-width: 900px) {
+  .section { padding: 88px 0; }
+
+  /* Header desktop */
+  .nav-toggle { display: none; }
+
+  .main-nav {
+    position: static;
+    display: block;
+    background: transparent;
+    border: 0;
+  }
+
+  .main-nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .main-nav__list li + li::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    margin: 0 18px;
+    vertical-align: middle;
+    background: rgba(141, 82, 50, .3);
+  }
+
+  .main-nav__list li {
+    display: flex;
+    align-items: center;
+  }
+
+  .main-nav a {
+    padding: 8px 0;
+    font-size: .75rem;
+    border: 0;
+    color: var(--ink);
+  }
+
+  .main-nav a:hover { color: var(--brown-ink); }
+
+  .brand img { height: 52px; }
+
+  /* Hero desktop: texto à esquerda, fachada à direita sangrando até a
+     borda. A foto é absoluta na metade direita para acompanhar a altura
+     do texto, seja ela qual for. */
+  .hero { display: block; }
+
+  .hero__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: center 35%;
+  }
+
+  .hero__grid {
+    display: flex;
+    align-items: center;
+    min-height: 680px;
+    padding-block: 64px 64px;
+  }
+
+  .hero__content { width: calc(50% - 48px); max-width: 580px; }
+
+  .hero__title { font-size: min(4.3vw, 3.9rem); }
+
+  /* Os 5 chips cabem em uma linha só a partir do desktop */
+  .specs {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+
+  /* Localização */
+  .loc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .poi { grid-template-columns: repeat(2, 1fr); }
+
+  .loc__media { margin: 0; }
+
+
+
+  /* Plantas */
+  .plans { grid-template-columns: repeat(4, 1fr); }
+
+  .plan__area { font-size: 1.15rem; }
+
+  /* Minha Casa Minha Vida: foto à esquerda, texto à direita */
+  .mcmv__grid {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    text-align: left;
+  }
+
+  .mcmv__media {
+    flex: 0 0 46%;
+    max-width: 560px;
+  }
+
+  .mcmv__content {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .mcmv__lead { margin-inline: 0; }
+
+  .mcmv__note { margin-inline: 0; }
+
+  /* Como comprar */
+  .buy__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 52px;
+    align-items: center;
+  }
+
+  .buy__media { margin: 0; }
+
+  /* Credibilidade */
+  /* Coluna única desde que o card de consultor saiu: sem a segunda coluna,
+     duas faixas deixariam metade da seção vazia. */
+  .trust__grid { max-width: 62ch; }
+
+  /* CTA final — o véu segue cobrindo a foto inteira (o conteúdo é centralizado,
+     então não há mais um lado "livre" para deixar sem escurecer). */
+  .final-cta { min-height: 560px; }
+
+  .final-cta__inner { padding-block: 96px; }
+
+  /* CTA fixo some no desktop (é um recurso pensado para a barra de toque do celular) */
+  .mobile-cta { display: none; }
+
+  body { padding-bottom: 0; }
+}
+
+
+/* ========================= Reduced motion ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ========================= Peças só do WL ========================= */
+
+/* Resumo do texto legal das plantas (vinha na lateral de cada página). */
+.plans__note {
+  max-width: 78ch;
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: .75rem;
+  line-height: 1.55;
+  color: #7A6152;
+}
+
+/* O mapa é um botão (amplia no lightbox), mas não deve "pular" no hover
+   como um card de planta. */
+.loc__media .plan__img-btn:hover,
+.loc__media .plan__img-btn:focus-visible { transform: none; }
+
+.loc__caption {
+  margin-top: 8px;
+  font-size: .75rem;
+  color: var(--ink-soft);
+}
+
+.leisure__note {
+  max-width: 70ch;
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: #CDB7A6;
+}
+
+.final-cta__brand img { height: 72px; }
+
+/* O CTA final usa a fachada como fundo: véu marrom, não preto. */
+.final-cta::before {
+  background: linear-gradient(rgba(59, 28, 16, .82), rgba(59, 28, 16, .9));
+}
+
+/* Títulos em serifa ficam grandes com menos peso: no escuro, creme. */
+.section--dark .title,
+.final-cta .title { color: var(--wl-light); }
+
+.loc__content .title { margin-bottom: 16px; }
+
+/* A portaria vem quase quadrada do book; inteira, ocupava 800px de altura. */
+.tour__still img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center 75%;
+}
+
+/* Celular: o botão do hero precisa terminar acima da barra fixa
+   (72px) numa tela de 812px. Medido: sem isto ele terminava em 770px,
+   metade atrás da barra. */
+@media (max-width: 480px) {
+  .hero__grid { padding-block: 22px 32px; }
+  .hero__kicker { margin-bottom: 12px; }
+  .hero__title { font-size: 2.05rem; margin-bottom: 10px; }
+  .hero__text { font-size: .875rem; margin-bottom: 16px; }
+  .hero__cond { gap: 8px; margin-bottom: 18px; }
+  .hero__cond-item { padding: 9px 12px; }
+  .hero__cond-value { font-size: 1.15rem; }
+  .hero__cond-hint { font-size: .75rem; }
+  .brand img { height: 38px; }
+  .site-header__inner { min-height: 60px; }
+}
+
+/* Endereço do empreendimento, logo abaixo do texto da localização. */
+.loc__address {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.loc__address .ico {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--brown-ink);
+}
