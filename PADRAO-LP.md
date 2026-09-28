@@ -74,6 +74,22 @@ próprio, e `<section>` sem nome acessível não ajuda leitor de tela.
 - **Preço a partir de** e **entrada a partir de**, lado a lado. A entrada
   precisa de uma linha de apoio ("e o restante parcelado durante a obra") —
   sem ela, "entrada de R$ 800" soa como se o apartamento saísse por esse valor.
+
+  > **Urban, Mérito e WL Boa Vista não seguem mais este item** (Urban em
+  > 20/09/2026, Mérito em 28/09): os valores saíram da página inteira. No
+  > lugar deles ficaram as condições de compra e um CTA que pergunta pela
+  > renda. O motivo, e o que repõe a qualificação que o preço fazia, estão em
+  > `urban-vila-guilherme/README.md`, seção 5.
+  >
+  > **O que repõe a qualificação muda por empreendimento** — é o que decide
+  > quem pode comprar o quê ali: no Urban é o MCMV; no Mérito é a categoria
+  > da unidade (HIS-2 com limite de renda, R2V sem limitador). Copiar a lista
+  > do Urban para uma LP que não sustenta aquelas condições (o Mérito não
+  > afirma FGTS nem subsídio) troca preço vencido por promessa falsa, que é
+  > pior.
+  >
+  > Só o Novo Mundo Carrão ainda tem preço. **Antes de repetir o padrão numa
+  > LP nova, leia aquela seção e decida** — não copie por inércia.
 - Tipologia e metragem em selos curtos.
 - Um CTA que abre o formulário de lead.
 - Nota de rodapé com as ressalvas de valor, disponibilidade e análise de
@@ -185,11 +201,18 @@ Quando as obras forem entregues, acrescentar fotos de **entrega de chaves** —
 
 ## Valores
 
-Cravados no HTML, nunca injetados por JavaScript — o preço é o maior elemento
-da primeira dobra (o LCP) e não pode aparecer depois do carregamento.
+Quando a LP mostrar valores, eles ficam cravados no HTML, nunca injetados por
+JavaScript — o preço é o maior elemento da primeira dobra (o LCP) e não pode
+aparecer depois do carregamento.
 
 **Revisão mensal obrigatória.** A tabela sobe conforme a obra avança; os
 valores envelhecem sozinhos. O passo a passo está no README de cada LP.
+
+> Essa revisão mensal é o custo real de publicar preço, e foi ela que não se
+> sustentou: o Urban passou um mês com "Tabela vigente — agosto de 2026" no
+> ar antes de os valores serem removidos, em 20/09/2026. **Se ninguém tem a
+> rotina de atualizar todo mês, não publique o valor** — página de tráfego
+> pago com preço vencido custa mais do que página sem preço.
 
 Cuidados de equilíbrio, aprendidos no Urban:
 

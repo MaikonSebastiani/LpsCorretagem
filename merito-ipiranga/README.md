@@ -54,49 +54,51 @@ de verdade com `target="_blank"`, então a aba de origem continua viva e o
 assume a tela. Segurar o clique esperando o gtag responder só criava atraso
 e, na versão antiga, chegou a abrir o WhatsApp duas vezes.
 
-## Atualização mensal dos valores
+## Por que a página não mostra preço
 
-A tabela sobe conforme a obra avança — é o argumento honesto de urgência da
-página, e a consequência é que **os valores envelhecem sozinhos**. Preço
-desatualizado em página de tráfego pago não é detalhe: é lead chegando com
-expectativa errada e tempo do time gasto à toa.
+**Removidos em 28/09/2026.** Antes a página trazia "a partir de R$ 230 mil"
+e "entrada a partir de R$ 800" em sete lugares — `meta description`, hero,
+seção de plantas, card de entrada em "Como comprar", FAQ, CTA final e a
+barra fixa do celular —, e este capítulo era o procedimento de trocá-los
+todo mês.
 
-Os valores estão cravados no HTML de propósito. Injetar por JavaScript faria
-o preço aparecer depois do carregamento — e ele é o maior elemento da
-primeira dobra (o LCP). A troca é manual, mas é segura, porque cada valor é
-uma string única.
+O Urban tirou os valores primeiro, em 20/09/2026, e o motivo completo está
+em `urban-vila-guilherme/README.md`, seção 5. Vale igual aqui:
 
-### Como trocar
+1. **O "a partir de" ancorava na menor unidade.** Quem chegava ancorado
+   naquele número ouvia outro na conversa — e perdia a confiança logo no
+   primeiro contato.
+2. **Envelheciam sozinhos.** A tabela é corrigida conforme a obra avança; a
+   página não. Em tráfego pago, valor vencido avisa "este site está
+   abandonado" para quem acabou de clicar num anúncio.
+3. **Contradiziam o posicionamento da marca**, que é estratégia antes do
+   imóvel: o preço da menor planta não diz nada sobre o que *aquela pessoa*
+   consegue comprar, que é a pergunta real.
 
-Substituir a string inteira, incluindo "R$" e "mil", em **todo o arquivo**:
+### O que ocupou o lugar, e por quê
 
-| Onde | O que trocar |
-|------|--------------|
-| `index.html` | `R$ 230 mil` → o valor novo |
-| `index.html` | `R$ 800` → o valor novo, se a entrada mudar |
+Preço não era enfeite — ele **qualificava**, dizendo em que faixa o produto
+está para quem não tem perfil sair cedo. Tirar sem repor esse trabalho troca
+lead qualificado por volume ruim.
 
-**`R$ 230 mil` — 4 lugares:** `meta name="description"`, hero, seção de
-plantas e CTA final.
+Aqui quem repõe a qualificação é a **categoria da unidade**: são 552 HIS-2,
+com limite de renda pela legislação municipal, e 120 R2V, sem limitador
+próprio. É isso que de fato decide quem pode comprar o quê neste
+empreendimento — e, diferente do preço, não vence todo mês.
 
-**`R$ 800` — 5 lugares:** `meta name="description"`, hero, seção de
-lançamento, FAQ e CTA final.
+No lugar do número ficaram as condições de compra (entrada parcelada,
+enquadramento HIS-2/R2V) e o CTA passou a perguntar pela **renda**, não pelo
+preço.
 
-> O `grep` acusa uma ocorrência a mais de `R$ 800`: existe uma dentro de um
-> comentário HTML, explicando por que a linha de apoio é obrigatória. Essa
-> não precisa ser trocada.
+> **Sem FGTS e subsídio nessa lista**, ao contrário do Urban: o Mérito não
+> afirma isso em lugar nenhum da página. Condição de financiamento que a
+> página não sustenta é promessa que fura na conversa.
 
-### Conferir depois de trocar
+### Se um dia voltarem
 
-```bash
-grep -c "R\$ 230 mil" index.html
-```
-
-Se voltar algo diferente de zero depois da troca, sobrou valor antigo em
-algum lugar.
-
-> A `meta name="description"` também carrega o preço. É ela que aparece no
-> Google — esquecer dela deixa o valor velho no resultado de busca mesmo com
-> a página certa.
+Não devolva o valor cru ao hero. Se voltar, que seja uma **faixa** ("de X a
+Y"), com data de referência visível, e com um dono responsável por revisar
+todo mês — porque foi essa revisão que não se sustentou da primeira vez.
 
 ## Ordem das seções
 
@@ -203,6 +205,7 @@ seção e no FAQ.
 
 ## Observação
 
-O preço exibido (a partir de R$ 230 mil) é valor de referência e aparece
-sempre acompanhado de disclaimer. Disponibilidade e condições devem ser
-consultadas no momento do atendimento.
+A página não exibe preço (ver "Por que a página não mostra preço", acima).
+Valor, disponibilidade e condições são confirmados no atendimento, com a
+tabela vigente — é lá que o número aparece pela primeira vez, já dentro do
+contexto do perfil de quem perguntou.
