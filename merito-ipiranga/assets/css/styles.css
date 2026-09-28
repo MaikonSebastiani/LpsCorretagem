@@ -135,6 +135,21 @@ img{display:block;max-width:100%;height:auto}button,a{font:inherit}button{cursor
 .qz__input{min-height:46px}
 .qz__submit{min-height:50px}
 }
+/* Formulário em duas fases (28/09/2026). O atributo hidden precisa de
+   !important: qualquer display declarado na folha venceria o display:none
+   do navegador, e as duas fases apareceriam juntas. */
+.qz [hidden]{display:none!important}
+.qz__fase{display:grid;gap:15px}
+.qz__options--duo{grid-template-columns:1fr 1fr}
+.qz__steps{display:flex;gap:6px;margin:0 0 18px}
+.qz__steps span{height:3px;flex:1;border-radius:2px;background:var(--line);transition:background-color .25s ease}
+.qz__steps span[data-estado='atual'],.qz__steps span[data-estado='feito']{background:var(--gold)}
+.qz__sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.qz__acoes{display:flex;align-items:center;gap:12px;margin-top:4px}
+.qz__acoes .qz__submit{flex:1 1 auto;margin-left:auto}
+.qz__voltar{flex:none;padding:10px 4px;border:0;background:none;color:var(--muted);font:inherit;font-size:.875rem;cursor:pointer}
+.qz__voltar:hover{color:var(--navy)}
+@media(max-width:560px){.qz__fase{gap:10px}}
 /* Trava o scroll da página atrás do diálogo */
 html.qz-open,html.qz-open body{overflow:hidden}
 

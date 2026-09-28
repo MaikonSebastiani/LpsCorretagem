@@ -204,22 +204,19 @@ function setupReveal() {
 }
 
 /* ------------------------------------------------------------------
-   Pergunta de qualificação
+   Formulário de lead — DUAS FASES (mesmo do Urban e do WL Boa Vista)
 
-   Uma pergunta, um toque, e ninguém fica bloqueado: a última opção é a
-   saída para quem não quer informar. Os três eventos (shown / answered /
-   abandoned) existem para medir a queda que a porteira causa — se ela
-   custar mais leads do que qualifica, dá para ver no relatório.
+   Fase 1 qualifica (renda, entrada, FGTS), fase 2 pede o contato. Três
+   toques custam menos que digitar, e quem não tem perfil sai antes de
+   virar lead. As três perguntas são obrigatórias: desde que os valores
+   saíram da página, este formulário é o único lugar que qualifica.
+
+   Substituiu em 28/09/2026 o formulário de fase única (nome e telefone
+   primeiro, renda e "quando pretende comprar" opcionais).
+
+   As opções vivem no HTML e espelham worker/config.js (RENDAS, ENTRADAS,
+   FGTS): o servidor recusa valor fora da lista.
 ------------------------------------------------------------------ */
-const QUALIFIER_OPTIONS = [
-  { value: 'ate-3200', label: 'Até R$ 3.200' },
-  { value: '3200-5000', label: 'R$ 3.200 – 5.000' },
-  { value: '5000-9600', label: 'R$ 5.000 – 9.600' },
-  { value: '9600-13000', label: 'R$ 9.600 – 13.000' },
-  { value: 'acima-13000', label: 'Acima de R$ 13.000' },
-  { value: 'nao-informado', label: 'Prefiro não dizer' }
-];
-
 const LEAD_ENDPOINT = '/api/lead';
 const EMPREENDIMENTO = 'merito-ipiranga';
 
@@ -266,18 +263,22 @@ function gravarLead(dados) {
 function setupQualifier() {
   const modal = document.getElementById('qualifier');
   const form = document.getElementById('qz-form');
-  const optionsEl = document.getElementById('qz-options');
   /* Todo CTA abre o formulário. Não existe mais caminho direto para o
      WhatsApp: lead que não passa pelo painel não é dividido com ninguém. */
   const gated = document.querySelectorAll('.js-open-lead');
 
-  if (!modal || !form || !optionsEl || !gated.length) return;
+  if (!modal || !form || !gated.length) return;
 
   const campoNome = document.getElementById('qz-nome');
   const campoFone = document.getElementById('qz-fone');
   const campoConsent = document.getElementById('qz-consent');
   const campoIsca = document.getElementById('qz-site');
   const botao = document.getElementById('qz-submit');
+  const botaoContinuar = form.querySelector('[data-qz-continuar]');
+  const botaoVoltar = form.querySelector('[data-qz-voltar]');
+  const helper = modal.querySelector('[data-qz-helper]');
+  const anuncio = modal.querySelector('[data-qz-anuncio]');
+  const passos = modal.querySelectorAll('[data-qz-step]');
 
   const erros = {
     nome: document.getElementById('qz-erro-nome'),
@@ -290,18 +291,26 @@ function setupQualifier() {
     paineis[p.getAttribute('data-qz-panel')] = p;
   });
 
+  const fases = {};
+  Array.prototype.forEach.call(form.querySelectorAll('[data-qz-fase]'), function (f) {
+    fases[f.getAttribute('data-qz-fase')] = f;
+  });
+
+  /* Cada pergunta da fase 1: o `name` do radio e o texto de ajuda da
+     fase. A ordem importa — é a ordem em que o foco vai para a primeira
+     pergunta sem resposta. */
+  const PERGUNTAS = ['renda', 'entrada', 'fgts'];
+
+  const AJUDA = {
+    perfil: 'Três perguntas rápidas. Um consultor retorna com as unidades compatíveis com o seu perfil.',
+    contato: 'Só falta o contato. O retorno vem pelo WhatsApp, no número que você deixar.'
+  };
+
   let trigger = null;
   let concluiu = false;
   let ativo = false;
   let enviando = false;
-
-  /* Renda é opcional: exigir a faixa só aumentaria o abandono, e nome e
-     telefone já bastam para a equipe atender. */
-  optionsEl.innerHTML = QUALIFIER_OPTIONS.map(function (o) {
-    return '<label class="qz__option">' +
-      '<input type="radio" name="renda" value="' + o.value + '">' +
-      '<span>' + o.label + '</span></label>';
-  }).join('');
+  let fase = 'perfil';
 
   function mostrarPainel(qual) {
     Object.keys(paineis).forEach(function (k) {
@@ -309,24 +318,72 @@ function setupQualifier() {
     });
   }
 
+  /* Troca a fase visível e acerta rodapé, trilha e texto de apoio. */
+  function mostrarFase(qual) {
+    fase = qual;
+
+    Object.keys(fases).forEach(function (k) {
+      fases[k].hidden = k !== qual;
+    });
+
+    const indice = qual === 'contato' ? 1 : 0;
+
+    for (let i = 0; i < passos.length; i++) {
+      let estado = 'vazio';
+      if (i < indice) estado = 'feito';
+      else if (i === indice) estado = 'atual';
+      passos[i].setAttribute('data-estado', estado);
+    }
+
+    if (helper) helper.textContent = AJUDA[qual] || '';
+    if (botaoVoltar) botaoVoltar.hidden = indice === 0;
+    if (botaoContinuar) botaoContinuar.hidden = indice !== 0;
+    if (botao) botao.hidden = indice === 0;
+
+    if (anuncio) {
+      anuncio.textContent = 'Etapa ' + (indice + 1) + ' de ' + passos.length + '. ' +
+        (AJUDA[qual] || '');
+    }
+
+    /* O modal rola: sem isto a fase 2 abre na altura em que a fase 1
+       tinha parado, ou seja, no meio do formulário. */
+    if (modal.scrollTop) modal.scrollTop = 0;
+  }
+
+  /** Valor marcado de um radio da fase 1, ou null. */
+  function respostaDe(nome) {
+    const marcada = form.querySelector('input[name="' + nome + '"]:checked');
+    return marcada ? marcada.value : null;
+  }
+
+  function erroDaPergunta(nome, mostrar) {
+    const el = form.querySelector('[data-qz-erro="' + nome + '"]');
+    if (el) el.hidden = !mostrar;
+  }
+
+  /* Some com o aviso assim que a pessoa responde — não precisa esperar o
+     próximo clique em "Continuar" para o vermelho sair da tela. */
+  PERGUNTAS.forEach(function (nome) {
+    Array.prototype.forEach.call(
+      form.querySelectorAll('input[name="' + nome + '"]'),
+      function (radio) {
+        radio.addEventListener('change', function () { erroDaPergunta(nome, false); });
+      }
+    );
+  });
+
   function sourceDo() {
     return (trigger && trigger.getAttribute('data-source')) || 'unknown';
   }
 
   /* Rótulo do botão clicado, como estava escrito na tela. O data-source
      diz de que seção veio; isto diz qual PROMESSA converteu — dá para
-     trocar a copy de um CTA e medir se a troca funcionou. */
+     trocar a copy de um CTA e medir se a troca funcionou. O textContent
+     ignora o SVG do ícone, então sobra só o texto. */
   function ctaDo() {
     if (!trigger) return null;
     var rotulo = (trigger.textContent || '').replace(/\s+/g, ' ').trim();
     return rotulo ? rotulo.slice(0, 80) : null;
-  }
-
-  /* Momento de compra: string vazia (= "prefiro não dizer") vira null,
-     para o servidor não tentar validar "" contra a lista. */
-  function momentoDo() {
-    var campo = document.getElementById('qz-momento');
-    return campo && campo.value ? campo.value : null;
   }
 
   /* Só o referrer EXTERNO interessa: navegação dentro do próprio site
@@ -352,23 +409,55 @@ function setupQualifier() {
     return area ? area.textContent.trim() : null;
   }
 
-  function rendaEscolhida() {
-    const marcada = form.querySelector('input[name="renda"]:checked');
-    return marcada ? marcada.value : null;
-  }
-
   function abrir(el) {
     trigger = el;
     concluiu = false;
     ativo = true;
 
     mostrarPainel('form');
+
+    /* Sempre volta para a fase 1, mas o que já foi respondido continua
+       marcado: o modal é o MESMO DOM em todos os CTAs. Quem desistiu no
+       telefone e voltou dá dois toques e está de novo na fase 2. */
+    mostrarFase('perfil');
+
     document.documentElement.classList.add('qz-open');
     modal.showModal();
 
     trackEvent('lead_form_shown', { source: sourceDo() });
 
-    if (campoNome) campoNome.focus();
+    const primeira = fases.perfil && fases.perfil.querySelector('input');
+    if (primeira) primeira.focus({ preventScroll: true });
+  }
+
+  /* Avanço da fase 1: as três perguntas são obrigatórias. O foco vai
+     para a primeira sem resposta, não para o topo — no celular a
+     pergunta que falta pode estar fora da tela. */
+  if (botaoContinuar) {
+    botaoContinuar.addEventListener('click', function () {
+      let faltando = null;
+
+      PERGUNTAS.forEach(function (nome) {
+        const respondida = !!respostaDe(nome);
+        erroDaPergunta(nome, !respondida);
+        if (!respondida && !faltando) faltando = nome;
+      });
+
+      if (faltando) {
+        trackEvent('lead_form_error', { source: sourceDo(), motivo: 'validacao' });
+        const alvo = form.querySelector('input[name="' + faltando + '"]');
+        if (alvo) alvo.focus();
+        return;
+      }
+
+      trackEvent('lead_form_step', { source: sourceDo(), step: 'perfil' });
+      mostrarFase('contato');
+      if (campoNome) campoNome.focus({ preventScroll: true });
+    });
+  }
+
+  if (botaoVoltar) {
+    botaoVoltar.addEventListener('click', function () { mostrarFase('perfil'); });
   }
 
   /* Encerra o ciclo uma vez só, venha o fechamento de onde vier. */
@@ -419,7 +508,7 @@ function setupQualifier() {
     botao.disabled = true;
     botao.textContent = 'Enviando…';
 
-    const renda = rendaEscolhida();
+    const renda = respostaDe('renda');
     const source = sourceDo();
 
     gravarLead({
@@ -427,7 +516,8 @@ function setupQualifier() {
       nome: nome,
       telefone: fone,
       renda: renda,
-      momento: momentoDo(),
+      entrada: respostaDe('entrada'),
+      fgts: respostaDe('fgts'),
       planta: plantaDo(),
       referrer: referrerExterno(),
       origem: source,
@@ -464,6 +554,16 @@ function setupQualifier() {
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+
+    /* Enter num radio da fase 1 dispara o submit implícito do formulário.
+       Sem esta guarda, o envio saía com nome e telefone vazios e a pessoa
+       via erros apontando para campos que nem estão na tela. Na fase 1,
+       Enter faz o mesmo que "Continuar". */
+    if (fase !== 'contato') {
+      if (botaoContinuar) botaoContinuar.click();
+      return;
+    }
+
     enviar();
   });
 
@@ -471,6 +571,7 @@ function setupQualifier() {
   if (retry) {
     retry.addEventListener('click', function () {
       mostrarPainel('form');
+      mostrarFase('contato');
       enviar();
     });
   }

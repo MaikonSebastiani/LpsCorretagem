@@ -154,32 +154,29 @@ O antigo `.whatsapp-float` (círculo dourado) foi substituído pela barra fixa
 é o espaço de CTA mais visto da página — agora ele carrega os dois valores,
 com o preço primeiro. O CSS órfão do float foi removido.
 
-## Pergunta de qualificação
+## Formulário de lead (duas fases)
 
-Três CTAs passam por uma pergunta antes de abrir o WhatsApp: o do hero, o
-do CTA final e o botão flutuante. Todos os outros (plantas, seções, header,
-consultor) continuam indo direto para a conversa.
+Desde 28/09/2026 é o mesmo formulário do Urban e do WL Boa Vista. **Todos**
+os CTAs (classe `js-open-lead`) abrem o modal; não existe caminho direto
+para o WhatsApp.
 
-A regra é uma pergunta, um toque, e ninguém bloqueado: a última opção
-("Prefiro falar sem informar") deixa passar sem responder, e nesse caso a
-renda não entra na mensagem.
+1. **Perfil** — renda familiar, tem entrada (sim/não) e tem FGTS (sim/não).
+   As três são obrigatórias: sem preço na página, o formulário é o único
+   lugar que qualifica.
+2. **Contato** — nome, WhatsApp e aceite da política. Grava em `/api/lead`
+   e espera a resposta; se falhar, mostra a tela de "tentar de novo".
 
-Para mudar quem passa pela pergunta, é só pôr ou tirar o atributo
-`data-qualify` no CTA — nada mais precisa ser tocado. As opções de resposta
-ficam em `QUALIFIER_OPTIONS`, no `main.js`.
+O formulário anterior (fase única, com renda e "quando pretende comprar"
+opcionais) saiu nessa data.
 
-### Eventos da pergunta
+As opções ficam no HTML e espelham `worker/config.js` (RENDAS, ENTRADAS,
+FGTS): mudar um `value` sem mudar lá faz o campo chegar vazio no banco.
 
-- `qualification_shown` — a pergunta apareceu (com `source`).
-- `qualification_answered` — respondeu (com `source` e `income_range`).
-- `qualification_abandoned` — fechou sem responder (com `source`).
+### Eventos
 
-Os três existem para medir o custo da porteira. Se `shown` for muito maior
-que `answered`, a pergunta está espantando mais gente do que qualificando —
-e aí basta remover o `data-qualify` dos CTAs.
-
-A conversão do Google Ads dispara junto com `whatsapp_click`, uma vez só,
-seja o CTA direto ou com pergunta.
+`lead_form_shown`, `lead_form_step` (passou da fase 1), `lead_form_error`,
+`lead_form_abandoned` e `lead_submit` — este último é o lead gravado, e é
+nele que a conversão do Ads dispara.
 
 ## Conteúdo incorporado
 
