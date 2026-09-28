@@ -133,12 +133,11 @@
      continua aberta (target="_blank"), a requisição da conversão tem tempo
      de sair. O `transport_type: 'beacon'` garante o envio mesmo se o
      navegador for para segundo plano quando o app do WhatsApp assumir. */
-  /* PENDENTE: criar no Google Ads uma ação de conversão própria do WL Boa
-     Vista e colar o rótulo aqui (formato 'AW-18388777321/xxxxxxxx'). Urban
-     e Mérito têm rótulos próprios; reaproveitar o de outra LP misturaria
-     os resultados das campanhas. Enquanto estiver vazio, a conversão do
-     Ads não dispara — o evento lead_submit continua indo para o GA4 e
-     pode ser importado de lá. */
+  /* Vazio por decisão (28/09/2026): a medida de resultado do WL é o lead
+     chegando no CRM, não a conversão do Ads. Sem rótulo, a conversão não
+     dispara; o lead_submit continua indo para o GA4. Se um dia quiser a
+     conversão no Ads, crie uma ação própria — não reaproveite o rótulo do
+     Urban ou do Mérito, que mistura os resultados das campanhas. */
   var ADS_CONVERSION = '';
 
   function reportWhatsAppConversion() {

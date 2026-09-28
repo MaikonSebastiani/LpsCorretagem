@@ -15,17 +15,18 @@ assets/images/       tudo recortado do book; nada gerado
 assets/icons/        monograma WL do logo oficial
 ```
 
-## Pendências antes de subir campanha
+## Pendências
 
-1. **Rótulo de conversão do Google Ads.** `ADS_CONVERSION` em `js/main.js`
-   está vazio de propósito: Urban e Mérito têm ação de conversão própria, e
-   reaproveitar o rótulo de outra LP mistura os resultados. Crie a ação no
-   Ads e cole o rótulo (`AW-18388777321/xxxx`). Enquanto estiver vazio, o
-   `lead_submit` continua indo para o GA4.
-2. **Vídeo.** A área está pronta e escondida; os 4 passos para ativar estão
+1. **Vídeo.** A área está pronta e escondida; os 4 passos para ativar estão
    no comentário acima de `#video` no `index.html`.
-3. **Card na lista de empreendimentos** (`/empreendimentos/`) — não foi
+2. **Card na lista de empreendimentos** (`/empreendimentos/`) — não foi
    feito.
+
+## Conversão
+
+No ar desde 28/09/2026, com lead testado chegando no CRM. **Não há rótulo
+de conversão do Google Ads, por decisão**: o que importa é o lead no CRM.
+`ADS_CONVERSION` em `js/main.js` fica vazio; o `lead_submit` vai para o GA4.
 
 ## Por que a página não mostra preço — e onde aparece `R$`
 
