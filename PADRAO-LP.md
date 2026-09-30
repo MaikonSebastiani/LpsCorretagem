@@ -90,6 +90,25 @@ próprio, e `<section>` sem nome acessível não ajuda leitor de tela.
   >
   > Só o Novo Mundo Carrão ainda tem preço. **Antes de repetir o padrão numa
   > LP nova, leia aquela seção e decida** — não copie por inércia.
+  >
+  > **30/09/2026 — a entrada voltou com número, e o FGTS entrou.** Em todas
+  > as LPs de empreendimento: **"Entrada a partir de R$ 800"** e **"Use seu
+  > FGTS"** (hero, #como-comprar, FAQ e barra fixa). Decisão do dono do
+  > negócio, pelas frases que mais puxam o público de lançamento. O
+  > argumento contra o número (ancorar numa unidade que acaba) não vale
+  > aqui: R$ 800 é condição de todos os empreendimentos Cury que a equipe
+  > vende, não de uma planta. Três regras continuam:
+  >
+  > - a ressalva **"e o restante parcelado durante a obra"** viaja sempre
+  >   junto do R$ 800, inclusive na barra fixa;
+  > - o **preço do apartamento** continua fora (menos no Novo Mundo, onde a
+  >   entrada fica menor que o preço);
+  > - FGTS sempre com **"conforme as regras"** e uma pergunta própria no FAQ
+  >   com as regras do fundo. **Subsídio** só onde há MCMV confirmado (Urban).
+  >
+  > Frases que **não** entram: "Financiamento de até 100%" (o financiamento
+  > vai a ~80%; o resto vem de FGTS/subsídio) e "Só paga quando pegar as
+  > chaves" (contradiz a entrada parcelada durante a obra).
 - Tipologia e metragem em selos curtos.
 - Um CTA que abre o formulário de lead.
 - Nota de rodapé com as ressalvas de valor, disponibilidade e análise de

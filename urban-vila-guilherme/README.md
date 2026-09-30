@@ -224,9 +224,12 @@ vigência que alguém se comprometa a atualizar, e nunca a entrada sozinha.
 grep -n 'R\$' index.html
 ```
 
-Precisa voltar vazio — inclusive nos comentários. Comentário de HTML é
-servido junto da página e qualquer pessoa lê no código-fonte, então valor
-comentado é valor publicado.
+Desde 30/09/2026 **não volta mais vazio**: a entrada "a partir de R$ 800"
+voltou por decisão (ver `PADRAO-LP.md`, seção do hero), e as faixas de
+renda do formulário também têm `R$`. O que precisa continuar fora é o
+**preço do apartamento** — se o grep mostrar qualquer valor além de R$ 800
+e das faixas de renda, algo voltou sem querer. Comentário de HTML é servido
+junto da página, então valor comentado é valor publicado.
 
 ## 6. Ordem das seções
 

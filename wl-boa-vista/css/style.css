@@ -2409,3 +2409,14 @@ body { padding-bottom: calc(var(--mobile-cta-h) + env(safe-area-inset-bottom)); 
   margin-top: 1px;
   color: var(--brown-ink);
 }
+
+/* Barra fixa: a Montserrat em caixa-alta espaçada é bem mais larga que a
+   condensada do Urban — "Entrada a partir de R$ 800" quebrava em 4 linhas.
+   Em caixa normal cabe em 2, ao lado do botão. */
+.mobile-cta__text {
+  font-size: .8125rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.mobile-cta__text span { font-size: .75rem; letter-spacing: 0; }

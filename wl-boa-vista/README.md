@@ -38,6 +38,10 @@ Mesma decisão do Urban (ver `urban-vila-guilherme/README.md`, seção 5).
 No WL, quem qualifica no lugar do preço são as **categorias HIS** (HIS-1 até
 3 salários mínimos, HIS-2 até 6), que estão na lei e não vencem todo mês.
 
+**Exceção desde 30/09/2026:** a entrada aparece com número — "a partir de
+R$ 800", sempre com "e o restante parcelado durante a obra" — junto de "Use
+seu FGTS" (hero, #como-comprar, FAQ e barra fixa). Ver `PADRAO-LP.md`.
+
 `grep -n 'R\$' index.html` **não** volta vazio, e está certo assim:
 
 - as faixas de renda do formulário (iguais às do Urban);

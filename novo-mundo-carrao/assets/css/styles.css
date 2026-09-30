@@ -293,6 +293,9 @@ em { font-style: normal; color: var(--dourado); }
 .preco__valor { font-size: clamp(30px, 4.6vw, 40px); line-height: 1.05; letter-spacing: -.03em; }
 .preco__valor sup { font-size: .4em; vertical-align: super; color: var(--tinta-3); }
 .preco__apoio { margin-top: 4px; font-size: 14px; color: var(--tinta-2); }
+/* Entrada: menor que o preço e com a ressalva junto (mín. 13px, peso 500). */
+.preco__entrada { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0, 0, 0, .08); font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--tinta-2); }
+.preco__entrada strong { color: var(--tinta); }
 
 .hero__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
 

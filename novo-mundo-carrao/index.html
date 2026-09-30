@@ -30,8 +30,10 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 
   <!-- A fachada é o maior elemento da primeira dobra (LCP). -->
-  <link rel="preload" as="image" href="assets/images/hero.webp"
-        imagesrcset="assets/images/hero-760.webp 760w, assets/images/hero-1100.webp 1100w, assets/images/hero.webp 1282w"
+  <!-- Preload do AVIF, com type: é o formato que o <picture> escolhe. Até
+       30/09/2026 pré-carregava o WebP, e a foto era baixada duas vezes. -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="assets/images/hero-760.avif 760w, assets/images/hero-1100.avif 1100w, assets/images/hero.avif 1282w"
         imagesizes="(max-width: 900px) 100vw, 52vw" fetchpriority="high">
 
   <script>document.documentElement.classList.add('js');</script>
@@ -140,6 +142,10 @@
               <span class="preco__rotulo">Disponíveis a partir de</span>
               <strong class="preco__valor">R$ 299.000<sup>*</sup></strong>
               <span class="preco__apoio">2 dormitórios com varanda, 38,95 m²</span>
+              <!-- Entrada adicionada em 30/09/2026. Fica MENOR que o preço de
+                   propósito (PADRAO-LP.md: "o preço e a entrada competem"), e
+                   com a ressalva na mesma linha. -->
+              <span class="preco__entrada">Entrada a partir de <strong>R$ 800</strong>, restante parcelado na obra &middot; use seu FGTS</span>
             </p>
           </div>
 
@@ -434,6 +440,16 @@
         </details>
 
         <details class="faq">
+          <summary>Quanto preciso ter para começar?</summary>
+          <p>A entrada começa a partir de R$ 800 e não sai de uma vez: você dá início à compra e divide o restante ao longo da obra. O valor exato depende da unidade, da sua renda, do FGTS disponível e da análise de crédito — é o que a nossa equipe levanta com você, sem custo.</p>
+        </details>
+
+        <details class="faq">
+          <summary>Posso usar meu FGTS?</summary>
+          <p>Na maioria dos casos, sim — na entrada ou para abater o financiamento. As regras são do próprio FGTS: ter ao menos 3 anos de trabalho com carteira assinada (somando todos os períodos), não ter outro imóvel residencial na cidade onde mora ou trabalha e não ter financiamento habitacional ativo. A nossa equipe confere com você, sem custo.</p>
+        </details>
+
+        <details class="faq">
           <summary>Por que algumas plantas aparecem como esgotadas?</summary>
           <p>Porque elas realmente esgotaram. Mantivemos as três na página para você ver o estágio real do lançamento, em vez de dar a impressão de que o empreendimento inteiro ainda está disponível.</p>
         </details>
@@ -497,7 +513,7 @@
   <div class="barra-mobile">
     <div class="barra-mobile__texto">
       <strong>Últimas unidades</strong>
-      <span>a partir de R$ 299.000*</span>
+      <span>a partir de R$ 299.000* &middot; entrada R$ 800</span>
     </div>
     <a class="btn btn--dourado btn--pequeno js-lead" data-source="mobile_fixed"
        data-message="Olá! Gostaria de falar com um corretor sobre as últimas unidades do Novo Mundo Carrão II.">Falar agora</a>

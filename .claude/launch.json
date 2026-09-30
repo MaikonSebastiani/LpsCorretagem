@@ -18,6 +18,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "http-server", ".", "-p", "8790", "-c-1", "--silent"],
       "port": 8790
+    },
+    {
+      "name": "estatico-node",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["-e", "const h=require('http'),f=require('fs'),p=require('path');const T={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.webp':'image/webp','.avif':'image/avif','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json'};h.createServer((q,r)=>{let u=decodeURIComponent(q.url.split('?')[0]);if(u.endsWith('/'))u+='index.html';const a=p.join(process.cwd(),u);f.readFile(a,(e,d)=>{if(e){r.writeHead(q.method==='POST'?405:404);return r.end()}r.writeHead(200,{'Content-Type':T[p.extname(a)]||'application/octet-stream','Cache-Control':'no-store'});r.end(d)})}).listen(8792)"],
+      "port": 8792
     }
   ]
 }

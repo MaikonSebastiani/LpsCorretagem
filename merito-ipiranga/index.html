@@ -26,9 +26,11 @@
 
   <link rel="stylesheet" href="assets/css/styles.css" />
 
-  <!-- A arte do hero é o maior elemento visível no carregamento (LCP). -->
-  <link rel="preload" as="image" href="assets/images/hero.webp"
-        imagesrcset="assets/images/hero-mobile.webp 900w, assets/images/hero.webp 1208w"
+  <!-- A arte do hero é o maior elemento visível no carregamento (LCP).
+       Preload do AVIF, com type: é o formato que o <picture> escolhe. Até
+       30/09/2026 pré-carregava o WebP, e a foto era baixada duas vezes. -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="assets/images/hero-mobile.avif 900w, assets/images/hero.avif 1208w"
         imagesizes="100vw" fetchpriority="high">
 
   <!-- Marca que o JS está ativo: as animações de entrada (.reveal) só
@@ -129,15 +131,17 @@
                  aqui é a categoria da unidade, que é o que de fato decide
                  quem pode comprar o quê neste empreendimento.
 
-                 Sem FGTS e subsídio nesta lista de propósito: o Mérito não
-                 afirma isso em lugar nenhum da página, e condição de
-                 financiamento inventada é o tipo de coisa que a pessoa
-                 descobre justamente na conversa com o corretor. -->
+                 A ENTRADA voltou com número em 30/09/2026, por decisão:
+                 "a partir de R$ 800" vale em todos os empreendimentos Cury
+                 que a equipe vende. A ressalva ("e o restante parcelado
+                 durante a obra") viaja SEMPRE junto — sem ela, R$ 800 lê
+                 como o preço do apartamento. O FGTS entrou junto, também
+                 confirmado pela equipe; subsídio continua fora. -->
             <div class="hero-cond">
               <p class="hero-cond-item">
                 <span class="hero-cond-label">Entrada</span>
-                <strong class="hero-cond-value">Parcelada durante a obra</strong>
-                <span class="hero-cond-hint">Você dá início à compra e divide o restante da entrada até a entrega.</span>
+                <strong class="hero-cond-value">A partir de R$ 800</strong>
+                <span class="hero-cond-hint">E o restante parcelado na obra. Use seu FGTS, conforme as regras.</span>
               </p>
               <p class="hero-cond-item">
                 <span class="hero-cond-label">Enquadramento</span>
@@ -263,7 +267,7 @@
           </article>
           <article>
             <span class="card-kicker">ENTRADA</span>
-            <h3>Parcelada durante a obra</h3>
+            <h3>A partir de R$ 800</h3>
             <p>Você dá início à compra e divide o restante da entrada ao longo da obra, no formato que couber no seu orçamento.</p>
           </article>
           <article>
@@ -444,7 +448,8 @@
       <div class="container faq-wrap">
         <div class="section-heading reveal"><span class="eyebrow gold">DÚVIDAS FREQUENTES</span><h2>Antes de decidir, <em>tenha informação clara.</em></h2></div>
         <div class="accordion reveal">
-          <details><summary>Quanto preciso ter para começar?</summary><p>Menos do que a maioria imagina: a compra começa com um valor inicial e o restante da entrada é parcelado ao longo da obra — você define a divisão que couber no seu orçamento. Esse valor inicial não é o preço do apartamento, ele apenas dá início à compra. Quanto fica no seu caso depende da unidade escolhida, da categoria (HIS-2 ou R2V), da sua renda e da análise de crédito — é isso que confirmamos com você na consulta, com a tabela vigente na mão.</p></details>
+          <details><summary>Quanto preciso ter para começar?</summary><p>A entrada começa a partir de R$ 800 e o restante da entrada é parcelado ao longo da obra — você define a divisão que couber no seu orçamento. Esse valor inicial não é o preço do apartamento, ele apenas dá início à compra. Quanto fica no seu caso depende da unidade escolhida, da categoria (HIS-2 ou R2V), da sua renda e da análise de crédito — é isso que confirmamos com você na consulta, com a tabela vigente na mão.</p></details>
+          <details><summary>Posso usar meu FGTS?</summary><p>Na maioria dos casos, sim — na entrada ou para abater o financiamento. As regras são do próprio FGTS: ter ao menos 3 anos de trabalho com carteira assinada (somando todos os períodos), não ter outro imóvel residencial na cidade onde mora ou trabalha e não ter financiamento habitacional ativo. A nossa equipe confere com você, sem custo.</p></details>
           <details><summary>O Mérito Ipiranga já está pronto?</summary><p>Não. É um lançamento: as unidades são vendidas na planta e o empreendimento ainda está em construção. Por isso as condições de entrada são mais acessíveis do que as de um apartamento pronto. O prazo de entrega é o previsto em contrato — fale comigo no WhatsApp para receber as informações atualizadas.</p></details>
           <details><summary>Onde fica o Mérito Ipiranga?</summary><p>O empreendimento fica no Ipiranga, em São Paulo, com fácil acesso às avenidas Dom Pedro I, Alcântara Machado e Presidente Wilson e próximo ao Parque da Independência, CPTM, hospitais, shoppings e serviços.</p></details>
           <details><summary>Quais são as plantas disponíveis?</summary><p>O material oficial apresenta plantas de 1 dormitório com 26,39 m² e opções de 2 dormitórios entre 36,80 m² e 45,66 m², com terraço e opções de suíte e vaga.</p></details>
@@ -464,7 +469,7 @@
         <span class="eyebrow gold">SEU PRÓXIMO CAPÍTULO PODE COMEÇAR AQUI</span>
         <h2>Quer descobrir quais opções <em>fazem sentido para você?</em></h2>
         <p>Nossa equipe verifica as unidades, categorias e condições disponíveis de acordo com o seu perfil.</p>
-        <p class="final-price">Entrada <strong>parcelada durante a obra</strong>, em unidades <strong>HIS-2 ou R2V</strong></p>
+        <p class="final-price">Entrada a partir de <strong>R$ 800</strong>, parcelada durante a obra &middot; <strong>use seu FGTS</strong></p>
         <a class="btn btn-gold js-open-lead" data-source="final" data-message="Olá! Gostaria de saber quais opções do Mérito Ipiranga fazem sentido para o meu perfil.">Falar com um consultor no WhatsApp</a>
         <small>Atendimento sem compromisso</small>
         <p class="legal-note final-note">*Valores, entrada, parcelamento, disponibilidade e condições variam conforme a unidade, a categoria, a renda familiar e a análise de crédito.</p>
@@ -486,9 +491,9 @@
        o visitante tem, não um valor que envelhece a cada tabela nova. -->
   <div class="mobile-cta" role="complementary" aria-label="Atalho para WhatsApp">
     <div class="mobile-cta__inner">
-      <p class="mobile-cta__text">1 e 2 dorms. &middot; Ipiranga<span>Cabe na sua renda?</span></p>
+      <p class="mobile-cta__text">Entrada a partir de R$ 800<span>Restante na obra &middot; FGTS</span></p>
       <a class="btn btn-gold btn-small js-open-lead" data-source="mobile_fixed"
-         data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">Falar no WhatsApp</a>
+         data-message="Olá! Vi o Mérito Ipiranga pelo site e gostaria de saber quais unidades são compatíveis com o meu perfil.">Falar agora</a>
     </div>
   </div>
 
