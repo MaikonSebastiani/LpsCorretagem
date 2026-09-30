@@ -4,7 +4,6 @@
   <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual ao resto
        do site. Propriedade única; os fluxos se separam nos relatórios por
        caminho da página. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -12,6 +11,28 @@
 
   gtag('config', 'G-VF9K820XDQ');
   gtag('config', 'AW-18388777321');
+
+  /* gtag.js adiado (30/09/2026). São ~575 KB de JavaScript — o maior
+     recurso da página, e é de terceiro. Carregado de saída, ele disputa o
+     processador do celular com a primeira dobra. Agora entra na primeira
+     interação (toque, rolagem, tecla) ou 2,5 s depois do load, o que vier
+     antes. O stub acima já roda na hora: eventos e conversões disparados
+     antes disso ficam no dataLayer e saem quando o script chega. */
+  (function () {
+    var feito = false;
+    function carregar() {
+      if (feito) return;
+      feito = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ';
+      document.head.appendChild(s);
+    }
+    ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (e) {
+      addEventListener(e, carregar, { once: true, passive: true });
+    });
+    addEventListener('load', function () { setTimeout(carregar, 2500); });
+  })();
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

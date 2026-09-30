@@ -40,13 +40,34 @@
 
   <!-- Google tag (gtag.js) — GA4 + Google Ads na mesma tag, igual às outras
        LPs. Nos relatórios, separe os empreendimentos pelo caminho da página. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-VF9K820XDQ');
     gtag('config', 'AW-18388777321');
+  
+    /* gtag.js adiado (30/09/2026). São ~575 KB de JavaScript — o maior
+       recurso da página, e é de terceiro. Carregado de saída, ele disputa o
+       processador do celular com a primeira dobra. Agora entra na primeira
+       interação (toque, rolagem, tecla) ou 2,5 s depois do load, o que vier
+       antes. O stub acima já roda na hora: eventos e conversões disparados
+       antes disso ficam no dataLayer e saem quando o script chega. */
+    (function () {
+      var feito = false;
+      function carregar() {
+        if (feito) return;
+        feito = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ';
+        document.head.appendChild(s);
+      }
+      ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (e) {
+        addEventListener(e, carregar, { once: true, passive: true });
+      });
+      addEventListener('load', function () { setTimeout(carregar, 2500); });
+    })();
   </script>
 </head>
 <body>
@@ -87,7 +108,7 @@
   <header class="topo" id="inicio">
     <div class="container topo__inner">
       <a class="marca" href="#inicio" aria-label="Novo Mundo Carrão II">
-        <img src="assets/images/logo-carrao.png" width="440" height="192" alt="Novo Mundo Carrão II" />
+        <img src="assets/images/logo-carrao.png" width="264" height="115" alt="Novo Mundo Carrão II" />
       </a>
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <nav class="nav" aria-label="Navegação principal">
@@ -509,7 +530,7 @@
     <a href="https://wa.me/5511953713310?text=Oi%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20empreendimento%20Novo%20Mundo%20Carr%C3%A3o%20II" target="_blank" rel="noopener noreferrer" class="btn btn--dourado btn--pequeno js-lead" data-source="mobile_fixed">Falar agora</a>
   </div>
 
-  <script src="/shared/origem.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="/shared/origem.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>

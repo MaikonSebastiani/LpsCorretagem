@@ -44,7 +44,6 @@
        A propriedade GA4 é a mesma do Urban Vila Guilherme: cobre o site
        inteiro. Nos relatórios, separe os dois empreendimentos por caminho
        da página (/merito-ipiranga/ e /urban-vila-guilherme/). -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -52,6 +51,28 @@
 
     gtag('config', 'G-VF9K820XDQ');
     gtag('config', 'AW-18388777321');
+  
+    /* gtag.js adiado (30/09/2026). São ~575 KB de JavaScript — o maior
+       recurso da página, e é de terceiro. Carregado de saída, ele disputa o
+       processador do celular com a primeira dobra. Agora entra na primeira
+       interação (toque, rolagem, tecla) ou 2,5 s depois do load, o que vier
+       antes. O stub acima já roda na hora: eventos e conversões disparados
+       antes disso ficam no dataLayer e saem quando o script chega. */
+    (function () {
+      var feito = false;
+      function carregar() {
+        if (feito) return;
+        feito = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VF9K820XDQ';
+        document.head.appendChild(s);
+      }
+      ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (e) {
+        addEventListener(e, carregar, { once: true, passive: true });
+      });
+      addEventListener('load', function () { setTimeout(carregar, 2500); });
+    })();
   </script>
 
   <!-- A conversão do WhatsApp fica em assets/js/main.js
@@ -295,7 +316,7 @@
     <section class="section location" id="localizacao">
       <div class="container location-grid">
         <div class="location-media reveal">
-          <picture><source type="image/avif" srcset="assets/images/aerea-localizacao.avif"><img src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" /></picture>
+          <picture><source type="image/avif" srcset="assets/images/aerea-localizacao.avif"><img loading="lazy" decoding="async" src="assets/images/aerea-localizacao.webp" alt="Foto aérea da região do Ipiranga" /></picture>
           <div class="media-caption">IPIRANGA • SÃO PAULO</div>
         </div>
         <div class="location-copy reveal reveal-delay">
@@ -340,7 +361,7 @@
           <p class="legal-note">A análise depende da categoria da unidade, renda, documentação, análise de crédito e regras vigentes no momento da contratação.</p>
         </div>
         <div class="profile-media reveal reveal-delay">
-          <picture><source type="image/avif" srcset="assets/images/portaria.avif"><img src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" /></picture>
+          <picture><source type="image/avif" srcset="assets/images/portaria.avif"><img loading="lazy" decoding="async" src="assets/images/portaria.webp" alt="Perspectiva ilustrativa da portaria do Mérito Ipiranga" /></picture>
           <div class="floating-quote">“Cada dia marca um novo capítulo de uma vida que é só sua.”</div>
         </div>
       </div>
@@ -372,7 +393,7 @@
         <!-- Fachada do vídeo: só a capa e o play. O iframe entra no clique. -->
         <div class="tour__video reveal" data-video-id="2a6CZsaKMu4">
           <button type="button" class="tour__play" data-tour-play>
-            <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" src="assets/images/video-poster.webp"
+            <picture><source type="image/avif" srcset="assets/images/video-poster.avif"><img class="tour__poster" loading="lazy" decoding="async" src="assets/images/video-poster.webp"
                  width="1280" height="720" alt="" loading="lazy" decoding="async"></picture>
             <span class="tour__play-ico" aria-hidden="true">▶</span>
             <span class="tour__play-label">Assistir à apresentação</span>
@@ -464,7 +485,7 @@
     <section class="final-cta" id="contato">
       <div class="final-bg"></div>
       <div class="container final-content reveal">
-        <img src="assets/images/logo-merito.png" alt="Mérito Ipiranga" class="final-logo" />
+        <img src="assets/images/logo-merito.png" alt="Mérito Ipiranga" class="final-logo" width="481" height="380" loading="lazy" decoding="async" />
         <span class="eyebrow gold">SEU PRÓXIMO CAPÍTULO PODE COMEÇAR AQUI</span>
         <h2>Quer descobrir quais opções <em>fazem sentido para você?</em></h2>
         <p>Nossa equipe verifica as unidades, categorias e condições disponíveis de acordo com o seu perfil.</p>
@@ -478,7 +499,7 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div class="footer-brand"><img src="assets/images/logo-merito.png" alt="Mérito Ipiranga"><span>Apresentação comercial independente</span></div>
+      <div class="footer-brand"><img src="assets/images/logo-merito.png" alt="Mérito Ipiranga" width="481" height="380" loading="lazy" decoding="async"><span>Apresentação comercial independente</span></div>
       <div class="footer-links"><a href="#localizacao">Localização</a><a href="#lancamento">Lançamento</a>
         <a href="#plantas">Plantas</a><a href="#lazer">Lazer</a><a href="#como-comprar">Como comprar</a></div>
     </div>
@@ -497,6 +518,6 @@
 
 
 
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
