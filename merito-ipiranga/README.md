@@ -154,11 +154,16 @@ O antigo `.whatsapp-float` (círculo dourado) foi substituído pela barra fixa
 é o espaço de CTA mais visto da página — agora ele carrega os dois valores,
 com o preço primeiro. O CSS órfão do float foi removido.
 
-## Formulário de lead (duas fases)
+## CTAs → WhatsApp direto (desde 30/09/2026)
 
-Desde 28/09/2026 é o mesmo formulário do Urban e do WL Boa Vista. **Todos**
-os CTAs (classe `js-open-lead`) abrem o modal; não existe caminho direto
-para o WhatsApp.
+Todos os CTAs (classe `js-open-lead`) abrem o WhatsApp 5511953713310 com a
+mensagem "Oi gostaria de mais informações sobre o empreendimento Mérito
+Ipiranga". O formulário saiu da página — os leads daqui não chegam mais ao
+CRM. O clique dispara `whatsapp_click` no GA4 e a conversão própria do Ads.
+
+### Histórico: formulário de lead (28 a 30/09/2026, removido)
+
+Era o mesmo formulário do Urban e do WL Boa Vista.
 
 1. **Perfil** — renda familiar, tem entrada (sim/não) e tem FGTS (sim/não).
    As três são obrigatórias: sem preço na página, o formulário é o único

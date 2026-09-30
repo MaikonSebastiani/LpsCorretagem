@@ -110,7 +110,7 @@ próprio, e `<section>` sem nome acessível não ajuda leitor de tela.
   > vai a ~80%; o resto vem de FGTS/subsídio) e "Só paga quando pegar as
   > chaves" (contradiz a entrada parcelada durante a obra).
 - Tipologia e metragem em selos curtos.
-- Um CTA que abre o formulário de lead.
+- Um CTA que abre o WhatsApp.
 - Nota de rodapé com as ressalvas de valor, disponibilidade e análise de
   crédito.
 - Imagem com `width`/`height` e `fetchpriority="high"` — é o LCP.
@@ -121,12 +121,19 @@ próprio, e `<section>` sem nome acessível não ajuda leitor de tela.
 
 Um por seção, mais um por card de planta — 18 no Urban, 19 no Mérito.
 
-**Todos abrem o formulário de lead.** Não existe caminho direto para o
-WhatsApp: lead que não passa pelo painel não é dividido com ninguém.
+**Todos abrem o WhatsApp direto** (desde 30/09/2026), com **uma mensagem
+só** por LP: "Oi gostaria de mais informações sobre o empreendimento
+[nome]". O número é o 5511953713310. O formulário de lead saiu de todas as
+LPs de empreendimento, por decisão do dono do negócio.
 
-O `href` de WhatsApp continua nos botões, mas só como rede de segurança para
-quem estiver sem JavaScript — o clique normal é interceptado. Sem ele, uma
-falha de script transformaria a página em botões mortos.
+Consequência que precisa ficar clara: **lead de LP não chega mais ao CRM**
+(nem é dividido com a equipe pelo painel) — nome, renda e campanha de
+origem só existem na conversa do WhatsApp. O único rastro no site é o
+evento `whatsapp_click` no GA4, com `source`, e a conversão do Ads onde a
+LP tem rótulo próprio (Urban e Mérito).
+
+O clique não é interceptado: quem abre o WhatsApp é o próprio link (`href`
++ `target="_blank"`), e o JavaScript só registra evento e conversão.
 
 Toda LP deve ter a **barra fixa no mobile**: no celular é o CTA sempre visível.
 

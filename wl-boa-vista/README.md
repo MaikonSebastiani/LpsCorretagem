@@ -3,7 +3,7 @@
 `https://gruposaitama.com.br/wl-boa-vista/`
 
 Criada em 28/09/2026 sobre o esqueleto do Urban Vila Guilherme: mesmas
-seções, mesmas classes, mesmo formulário de lead e o mesmo `main.js`
+seções, mesmas classes, mesmo `main.js`
 (com o que é próprio do empreendimento trocado). A pele — cores, fontes,
 logo — saiu do book digital do WL Boa Vista.
 
@@ -28,9 +28,11 @@ Apresentação oficial no YouTube (`l7B7_aXSKEo`), na seção `#video`
 
 ## Conversão
 
-No ar desde 28/09/2026, com lead testado chegando no CRM. **Não há rótulo
-de conversão do Google Ads, por decisão**: o que importa é o lead no CRM.
-`ADS_CONVERSION` em `js/main.js` fica vazio; o `lead_submit` vai para o GA4.
+**Desde 30/09/2026 não há formulário**: todo CTA abre o WhatsApp
+5511953713310 com "Oi gostaria de mais informações sobre o empreendimento
+WL Boa Vista". Os leads não chegam mais ao CRM. O clique dispara
+`whatsapp_click` no GA4; conversão do Ads continua sem rótulo
+(`ADS_CONVERSION` vazio em `js/main.js`).
 
 ## Por que a página não mostra preço — e onde aparece `R$`
 
@@ -44,7 +46,6 @@ seu FGTS" (hero, #como-comprar, FAQ e barra fixa). Ver `PADRAO-LP.md`.
 
 `grep -n 'R\$' index.html` **não** volta vazio, e está certo assim:
 
-- as faixas de renda do formulário (iguais às do Urban);
 - os **tetos de valor** das unidades HIS-1 e HIS-2 no rodapé legal. Eles
   são aviso obrigatório da incorporadora (Decreto nº 64.895/2026), vêm da
   última página do book e não são preço de venda. Se o decreto for
